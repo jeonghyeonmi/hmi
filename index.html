@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>USA Convenience Calculators - Free Online Tools</title>
-<meta name="description" content="Free online calculators for Tip, BMI, Unit conversion, Savings, Mortgage, and Travel stay designed for USA users.">
+<meta name="description" content="Free online calculators for Tip, BMI, Unit conversion, Savings, Mortgage, and Travel Stay designed for USA users.">
 <meta name="keywords" content="tip calculator, bmi calculator, unit converter, mortgage calculator, savings calculator, travel stay calculator">
 
 <script type="application/ld+json">
@@ -18,7 +18,7 @@
 </script>
 
 <style>
-body { font-family: Arial, sans-serif; max-width: 900px; margin: auto; padding: 20px; background: #f9f9f9; }
+body { font-family: Arial, sans-serif; max-width: 900px; margin: auto; padding: 20px; background: #f9f9f9; scroll-behavior: smooth; }
 h1,h2 { text-align:center; }
 .calculator { background:#fff; border-radius:8px; padding:20px; margin-bottom:40px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
 label { display:block; margin:10px 0 5px; }
@@ -29,7 +29,22 @@ button:hover { background:#0056b3; }
 .ad { text-align:center; margin:20px 0; }
 a { color:#007bff; text-decoration:none; }
 a:hover { text-decoration:underline; }
-@media(max-width:600px){ body{padding:10px;} }
+
+nav {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  background: #007bff; color: #fff;
+  display: flex; justify-content: center;
+  padding: 10px 0; z-index: 1000;
+}
+nav a { color: #fff; text-decoration: none; margin: 0 15px; font-weight: bold; }
+nav a:hover { text-decoration: underline; }
+body { padding-top: 60px; } /* 메뉴바 높이만큼 패딩 */
+footer { text-align:center; margin:40px 0; font-size:0.9em; color:#666; }
+footer a { color:#666; text-decoration:none; margin: 0 5px; }
+footer a:hover { text-decoration:underline; }
+
+@media(max-width:600px){ body{padding:10px;} nav{flex-wrap:wrap;} nav a{margin:5px;} }
 </style>
 </head>
 <body>
@@ -38,10 +53,19 @@ a:hover { text-decoration:underline; }
 <p style="text-align:center;">Free online tools to make your daily life easier: Tip, BMI, Unit, Savings, Mortgage, Travel Stay</p>
 <p style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
 
+<!-- 메뉴바 -->
+<nav>
+  <a href="#tip">Tip</a>
+  <a href="#bmi">BMI</a>
+  <a href="#unit">Unit</a>
+  <a href="#savings">Savings</a>
+  <a href="#mortgage">Mortgage</a>
+  <a href="#travel">Travel</a>
+</nav>
+
 <!-- Tip Calculator -->
-<div class="calculator">
+<div class="calculator" id="tip">
 <h2>Tip Calculator</h2>
-<p>Quickly calculate tips for your restaurant bills in the USA. Enter your bill and tip percentage.</p>
 <label for="bill">Bill Amount ($)</label>
 <input type="number" id="bill" placeholder="Enter bill amount">
 <label for="tip">Tip Percentage (%)</label>
@@ -59,9 +83,8 @@ a:hover { text-decoration:underline; }
 </div>
 
 <!-- BMI & Calories -->
-<div class="calculator">
+<div class="calculator" id="bmi">
 <h2>BMI & Calories Calculator</h2>
-<p>Check your Body Mass Index and estimate daily calorie needs based on weight, height, age, and gender.</p>
 <label for="weight">Weight (lb)</label>
 <input type="number" id="weight" placeholder="Enter weight">
 <label for="height">Height (inches)</label>
@@ -86,9 +109,8 @@ a:hover { text-decoration:underline; }
 </div>
 
 <!-- Unit Converter -->
-<div class="calculator">
+<div class="calculator" id="unit">
 <h2>Unit Converter</h2>
-<p>Convert meters to feet quickly. Useful for travel, construction, or everyday measurements in the USA.</p>
 <label for="meters">Meters</label>
 <input type="number" id="meters" placeholder="Enter meters">
 <button onclick="convertMeters()">Convert to Feet</button>
@@ -104,9 +126,8 @@ a:hover { text-decoration:underline; }
 </div>
 
 <!-- Savings Calculator -->
-<div class="calculator">
+<div class="calculator" id="savings">
 <h2>Savings Calculator</h2>
-<p>Estimate future savings with monthly deposits, interest rate, and duration in years.</p>
 <label for="monthly-savings">Monthly Savings ($)</label>
 <input type="number" id="monthly-savings">
 <label for="years">Number of Years</label>
@@ -126,9 +147,8 @@ a:hover { text-decoration:underline; }
 </div>
 
 <!-- Mortgage Calculator -->
-<div class="calculator">
+<div class="calculator" id="mortgage">
 <h2>Mortgage Calculator</h2>
-<p>Calculate your estimated monthly mortgage payment based on loan amount, years, and interest rate.</p>
 <label for="loan-amount">Loan Amount ($)</label>
 <input type="number" id="loan-amount">
 <label for="loan-years">Years</label>
@@ -148,9 +168,8 @@ a:hover { text-decoration:underline; }
 </div>
 
 <!-- Travel / Stay Calculator -->
-<div class="calculator">
+<div class="calculator" id="travel">
 <h2>Travel / Stay Calculator</h2>
-<p>Calculate total days for your trip or stay by selecting start and end dates.</p>
 <label for="start-date">Start Date</label>
 <input type="date" id="start-date">
 <label for="end-date">End Date</label>
@@ -176,7 +195,6 @@ function calculateTip(){
   const total=(bill+parseFloat(tip)).toFixed(2);
   document.getElementById('tip-result').innerText=`Tip: $${tip} | Total: $${total}`;
 }
-
 function calculateBMI(){
   const weight=parseFloat(document.getElementById('weight').value);
   const height=parseFloat(document.getElementById('height').value);
@@ -184,14 +202,12 @@ function calculateBMI(){
   const bmi=(weight/(height*height)*703).toFixed(2);
   document.getElementById('bmi-result').innerText=`BMI: ${bmi}`;
 }
-
 function convertMeters(){
   const meters=parseFloat(document.getElementById('meters').value);
   if(isNaN(meters)){document.getElementById('unit-result').innerText="Enter valid number.";return;}
   const feet=(meters*3.28084).toFixed(2);
   document.getElementById('unit-result').innerText=`${meters} meters = ${feet} feet`;
 }
-
 function calculateSavings(){
   const monthly=parseFloat(document.getElementById('monthly-savings').value);
   const years=parseFloat(document.getElementById('years').value);
@@ -199,28 +215,35 @@ function calculateSavings(){
   if(isNaN(monthly)||isNaN(years)||isNaN(interest)){document.getElementById('savings-result').innerText="Enter valid numbers.";return;}
   const months=years*12;
   let total=0;
-  for(let i=0;i<months;i++){ total=(total+monthly)*(1+interest/100/12); }
-  document.getElementById('savings-result').innerText=`Future Savings: $${total.toFixed(2)}`;
+  for(let i=0;i<months;i++){total=(total+monthly)*(1+interest/100/12);}
+  document.getElementById('savings-result').innerText=`Total Savings: $${total.toFixed(2)}`;
 }
-
 function calculateMortgage(){
-  const P=parseFloat(document.getElementById('loan-amount').value);
+  const principal=parseFloat(document.getElementById('loan-amount').value);
   const years=parseFloat(document.getElementById('loan-years').value);
-  const r=parseFloat(document.getElementById('loan-interest').value)/100/12;
-  if(isNaN(P)||isNaN(years)||isNaN(r)){document.getElementById('mortgage-result').innerText="Enter valid numbers.";return;}
+  const rate=parseFloat(document.getElementById('loan-interest').value)/100/12;
   const n=years*12;
-  const M=(P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1)).toFixed(2);
-  document.getElementById('mortgage-result').innerText=`Monthly Payment: $${M}`;
+  if(isNaN(principal)||isNaN(years)||isNaN(rate)){document.getElementById('mortgage-result').innerText="Enter valid numbers.";return;}
+  const payment=(principal*rate/(1-Math.pow(1+rate,-n))).toFixed(2);
+  document.getElementById('mortgage-result').innerText=`Monthly Payment: $${payment}`;
 }
-
 function calculateStay(){
   const start=new Date(document.getElementById('start-date').value);
   const end=new Date(document.getElementById('end-date').value);
   if(isNaN(start)||isNaN(end)){document.getElementById('stay-result').innerText="Enter valid dates.";return;}
   const diff=Math.ceil((end-start)/(1000*60*60*24));
-  document.getElementById('stay-result').innerText=`Total Days: ${diff}`;
+  document.getElementById('stay-result').innerText=`Total Stay: ${diff} days`;
 }
 </script>
+
+<footer>
+&copy; 2025 HMI Mini Web Tools | 
+<a href="privacy.html">Privacy Policy</a> | 
+<a href="terms.html">Terms & Disclaimer</a> | 
+<a href="guide.html">Guide</a> | 
+<a href="sitemap.html">Sitemap</a> | 
+<a href="contact.html">About & Contact</a>
+</footer>
 
 </body>
 </html>
