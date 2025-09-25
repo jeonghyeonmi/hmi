@@ -2,6 +2,3 @@
 이 프로젝트는 GitHub Pages를 통해 공개되는 계산기 페이지입니다.
 - 만나이 계산기: 생년월일 입력 후 만나이 계산
 - CM ↔ Inch 변환기: cm와 inch 상호 변환
-- 광고 자리 포함 (Google AdSense 코드 삽입 가능)
-
-배포 URL: https://username.github.io/repo-name/
