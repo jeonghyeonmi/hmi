@@ -1,94 +1,226 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>만나이 계산기 & CM 변환기</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
-    h1 { text-align: center; }
-    .calculator, .converter { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
-    input { width: 100%; padding: 8px; margin: 5px 0; border-radius: 4px; border: 1px solid #ccc; }
-    button { padding: 10px 15px; margin-top: 10px; border: none; border-radius: 4px; background-color: #007BFF; color: white; cursor: pointer; }
-    button:hover { background-color: #0056b3; }
-    .result { margin-top: 10px; font-weight: bold; }
-    .ad-placeholder { margin: 20px 0; text-align: center; border: 1px dashed #aaa; padding: 15px; color: #555; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USA Convenience Calculators - Free Online Tools</title>
+<meta name="description" content="Free online calculators for Tip, BMI, Unit conversion, Savings, Mortgage, and Travel stay designed for USA users.">
+<meta name="keywords" content="tip calculator, bmi calculator, unit converter, mortgage calculator, savings calculator, travel stay calculator">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "USA Convenience Calculators",
+  "applicationCategory": "Utility",
+  "url": "https://jeonghyeonmi.github.io/hmi/"
+}
+</script>
+
+<style>
+body { font-family: Arial, sans-serif; max-width: 900px; margin: auto; padding: 20px; background: #f9f9f9; }
+h1,h2 { text-align:center; }
+.calculator { background:#fff; border-radius:8px; padding:20px; margin-bottom:40px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
+label { display:block; margin:10px 0 5px; }
+input, select { width:100%; padding:8px; margin-bottom:10px; border-radius:4px; border:1px solid #ccc; }
+button { padding:10px 15px; border:none; border-radius:5px; background:#007bff; color:#fff; cursor:pointer; }
+button:hover { background:#0056b3; }
+.result { font-weight:bold; margin-top:10px; }
+.ad { text-align:center; margin:20px 0; }
+a { color:#007bff; text-decoration:none; }
+a:hover { text-decoration:underline; }
+@media(max-width:600px){ body{padding:10px;} }
+</style>
 </head>
 <body>
 
-  <h1>만나이 계산기 & CM 변환기</h1>
+<h1>USA Convenience Calculators</h1>
+<p style="text-align:center;">Free online tools to make your daily life easier: Tip, BMI, Unit, Savings, Mortgage, Travel Stay</p>
+<p style="text-align:center;"><a href="privacy.html">Privacy Policy</a></p>
 
-  <!-- 만나이 계산기 -->
-  <div class="calculator">
-    <h2>만나이 계산기</h2>
-    <label>생년월일:</label>
-    <input type="date" id="birthdate">
-    <button onclick="calculateAge()">계산하기</button>
-    <div class="result" id="ageResult"></div>
-  </div>
-
-  <!-- CM ↔ Inch 변환기 -->
-  <div class="converter">
-    <h2>CM ↔ Inch 변환기</h2>
-    <label>CM:</label>
-    <input type="number" id="cmInput" placeholder="예: 180">
-    <label>Inch:</label>
-    <input type="number" id="inchInput" placeholder="예: 70.9">
-    <button onclick="cmToInch()">CM → Inch</button>
-    <button onclick="inchToCm()">Inch → CM</button>
-    <div class="result" id="cmResult"></div>
-  </div>
-
-  <!-- 광고 자리 -->
-  <div class="ad-placeholder">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <!-- 광고 단위 ID -->
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-XXXX"
-       data-ad-slot="YYYY"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-  <script>
-       (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
+<!-- Tip Calculator -->
+<div class="calculator">
+<h2>Tip Calculator</h2>
+<p>Quickly calculate tips for your restaurant bills in the USA. Enter your bill and tip percentage.</p>
+<label for="bill">Bill Amount ($)</label>
+<input type="number" id="bill" placeholder="Enter bill amount">
+<label for="tip">Tip Percentage (%)</label>
+<input type="number" id="tip" placeholder="Enter tip %">
+<button onclick="calculateTip()">Calculate Tip</button>
+<div class="result" id="tip-result"></div>
+<div class="ad">
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXX"
+     data-ad-slot="YYYYYYYYYY"
+     data-ad-format="auto"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
 </div>
 
+<!-- BMI & Calories -->
+<div class="calculator">
+<h2>BMI & Calories Calculator</h2>
+<p>Check your Body Mass Index and estimate daily calorie needs based on weight, height, age, and gender.</p>
+<label for="weight">Weight (lb)</label>
+<input type="number" id="weight" placeholder="Enter weight">
+<label for="height">Height (inches)</label>
+<input type="number" id="height" placeholder="Enter height">
+<label for="age">Age</label>
+<input type="number" id="age" placeholder="Enter age">
+<label for="gender">Gender</label>
+<select id="gender">
+  <option value="male">Male</option>
+  <option value="female">Female</option>
+</select>
+<button onclick="calculateBMI()">Calculate BMI</button>
+<div class="result" id="bmi-result"></div>
+<div class="ad">
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXX"
+     data-ad-slot="YYYYYYYYYY"
+     data-ad-format="auto"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+</div>
 
-  <script>
-    // 만나이 계산기
-    function calculateAge() {
-      const birthdate = new Date(document.getElementById('birthdate').value);
-      if (!birthdate.getTime()) {
-        document.getElementById('ageResult').textContent = '생년월일을 입력해주세요.';
-        return;
-      }
-      const today = new Date();
-      let age = today.getFullYear() - birthdate.getFullYear();
-      const monthDiff = today.getMonth() - birthdate.getMonth();
-      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthdate.getDate())) {
-        age--;
-      }
-      document.getElementById('ageResult').textContent = `만나이: ${age}세`;
-    }
+<!-- Unit Converter -->
+<div class="calculator">
+<h2>Unit Converter</h2>
+<p>Convert meters to feet quickly. Useful for travel, construction, or everyday measurements in the USA.</p>
+<label for="meters">Meters</label>
+<input type="number" id="meters" placeholder="Enter meters">
+<button onclick="convertMeters()">Convert to Feet</button>
+<div class="result" id="unit-result"></div>
+<div class="ad">
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXX"
+     data-ad-slot="YYYYYYYYYY"
+     data-ad-format="auto"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+</div>
 
-    // CM → Inch
-    function cmToInch() {
-      const cm = parseFloat(document.getElementById('cmInput').value);
-      if (isNaN(cm)) return;
-      const inch = (cm / 2.54).toFixed(2);
-      document.getElementById('cmResult').textContent = `${cm} cm = ${inch} inch`;
-    }
+<!-- Savings Calculator -->
+<div class="calculator">
+<h2>Savings Calculator</h2>
+<p>Estimate future savings with monthly deposits, interest rate, and duration in years.</p>
+<label for="monthly-savings">Monthly Savings ($)</label>
+<input type="number" id="monthly-savings">
+<label for="years">Number of Years</label>
+<input type="number" id="years">
+<label for="interest">Annual Interest Rate (%)</label>
+<input type="number" id="interest">
+<button onclick="calculateSavings()">Calculate Savings</button>
+<div class="result" id="savings-result"></div>
+<div class="ad">
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXX"
+     data-ad-slot="YYYYYYYYYY"
+     data-ad-format="auto"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+</div>
 
-    // Inch → CM
-    function inchToCm() {
-      const inch = parseFloat(document.getElementById('inchInput').value);
-      if (isNaN(inch)) return;
-      const cm = (inch * 2.54).toFixed(2);
-      document.getElementById('cmResult').textContent = `${inch} inch = ${cm} cm`;
-    }
-  </script>
+<!-- Mortgage Calculator -->
+<div class="calculator">
+<h2>Mortgage Calculator</h2>
+<p>Calculate your estimated monthly mortgage payment based on loan amount, years, and interest rate.</p>
+<label for="loan-amount">Loan Amount ($)</label>
+<input type="number" id="loan-amount">
+<label for="loan-years">Years</label>
+<input type="number" id="loan-years">
+<label for="loan-interest">Annual Interest Rate (%)</label>
+<input type="number" id="loan-interest">
+<button onclick="calculateMortgage()">Calculate Mortgage</button>
+<div class="result" id="mortgage-result"></div>
+<div class="ad">
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXX"
+     data-ad-slot="YYYYYYYYYY"
+     data-ad-format="auto"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+</div>
+
+<!-- Travel / Stay Calculator -->
+<div class="calculator">
+<h2>Travel / Stay Calculator</h2>
+<p>Calculate total days for your trip or stay by selecting start and end dates.</p>
+<label for="start-date">Start Date</label>
+<input type="date" id="start-date">
+<label for="end-date">End Date</label>
+<input type="date" id="end-date">
+<button onclick="calculateStay()">Calculate Days</button>
+<div class="result" id="stay-result"></div>
+<div class="ad">
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXXXX"
+     data-ad-slot="YYYYYYYYYY"
+     data-ad-format="auto"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+</div>
+
+<script>
+function calculateTip(){
+  const bill=parseFloat(document.getElementById('bill').value);
+  const tipPercent=parseFloat(document.getElementById('tip').value);
+  if(isNaN(bill)||isNaN(tipPercent)){document.getElementById('tip-result').innerText="Enter valid numbers.";return;}
+  const tip=(bill*tipPercent/100).toFixed(2);
+  const total=(bill+parseFloat(tip)).toFixed(2);
+  document.getElementById('tip-result').innerText=`Tip: $${tip} | Total: $${total}`;
+}
+
+function calculateBMI(){
+  const weight=parseFloat(document.getElementById('weight').value);
+  const height=parseFloat(document.getElementById('height').value);
+  if(isNaN(weight)||isNaN(height)){document.getElementById('bmi-result').innerText="Enter valid numbers.";return;}
+  const bmi=(weight/(height*height)*703).toFixed(2);
+  document.getElementById('bmi-result').innerText=`BMI: ${bmi}`;
+}
+
+function convertMeters(){
+  const meters=parseFloat(document.getElementById('meters').value);
+  if(isNaN(meters)){document.getElementById('unit-result').innerText="Enter valid number.";return;}
+  const feet=(meters*3.28084).toFixed(2);
+  document.getElementById('unit-result').innerText=`${meters} meters = ${feet} feet`;
+}
+
+function calculateSavings(){
+  const monthly=parseFloat(document.getElementById('monthly-savings').value);
+  const years=parseFloat(document.getElementById('years').value);
+  const interest=parseFloat(document.getElementById('interest').value);
+  if(isNaN(monthly)||isNaN(years)||isNaN(interest)){document.getElementById('savings-result').innerText="Enter valid numbers.";return;}
+  const months=years*12;
+  let total=0;
+  for(let i=0;i<months;i++){ total=(total+monthly)*(1+interest/100/12); }
+  document.getElementById('savings-result').innerText=`Future Savings: $${total.toFixed(2)}`;
+}
+
+function calculateMortgage(){
+  const P=parseFloat(document.getElementById('loan-amount').value);
+  const years=parseFloat(document.getElementById('loan-years').value);
+  const r=parseFloat(document.getElementById('loan-interest').value)/100/12;
+  if(isNaN(P)||isNaN(years)||isNaN(r)){document.getElementById('mortgage-result').innerText="Enter valid numbers.";return;}
+  const n=years*12;
+  const M=(P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1)).toFixed(2);
+  document.getElementById('mortgage-result').innerText=`Monthly Payment: $${M}`;
+}
+
+function calculateStay(){
+  const start=new Date(document.getElementById('start-date').value);
+  const end=new Date(document.getElementById('end-date').value);
+  if(isNaN(start)||isNaN(end)){document.getElementById('stay-result').innerText="Enter valid dates.";return;}
+  const diff=Math.ceil((end-start)/(1000*60*60*24));
+  document.getElementById('stay-result').innerText=`Total Days: ${diff}`;
+}
+</script>
 
 </body>
 </html>
