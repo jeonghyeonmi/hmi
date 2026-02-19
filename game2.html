@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>논리력 강화: 스도쿠 | SKZ Brain Lab</title>
+    <style>
+        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #3498db; --success-color: #2ecc71; }
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; line-height: 1.6; }
+        header { background: var(--primary-color); color: white; padding: 2.5rem 1rem; text-align: center; }
+        header h1 a { text-decoration: none; color: inherit; }
+        nav { background: white; padding: 1rem; display: flex; justify-content: center; gap: 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; }
+        
+        .container { max-width: 800px; margin: 2rem auto; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; }
+        
+        .how-to-play { background: #eef2f7; padding: 15px; border-radius: 10px; margin-bottom: 25px; text-align: left; font-size: 0.95rem; border-left: 5px solid var(--accent-color); }
+        .how-to-play h3 { margin-top: 0; color: var(--primary-color); }
+
+        .status-panel { display: flex; justify-content: space-around; align-items: center; margin-bottom: 20px; padding: 10px; background: #fff; border: 1px solid #ddd; border-radius: 8px; }
+        #timer { color: var(--accent-color); font-size: 1.5rem; font-weight: bold; }
+
+        /* 스도쿠 보드 스타일 */
+        .sudoku-grid { 
+            display: grid; 
+            grid-template-columns: repeat(9, 1fr); 
+            max-width: 450px; 
+            margin: 20px auto; 
+            border: 3px solid var(--primary-color); 
+        }
+        .cell { 
+            aspect-ratio: 1/1; 
+            border: 1px solid #ccc; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.2rem; 
+            font-weight: bold; 
+            background: white;
+        }
+        /* 3x3 구역 강조 */
+        .cell:nth-child(3n) { border-right: 2px solid var(--primary-color); }
+        .cell:nth-child(9n) { border-right: 1px solid #ccc; }
+        .grid-row-border { border-bottom: 2px solid var(--primary-color); }
+
+        .cell input { 
+            width: 100%; height: 100%; border: none; text-align: center; 
+            font-size: 1.2rem; font-weight: bold; color: var(--accent-color); 
+            outline: none; background: transparent;
+        }
+        .cell.fixed { background: #f0f0f0; color: #333; }
+        .cell input:focus { background: #e1f5fe; }
+
+        .btn-check { padding: 12px 30px; background: var(--success-color); color: white; border: none; border-radius: 25px; font-size: 1rem; cursor: pointer; margin-top: 20px; font-weight: bold; }
+        
+        .tier-table { margin-top: 40px; border-collapse: collapse; width: 100%; max-width: 450px; margin-left: auto; margin-right: auto; font-size: 0.85rem; }
+        .tier-table th, .tier-table td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+        .tier-table th { background-color: var(--primary-color); color: white; }
+
+        footer { text-align: center; padding: 4rem 1rem; color: #888; font-size: 0.9rem; border-top: 1px solid #ddd; margin-top: 50px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">🧠 SKZ Brain Lab</a></h1>
+        <p>논리적 추론을 통해 전두엽을 활성화하세요</p>
+    </header>
+    <nav>
+        <a href="index.html">대시보드</a>
+        <a href="game.html">카드매칭</a>
+        <a href="game2.html">스도쿠</a>
+        <a href="post1.html">칼럼</a>
+    </nav>
+    <main class="container">
+        <section class="how-to-play">
+            <h3>📖 훈련 가이드: 스도쿠</h3>
+            <ul>
+                <li>가로, 세로, 3x3 박스 안에 <b>1부터 9까지의 숫자</b>를 중복 없이 채우세요.</li>
+                <li>첫 숫자를 입력하거나 칸을 클릭하면 <b>타이머가 시작</b>됩니다.</li>
+                <li>완성 후 [정답 확인]을 눌러 기록을 측정하세요.</li>
+            </ul>
+        </section>
+
+        
+
+        <div class="status-panel">
+            <div>⏱️ 진행 시간: <span id="timer">0.00</span>초</div>
+        </div>
+
+        <div id="sudokuBoard" class="sudoku-grid"></div>
+
+        <button class="btn-check" onclick="checkSolution()">정답 확인 & 기록 측정</button>
+        <button onclick="resetGame()" style="background:none; border:none; color:#888; cursor:pointer; text-decoration:underline; margin-left:15px;">새 게임 시작</button>
+
+        <h3>🏆 스도쿠 지능 등급표</h3>
+        <table class="tier-table">
+            <tr><th>소요 시간</th><th>등급</th><th>뇌 상태</th></tr>
+            <tr style="color:#d4af37; font-weight:bold;"><td>3분 미만</td><td>S급</td><td>논리 천재</td></tr>
+            <tr><td>3분 ~ 6분</td><td>A급</td><td>상위 5% 브레인</td></tr>
+            <tr><td>6분 ~ 10분</td><td>B급</td><td>일반 성인 우수</td></tr>
+            <tr><td>10분 이상</td><td>C급</td><td>뇌 활성 가속 필요</td></tr>
+        </table>
+    </main>
+    <footer>
+        <p>&copy; 2026 SKZ Brain Lab. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let startTime, timerInterval;
+        let gameStarted = false;
+        let solution = [];
+
+        // 간단한 스도쿠 생성 로직 (샘플 퍼즐)
+        const puzzle = [
+            [5, 3, 0, 0, 7, 0, 0, 0, 0],
+            [6, 0, 0, 1, 9, 5, 0, 0, 0],
+            [0, 9, 8, 0, 0, 0, 0, 6, 0],
+            [8, 0, 0, 0, 6, 0, 0, 0, 3],
+            [4, 0, 0, 8, 0, 3, 0, 0, 1],
+            [7, 0, 0, 0, 2, 0, 0, 0, 6],
+            [0, 6, 0, 0, 0, 0, 2, 8, 0],
+            [0, 0, 0, 4, 1, 9, 0, 0, 5],
+            [0, 0, 0, 0, 8, 0, 0, 7, 9]
+        ];
+        
+        const solvedPuzzle = [
+            [5, 3, 4, 6, 7, 8, 9, 1, 2],
+            [6, 7, 2, 1, 9, 5, 3, 4, 8],
+            [1, 9, 8, 3, 4, 2, 5, 6, 7],
+            [8, 5, 9, 7, 6, 1, 4, 2, 3],
+            [4, 2, 6, 8, 5, 3, 7, 9, 1],
+            [7, 1, 3, 9, 2, 4, 8, 5, 6],
+            [9, 6, 1, 5, 3, 7, 2, 8, 4],
+            [2, 8, 7, 4, 1, 9, 6, 3, 5],
+            [3, 4, 5, 2, 8, 6, 1, 7, 9]
+        ];
+
+        function createBoard() {
+            const board = document.getElementById('sudokuBoard');
+            board.innerHTML = '';
+            for (let r = 0; r < 9; r++) {
+                for (let c = 0; c < 9; c++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    if (r === 2 || r === 5) cell.classList.add('grid-row-border');
+                    
+                    if (puzzle[r][c] !== 0) {
+                        cell.innerText = puzzle[r][c];
+                        cell.classList.add('fixed');
+                    } else {
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.maxLength = 1;
+                        input.oninput = (e) => {
+                            e.target.value = e.target.value.replace(/[^1-9]/g, '');
+                            startTimer();
+                        };
+                        cell.appendChild(input);
+                    }
+                    board.appendChild(cell);
+                }
+            }
+        }
+
+        function startTimer() {
+            if (!gameStarted) {
+                gameStarted = true;
+                startTime = new Date();
+                timerInterval = setInterval(() => {
+                    const now = new Date();
+                    document.getElementById('timer').innerText = ((now - startTime) / 1000).toFixed(2);
+                }, 10);
+            }
+        }
+
+        function checkSolution() {
+            const inputs = document.querySelectorAll('.cell input');
+            let isCorrect = true;
+            let inputIdx = 0;
+
+            for (let r = 0; r < 9; r++) {
+                for (let c = 0; c < 9; c++) {
+                    if (puzzle[r][c] === 0) {
+                        if (parseInt(inputs[inputIdx].value) !== solvedPuzzle[r][c]) {
+                            isCorrect = false;
+                            break;
+                        }
+                        inputIdx++;
+                    }
+                }
+            }
+
+            if (isCorrect) {
+                clearInterval(timerInterval);
+                const time = parseFloat(document.getElementById('timer').innerText);
+                let tier = time < 180 ? "S급" : time < 360 ? "A급" : time < 600 ? "B급" : "C급";
+                alert(`축하합니다! 정답입니다.\n최종 기록: ${time}초\n당신의 등급은 [${tier}] 입니다.`);
+                resetGame();
+            } else {
+                alert("틀린 부분이 있습니다. 다시 확인해보세요!");
+            }
+        }
+
+        function resetGame() {
+            clearInterval(timerInterval);
+            document.getElementById('timer').innerText = "0.00";
+            gameStarted = false;
+            createBoard();
+        }
+
+        createBoard();
+    </script>
+</body>
+</html>
