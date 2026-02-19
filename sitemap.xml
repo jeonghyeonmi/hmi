@@ -5,6 +5,7 @@
     <lastmod>2026-02-20</lastmod>
     <priority>1.0</priority>
   </url>
+
   <url>
     <loc>https://jeonghyeonmi.github.io/hmi/posts.html</loc>
     <lastmod>2026-02-20</lastmod>
@@ -24,5 +25,42 @@
     <loc>https://jeonghyeonmi.github.io/hmi/post3.html</loc>
     <lastmod>2026-02-20</lastmod>
     <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://jeonghyeonmi.github.io/hmi/game.html</loc>
+    <lastmod>2026-02-20</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jeonghyeonmi.github.io/hmi/game2.html</loc>
+    <lastmod>2026-02-20</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jeonghyeonmi.github.io/hmi/game3.html</loc>
+    <lastmod>2026-02-20</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jeonghyeonmi.github.io/hmi/game4.html</loc>
+    <lastmod>2026-02-20</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jeonghyeonmi.github.io/hmi/game5.html</loc>
+    <lastmod>2026-02-20</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://jeonghyeonmi.github.io/hmi/game6.html</loc>
+    <lastmod>2026-02-20</lastmod>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://jeonghyeonmi.github.io/hmi/report.html</loc>
+    <lastmod>2026-02-20</lastmod>
+    <priority>0.6</priority>
   </url>
 </urlset>
