@@ -24,7 +24,6 @@
         .type-name { font-size: 1.8rem; font-weight: 900; color: var(--primary-color); margin-bottom: 1.5rem; }
         .type-name mark { background: none; color: var(--accent-color); }
 
-        /* 그래프 컨테이너 */
         .chart-container { position: relative; margin: 0 auto 2rem; height: 300px; width: 300px; }
 
         .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 2rem; }
@@ -33,7 +32,7 @@
         .stat-value { font-size: 1.1rem; font-weight: bold; color: var(--primary-color); }
 
         .btn-retry { display: block; background: var(--primary-color); color: white; padding: 18px; border-radius: 15px; text-decoration: none; font-weight: bold; margin-bottom: 1rem; }
-        .btn-share { display: block; background: white; color: var(--primary-color); border: 2px solid var(--primary-color); padding: 15px; border-radius: 15px; text-decoration: none; font-weight: bold; }
+        .btn-reset { display: block; background: #eee; color: #666; padding: 10px; border-radius: 10px; text-decoration: none; font-size: 0.8rem; margin-top: 10px; }
 
         footer { text-align: center; padding: 2rem; color: #aaa; font-size: 0.8rem; }
     </style>
@@ -52,33 +51,42 @@
 <div class="container">
     <div class="report-card">
         <p class="user-type">당신의 브레인 타입은</p>
-        <div class="type-name" id="brain-type">데이터 수집 중...</div>
+        <div class="type-name" id="brain-type">분석 중...</div>
         
         <div class="chart-container">
             <canvas id="abilityChart"></canvas>
         </div>
 
-        <div class="stat-grid" id="stat-summary">
-            </div>
+        <div class="stat-grid" id="stat-summary"></div>
 
-        <p id="type-desc" style="color: #555; font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem;"></p>
+        <p id="type-desc" style="color: #555; font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem; padding: 0 10px; word-break: keep-all;"></p>
 
-        <a href="game.html" class="btn-retry">추천 훈련하러 가기</a>
-        <a href="#" class="btn-share" onclick="alert('준비 중인 기능입니다!')">리포트 이미지 저장</a>
+        <a href="index.html" class="btn-retry">다른 훈련 더 하기</a>
+        <a href="#" class="btn-reset" onclick="resetData()">데이터 초기화</a>
     </div>
 </div>
 
 <footer>&copy; 2026 SKZ Brain Lab. 종합 인지 능력 분석</footer>
 
 <script>
-    // 1. 데이터 불러오기 (실제 키값에 맞게 수정 필요)
+    // 1. 데이터 불러오기 및 정규화 (모든 게임의 점수를 0~100 사이로 환산)
+    // 게임을 안 했을 경우 0점으로 표시되도록 수정
+    const rawScores = {
+        focus: localStorage.getItem('game1_score'),
+        logic: localStorage.getItem('game2_score'),
+        speed: localStorage.getItem('game3_score'),
+        memory: localStorage.getItem('game4_score'),
+        math: localStorage.getItem('game5_score'),
+        cognition: localStorage.getItem('game6_score')
+    };
+
     const scores = {
-        focus: parseInt(localStorage.getItem('game1_score')) || 45, // 집중 (빨리 누르기)
-        logic: parseInt(localStorage.getItem('game2_score')) || 30, // 논리 (카드 맞추기)
-        speed: parseInt(localStorage.getItem('game3_score')) || 55, // 순발 (숫자 순서)
-        memory: parseInt(localStorage.getItem('game4_score')) || 25, // 기억 (순서 기억)
-        math: parseInt(localStorage.getItem('game5_score')) || 40,   // 수리 (산수)
-        cognition: parseInt(localStorage.getItem('game6_score')) || 35 // 인지 (동물 인지)
+        focus: parseInt(rawScores.focus) || 0,
+        logic: parseInt(rawScores.logic) || 0,
+        speed: parseInt(rawScores.speed) || 0,
+        memory: parseInt(rawScores.memory) || 0,
+        math: parseInt(rawScores.math) || 0,
+        cognition: parseInt(rawScores.cognition) || 0
     };
 
     // 2. 그래프 그리기 (Chart.js)
@@ -93,7 +101,8 @@
                 backgroundColor: 'rgba(211, 84, 0, 0.2)',
                 borderColor: 'rgba(211, 84, 0, 1)',
                 borderWidth: 2,
-                pointBackgroundColor: 'rgba(211, 84, 0, 1)'
+                pointBackgroundColor: 'rgba(211, 84, 0, 1)',
+                pointRadius: 3
             }]
         },
         options: {
@@ -102,7 +111,7 @@
                     angleLines: { display: true },
                     suggestedMin: 0,
                     suggestedMax: 100,
-                    ticks: { display: false }
+                    ticks: { stepSize: 20, display: false }
                 }
             },
             plugins: { legend: { display: false } }
@@ -113,36 +122,60 @@
     const brainTypeElem = document.getElementById('brain-type');
     const descElem = document.getElementById('type-desc');
     
-    // 가장 높은 점수 찾기
-    const maxVal = Math.max(...Object.values(scores));
-    const bestAbility = Object.keys(scores).find(key => scores[key] === maxVal);
-
-    let typeName = "";
-    let description = "";
-
-    if(bestAbility === 'math') {
-        typeName = "냉철한 <mark>수학자</mark>";
-        description = "복잡한 계산과 논리적인 상황에서 빛을 발하는 타입입니다. 감정보다 수치를 믿는 경향이 있군요!";
-    } else if(bestAbility === 'speed' || bestAbility === 'cognition') {
-        typeName = "직관적인 <mark>사냥꾼</mark>";
-        description = "순발력과 인지력이 매우 뛰어납니다. 남들이 고민할 때 이미 몸이 먼저 움직이는 실행력의 대가입니다.";
-    } else if(bestAbility === 'memory') {
-        typeName = "걸어다니는 <mark>백과사전</mark>";
-        description = "한 번 본 것은 놓치지 않는 기억력을 가졌군요. 세밀한 디테일을 잡아내는 데 특화되어 있습니다.";
+    // 점수가 모두 0점인 경우 처리
+    const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
+    
+    if (totalScore === 0) {
+        brainTypeElem.innerHTML = "새내기 <mark>훈련사</mark>";
+        descElem.innerText = "아직 충분한 데이터가 쌓이지 않았습니다. 게임을 플레이하고 당신의 능력을 확인하세요!";
     } else {
-        typeName = "균형 잡힌 <mark>전략가</mark>";
-        description = "다양한 상황에 유연하게 대처하는 능력을 가졌습니다. 전체적인 흐름을 읽는 눈이 좋으시네요!";
+        const maxVal = Math.max(...Object.values(scores));
+        const bestAbility = Object.keys(scores).find(key => scores[key] === maxVal);
+
+        let typeName = "";
+        let description = "";
+
+        if(bestAbility === 'math') {
+            typeName = "냉철한 <mark>수학자</mark>";
+            description = "수치와 계산에 매우 강점을 보입니다. 복잡한 데이터 속에서 정답을 찾아내는 능력이 탁월하시네요!";
+        } else if(bestAbility === 'speed' || bestAbility === 'cognition') {
+            typeName = "직관적인 <mark>사냥꾼</mark>";
+            description = "반응 속도와 상황 인지 능력이 최고 수준입니다. 위기 상황에서 본능적으로 올바른 판단을 내리는 타입입니다.";
+        } else if(bestAbility === 'memory') {
+            typeName = "기록하는 <mark>사서</mark>";
+            description = "탁월한 기억력을 바탕으로 정보를 체계적으로 저장합니다. 남들이 놓치는 작은 디테일도 기억해내는 능력이 있습니다.";
+        } else if(bestAbility === 'focus') {
+            typeName = "집요한 <mark>명사수</mark>";
+            description = "하나에 몰입하면 주변의 소음도 잊어버리는 놀라운 집중력의 소유자입니다. 과제 완수 능력이 매우 높습니다.";
+        } else {
+            typeName = "균형 잡힌 <mark>전략가</mark>";
+            description = "모든 능력이 조화롭게 발달했습니다. 상황을 다각도로 분석하고 유연한 전략을 세우는 데 능숙합니다.";
+        }
+
+        brainTypeElem.innerHTML = typeName;
+        descElem.innerText = description;
     }
 
-    brainTypeElem.innerHTML = typeName;
-    descElem.innerText = description;
-
     // 4. 요약 수치 표시
+    const avgScore = Math.floor(totalScore / 6);
     const summaryElem = document.getElementById('stat-summary');
     summaryElem.innerHTML = `
-        <div class="stat-item"><span class="stat-label">종합 강점</span><span class="stat-value">${typeName.replace(/<[^>]*>?/gm, '')}</span></div>
-        <div class="stat-item"><span class="stat-label">평균 점수</span><span class="stat-value">${Math.floor(Object.values(scores).reduce((a,b)=>a+b)/6)}점</span></div>
+        <div class="stat-item">
+            <span class="stat-label">나의 최대 강점</span>
+            <span class="stat-value">${totalScore === 0 ? '-' : brainTypeElem.innerText}</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">브레인 평균 점수</span>
+            <span class="stat-value">${avgScore}점</span>
+        </div>
     `;
+
+    function resetData() {
+        if(confirm("모든 훈련 데이터를 초기화하시겠습니까?")) {
+            localStorage.clear();
+            location.reload();
+        }
+    }
 </script>
 </body>
 </html>
