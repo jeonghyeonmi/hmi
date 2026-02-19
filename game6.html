@@ -7,82 +7,83 @@
     <style>
         :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        /* 스크롤 방지 및 전체 높이 고정 */
         html, body { height: 100%; margin: 0; overflow: hidden; font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); }
         
-        header { background: var(--primary-color); color: white; padding: 1rem; text-align: center; }
-        header h1 { margin: 0; font-size: 1.2rem; }
+        header { background: var(--primary-color); color: white; padding: 1rem; text-align: center; height: 50px; }
+        header h1 { margin: 0; font-size: 1.1rem; line-height: 1.2; }
 
+        /* 메인 컨테이너: 화면 높이에 딱 맞게 조절 */
         .game-container {
             display: flex;
             flex-direction: column;
             height: calc(100% - 50px);
-            padding: 15px;
+            padding: 10px;
             position: relative;
+            justify-content: space-between;
         }
 
-        /* 💡 1. 화면 전체 미션 알림판 */
+        /* 미션 알림 레이어 (화면 전체 덮기) */
         #mission-signal {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            display: none; /* 기본 숨김 */
+            display: none; 
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 2000;
             color: white;
-            transition: 0.3s;
+            text-align: center;
         }
-        .signal-text { font-size: 2.5rem; font-weight: 900; text-align: center; line-height: 1.3; }
-        .signal-sub { font-size: 1.2rem; margin-top: 10px; opacity: 0.9; }
+        .signal-text { font-size: 2.2rem; font-weight: 900; line-height: 1.3; }
 
-        /* 💡 2. 문제 전시 구역 */
-        /* 전체 틀은 고정하되 내부 요소들이 유연하게 움직이도록 변경 */
-.game-container {
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 60px); /* 100% 대신 vh 사용 */
-    padding: 10px;
-    position: relative;
-    justify-content: space-between; /* 요소들 사이 간격 최적화 */
-}
+        /* 문제 전시 구역: 유동적 크기 조절로 하단 버튼 보호 */
+        .display-area {
+            flex: 1;
+            min-height: 100px;
+            max-height: 220px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 2px solid #eee;
+        }
+        #target-name { font-size: 2.2rem; font-weight: 900; color: #333; }
+        #target-emoji { font-size: 4.5rem; line-height: 1; }
 
-/* 문제 전시 구역: 버튼이 잘리지 않게 크기를 유동적으로 조절 */
-.display-area {
-    flex: 1; /* 남는 공간을 차지하지만 */
-    min-height: 120px; /* 너무 작아지지 않을 정도만 유지 */
-    max-height: 250px; /* 너무 커서 버튼을 밀어내지 않도록 제한 */
-    background: white;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 10px 0;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
+        /* 동물 버튼 그리드 */
+        .animal-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .animal-btn {
+            background: white; border: 2px solid #eee; border-radius: 12px;
+            padding: 12px 2px; cursor: pointer;
+        }
+        .animal-btn .emoji { font-size: 1.8rem; display: block; }
+        .animal-btn .label { font-size: 0.75rem; font-weight: bold; color: #666; }
 
-/* 텍스트와 이모지 크기를 화면에 맞춰 살짝 축소 */
-#target-name { font-size: 2.2rem; font-weight: 900; }
-#target-emoji { font-size: 4.5rem; }
+        /* 가이드 박스 스타일 */
+        .guide-box {
+            background: white;
+            border: 1px dashed var(--primary-color);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .guide-box p { margin: 0 0 5px 0; font-weight: bold; font-size: 0.95rem; }
+        .guide-box ul { margin: 0; padding-left: 18px; font-size: 0.8rem; color: #555; }
 
-/* 💡 동물 버튼 그리드: 하단에 안전하게 배치 */
-.animal-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    padding-bottom: env(safe-area-inset-bottom); /* 아이폰 하단 바 영역 보호 */
-}
-
-.animal-btn {
-    padding: 12px 2px; /* 패딩을 줄여 높이 확보 */
-    border-radius: 12px;
-}
-
-        .animal-btn .emoji { font-size: 2rem; display: block; }
-        .animal-btn .label { font-size: 0.8rem; font-weight: bold; color: #666; }
-
-        .btn-start { width: 100%; padding: 20px; background: var(--accent-color); color: white; border: none; border-radius: 20px; font-weight: bold; font-size: 1.3rem; }
-        #score-panel { text-align: center; font-weight: bold; padding: 10px; font-size: 1.1rem; }
+        .btn-start { width: 100%; padding: 18px; background: var(--accent-color); color: white; border: none; border-radius: 15px; font-weight: bold; font-size: 1.2rem; }
+        #score-panel { text-align: center; font-weight: bold; padding: 5px; font-size: 1rem; }
     </style>
 </head>
 <body>
@@ -91,7 +92,6 @@
     <div class="game-container">
         <div id="mission-signal">
             <div class="signal-text" id="signal-title">그림보고 맞추기</div>
-            <div class="signal-sub">준비하세요!</div>
         </div>
 
         <div class="display-area" id="play-zone" style="display: none;">
@@ -102,13 +102,13 @@
         <div class="animal-grid" id="game-ui" style="display: none;"></div>
 
         <div id="game-guide" class="guide-box">
-        <p>💡 <strong>훈련 방법</strong></p>
-        <ul>
-            <li>시작 시 <strong>[글자]</strong> 혹은 <strong>[그림]</strong> 미션이 크게 표시됩니다.</li>
-            <li>안내된 미션에 맞는 정답 동물을 하단에서 고르세요.</li>
-            <li>매번 미션이 랜덤하게 바뀌니 집중력을 유지하세요!</li>
-        </ul>
-    </div>
+            <p>💡 훈련 방법</p>
+            <ul>
+                <li>시작 시 <strong>[글자]</strong> 혹은 <strong>[그림]</strong> 미션이 표시됩니다.</li>
+                <li>안내된 미션에 맞는 정답을 하단에서 고르세요.</li>
+                <li>매번 미션이 랜덤하게 바뀌니 주의하세요!</li>
+            </ul>
+        </div>
 
         <button id="startBtn" class="btn-start" onclick="startGame()">훈련 시작</button>
         <div id="score-panel">맞춘 마릿수: 0</div>
@@ -123,7 +123,6 @@
 
         let score = 0, isGameActive = false, currentMission = "", correctTarget = "";
 
-        // 버튼 미리 생성
         const ui = document.getElementById('game-ui');
         animals.forEach(ani => {
             const btn = document.createElement('button');
@@ -135,19 +134,18 @@
 
         function startGame() {
             score = 0;
-            document.getElementById('startBtn').style.display = 'none';
-            document.getElementById('score-panel').innerText = "맞춘 마릿수: 0";
             isGameActive = true;
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('game-guide').style.display = 'none'; // 설명 숨기기
+            document.getElementById('score-panel').innerText = "맞춘 마릿수: 0";
             
-            showMission(); // 1. 미션 먼저 보여주기
-            setTimeout(endGame, 40000); // 안내 시간 고려해 40초
+            showMission();
+            setTimeout(endGame, 40000); 
         }
 
-        // 💡 화면 전체 미션 알림창 띄우기
         function showMission() {
             if(!isGameActive) return;
 
-            // 랜덤 미션 설정
             currentMission = Math.random() > 0.5 ? "글자" : "그림";
             const signal = document.getElementById('mission-signal');
             const title = document.getElementById('signal-title');
@@ -160,12 +158,10 @@
                 signal.style.backgroundColor = "#c0392b";
             }
 
-            // 알림창 보이기
             signal.style.display = 'flex';
             document.getElementById('play-zone').style.display = 'none';
             document.getElementById('game-ui').style.display = 'none';
 
-            // 1.2초 뒤에 게임 화면으로 전환
             setTimeout(() => {
                 signal.style.display = 'none';
                 document.getElementById('play-zone').style.display = 'flex';
@@ -181,7 +177,6 @@
 
             document.getElementById('target-name').innerText = animals[textIdx].name;
             document.getElementById('target-emoji').innerText = animals[emojiIdx].emoji;
-
             correctTarget = currentMission === "글자" ? animals[textIdx].name : animals[emojiIdx].emoji;
         }
 
@@ -192,10 +187,8 @@
             if(userVal === correctTarget) {
                 score++;
                 document.getElementById('score-panel').innerText = `맞춘 마릿수: ${score}`;
-                // 💡 맞추면 다시 새로운 미션 안내부터 시작!
                 showMission(); 
             } else {
-                // 오답 시 흔들림 효과
                 document.body.style.backgroundColor = "#fadbd8";
                 setTimeout(() => document.body.style.backgroundColor = "#f4f7f9", 100);
             }
@@ -203,7 +196,7 @@
 
         function endGame() {
             isGameActive = false;
-            alert(`훈련 종료!\n총 ${score}마리의 동물을 구별해냈습니다.`);
+            alert(`훈련 종료!\n총 ${score}마리를 구별했습니다.`);
             location.reload();
         }
     </script>
