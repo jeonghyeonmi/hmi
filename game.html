@@ -144,7 +144,10 @@
             
             if (time < best) alert(`🎉 최고 기록 경신! : ${time}초`);
             else alert(`훈련 완료! 기록: ${time}초`);
-            
+            // 💡 [추가] 리포트 페이지를 위해 점수 형태로 변환하여 저장
+    // 30초를 기준으로, 30초보다 빠르면 점수가 높게 나오도록 설계 (예시)
+    const reportScore = Math.max(0, Math.floor(100 - (time * 2))); 
+    localStorage.setItem('game1_score', reportScore);
             history.unshift({ date: dateStr, time: time });
             localStorage.setItem('memoryHistory', JSON.stringify(history.slice(0, 10)));
             initGame();
