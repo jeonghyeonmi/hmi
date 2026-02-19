@@ -25,7 +25,38 @@
 </head>
 <body>
     <header><h1><a href="index.html">🧠 SKZ Brain Lab</a></h1></header>
-    <nav class="main-nav"><a href="index.html">홈</a><a href="game.html">집중력</a><a href="game2.html">논리력</a><a href="game3.html">판단력</a><a href="post1.html">브레인 분석실</a></nav>
+   <style>
+    /* 메뉴 가독성 최적화 CSS */
+    nav.main-nav { 
+        background: white; 
+        padding: 0.8rem; 
+        display: flex; 
+        justify-content: flex-start; /* 모바일 대응: 왼쪽부터 시작 */
+        gap: 1.2rem; 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+        overflow-x: auto; /* 핵심: 메뉴가 넘치면 가로 스크롤 */
+        white-space: nowrap; /* 핵심: 메뉴 줄바꿈 방지 */
+        -webkit-overflow-scrolling: touch; /* 부드러운 스크롤 */
+        scrollbar-width: none; /* 파이어폭스 스크롤바 숨김 */
+    }
+    nav.main-nav::-webkit-scrollbar { display: none; /* 크롬/사파리 스크롤바 숨김 */ }
+    
+    nav.main-nav a { 
+        text-decoration: none; 
+        color: var(--primary-color); 
+        font-weight: bold; 
+        font-size: 0.9rem; 
+        flex-shrink: 0; /* 메뉴가 찌그러지지 않게 방지 */
+    }
+</style>
+
+<nav class="main-nav">
+    <a href="index.html">홈</a>
+    <a href="game.html">집중력</a>
+    <a href="game2.html">논리력</a>
+    <a href="game3.html">판단력</a>
+    <a href="post1.html">분석실</a>
+</nav>
     <main class="container">
         <div class="game-guide"><strong>📝 훈련 규칙:</strong> 글자의 의미가 아닌, 실제 <strong>'색상'</strong> 버튼을 누르세요! 30초 동안의 기록을 측정합니다.</div>
         <div class="score-box"><span>시간: <span id="time-left">30</span>s</span><span>성공: <span id="current-score">0</span></span></div>
