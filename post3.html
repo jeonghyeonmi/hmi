@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>분석실 | SKZ Brain Lab</title>
+    <style>
+        :root { 
+            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
+            --text-main: #2c3e50; --text-content: #34495e; --text-muted: #7f8c8d;
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            font-family: 'Pretendard', -apple-system, sans-serif; 
+            background-color: var(--bg-color); margin: 0; color: var(--text-main);
+            line-height: 1.7; letter-spacing: -0.02em;
+        }
+        
+        /* 읽기 진행바 */
+        #progress-bar {
+            position: fixed; top: 0; left: 0; width: 0%; height: 4px;
+            background: var(--accent-color); z-index: 2000; transition: width 0.1s;
+        }
+
+        header { background: var(--primary-color); color: white; padding: 1.5rem 1rem; text-align: center; }
+        header h1 a { text-decoration: none; color: inherit; font-size: 1.4rem; font-weight: 800; }
+
+        nav.main-nav { 
+            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+        }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+        nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
+
+        .container { width: 94%; max-width: 700px; margin: 2rem auto; }
+        
+        .article-card { 
+            background: white; padding: 40px 25px; border-radius: 28px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03); 
+        }
+
+        .tag { 
+            display: inline-block; padding: 4px 12px; border-radius: 6px;
+            font-size: 0.75rem; font-weight: bold; margin-bottom: 20px;
+            background: #f1f5f9; color: #64748b;
+        }
+
+        .article-card h2 { 
+            font-size: 1.8rem; line-height: 1.4; margin: 0 0 20px 0; 
+            word-break: keep-all; color: var(--text-main); font-weight: 800;
+        }
+        mark { background: linear-gradient(120deg, #fff176 0%, #fff176 100%); padding: 0 3px; border-radius: 4px; color: inherit; }
+
+        .post-meta { 
+            font-size: 0.85rem; color: var(--text-muted); margin-bottom: 35px; 
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid #f8f9fa; padding-bottom: 15px; 
+        }
+
+        .intro { 
+            font-size: 1.1rem; color: var(--text-content); border-left: 4px solid #3498db; 
+            padding-left: 1.2rem; margin: 2rem 0; font-style: italic; line-height: 1.8; opacity: 0.9;
+        }
+
+        .content h3 { 
+            font-size: 1.3rem; color: var(--primary-color); margin-top: 2.5rem; margin-bottom: 1rem; 
+            font-weight: 700;
+        }
+
+        .highlight-box {
+            background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px;
+            border-radius: 16px; margin: 25px 0; font-size: 0.95rem;
+        }
+
+        .article-footer { margin-top: 50px; display: flex; gap: 10px; }
+        .btn { 
+            flex: 1; padding: 16px; border-radius: 14px; font-weight: bold; font-size: 0.9rem; 
+            text-decoration: none; text-align: center; transition: 0.2s; 
+        }
+        .btn-list { background: #f1f3f5; color: #495057; }
+        .btn-game { background: var(--primary-color); color: white; }
+
+        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; }
+
+        @media (max-width: 480px) {
+            .article-card { padding: 30px 20px; }
+            h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div id="progress-bar"></div>
+
+    <header>
+        <h1><a href="index.html">🧠 SKZ Brain Lab</a></h1>
+    </header>
+
+    <nav class="main-nav">
+        <a href="index.html">홈</a>
+        <a href="game.html">집중력</a>
+        <a href="game2.html">논리력</a>
+        <a href="game3.html">판단력</a>
+        <a href="posts.html" class="active">분석실</a>
+    </nav>
+
+    <main class="container">
+        <article class="article-card">
+            <span class="tag">분석 리포트 #03</span>
+            <h2>잠이 부족한 뇌는 <mark>술 취한 뇌와 같다?</mark> 수면의 경제학</h2>
+            
+            <div class="post-meta">
+                <span>운영자</span>
+                <span>2026. 02. 22</span>
+            </div>
+
+            <div class="intro">
+                "밤샘 공부나 야근이 효율적이라고 믿으시나요? 당신의 뇌는 지금 만취 상태와 다름없는 오류를 범하고 있을지 모릅니다."
+            </div>
+
+            <div class="content">
+                <h3>1. 24시간 무수면 = 혈중알코올농도 0.1%</h3>
+                <p>연구에 따르면 17~19시간 동안 잠을 자지 않은 상태의 인지 능력은 혈중알코올농도 0.05%와 비슷하며, <strong>24시간을 깨어 있으면 0.1%</strong>에 달합니다. 이는 면허 취소 수준의 인지 저하 상태로 뇌가 작동하고 있다는 것을 의미합니다.</p>
+                
+                
+
+                <h3>2. 뇌의 쓰레기 청소, 글림파틱 시스템</h3>
+                <p>우리가 잠을 자는 동안 뇌척수액은 뇌 속에 쌓인 노폐물을 씻어내는 '글림파틱 시스템(Glymphatic System)'을 가동합니다. 잠을 줄이는 것은 뇌라는 도서관에 쓰레기를 계속 방치하여 결국 시스템을 마비시키는 것과 같습니다.</p>
+                
+                
+
+                <h3>3. 해결을 위한 수면 위생</h3>
+                <p>인지 능력을 최상으로 유지하기 위해서는 단순히 많이 자는 것보다 '일정한 리듬'이 중요합니다. 특히 잠들기 30분 전 스마트폰 사용을 자제하는 것만으로도 멜라토닌 분비량이 개선되어 뇌의 회복 속도를 높일 수 있습니다.</p>
+                
+                <div class="highlight-box">
+                    <strong>💡 팁:</strong> 오늘 훈련 점수가 평소보다 유독 낮다면, 억지로 반복하기보다 15분간의 짧은 낮잠을 권장합니다. 휴식은 인지 능력을 복구하는 가장 빠른 지름길입니다.
+                </div>
+            </div>
+
+            <div class="article-footer">
+                <a href="posts.html" class="btn btn-list">목록으로</a>
+                <a href="game3.html" class="btn btn-game">판단력 테스트 하기</a>
+            </div>
+        </article>
+    </main>
+
+    <footer>&copy; 2026 SKZ Brain Lab. 모든 칼럼은 과학적 근거를 바탕으로 작성됩니다.</footer>
+
+    <script>
+        window.onscroll = function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        };
+    </script>
+</body>
+</html>
