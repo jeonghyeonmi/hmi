@@ -2,42 +2,117 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>이용약관 | SKZ Brain Lab</title>
     <style>
-        body { font-family: 'Pretendard', sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 40px 20px; background: #f4f7f9; }
-        .content { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        h1 { color: #1a3a5f; font-size: 1.5rem; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        h2 { color: #1a3a5f; font-size: 1.1rem; margin-top: 30px; }
-        p, li { font-size: 0.9rem; color: #555; }
-        .back-link { display: inline-block; margin-bottom: 20px; color: #3498db; text-decoration: none; font-weight: bold; }
+        :root { 
+            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
+            --text-main: #2c3e50; --text-muted: #7f8c8d;
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            font-family: 'Pretendard', -apple-system, sans-serif; 
+            line-height: 1.8; color: var(--text-main); 
+            background-color: var(--bg-color); margin: 0; 
+            padding: 20px;
+        }
+
+        .container { width: 100%; max-width: 700px; margin: 0 auto; padding: 20px 0 60px; }
+
+        .back-link { 
+            display: inline-flex; align-items: center; gap: 8px;
+            margin-bottom: 25px; color: var(--primary-color); 
+            text-decoration: none; font-weight: 700; font-size: 0.95rem;
+            transition: 0.2s;
+        }
+        .back-link:hover { color: var(--accent-color); }
+
+        .content-card { 
+            background: white; padding: 50px 40px; border-radius: 28px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03); 
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        h1 { 
+            color: var(--primary-color); font-size: 1.8rem; font-weight: 800; 
+            margin: 0 0 10px 0; letter-spacing: -0.03em;
+        }
+        .effective-date { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 40px; display: block; }
+
+        h2 { 
+            color: var(--primary-color); font-size: 1.2rem; font-weight: 700;
+            margin-top: 45px; margin-bottom: 15px; border-left: 4px solid var(--accent-color);
+            padding-left: 12px;
+        }
+
+        p, li { font-size: 0.95rem; color: #4a5568; margin-bottom: 15px; text-align: justify; word-break: keep-all; }
+        ul { padding-left: 20px; margin-bottom: 25px; }
+        li { margin-bottom: 8px; }
+
+        .important-box {
+            background: #fff5f5; padding: 20px; border-radius: 16px; 
+            margin: 30px 0; border: 1px solid #fed7d7;
+            font-size: 0.9rem; color: #c53030;
+        }
+
+        footer { text-align: center; margin-top: 40px; color: #bbb; font-size: 0.8rem; }
+
+        @media (max-width: 480px) {
+            .content-card { padding: 40px 25px; border-radius: 20px; }
+            h1 { font-size: 1.5rem; }
+            h2 { font-size: 1.1rem; }
+        }
     </style>
 </head>
 <body>
-    <a href="index.html" class="back-link">← 홈으로 돌아가기</a>
-    <div class="content">
-        <h1>이용약관</h1>
-        <p>SKZ Brain Lab(이하 '본 사이트')을 이용해주셔서 감사합니다. 본 약관은 본 사이트가 제공하는 훈련 및 콘텐츠 이용과 관련하여 필요한 사항을 규정합니다.</p>
+    <div class="container">
+        <a href="index.html" class="back-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            홈으로 돌아가기
+        </a>
 
-        <h2>1. 서비스의 목적</h2>
-        <p>본 사이트는 이용자의 인지 능력 향상을 위한 게임형 훈련과 뇌 과학 관련 정보 콘텐츠를 제공하는 것을 목적으로 합니다.</p>
+        <main class="content-card">
+            <h1>이용약관</h1>
+            <span class="effective-date">시행일자: 2026년 2월 20일</span>
 
-        <h2>2. 지적재산권</h2>
-        <p>본 사이트에서 제공하는 모든 게임 로직, 디자인, 텍스트, 이미지 및 분석 리포트의 저작권은 'SKZ Brain Lab'에 귀속됩니다. 이용자는 본 사이트의 콘텐츠를 사전 승인 없이 복제, 배포하거나 영리 목적으로 이용할 수 없습니다.</p>
+            <p>SKZ Brain Lab(이하 '본 사이트')을 방문해주셔서 감사합니다. 본 약관은 이용자가 본 사이트에서 제공하는 인지 훈련 콘텐츠 및 서비스를 이용함에 있어 필요한 권리와 의무를 규정합니다.</p>
 
-        <h2>3. 데이터의 저장</h2>
-        <p>본 사이트는 이용자의 게임 기록을 서버에 저장하지 않고, 이용자의 웹 브라우저 로컬 저장소(Local Storage)에만 기록합니다. 브라우저를 초기화하거나 데이터를 삭제할 경우 기록이 복구되지 않을 수 있습니다.</p>
+            <h2>제 1 조 (목적)</h2>
+            <p>본 약관은 SKZ Brain Lab이 제공하는 웹 기반 게임 및 인지 분석 리포트 서비스의 이용 조건 및 절차에 관한 사항을 규정함을 목적으로 합니다.</p>
 
-        <h2>4. 면책 조항</h2>
-        <ul>
-            <li>본 사이트가 제공하는 훈련 결과 및 분석 리포트는 참고용이며, 의학적 진단이나 전문적인 치료를 대신할 수 없습니다.</li>
-            <li>서비스 이용 중 이용자의 부주의로 발생한 결과에 대해서는 책임을 지지 않습니다.</li>
-        </ul>
+            <h2>제 2 조 (서비스의 성격)</h2>
+            <p>본 사이트에서 제공하는 모든 콘텐츠는 <strong>사용자의 인지 능력 향상을 돕기 위한 보조적 도구</strong>이며, 의학적 진단이나 치료를 대신할 수 없습니다. 특정 질환의 진단이 필요한 경우 반드시 전문 의료기관을 방문하시기 바랍니다.</p>
 
-        <h2>5. 약관의 변경</h2>
-        <p>본 약관은 서비스 개선을 위해 예고 없이 변경될 수 있으며, 변경된 내용은 사이트 내 공지함으로써 효력을 발생합니다.</p>
-        
-        <p style="margin-top: 50px; color: #aaa;">시행일자: 2026년 2월 20일</p>
+            <h2>제 3 조 (데이터 저장 및 관리)</h2>
+            <ul>
+                <li>본 사이트는 이용자의 게임 점수를 브라우저의 <strong>로컬 저장소(LocalStorage)</strong>에 저장합니다.</li>
+                <li>사용자가 브라우저를 변경하거나 쿠키/캐시를 삭제할 경우 데이터가 소실될 수 있으며, 본 사이트는 소실된 데이터에 대해 복구 책임을 지지 않습니다.</li>
+            </ul>
+
+            <div class="important-box">
+                <strong>⚠️ 주의사항:</strong> 본 사이트의 모든 기록은 현재 접속하신 '기기'와 '브라우저'에만 귀속됩니다. 다른 기기에서는 기록이 연동되지 않습니다.
+            </div>
+
+            <h2>제 4 조 (이용자의 의무)</h2>
+            <p>이용자는 다음 각 호의 행위를 해서는 안 됩니다.</p>
+            <ul>
+                <li>자동화된 프로그램(매크로)을 사용하여 게임 점수를 조작하는 행위</li>
+                <li>본 사이트의 리소스를 무단으로 복제하거나 상업적으로 이용하는 행위</li>
+                <li>시스템에 무리를 주는 해킹 또는 악성 코드 유포 행위</li>
+            </ul>
+
+            <h2>제 5 조 (면책 조항)</h2>
+            <p>본 사이트는 천재지변, 서버 점검, 통신 장애 등 불가항력적인 사유로 서비스가 중단될 경우 책임을 지지 않습니다. 또한, 이용자가 본 서비스를 통해 얻은 결과에 대해 주관적인 해석으로 발생하는 문제에 대해서도 책임을 지지 않습니다.</p>
+
+            <p style="margin-top: 60px; color: #cbd5e0; font-size: 0.8rem;">
+                문의사항이 있으신 경우 운영팀 메일(support@skzbrainlab.com)로 연락 바랍니다.
+            </p>
+        </main>
+
+        <footer>
+            &copy; 2026 SKZ Brain Lab. All rights reserved.
+        </footer>
     </div>
 </body>
 </html>
