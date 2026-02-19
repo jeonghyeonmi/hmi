@@ -235,6 +235,11 @@
             let history = JSON.parse(localStorage.getItem('memHistory')) || [];
             history.unshift({ date: dateStr, score: score });
             localStorage.setItem('memHistory', JSON.stringify(history.slice(0, 10)));
+
+            // 💡 [추가] 리포트 페이지를 위한 기억력 점수 저장
+            // 레벨당 10점으로 계산 (Lv.10 도달 시 100점)
+            const reportScore = Math.min(100, score * 10);
+            localStorage.setItem('game4_score', reportScore);
             displayHistory();
         }
 
