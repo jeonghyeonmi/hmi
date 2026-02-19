@@ -47,10 +47,24 @@
         
         /* 기억력 그리드 */
         .memory-grid { display: grid; margin: 20px auto; gap: 10px; width: fit-content; }
-        .tile { 
-            width: clamp(60px, 15vw, 75px); height: clamp(60px, 15vw, 75px); 
-            background: #eee; border-radius: 12px; cursor: pointer; transition: transform 0.2s, background 0.2s; 
-        }
+       /* 그리드 컨테이너: 화면 너비를 넘지 않도록 설정 */
+.memory-grid { 
+    display: grid; 
+    margin: 20px auto; 
+    gap: 8px; /* 타일 사이 간격 */
+    width: 90%; /* 화면의 90%만 차지 */
+    max-width: 400px; /* 너무 커지지 않게 제한 */
+}
+
+/* 타일: 고정 px 대신 비율(aspect-ratio) 사용 */
+.tile { 
+    width: 100%; /* 부모 그리드 칸에 가득 채움 */
+    aspect-ratio: 1 / 1; /* 정사각형 유지 */
+    background: #eee; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    transition: 0.2s; 
+}
         .tile.active { background: var(--accent-color); transform: scale(1.05); }
         .tile.correct { background: #2ecc71; transform: scale(0.95); }
         .tile.wrong { background: #e74c3c; animation: shake 0.3s; }
@@ -126,18 +140,21 @@
         
         // 보드 초기화 및 그리드 생성
         function initBoard() {
-            const board = document.getElementById('memoryBoard');
-            board.innerHTML = '';
-            // 레벨별 난이도 조절 (3x3 -> 4x4 -> 5x5)
-            const size = level < 4 ? 3 : (level < 7 ? 4 : 5);
-            board.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
-            
-            for(let i=0; i < size * size; i++) {
-                const tile = document.createElement('div');
-                tile.className = 'tile';
-                tile.onclick = () => handleTileClick(i, tile);
-                board.appendChild(tile);
-            }
+    const board = document.getElementById('memoryBoard');
+    board.innerHTML = '';
+    
+    // 레벨에 따른 칸 수 결정
+    const size = level < 4 ? 3 : (level < 7 ? 4 : 5);
+    
+    // 💡 핵심: 1fr을 사용하여 가로 너비를 균등하게 나눕니다.
+    board.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+    
+    for(let i=0; i < size * size; i++) {
+        const tile = document.createElement('div');
+        tile.className = 'tile';
+        tile.onclick = () => handleTileClick(i, tile);
+        board.appendChild(tile);
+    }
         }
 
         // 게임 시작
