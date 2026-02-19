@@ -7,11 +7,14 @@
     <style>
         :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #3498db; --border-dark: #222; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; }
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; }
         
-        header { background: var(--primary-color); color: white; padding: 1rem; text-align: center; }
-        header h1 a { text-decoration: none; color: inherit; font-size: 1.2rem; font-weight: 800; display: inline-block; /* 터치 영역 확보 */}
+        header { background: var(--primary-color); color: white; padding: 1.5rem 1rem; text-align: center; }
+        header h1 { margin: 0; }
+        header h1 a { text-decoration: none; color: inherit; font-size: 1.4rem; font-weight: 800; }
+        header p { margin: 5px 0 0; font-size: 0.85rem; opacity: 0.8; }
 
+        /* 네비게이션 가로 스크롤 최적화 */
         nav.main-nav { 
             background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow-x: auto; white-space: nowrap; 
@@ -22,40 +25,58 @@
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; flex-shrink: 0; }
         nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
 
-        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 15px; background: white; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; }
-        .level-indicator { display: flex; justify-content: center; gap: 5px; margin-bottom: 15px; flex-wrap: wrap; }
-        .level-badge { padding: 6px 10px; background: #eee; border-radius: 20px; font-weight: bold; font-size: 0.7rem; color: #888; cursor: pointer; }
-        .level-badge.active { background: var(--accent-color); color: white; }
-        .game-guide { background: #f0f7ff; border-radius: 12px; padding: 12px; font-size: 0.8rem; line-height: 1.5; color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--accent-color); }
+        .container { 
+            width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 20px; 
+            background: white; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; 
+        }
+
+        .level-indicator { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+        .level-badge { padding: 8px 14px; background: #f1f3f5; border-radius: 20px; font-weight: bold; font-size: 0.8rem; color: #888; cursor: pointer; transition: 0.2s; }
+        .level-badge.active { background: var(--accent-color); color: white; box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3); }
+
+        .game-guide { 
+            background: #f0f7ff; border-radius: 12px; padding: 15px; font-size: 0.85rem; 
+            line-height: 1.6; color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--accent-color); 
+        }
         
-        #timer { font-size: 1.8rem; font-weight: 800; color: var(--primary-color); margin-bottom: 10px; display: block; }
-        .sudoku-grid { display: grid; margin: 10px auto; background: var(--border-dark); border: 2px solid var(--border-dark); gap: 1px; width: fit-content; }
+        #timer { font-size: 2.2rem; font-weight: 800; color: var(--primary-color); margin-bottom: 15px; display: block; font-variant-numeric: tabular-nums; }
         
-        .cell { background: white; display: flex; align-items: center; justify-content: center; }
+        /* 스도쿠 그리드 레이아웃 */
+        .sudoku-grid { display: grid; margin: 15px auto; background: var(--border-dark); border: 2px solid var(--border-dark); gap: 1px; width: fit-content; border-radius: 4px; overflow: hidden; }
+        .cell { background: white; display: flex; align-items: center; justify-content: center; aspect-ratio: 1/1; }
         .cell input { width: 100%; height: 100%; border: none; text-align: center; font-weight: 800; color: var(--accent-color); outline: none; background: transparent; padding: 0; appearance: none; }
-        .cell.fixed { background: #f1f3f5; font-weight: bold; color: #2c3e50; }
+        .cell.fixed { background: #f8f9fa; font-weight: bold; color: #2c3e50; }
         
+        /* 레벨별 크기 대응 */
         .grid-3 .cell, .grid-3 input { width: 80px; height: 80px; font-size: 2rem !important; }
         .grid-4 .cell, .grid-4 input { width: 65px; height: 65px; font-size: 1.8rem !important; }
         .grid-5 .cell, .grid-5 input { width: 55px; height: 55px; font-size: 1.5rem !important; }
-        .grid-9 .cell, .grid-9 input { width: min(40px, 9vw); height: min(40px, 9vw); font-size: 1.1rem !important; }
+        .grid-9 .cell, .grid-9 input { width: min(40px, 9.5vw); height: min(40px, 9.5vw); font-size: 1.1rem !important; }
         
-        .btn-check { width: 100%; max-width: 280px; padding: 14px; background: #2ecc71; color: white; border: none; border-radius: 30px; font-weight: bold; margin-top: 20px; cursor: pointer; }
+        .btn-check { width: 100%; max-width: 280px; padding: 16px; background: #2ecc71; color: white; border: none; border-radius: 30px; font-weight: bold; font-size: 1rem; margin-top: 20px; cursor: pointer; box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); }
+        
         .ranking-container { margin-top: 35px; border-top: 2px dashed #eee; padding-top: 25px; }
+        .ranking-title { font-size: 1.1rem; font-weight: bold; color: var(--primary-color); margin-bottom: 15px; }
         .rank-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .rank-table th { padding: 10px; color: #888; border-bottom: 1px solid #eee; }
         .rank-table td { padding: 12px 5px; border-bottom: 1px solid #f9f9f9; }
+
+        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; line-height: 1.8; }
+        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
     </style>
 </head>
 <body>
     <header>
-<h1><a href="index.html" style="text-decoration: none; color: inherit;">🧠 SKZ Brain Lab</a></h1>        <p>우리 뇌를 위한 건강한 디지털 습관 만들기</p>
+        <h1><a href="index.html">🧠 SKZ Brain Lab</a></h1>
+        <p>우리 뇌를 위한 건강한 디지털 습관</p>
     </header>
+
     <nav class="main-nav">
         <a href="index.html">홈</a>
         <a href="game.html">집중력</a>
         <a href="game2.html" class="active">논리력</a>
         <a href="game3.html">판단력</a>
-        <a href="post1.html">분석실</a>
+        <a href="posts.html">분석실</a>
     </nav>
 
     <main class="container">
@@ -67,15 +88,29 @@
         </div>
         <div class="game-guide">가로, 세로 줄에 숫자가 중복되지 않게 채우세요.</div>
         <span id="timer">0.00</span>
+        
         <div id="sudokuBoard" class="sudoku-grid"></div>
+        
         <button class="btn-check" onclick="finishGame()">정답 확인 및 기록 저장</button>
         
         <div class="ranking-container">
-            <div id="best-record" style="font-size:0.9rem; color:var(--accent-color); font-weight:bold; margin-bottom:10px;">최고 기록: -</div>
-            <table class="rank-table"><thead><tr><th>회차</th><th>정보</th><th>기록</th></tr></thead><tbody id="rankingBody"></tbody></table>
-            <button onclick="clearHistory()" style="margin-top:15px; background:none; border:none; color:#ccc; font-size:0.7rem; text-decoration:underline; cursor:pointer;">기록 초기화</button>
+            <div class="ranking-title">📊 나의 논리력 일지</div>
+            <div id="best-record" style="font-size:0.95rem; color:var(--accent-color); font-weight:bold; margin-bottom:12px;">최고 기록: -</div>
+            <table class="rank-table">
+                <thead><tr><th>회차</th><th>정보</th><th>기록</th></tr></thead>
+                <tbody id="rankingBody"></tbody>
+            </table>
+            <button onclick="clearHistory()" style="margin-top:20px; background:none; border:none; color:#ccc; font-size:0.75rem; text-decoration:underline; cursor:pointer;">기록 초기화</button>
         </div>
     </main>
+
+    <footer>
+        <div style="margin-bottom: 10px;">
+            <a href="privacy.html">개인정보처리방침</a> | 
+            <a href="terms.html">이용약관</a>
+        </div>
+        &copy; 2026 SKZ Brain Lab. All rights reserved.
+    </footer>
 
     <script>
         let currentLevel = 1, startTime, timerInterval, gameStarted = false;
@@ -86,12 +121,10 @@
             gameStarted = false; clearInterval(timerInterval); document.getElementById('timer').innerText = '0.00';
             board.className = `sudoku-grid grid-${config.size}`; board.style.gridTemplateColumns = `repeat(${config.size}, 1fr)`; board.innerHTML = '';
             
-            // 정답 기반 스도쿠 생성
             let solution = Array.from({length: config.size}, (_, i) => 
                 Array.from({length: config.size}, (_, j) => ((i + j) % config.size) + 1)
             );
             
-            // 간단한 셔플 (행 바꿈)
             solution.sort(() => Math.random() - 0.5);
 
             let puzzle = solution.map(row => [...row]);
@@ -124,7 +157,6 @@
             const cells = document.querySelectorAll('.cell');
             let boardData = [];
             
-            // 데이터 수집
             for(let i=0; i<size; i++) {
                 let row = [];
                 for(let j=0; j<size; j++) {
@@ -136,16 +168,13 @@
                 boardData.push(row);
             }
 
-            // 규칙 검증 (가로, 세로)
             for(let i=0; i<size; i++) {
                 let rowSet = new Set(), colSet = new Set();
                 for(let j=0; j<size; j++) {
-                    // 가로 체크
                     if(rowSet.has(boardData[i][j]) || boardData[i][j] < 1 || boardData[i][j] > size) { 
                         alert("가로 줄에 중복되거나 잘못된 숫자가 있습니다!"); return; 
                     }
                     rowSet.add(boardData[i][j]);
-                    // 세로 체크
                     if(colSet.has(boardData[j][i])) { 
                         alert("세로 줄에 중복된 숫자가 있습니다!"); return; 
                     }
@@ -153,22 +182,19 @@
                 }
             }
 
-            // 모든 검증 통과 시 저장
             clearInterval(timerInterval);
             const time = parseFloat(document.getElementById('timer').innerText);
-
-            // 💡 [리포트용 데이터 저장]
             let logicScore = (currentLevel * 20) + Math.max(0, Math.floor(20 - (time / 5)));
             logicScore = Math.min(100, logicScore);
             localStorage.setItem('game2_score', logicScore);
             
             const now = new Date();
-            const info = `${now.getMonth()+1}/${now.getDate()} (Lv.${currentLevel})`;
+            const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
+            const info = `${dateStr} (Lv.${currentLevel})`;
             let history = JSON.parse(localStorage.getItem('sudokuHistory')) || [];
             history.unshift({ info, time });
             localStorage.setItem('sudokuHistory', JSON.stringify(history.slice(0, 10)));
 
-            // 🏆 [핵심 수정] 리포트 이동 여부 묻기
             if (confirm(`🎉 정답입니다!\n기록: ${time}초\n\n지금 바로 분석 리포트를 확인하시겠습니까?`)) {
                 location.href = 'report.html';
             } else {
