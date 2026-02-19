@@ -5,50 +5,151 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>역 플린 효과와 팝콘 브레인 | SKZ Brain Lab</title>
     <style>
-        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --text-color: #2c3e50; --accent-color: #e74c3c; }
+        /* 1. 기본 테마 및 변수 */
+        :root { 
+            --primary-color: #1a3a5f; 
+            --bg-color: #f4f7f9; 
+            --text-color: #2c3e50; 
+            --accent-color: #e74c3c; 
+        }
         body { font-family: 'Pretendard', sans-serif; line-height: 1.8; color: var(--text-color); background-color: var(--bg-color); margin: 0; }
-        header { background: var(--primary-color); color: white; padding: 2.5rem 1rem; text-align: center; }
-        header h1 a { text-decoration: none; color: inherit; }
-        nav { background: white; padding: 1rem; display: flex; justify-content: center; gap: 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
-        nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; }
-        .container { max-width: 800px; margin: 2rem auto; background: white; padding: 40px 50px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .post-header { border-bottom: 2px solid var(--primary-color); margin-bottom: 30px; padding-bottom: 20px; }
-        h1 { color: var(--primary-color); font-size: 1.8rem; word-break: keep-all; }
-        .highlight-box { background: #fff3f3; border-left: 5px solid var(--accent-color); padding: 20px; margin: 30px 0; font-weight: 500; }
-        h2 { border-left: 5px solid var(--primary-color); padding-left: 15px; margin-top: 40px; font-size: 1.4rem; }
-        .cta-button { display: block; width: fit-content; margin: 40px auto; padding: 15px 35px; background: var(--primary-color); color: white; text-decoration: none; border-radius: 30px; font-weight: bold; transition: 0.3s; }
+
+        /* 2. 상단 헤더 & 네비게이션 (충돌 방지를 위해 클래스/ID 구체화) */
+        .main-header { 
+            background: var(--primary-color) !important; 
+            color: white !important; 
+            padding: 2.5rem 1rem; 
+            text-align: center; 
+        }
+        .main-header h1 { 
+            margin: 0; 
+            font-size: 2.5rem; 
+        }
+        .main-header h1 a { 
+            text-decoration: none; 
+            color: white !important; /* 강제로 흰색 지정 */
+            display: inline-block;
+        }
+        .main-header p { 
+            margin: 10px 0 0; 
+            color: rgba(255,255,255,0.8); 
+        }
+
+        .main-nav { 
+            background: white; 
+            padding: 1rem; 
+            display: flex; 
+            justify-content: center; 
+            gap: 2rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+        }
+        .main-nav a { 
+            text-decoration: none; 
+            color: var(--primary-color); 
+            font-weight: bold; 
+        }
+
+        /* 3. 본문 컨텐츠 스타일 */
+        .content-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            padding: 40px 50px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        
+        /* 칼럼 내부 제목 스타일 (헤더와 분리) */
+        .post-header {
+            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+        .post-header h2 { 
+            color: var(--primary-color); 
+            font-size: 1.8rem; 
+            margin-top: 10px;
+            border: none; /* 헤더 스타일 상속 방지 */
+            padding: 0;
+        }
+        .meta { color: #888; font-size: 0.85rem; }
+        
+        .highlight-box {
+            background: #fff3f3;
+            border-left: 5px solid var(--accent-color);
+            padding: 20px;
+            margin: 30px 0;
+            font-weight: 500;
+        }
+        
+        .content-container h3 { 
+            border-left: 5px solid var(--primary-color); 
+            padding-left: 15px; 
+            margin-top: 40px; 
+            font-size: 1.4rem; 
+            color: var(--primary-color);
+        }
+        
+        .cta-button {
+            display: block;
+            width: fit-content;
+            margin: 40px auto;
+            padding: 15px 35px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
         .cta-button:hover { background: var(--accent-color); transform: scale(1.05); }
+
         footer { text-align: center; padding: 4rem 1rem; color: #888; font-size: 0.9rem; border-top: 1px solid #ddd; margin-top: 50px; }
     </style>
 </head>
 <body>
-    <header>
+
+    <header class="main-header">
         <h1><a href="index.html">🧠 SKZ Brain Lab</a></h1>
         <p>뇌 과학 리포트 & 데이터 아카이브</p>
     </header>
-    <nav>
+
+    <nav class="main-nav">
         <a href="index.html">대시보드</a>
         <a href="game.html">훈련소</a>
         <a href="post1.html">칼럼</a>
     </nav>
-    <article class="container">
+
+    <article class="content-container">
         <div class="post-header">
             <div class="meta">카테고리: 뇌 과학 리포트 | 작성일: 2026. 02. 20</div>
-            <h1>스마트폰이 앗아간 지능: ‘역 플린 효과’와 멈춰버린 10대의 뇌</h1>
+            <h2>스마트폰이 앗아간 지능: ‘역 플린 효과’와 멈춰버린 10대의 뇌</h2>
         </div>
+
         <section>
-            <p>최근 전 세계 곳곳에서 지능 지수가 오히려 하락하는 <strong>‘역 플린 효과(Reverse Flynn Effect)’</strong>가 관측되고 있습니다.</p>
-            
+            <p>전 인류의 지능 지수(IQ)가 세대마다 3점씩 상승한다는 ‘플린 효과’는 이제 옛말이 되었습니다. 최근 전 세계 곳곳에서 지능 지수가 오히려 하락하는 <strong>‘역 플린 효과(Reverse Flynn Effect)’</strong>가 관측되고 있으며, 그 중심에는 스마트폰과 숏폼 콘텐츠가 있습니다.</p>
+
             <div class="highlight-box">
                 "디지털 기기의 과도한 사용은 전두엽 기능을 수동적으로 만들어, 깊은 사고력을 저해합니다."
             </div>
-            <h2>1. 팝콘 브레인 현상</h2>
-            <p>강렬한 자극에만 반응하고 일상의 잔잔한 자극에는 무감각해지는 현상을 말합니다.</p>
+
+            <h3>1. 팝콘 브레인 현상</h3>
+            <p>강렬한 자극에만 반응하고 일상의 잔잔한 자극에는 무감각해지는 현상을 말합니다. 전문가들은 숏폼 영상과 같은 즉각적인 보상이 뇌의 인지 구조를 단순화시킨다고 경고합니다.</p>
+
+            <h3>2. 해결책: 인지 가소성 회복</h3>
+            <p>뇌는 쓰면 쓸수록 발달합니다. 수동적인 시청보다는 능동적인 기억력 게임이나 독서와 같은 훈련을 통해 멈춰버린 뇌 세포를 다시 깨워야 합니다.</p>
+
             <a href="game.html" class="cta-button">지금 바로 내 뇌 깨우기 (훈련 시작)</a>
         </section>
     </article>
+
     <footer>
         <p>&copy; 2026 SKZ Brain Lab. All rights reserved.</p>
+        <p><a href="#" style="color:#888; text-decoration:none;">개인정보처리방침</a> | <a href="#" style="color:#888; text-decoration:none;">이용약관</a></p>
     </footer>
+
 </body>
 </html>
