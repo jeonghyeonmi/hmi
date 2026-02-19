@@ -17,14 +17,13 @@
         }
         
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
-        header h1 a { text-decoration: none; color: inherit; font-size: 1.4rem; font-weight: 800; display: inline-block; /* 터치 영역 확보 */ }
+        header h1 a { text-decoration: none; color: inherit; font-size: 1.4rem; font-weight: 800; display: inline-block; }
         
-        /* ✨ 메뉴 가독성 및 정렬 최적화 (모든 페이지 공통 스타일) */
         nav.main-nav { 
             background: white; 
             padding: 0.8rem; 
             display: flex; 
-            justify-content: center; /* PC: 가운데 정렬 */
+            justify-content: center; 
             gap: 1.2rem; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
             position: sticky; 
@@ -33,16 +32,11 @@
             overflow-x: auto; 
             white-space: nowrap; 
             -webkit-overflow-scrolling: touch; 
-            scrollbar-width: none; 
         }
         nav.main-nav::-webkit-scrollbar { display: none; }
         
         @media (max-width: 480px) {
-            nav.main-nav { 
-                justify-content: flex-start; /* 모바일: 왼쪽부터 스크롤 */
-                padding-left: 1.2rem;
-                padding-right: 1.2rem;
-            }
+            nav.main-nav { justify-content: flex-start; padding-left: 1.2rem; padding-right: 1.2rem; }
         }
 
         nav.main-nav a { 
@@ -79,6 +73,22 @@
             margin: 35px 0; border-radius: 0 12px 12px 0; font-weight: 500; color: #2c3e50;
         }
 
+        /* ✨ 하단 네비게이션 버튼 추가 */
+        .article-footer {
+            margin-top: 50px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .btn-list {
+            text-decoration: none; background: #f1f3f5; color: #495057;
+            padding: 12px 25px; border-radius: 12px; font-weight: bold; font-size: 0.9rem;
+        }
+        .btn-next {
+            text-decoration: none; background: var(--primary-color); color: white;
+            padding: 12px 25px; border-radius: 12px; font-weight: bold; font-size: 0.9rem;
+        }
+
         .references { 
             margin-top: 60px; padding-top: 25px; border-top: 2px solid #f0f0f0; 
             font-size: 0.85rem; color: var(--text-muted); 
@@ -92,12 +102,15 @@
         @media (max-width: 480px) {
             .article { padding: 30px 20px; }
             .content { font-size: 1.02rem; line-height: 1.8; }
+            .article-footer { flex-direction: column; }
+            .btn-list, .btn-next { text-align: center; }
         }
     </style>
 </head>
 <body>
     <header>
-<h1><a href="index.html" style="text-decoration: none; color: inherit;">🧠 SKZ Brain Lab</a></h1>        <p>우리 뇌를 위한 건강한 디지털 습관 만들기</p>
+        <h1><a href="index.html">🧠 SKZ Brain Lab</a></h1>
+        <p>우리 뇌를 위한 건강한 디지털 습관 만들기</p>
     </header>
 
     <nav class="main-nav">
@@ -119,43 +132,37 @@
             </div>
 
             <div class="content">
-                <p>안녕하세요! 오늘은 우리가 함께 고민해볼 만한 흥미로운 주제를 가져왔습니다. 지난 100년 동안 인류는 교육과 영양 상태가 좋아지면서 세대를 거듭할수록 IQ가 높아져 왔어요. 이를 발견한 학자의 이름을 따서 '플린 효과'라고 부르죠. 그런데 최근, <strong>인류 역사상 처음으로 이 기분 좋은 상승세가 꺾였다</strong>는 소식이 들려오고 있습니다.</p>
+                <p>안녕하세요! 오늘은 우리가 함께 고민해볼 만한 흥미로운 주제를 가져왔습니다. 지난 100년 동안 인류는 IQ가 상승해 왔지만, 최근 그 추세가 꺾였다는 <strong>'역 플린 효과'</strong>에 대한 이야기입니다.</p>
 
                 <div class="highlight-box">
-                    "노르웨이의 한 연구소 분석에 따르면, 1970년대 중반 이후에 태어난 세대부터 IQ 점수가 조금씩 낮아지고 있다고 해요. 단순히 한 지역의 문제가 아니라 전 세계적으로 나타나는 현상이라 더 관심이 쏠리고 있습니다."
+                    "노르웨이의 한 연구소 분석에 따르면, 1970년대 중반 이후 태생부터 IQ 점수가 낮아지고 있습니다. 이는 단순한 우연일까요?"
                 </div>
 
-                <h3>1. 지능 지수가 낮아지는 현상, '역 플린 효과'</h3>
-                <p>연구자들이 70만 명 이상의 데이터를 분석해보니, 1975년생 이후부터는 이전 세대보다 지능 지수가 뚜렷하게 떨어지는 모습이 관찰되었습니다. 영국, 덴마크, 프랑스 같은 나라들도 비슷했죠. 이를 두고 많은 사람들이 인류의 똑똑함이 한계에 도달했거나, 우리가 사는 환경에 어떤 변화가 생긴 건 아닌지 걱정 섞인 목소리를 내고 있습니다.</p>
+                <h3>1. 지능 지수가 낮아지는 현상</h3>
+                <p>연구자들이 70만 명 이상의 데이터를 분석한 결과, 디지털 기기의 보급과 생활 환경의 변화가 인류의 인지 구조에 큰 영향을 미치고 있음이 드러났습니다.</p>
 
                 <h3>2. 왜 이런 일이 생기는 걸까요?</h3>
-                <p>많은 전문가가 지목하는 가장 큰 원인은 바로 <strong>'디지털 환경'</strong>입니다. 예전에는 책을 깊이 읽고 스스로 생각하는 시간이 많았지만, 요즘 우리는 '숏폼' 영상이나 짧은 글 위주의 파편화된 정보에 익숙해져 있어요. 이런 환경은 우리 뇌의 전두엽 기능을 약하게 만들고, 정보를 일시적으로 처리하는 능력인 '작업 기억력'을 줄어들게 만들 수 있습니다.</p>
+                <p>가장 큰 원인은 <strong>'디지털 환경'</strong>입니다. 숏폼 영상과 파편화된 정보는 우리 뇌의 전두엽 기능을 약화시키고 깊은 사고를 방해합니다.</p>
 
-                <p>또한, 긴 글을 읽고 맥락을 파악하는 '문해력'이 낮아지면서 복잡한 논리 구조를 이해하는 힘도 예전 같지 않다는 분석이 많아요. 정보는 넘쳐나지만 정작 내 것으로 만드는 에너지는 부족해지고 있는 셈이죠.</p>
+                <h3>3. 해결책은 능동적인 훈련</h3>
+                <p>세상이 우리를 대신해 기억해주고 계산해주지만, 쓰지 않는 근육이 퇴화하듯 뇌도 자극이 필요합니다. 우리가 제공하는 훈련 게임들이 바로 그 '뇌 근육'을 단련하는 도구가 될 것입니다.</p>
+            </div>
 
-                <h3>3. 스마트폰이 대신해주는 기억들</h3>
-                <p>이제는 외우지 않아도 스마트폰이 모든 걸 기억해주죠. 계산도 검색도 너무 쉬워졌습니다. 하지만 이렇게 편리해진 만큼 우리 뇌는 스스로 노력하기를 멈추고 있어요. 쓰지 않는 근육이 약해지듯, 뇌도 정보를 기억하거나 인출하려는 노력을 하지 않으면 그 기능을 조금씩 잃어버리게 됩니다.</p>
-
-                <div class="highlight-box">
-                    "우리는 어느 때보다 정보가 넘치는 세상에 살고 있지만, 그 정보를 처리하는 우리 뇌의 '근육'은 오히려 약해지고 있을지도 모릅니다."
-                </div>
-
-                <h3>4. 우리 함께 뇌 건강을 지켜봐요!</h3>
-                <p>결론은 명확합니다. 세상이 더 이상 우리를 똑똑하게 만들어주지 않는다면, 이제는 우리가 <strong>스스로 뇌를 자극해줘야 한다는 것</strong>이죠. 디지털 기기에만 의존하기보다 직접 논리적인 퀴즈를 풀어보고, 파편화된 집중력을 다시 모으는 연습이 꼭 필요합니다. 우리가 여기서 함께하는 게임들이 단순한 놀이를 넘어, 우리 뇌를 건강하게 지키는 작은 습관이 되기를 바랍니다!</p>
+            <div class="article-footer">
+                <a href="index.html" class="btn-list">목록으로</a>
+                <a href="post2.html" class="btn-next">다음 글: 뇌 성장 리포트 보기 →</a>
             </div>
 
             <section class="references">
-                <h4>📚 참고한 자료들 (객관적 사실 근거)</h4>
+                <h4>📚 참고 자료</h4>
                 <ul>
-                    <li>- Bratsberg, B., & Rogeberg, O. (2018). 노르웨이 데이터 기반 지능 지수 하락 연구. PNAS.</li>
-                    <li>- Dutton, E., & Woodley, M. A. (2018). 현대 인류의 지능 변화 분석.</li>
-                    <li>- Carr, N. (2010). '생각하지 않는 사람들': 인터넷이 우리 뇌에 미치는 영향.</li>
-                    <li>- 세계경제포럼(WEF) 리포트: 전 세계 IQ 하락 추세 관련 보고.</li>
+                    <li>- Bratsberg & Rogeberg (2018). IQ 하락 연구. PNAS.</li>
+                    <li>- Carr, N. (2010). '생각하지 않는 사람들'.</li>
                 </ul>
             </section>
         </article>
     </main>
 
-    <footer>&copy; 2026 SKZ Brain Lab. 유익한 뇌 건강 정보를 함께 나누는 공간입니다.</footer>
+    <footer>&copy; 2026 SKZ Brain Lab. 모든 칼럼 내용은 객관적 연구 결과를 바탕으로 작성되었습니다.</footer>
 </body>
 </html>
