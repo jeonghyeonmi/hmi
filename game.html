@@ -3,141 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKZ Brain Lab | 디지털 치매 예방 프로젝트</title>
+    <title>카드 매칭 훈련 | SKZ Brain Lab</title>
     <style>
-        :root {
-            --primary-color: #1a3a5f;
-            --secondary-color: #f4f7f9;
-            --accent-color: #3498db;
-            --text-color: #333;
+        :root { 
+            --primary-color: #1a3a5f; 
+            --bg-color: #f4f7f9; 
+            --accent-color: #3498db; 
         }
-        body { font-family: 'Pretendard', sans-serif; background-color: var(--secondary-color); margin: 0; }
-        header { background-color: var(--primary-color); color: white; padding: 2rem; text-align: center; }
-        nav { display: flex; justify-content: center; gap: 20px; background: #fff; padding: 15px; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 100; }
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; }
+        
+        /* 공통 스타일 유지 (헤더/나비/푸터용) */
+        header { background: var(--primary-color); color: white; padding: 2.5rem 1rem; text-align: center; }
+        nav { background: white; padding: 1rem; display: flex; justify-content: center; gap: 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
         nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; }
-        header h1 a {
-    transition: opacity 0.3s;
-}
-header h1 a:hover {
-    opacity: 0.8;
-}
+        footer { text-align: center; padding: 4rem 1rem; color: #888; font-size: 0.9rem; border-top: 1px solid #ddd; margin-top: 50px; }
 
-        main { max-width: 900px; margin: 20px auto; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .container { max-width: 800px; margin: 2rem auto; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; }
         
-        /* 게임 섹션 */
-        #game-section { text-align: center; padding: 40px 0; scroll-margin-top: 80px; }
-        .game-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; max-width: 450px; margin: 20px auto; }
-        
+        /* 게임 스타일 */
+        .game-info { margin-bottom: 30px; }
+        .game-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 12px; 
+            max-width: 400px; 
+            margin: 0 auto; 
+        }
         .card {
             aspect-ratio: 1 / 1;
             background-color: var(--primary-color);
-            border-radius: 10px;
+            border-radius: 8px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 2.5rem; color: transparent; cursor: pointer;
-            transition: transform 0.4s; transform-style: preserve-3d;
+            font-size: 2.2rem; color: transparent; cursor: pointer;
+            transition: transform 0.4s, background-color 0.3s;
         }
         .card.flipped { background-color: white; border: 2px solid var(--primary-color); color: var(--primary-color); transform: rotateY(180deg); }
-        .card.matched { background-color: #2ecc71; border-color: #2ecc71; color: white; cursor: default; visibility: visible; }
+        .card.matched { background-color: #2ecc71; border-color: #2ecc71; color: white; cursor: default; }
 
-        .btn-start { padding: 15px 40px; background: var(--accent-color); color: white; border: none; border-radius: 30px; font-size: 1.2rem; cursor: pointer; margin-bottom: 20px; transition: 0.3s; }
-        .btn-start:hover { background: var(--primary-color); transform: scale(1.05); }
-
-        footer { text-align: center; padding: 50px; color: #888; font-size: 0.9rem; }
+        .btn-reset { 
+            padding: 12px 30px; 
+            background: var(--accent-color); 
+            color: white; 
+            border: none; 
+            border-radius: 25px; 
+            font-size: 1rem; 
+            cursor: pointer; 
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        
+        .description-box {
+            margin-top: 40px;
+            text-align: left;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <h1><a href="index.html" style="text-decoration: none; color: inherit;">🧠 SKZ Brain Lab</a></h1>
-    <p>디지털 피로에 지친 당신의 뇌를 위한 맞춤형 대시보드</p>
-</header>
+    <div id="header-container"></div>
 
-<nav>
-    <a href="index.html">홈</a>
-    <a href="#game-section">기억력 게임</a>
-    <a href="post1.html">뇌 과학 칼럼</a>
-</nav>
+    <main class="container">
+        <div class="game-info">
+            <h2>기억력 강화: 카드 매칭</h2>
+            <p>짝이 맞는 카드를 찾아 클릭하세요. 뇌의 <b>작업 기억력</b>을 활성화합니다.</p>
+        </div>
 
-<main>
-    <div id="game-section">
-        <h2>기억력 강화: 단계별 카드 매칭</h2>
-        <p>16개의 카드 짝을 맞추며 당신의 전두엽을 자극하세요.</p>
-        <button class="btn-start" onclick="resetGame()">게임 시작 / 초기화</button>
-        
-        <div class="game-container" id="gameBoard">
+        <div class="game-grid" id="gameBoard">
             </div>
-    </div>
-</main>
 
-<footer>
-    <p>&copy; 2026 SKZ Brain Lab. All rights reserved.</p>
-    <p><a href="#">개인정보처리방침</a> | <a href="#">이용약관</a></p>
-</footer>
+        <button class="btn-reset" onclick="resetGame()">게임 다시 시작</button>
 
-<script>
-    const emojis = ['🍎', '🍎', '🍋', '🍋', '⭐', '⭐', '🎈', '🎈', '🍀', '🍀', '💎', '💎', '🔥', '🔥', '🌈', '🌈'];
-    let flippedCards = [];
-    let matchedCards = [];
-    let isProcessing = false;
+        <section class="description-box">
+            <h3>이 게임이 뇌에 주는 영향</h3>
+            <p>카드 매칭 게임은 시각 정보를 일시적으로 저장하고 처리하는 <strong>'시공간 잡기장(Visuospatial Sketchpad)'</strong> 능력을 훈련시킵니다. 이는 일상생활에서 길을 찾거나, 복잡한 정보를 구조화할 때 사용되는 핵심 인지 기능입니다.</p>
+            <p>매일 5분의 훈련으로 팝콘 브레인 현상을 방지하고 인지적 유연성을 확보하세요.</p>
+        </section>
+    </main>
 
-    function shuffle(array) { return array.sort(() => Math.random() - 0.5); }
+    <div id="footer-container"></div>
 
-    function createBoard() {
-        const gameBoard = document.getElementById('gameBoard');
-        gameBoard.innerHTML = '';
-        const shuffledEmojis = shuffle([...emojis]);
-
-        shuffledEmojis.forEach((emoji, index) => {
-            const card = document.createElement('div');
-            card.classList.add('card');
-            card.dataset.emoji = emoji;
-            card.innerText = emoji;
-            card.onclick = () => flipCard(card);
-            gameBoard.appendChild(card);
-        });
-    }
-
-    function flipCard(card) {
-        if (isProcessing || flippedCards.length >= 2 || card.classList.contains('flipped') || card.classList.contains('matched')) return;
-
-        card.classList.add('flipped');
-        flippedCards.push(card);
-
-        if (flippedCards.length === 2) {
-            isProcessing = true;
-            checkMatch();
+    <script>
+        // 1. 공통 요소 로드 스크립트
+        function loadHTML(id, filename) {
+            fetch(filename)
+                .then(response => response.text())
+                .then(data => { document.getElementById(id).innerHTML = data; });
         }
-    }
+        loadHTML('header-container', 'header.html');
+        loadHTML('footer-container', 'footer.html');
 
-    function checkMatch() {
-        const [card1, card2] = flippedCards;
-        if (card1.dataset.emoji === card2.dataset.emoji) {
-            card1.classList.add('matched');
-            card2.classList.add('matched');
-            matchedCards.push(card1, card2);
-            flippedCards = [];
-            isProcessing = false;
-            if (matchedCards.length === emojis.length) {
-                setTimeout(() => alert('완벽합니다! 뇌 세포가 활성화되었습니다.'), 500);
+        // 2. 카드 게임 로직
+        const emojis = ['🧠', '🧠', '⚡', '⚡', '💡', '💡', '🔥', '🔥', '🚀', '🚀', '🌈', '🌈', '💎', '💎', '🍀', '🍀'];
+        let flippedCards = [];
+        let matchedCards = [];
+        let isProcessing = false;
+
+        function shuffle(array) { return array.sort(() => Math.random() - 0.5); }
+
+        function createBoard() {
+            const gameBoard = document.getElementById('gameBoard');
+            gameBoard.innerHTML = '';
+            const shuffledEmojis = shuffle([...emojis]);
+            shuffledEmojis.forEach((emoji) => {
+                const card = document.createElement('div');
+                card.classList.add('card');
+                card.dataset.emoji = emoji;
+                card.innerText = emoji;
+                card.onclick = () => flipCard(card);
+                gameBoard.appendChild(card);
+            });
+        }
+
+        function flipCard(card) {
+            if (isProcessing || flippedCards.length >= 2 || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+            card.classList.add('flipped');
+            flippedCards.push(card);
+            if (flippedCards.length === 2) {
+                isProcessing = true;
+                checkMatch();
             }
-        } else {
-            setTimeout(() => {
-                card1.classList.remove('flipped');
-                card2.classList.remove('flipped');
-                flippedCards = [];
-                isProcessing = false;
-            }, 800);
         }
-    }
 
-    function resetGame() {
-        matchedCards = [];
-        flippedCards = [];
-        createBoard();
-    }
-
-    // 초기 실행
-    createBoard();
-</script>
-</body>
-</html>
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            if (card1.dataset.emoji
