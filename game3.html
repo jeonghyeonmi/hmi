@@ -165,41 +165,43 @@
             }
         }
 
-        function endGame() {
-    gameActive = false;
-    clearInterval(timerInterval);
+    function endGame() {
+            gameActive = false;
+            clearInterval(timerInterval);
 
-    // 🏆 등급 판정 로직 추가
-    let grade = "";
-    if (score >= 40) grade = "신인류의 뇌 👽";
-    else if (score >= 30) grade = "판단력 만렙 ⚡";
-    else if (score >= 20) grade = "명석한 두뇌 🧠";
-    else if (score >= 10) grade = "평범한 일반인 👤";
-    else grade = "뇌가 졸고 있음 🥱";
+            // 🏆 등급 판정 로직
+            let grade = "";
+            if (score >= 40) grade = "신인류의 뇌 👽";
+            else if (score >= 30) grade = "판단력 만렙 ⚡";
+            else if (score >= 20) grade = "명석한 두뇌 🧠";
+            else if (score >= 10) grade = "평범한 일반인 👤";
+            else grade = "뇌가 졸고 있음 🥱";
 
-    const now = new Date();
-    const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
-    let history = JSON.parse(localStorage.getItem('judgeHistory')) || [];
-    let best = history.length > 0 ? Math.max(...history.map(h => h.score)) : 0;
+            const now = new Date();
+            const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
+            let history = JSON.parse(localStorage.getItem('judgeHistory')) || [];
+            let best = history.length > 0 ? Math.max(...history.map(h => h.score)) : 0;
 
-    // 알림창에 등급 표시
-    if (score > best && best > 0) {
-        alert(`🎉 최고 기록 경신!\n등급: ${grade}\n기록: ${score}개`);
-    } else {
-        alert(`훈련 종료!\n등급: ${grade}\n기록: ${score}개`);
-    }
-
-    history.unshift({ date: dateStr, score });
-    localStorage.setItem('judgeHistory', JSON.stringify(history.slice(0, 10)));
-    // 💡 [추가] 리포트 페이지를 위한 판단력 점수 저장
-    // 50점을 만점 기준으로 보고 100점 만점으로 환산 (점수 * 2)
-    const reportScore = Math.min(100, score * 2); 
-    localStorage.setItem('game3_score', reportScore);
+            // 기록 저장
+            history.unshift({ date: dateStr, score });
+            localStorage.setItem('judgeHistory', JSON.stringify(history.slice(0, 10)));
             
-    displayHistory();
-    document.getElementById('word-display').innerText = "RESTART";
-}
+            // 💡 [추가] 리포트 페이지를 위한 판단력 점수 저장 (50개 기준 100점 환산)
+            const reportScore = Math.min(100, score * 2); 
+            localStorage.setItem('game3_score', reportScore);
 
+            // 🏆 [핵심 수정] 알림 및 리포트 이동 여부 묻기
+            let resultMsg = score > best && best > 0 
+                ? `🎉 최고 기록 경신!\n등급: ${grade}\n기록: ${score}개\n\n`
+                : `훈련 종료!\n등급: ${grade}\n기록: ${score}개\n\n`;
+
+            if (confirm(resultMsg + "지금 바로 분석 리포트를 확인하시겠습니까?")) {
+                location.href = 'report.html';
+            } else {
+                displayHistory();
+                document.getElementById('word-display').innerText = "RESTART";
+            }
+        }
         function displayHistory() {
             const body = document.getElementById('rankingBody');
             const history = JSON.parse(localStorage.getItem('judgeHistory')) || [];
