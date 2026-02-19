@@ -20,7 +20,6 @@
 
         .container { max-width: 650px; margin: 2rem auto; padding: 25px; background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; }
         
-        /* 규칙 설명 섹션 */
         .rule-box { 
             background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 25px; 
             text-align: left; border-left: 5px solid var(--accent-color); 
@@ -35,7 +34,6 @@
 
         #timer { font-size: 2.2rem; font-weight: 800; color: var(--primary-color); margin: 10px 0; display: block; }
 
-        /* 그리드 공통 */
         .sudoku-grid { 
             display: grid; 
             margin: 25px auto; 
@@ -46,16 +44,16 @@
         }
 
         .cell { 
-            width: 45px; height: 45px; background: white; 
+            width: 50px; height: 50px; background: white; 
             display: flex; align-items: center; justify-content: center; 
         }
         .cell input { 
             width: 100%; height: 100%; border: none; text-align: center; 
-            font-size: 1.2rem; font-weight: bold; color: var(--accent-color); outline: none; 
+            font-size: 1.4rem; font-weight: bold; color: var(--accent-color); outline: none; 
         }
-        .cell.fixed { background: #f1f3f5; font-weight: bold; color: #2c3e50; }
+        .cell.fixed { background: #f1f3f5; font-weight: bold; color: #2c3e50; font-size: 1.4rem; }
 
-        /* 9x9 마스터 단계: 3x3 박스 강조선 */
+        /* 9x9 박스 구분선 */
         .grid-9 .cell:nth-child(3n) { border-right: 3px solid var(--border-dark); }
         .grid-9 .cell:nth-child(9n) { border-right: none; }
         .grid-9 .cell:nth-child(n+19):nth-child(-n+27),
@@ -72,7 +70,7 @@
 <body>
     <header>
         <h1><a href="index.html">🧠 SKZ Brain Lab</a></h1>
-        <p>단계별 스도쿠: 논리적 사고로 전두엽을 훈련하세요</p>
+        <p>무한 랜덤 생성 시스템: 매번 새로운 논리 훈련</p>
     </header>
     <nav>
         <a href="index.html">대시보드</a>
@@ -83,11 +81,9 @@
     <main class="container">
         <section class="rule-box">
             <h3 id="rule-title">📝 스도쿠 규칙</h3>
-            <p id="rule-desc">가로와 세로 줄에 숫자가 중복되지 않게 채우는 논리 퍼즐입니다.</p>
-            <p id="rule-detail" class="rule-highlight">현재 규칙: 가로/세로 줄에 숫자가 겹치면 안 됩니다.</p>
+            <p id="rule-desc">가로 한 줄, 세로 한 줄에 똑같은 숫자가 들어갈 수 없습니다.</p>
+            <p id="rule-detail" class="rule-highlight">현재 규칙: 가로/세로 중복 금지</p>
         </section>
-
-        
 
         <div class="level-indicator">
             <div id="lv1" class="level-badge active">입문 (3x3)</div>
@@ -101,7 +97,7 @@
 
         <div class="btn-group">
             <button class="btn btn-check" onclick="checkSolution()">정답 확인</button>
-            <button id="nextBtn" class="btn btn-next" onclick="goToNextLevel()">성공! 다음 레벨 도전</button>
+            <button id="nextBtn" class="btn btn-next" onclick="goToNextLevel()">다음 레벨 도전</button>
         </div>
     </main>
     <footer>&copy; 2026 SKZ Brain Lab.</footer>
@@ -111,48 +107,28 @@
         let startTime, timerInterval, gameStarted = false;
         let currentSolution = [];
 
-        // 검증된 퍼즐 패턴 데이터 (중복 오류 원천 차단)
-        const levels = {
-            1: { 
-                size: 3, 
-                title: "📝 입문 단계 규칙",
-                desc: "가장 기초적인 단계입니다. 가로와 세로 줄에 1, 2, 3이 한 번씩만 들어가야 합니다.",
-                patterns: [
-                    { p: [[1,0,3],[0,2,0],[2,0,1]], s: [[1,2,3],[3,2,1],[2,1,3]] },
-                    { p: [[0,2,0],[1,0,3],[0,0,0]], s: [[3,2,1],[1,2,3],[2,1,3]] }
-                ]
-            },
-            2: { 
-                size: 5, 
-                title: "🚀 초보 단계 규칙",
-                desc: "조금 더 복잡해졌습니다. 가로와 세로 줄에 1부터 5까지 중복 없이 배치하세요.",
-                patterns: [
-                    { 
-                        p: [[1,0,0,0,5],[0,2,0,4,0],[0,0,3,0,0],[0,4,0,2,0],[5,0,0,0,1]], 
-                        s: [[1,3,2,4,5],[5,2,1,4,3],[4,5,3,1,2],[3,4,5,2,1],[2,1,4,3,5]] 
-                    }
-                ]
-            },
-            3: { 
-                size: 9, 
-                title: "👑 마스터 단계 규칙",
-                desc: "정식 스도쿠입니다. 가로, 세로뿐만 아니라 <span class='rule-highlight'>굵은 선 안의 3x3 박스</span>에도 숫자가 겹치면 안 됩니다.",
-                puzzle: [
-                    [5,3,0,0,7,0,0,0,0], [6,0,0,1,9,5,0,0,0], [0,9,8,0,0,0,0,6,0],
-                    [8,0,0,0,6,0,0,0,3], [4,0,0,8,0,3,0,0,1], [7,0,0,0,2,0,0,0,6],
-                    [0,6,0,0,0,0,2,8,0], [0,0,0,4,1,9,0,0,5], [0,0,0,0,8,0,0,7,9]
-                ]
-            }
+        const levelConfigs = {
+            1: { size: 3, title: "📝 입문 (3x3)", desc: "가로/세로 각 줄에 1, 2, 3이 단 하나씩만 있어야 합니다." },
+            2: { size: 5, title: "🚀 초보 (5x5)", desc: "가로/세로 각 줄에 1부터 5까지 중복 없이 채우세요." },
+            3: { size: 9, title: "👑 마스터 (9x9)", desc: "가로, 세로, 3x3 박스까지 모두 중복이 없어야 합니다." }
         };
 
-        function solve9x9(board) {
-            for (let r = 0; r < 9; r++) {
-                for (let c = 0; c < 9; c++) {
+        // 핵심: 숫자를 랜덤하게 섞어서 정답 판을 만드는 로직
+        function generateRandomSudoku(size) {
+            let board = Array.from({ length: size }, () => Array(size).fill(0));
+            solveSudoku(board, size);
+            return board;
+        }
+
+        function solveSudoku(board, size) {
+            for (let r = 0; r < size; r++) {
+                for (let c = 0; c < size; c++) {
                     if (board[r][c] === 0) {
-                        for (let n = 1; n <= 9; n++) {
-                            if (isValid9x9(board, r, c, n)) {
+                        let nums = Array.from({ length: size }, (_, i) => i + 1).sort(() => Math.random() - 0.5);
+                        for (let n of nums) {
+                            if (isValid(board, r, c, n, size)) {
                                 board[r][c] = n;
-                                if (solve9x9(board)) return true;
+                                if (solveSudoku(board, size)) return true;
                                 board[r][c] = 0;
                             }
                         }
@@ -163,41 +139,52 @@
             return true;
         }
 
-        function isValid9x9(board, r, c, n) {
-            for (let i = 0; i < 9; i++) if (board[r][i] === n || board[i][c] === n) return false;
-            let sr = r - r % 3, sc = c - c % 3;
-            for (let i = 0; i < 3; i++)
-                for (let j = 0; j < 3; j++)
-                    if (board[i + sr][j + sc] === n) return false;
+        function isValid(board, r, c, n, size) {
+            // 가로 세로 검사
+            for (let i = 0; i < size; i++) {
+                if (board[r][i] === n || board[i][c] === n) return false;
+            }
+            // 9x9일 때만 3x3 박스 검사
+            if (size === 9) {
+                let sr = r - r % 3, sc = c - c % 3;
+                for (let i = 0; i < 3; i++)
+                    for (let j = 0; j < 3; j++)
+                        if (board[i + sr][j + sc] === n) return false;
+            }
             return true;
         }
 
         function initGame() {
             const boardElement = document.getElementById('sudokuBoard');
-            const config = levels[currentLevel];
+            const config = levelConfigs[currentLevel];
+            const size = config.size;
             
             document.getElementById('rule-title').innerText = config.title;
             document.getElementById('rule-desc').innerHTML = config.desc;
+            document.getElementById('rule-detail').innerText = `현재 규칙: 1~${size} 중복 금지`;
 
-            boardElement.style.gridTemplateColumns = `repeat(${config.size}, 1fr)`;
-            boardElement.className = `sudoku-grid grid-${config.size}`;
+            boardElement.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+            boardElement.className = `sudoku-grid grid-${size}`;
             boardElement.innerHTML = '';
 
-            let p, s;
-            if (currentLevel < 3) {
-                const rand = Math.floor(Math.random() * config.patterns.length);
-                p = config.patterns[rand].p;
-                s = config.patterns[rand].s;
-            } else {
-                p = config.puzzle;
-                let temp = p.map(row => [...row]);
-                solve9x9(temp);
-                s = temp;
+            // 1. 완벽한 정답 판 생성
+            currentSolution = generateRandomSudoku(size);
+            
+            // 2. 사용자용 퍼즐 생성 (일부 칸 비우기)
+            // 난이도 조절: 약 40~50% 칸을 비움
+            let puzzle = currentSolution.map(row => [...row]);
+            let cellsToRemove = Math.floor(size * size * 0.5); 
+            while (cellsToRemove > 0) {
+                let r = Math.floor(Math.random() * size);
+                let c = Math.floor(Math.random() * size);
+                if (puzzle[r][c] !== 0) {
+                    puzzle[r][c] = 0;
+                    cellsToRemove--;
+                }
             }
 
-            currentSolution = s;
-
-            p.forEach((row, r) => {
+            // 3. 화면 그리기
+            puzzle.forEach((row, r) => {
                 row.forEach((val, c) => {
                     const cell = document.createElement('div');
                     cell.classList.add('cell');
@@ -206,8 +193,11 @@
                         cell.classList.add('fixed');
                     } else {
                         const input = document.createElement('input');
-                        input.type = 'tel';
-                        input.oninput = startTimer;
+                        input.type = 'number';
+                        input.oninput = (e) => {
+                            if(e.target.value.length > 1) e.target.value = e.target.value.slice(0,1);
+                            startTimer();
+                        };
                         cell.appendChild(input);
                     }
                     boardElement.appendChild(cell);
@@ -228,25 +218,30 @@
 
         function checkSolution() {
             const cells = document.querySelectorAll('.cell');
-            const size = levels[currentLevel].size;
+            const size = levelConfigs[currentLevel].size;
             let isCorrect = true;
             let idx = 0;
 
             for (let r = 0; r < size; r++) {
                 for (let c = 0; c < size; c++) {
                     const cell = cells[idx++];
-                    const val = cell.classList.contains('fixed') ? parseInt(cell.innerText) : parseInt(cell.querySelector('input').value);
-                    if (isNaN(val) || val !== currentSolution[r][c]) isCorrect = false;
+                    let userVal = cell.classList.contains('fixed') ? 
+                                  parseInt(cell.innerText) : 
+                                  parseInt(cell.querySelector('input').value);
+                    
+                    if (isNaN(userVal) || userVal !== currentSolution[r][c]) {
+                        isCorrect = false;
+                    }
                 }
             }
 
             if (isCorrect) {
                 clearInterval(timerInterval);
-                alert(`✨ 레벨 ${currentLevel} 클리어!`);
+                alert(`🎊 성공! 레벨 ${currentLevel} 클리어!`);
                 if (currentLevel < 3) document.getElementById('nextBtn').style.display = 'block';
-                else alert("🏆 축하합니다! 모든 단계를 마스터하셨습니다.");
+                else alert("🏆 마스터 단계를 완수하셨습니다!");
             } else {
-                alert("규칙에 어긋나는 숫자가 있거나 빈칸이 있습니다.");
+                alert("중복이 있거나 정답이 아닙니다. 다시 생각해보세요!");
             }
         }
 
