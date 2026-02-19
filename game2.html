@@ -79,30 +79,42 @@
         <a href="post1.html">브레인 분석실</a>
     </nav>
 
-    <main class="container">
-        <div class="level-indicator">
-            <div id="lv1" class="level-badge active" onclick="changeLevel(1)">Lv.1 기초</div>
-            <div id="lv2" class="level-badge" onclick="changeLevel(2)">Lv.2 중급</div>
-            <div id="lv3" class="level-badge" onclick="changeLevel(3)">Lv.3 마스터</div>
-        </div>
-        
-        <span id="timer">0.00</span>
-        
-        <div id="sudokuBoard" class="sudoku-grid grid-9"></div>
-        
-        <button class="btn-check" onclick="validateUserSolution()">결과 분석 및 랭킹 등록</button>
+  <main class="container">
+    <div class="level-indicator">
+        <div id="lv1" class="level-badge active" onclick="changeLevel(1)">Lv.1 기초</div>
+        <div id="lv2" class="level-badge" onclick="changeLevel(2)">Lv.2 중급</div>
+        <div id="lv3" class="level-badge" onclick="changeLevel(3)">Lv.3 마스터</div>
+    </div>
 
-        <div class="ranking-container">
-            <div class="ranking-title">🏆 실시간 논리력 TOP 10</div>
-            <table class="rank-table">
-                <thead>
-                    <tr><th>순위</th><th>아이디</th><th>기록</th></tr>
-                </thead>
-                <tbody id="rankingBody">
-                    </tbody>
-            </table>
-        </div>
+    <div class="game-guide">
+        <strong>📝 훈련 규칙:</strong> 가로, 세로 9칸 줄과 굵은 선으로 구분된 3x3 박스 안에 <strong>1부터 9까지의 숫자</strong>를 중복 없이 모두 채워 넣으세요. 모든 칸을 채운 후 '결과 분석' 버튼을 누르면 기록이 등록됩니다.
+    </div>
+    
+    <span id="timer">0.00</span>
+    
+    <div id="sudokuBoard" class="sudoku-grid grid-9"></div>
     </main>
+
+<style>
+    /* 가이드 박스 스타일링 (CSS에 추가) */
+    .game-guide {
+        background: #f0f7ff;
+        border-radius: 12px;
+        padding: 12px 15px;
+        font-size: 0.82rem;
+        line-height: 1.5;
+        color: #444;
+        margin-bottom: 15px;
+        text-align: left;
+        word-break: keep-all;
+        border-left: 4px solid var(--accent-color);
+    }
+    .game-guide strong {
+        color: var(--primary-color);
+        display: block;
+        margin-bottom: 3px;
+    }
+</style>
 
     <footer>&copy; 2026 SKZ Brain Lab.</footer>
 
