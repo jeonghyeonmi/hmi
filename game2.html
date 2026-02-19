@@ -141,10 +141,14 @@
                 let rowSet = new Set(), colSet = new Set();
                 for(let j=0; j<size; j++) {
                     // 가로 체크
-                    if(rowSet.has(boardData[i][j]) || boardData[i][j] < 1 || boardData[i][j] > size) { alert("가로 줄에 중복되거나 잘못된 숫자가 있습니다!"); return; }
+                    if(rowSet.has(boardData[i][j]) || boardData[i][j] < 1 || boardData[i][j] > size) { 
+                        alert("가로 줄에 중복되거나 잘못된 숫자가 있습니다!"); return; 
+                    }
                     rowSet.add(boardData[i][j]);
                     // 세로 체크
-                    if(colSet.has(boardData[j][i])) { alert("세로 줄에 중복된 숫자가 있습니다!"); return; }
+                    if(colSet.has(boardData[j][i])) { 
+                        alert("세로 줄에 중복된 숫자가 있습니다!"); return; 
+                    }
                     colSet.add(boardData[j][i]);
                 }
             }
@@ -153,21 +157,24 @@
             clearInterval(timerInterval);
             const time = parseFloat(document.getElementById('timer').innerText);
 
-            // --- 💡 [리포트용 데이터 저장 시작] ---
-            // 레벨당 기본 점수(Lv1:20점, Lv2:40점...) + 시간 보너스(60초 기준)
+            // 💡 [리포트용 데이터 저장]
             let logicScore = (currentLevel * 20) + Math.max(0, Math.floor(20 - (time / 5)));
-            // 최대 100점이 넘지 않도록 제한
             logicScore = Math.min(100, logicScore);
             localStorage.setItem('game2_score', logicScore);
-            // --- 💡 [리포트용 데이터 저장 끝] ---
             
             const now = new Date();
             const info = `${now.getMonth()+1}/${now.getDate()} (Lv.${currentLevel})`;
             let history = JSON.parse(localStorage.getItem('sudokuHistory')) || [];
             history.unshift({ info, time });
             localStorage.setItem('sudokuHistory', JSON.stringify(history.slice(0, 10)));
-            alert(`🎉 정답입니다! 기록: ${time}초`);
-            displayHistory(); initGame();
+
+            // 🏆 [핵심 수정] 리포트 이동 여부 묻기
+            if (confirm(`🎉 정답입니다!\n기록: ${time}초\n\n지금 바로 분석 리포트를 확인하시겠습니까?`)) {
+                location.href = 'report.html';
+            } else {
+                displayHistory(); 
+                initGame();
+            }
         }
 
         function displayHistory() {
