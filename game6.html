@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>동물 인지 훈련 | SKZ Brain Lab</title>
+    <style>
+        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; }
+        header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
+        header h1 a { text-decoration: none; color: inherit; font-size: 1.4rem; font-weight: 800; }
+        
+        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow-x: auto; white-space: nowrap; position: sticky; top: 0; z-index: 1000; }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+        
+        .sub-nav { display: flex; justify-content: center; gap: 10px; padding: 12px 0; background: #fff; border-bottom: 1px solid #eee; font-size: 0.7rem; }
+        .sub-nav a { text-decoration: none; color: #aaa; }
+        .sub-nav a.active { color: var(--accent-color); font-weight: bold; }
+
+        .container { width: 94%; max-width: 450px; margin: 1.5rem auto; padding: 25px; background: white; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.04); text-align: center; }
+        
+        .game-guide { background: #fff5e6; border-left: 4px solid var(--accent-color); padding: 15px; font-size: 0.85rem; text-align: left; margin-bottom: 20px; line-height: 1.4; color: #6e2c00; }
+
+        /* 중앙 동물 전시 영역 */
+        .display-area { background: #fdfefe; border: 2px solid #eee; border-radius: 20px; padding: 20px; margin: 20px 0; position: relative; }
+        .target-text { font-size: 1.2rem; font-weight: bold; color: #888; margin-bottom: 10px; }
+        .target-emoji { font-size: 5rem; margin: 10px 0; transition: transform 0.1s; }
+        
+        /* 동물 선택 버튼 그리드 */
+        .animal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+        .animal-btn { background: white; border: 2px solid #eee; border-radius: 15px; padding: 15px 5px; cursor: pointer; transition: 0.2s; }
+        .animal-btn:active { transform: scale(0.9); background: #fff5e6; }
+        .animal-btn .emoji { font-size: 2rem; display: block; margin-bottom: 5px; }
+        .animal-btn .label { font-size: 0.75rem; font-weight: bold; color: #555; }
+
+        .btn-start { width: 100%; max-width: 250px; padding: 16px; background: var(--accent-color); color: white; border: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem; cursor: pointer; box-shadow: 0 4px 15px rgba(211, 84, 0, 0.3); }
+        #score-panel { margin-top: 20px; font-weight: bold; color: var(--primary-color); font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+    <header><h1><a href="index.html">🧠 SKZ Brain Lab</a></h1></header>
+    
+    <nav class="main-nav">
+        <a href="index.html">홈</a>
+        <a href="game.html">집중력</a>
+        <a href="game2.html">논리력</a>
+        <a href="game3.html" style="color:var(--accent-color); border-bottom:2px solid var(--accent-color);">판단력</a>
+        <a href="post1.html">분석실</a>
+    </nav>
+
+    <div class="sub-nav">
+        <a href="game3.html">[순발력]</a>
+        <a href="game4.html">[기억력]</a>
+        <a href="game5.html">[수리판단]</a>
+        <a href="game6.html" class="active">[동물매칭]</a>
+    </div>
+
+    <main class="container">
+        <div class="game-guide">
+            <strong>🐾 훈련 규칙:</strong> 상단의 텍스트(이름)에 속지 마세요! 화면 중앙에 보이는 <strong>'진짜 동물 그림'</strong>을 아래 버튼에서 찾으세요.
+        </div>
+        
+        <div class="display-area">
+            <div id="target-name" class="target-text">READY</div>
+            <div id="target-emoji" class="target-emoji">🎮</div>
+        </div>
+        
+        <div class="animal-grid" id="game-ui" style="display: none;">
+            </div>
+        
+        <button id="startBtn" class="btn-start" onclick="startGame()">농장 문 열기 (시작)</button>
+        <div id="score-panel">맞춘 동물: 0마리</div>
+    </main>
+
+    <script>
+        const animals = [
+            { name: "사자", emoji: "🦁" },
+            { name: "호랑이", emoji: "🐯" },
+            { name: "판다", emoji: "🐼" },
+            { name: "토끼", emoji: "🐰" },
+            { name: "여우", emoji: "🦊" },
+            { name: "개구리", emoji: "🐸" }
+        ];
+
+        let score = 0, isGameActive = false, correctEmoji = "";
+
+        // 버튼 미리 생성
+        const ui = document.getElementById('game-ui');
+        animals.forEach(ani => {
+            const btn = document.createElement('button');
+            btn.className = 'animal-btn';
+            btn.onclick = () => checkAnswer(ani.emoji);
+            btn.innerHTML = `<span class="emoji">${ani.emoji}</span><span class="label">${ani.name}</span>`;
+            ui.appendChild(btn);
+        });
+
+        function startGame() {
+            score = 0; isGameActive = true;
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('game-ui').style.display = 'grid';
+            document.getElementById('score-panel').innerText = `맞춘 동물: ${score}마리`;
+            nextLevel();
+            
+            setTimeout(endGame, 30000); // 30초 게임
+        }
+
+        function nextLevel() {
+            if(!isGameActive) return;
+            
+            const textIdx = Math.floor(Math.random() * animals.length);
+            const emojiIdx = Math.floor(Math.random() * animals.length);
+            
+            document.getElementById('target-name').innerText = animals[textIdx].name;
+            document.getElementById('target-emoji').innerText = animals[emojiIdx].emoji;
+            
+            correctEmoji = animals[emojiIdx].emoji;
+        }
+
+        function checkAnswer(userChoice) {
+            if(!isGameActive) return;
+            if(userChoice === correctEmoji) {
+                score++;
+                document.getElementById('score-panel').innerText = `맞춘 동물: ${score}마리`;
+                nextLevel();
+            } else {
+                // 오답 시 흔들림 효과
+                const el = document.getElementById('target-emoji');
+                el.style.transform = "translateX(10px)";
+                setTimeout(() => el.style.transform = "translateX(0)", 50);
+            }
+        }
+
+        function endGame() {
+            isGameActive = false;
+            let grade = score >= 35 ? "동물 커뮤니케이터 👑" : score >= 20 ? "척척박사 🎓" : score >= 10 ? "일반인 👤" : "동물원 길치 🗺️";
+            alert(`훈련 종료!\n등급: ${grade}\n총 ${score}마리의 동물을 찾았습니다!`);
+            
+            document.getElementById('startBtn').style.display = 'inline-block';
+            document.getElementById('game-ui').style.display = 'none';
+            document.getElementById('target-name').innerText = "RESTART";
+            document.getElementById('target-emoji').innerText = "🎮";
+        }
+    </script>
+</body>
+</html>
