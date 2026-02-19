@@ -2,100 +2,122 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>분석실: 뇌 효율의 비밀 | SKZ Brain Lab</title>
     <style>
-        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; }
-        body { font-family: 'Pretendard', -apple-system, sans-serif; line-height: 1.7; color: #333; background-color: var(--bg-color); margin: 0; padding: 0; }
+        :root { 
+            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
+            --text-main: #2c3e50; --text-content: #34495e; --text-muted: #7f8c8d;
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { 
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif; 
+            line-height: 1.8; color: var(--text-main); background-color: var(--bg-color); margin: 0; padding: 0; 
+            letter-spacing: -0.01em;
+        }
         
-        header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; position: sticky; top: 0; z-index: 1000; }
-        header h1 { margin: 0; font-size: 1.3rem; }
+        header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
+        header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
 
-        nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+        /* 네비게이션 스타일 통합 */
+        nav.main-nav { 
+            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+            overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch;
+        }
+        nav.main-nav::-webkit-scrollbar { display: none; }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; flex-shrink: 0; }
+        nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
 
-        .container { max-width: 600px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .container { width: 94%; max-width: 750px; margin: 2rem auto; }
         
-        /* 텍스트 강조 스타일 */
-        .post-label { display: inline-block; background: #e8f0fe; color: #1967d2; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 1rem; }
-        h2 { font-size: 1.6rem; color: #1a1a1a; line-height: 1.4; margin-top: 0; }
-        mark { background: linear-gradient(120deg, #fff176 0%, #fff176 100%); padding: 0 3px; }
+        .article { background: white; padding: 45px 30px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.04); }
+        
+        .post-label { display: inline-block; background: #fff3e0; color: #e65100; padding: 4px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; margin-bottom: 15px; }
+        
+        h2 { font-size: clamp(1.5rem, 5vw, 2.2rem); color: var(--primary-color); line-height: 1.4; margin: 0 0 20px 0; word-break: keep-all; }
+        mark { background: linear-gradient(120deg, #fff176 0%, #fff176 100%); padding: 0 3px; border-radius: 4px; }
 
-        .intro { font-size: 1.1rem; color: #555; border-left: 4px solid var(--accent-color); padding-left: 1rem; margin: 1.5rem 0; }
+        .intro { font-size: 1.1rem; color: var(--text-content); border-left: 4px solid var(--accent-color); padding-left: 1.2rem; margin: 2rem 0; font-style: italic; }
         
-        h3 { font-size: 1.25rem; color: var(--primary-color); margin-top: 2rem; border-bottom: 2px solid #eee; padding-bottom: 0.5rem; }
+        .content { font-size: 1.08rem; color: var(--text-content); text-align: justify; }
+        h3 { font-size: 1.4rem; color: var(--primary-color); margin-top: 2.5rem; border-bottom: 2px solid #f0f0f0; padding-bottom: 0.5rem; }
         
-        .content-img { width: 100%; border-radius: 16px; margin: 1.5rem 0; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .card { background: #f8f9fa; padding: 1.5rem; border-radius: 16px; margin: 1.5rem 0; border: 1px solid #eee; position: relative; }
+        .card-title { font-weight: bold; color: var(--accent-color); margin-bottom: 0.8rem; display: block; font-size: 1.1rem; }
         
-        .card { background: #f8f9fa; padding: 1.5rem; border-radius: 16px; margin: 1.5rem 0; border: 1px solid #eee; }
-        .card-title { font-weight: bold; color: var(--accent-color); margin-bottom: 0.5rem; display: block; }
+        .tip-box { background: #fffde7; padding: 20px; border-radius: 16px; border: 1px dashed #ffd54f; margin: 2rem 0; }
         
-        .tip-box { background: #fff8e1; padding: 1.5rem; border-radius: 16px; border-left: 5px solid #ffc107; margin: 2rem 0; }
+        /* ✨ 하단 이동 버튼 */
+        .article-footer { margin-top: 50px; display: flex; gap: 10px; justify-content: center; }
+        .btn-list { text-decoration: none; background: #f1f3f5; color: #495057; padding: 12px 25px; border-radius: 12px; font-weight: bold; font-size: 0.9rem; }
+        .btn-game { text-decoration: none; background: var(--accent-color); color: white; padding: 12px 25px; border-radius: 12px; font-weight: bold; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(211, 84, 0, 0.2); }
+
+        footer { text-align: center; padding: 4rem 0; color: #bbb; font-size: 0.8rem; }
         
-        footer { text-align: center; padding: 2rem; color: #888; font-size: 0.9rem; }
-        
-        /* 모바일 대응 */
         @media (max-width: 480px) {
-            .container { margin: 0; border-radius: 0; padding: 1.5rem; }
-            h2 { font-size: 1.4rem; }
+            .article { padding: 30px 20px; }
+            .article-footer { flex-direction: column; }
+            .btn-list, .btn-game { text-align: center; }
         }
     </style>
 </head>
 <body>
 
-<header><h1><a href="index.html">🧠 SKZ Brain Lab</a></h1></header>
+<header>
+    <h1><a href="index.html">🧠 SKZ Brain Lab</a></h1>
+</header>
 
-<nav>
+<nav class="main-nav">
     <a href="index.html">홈</a>
-    <a href="game.html">훈련실</a>
-    <a href="post1.html" style="color:var(--accent-color); border-bottom:2px solid var(--accent-color);">분석실</a>
+    <a href="game.html">집중력</a>
+    <a href="game2.html">논리력</a>
+    <a href="game3.html">판단력</a>
+    <a href="post1.html" class="active">분석실</a>
 </nav>
 
-<article class="container">
-    <span class="post-label">분석 리포트 #02</span>
-    <h2>유튜브 보면서 게임하는 당신,<br><mark>뇌는 지금 '비명'을 지르고 있다?</mark></h2>
+<main class="container">
+    <article class="article">
+        <span class="post-label">브레인 분석 리포트 #02</span>
+        <h2>유튜브 보면서 게임하는 당신,<br><mark>뇌는 지금 '비명'을 지르고 있다?</mark></h2>
 
-    <p class="intro">혹시 지금 이 글을 읽으면서도 머릿속으로는 "이따가 뭐 먹지?"를 생각하거나, 한쪽 화면에는 유튜브를 틀어놓고 계신가요? 우리는 이것을 '능력'이라고 믿지만, 사실 당신의 뇌는 지금 심각한 과부하 상태입니다.</p>
+        <div class="intro">
+            "혹시 지금 이 글을 읽으면서도 머릿속으로는 다른 생각을 하거나, 한쪽 화면에는 유튜브를 틀어놓고 계신가요?"
+        </div>
 
-    <h3>1. 뇌는 '동시 접속'이 불가능하다!</h3>
-    <p>우리 뇌는 넷플릭스처럼 여러 영상을 동시에 스트리밍할 수 없습니다. 대신 <strong>엄청나게 빠른 속도로 화면을 '채널 돌리기'</strong> 하고 있을 뿐이죠.</p>
-    
-    <p>유튜브를 보다가 게임을 클릭하는 순간, 뇌는 유튜브 정보를 싹 지우고 게임 정보를 불러옵니다. 이 찰나의 순간에 소모되는 에너지는 평박한 집중 상태보다 몇 배나 더 큽니다.</p>
+        <div class="content">
+            <h3>1. 뇌는 '동시 접속'이 불가능하다</h3>
+            <p>우리 뇌는 여러 작업을 동시에 처리하는 것처럼 보이지만, 사실은 <strong>엄청나게 빠른 속도로 주의력을 전환</strong>하고 있는 것에 불과합니다. 이 전환 과정(Switching Cost)에서 발생하는 에너지 소모는 평상시보다 약 40% 이상 높습니다.</p>
+            
+            
 
-    <div class="card">
-        <span class="card-title">🚨 "나는 멀티태스킹 잘하는데?"</span>
-        <p>그건 뇌가 보내는 <strong>'가짜 도파민'</strong>에 속고 있는 것입니다. 연구에 따르면 멀티태스킹 시 업무 정확도는 40% 하락하고, 처리 시간은 오히려 50% 늘어납니다.</p>
-    </div>
+            <div class="card">
+                <span class="card-title">🚨 가짜 도파민의 함정</span>
+                <p>멀티태스킹을 할 때 우리는 '바쁘게 일하고 있다'는 만족감을 느끼지만, 이는 뇌가 보내는 <strong>착각</strong>입니다. 실제 업무 정확도는 심각하게 떨어지며, 창의적 사고는 멈추게 됩니다.</p>
+            </div>
 
-    <h3>2. 당신의 IQ가 '돌고래' 수준으로?</h3>
-    <p>런던 대학교의 연구 결과는 충격적입니다. 멀티태스킹 중인 사람의 IQ 하락 폭은 <strong>밤을 꼬박 새웠을 때나 대마초를 피웠을 때보다 더 심각(약 10~15점 하락)</strong>합니다. 지금 당신은 스스로 '일시적 바보' 모드를 선택한 셈입니다.</p>
-    
+            <h3>2. 일시적 IQ 하락 현상</h3>
+            <p>런던 대학교 연구에 따르면, 멀티태스킹 중인 사람의 IQ는 약 15점 정도 하락합니다. 이는 <strong>밤을 꼬박 새웠을 때의 인지 상태</strong>와 비슷합니다. 즉, 여러 일을 동시에 하려는 욕심이 당신을 잠시 '멍청하게' 만드는 셈이죠.</p>
 
-    <h3>3. 해결책: '뇌의 단일 접속 모드' 켜기</h3>
-    <p>뇌를 다시 똑똑하게 만드는 방법은 생각보다 간단합니다. 딱 10분만이라도 <strong>'하나'</strong>에만 집중하는 연습을 하세요.</p>
-    <ul>
-        <li><strong>탭 정리:</strong> 지금 안 보는 창은 과감히 끕니다.</li>
-        <li><strong>알림 오프:</strong> 뇌의 채널을 강제로 돌리는 주범입니다.</li>
-        <li><strong>멍 때리기:</strong> 뇌가 정보를 정리할 시간을 주세요.</li>
-    </ul>
+            <h3>3. 해결책: '딥 워크(Deep Work)'의 힘</h3>
+            <p>파편화된 집중력을 다시 모으는 연습이 필요합니다. 하루 딱 10분만이라도 모든 알림을 끄고 하나의 과제에만 몰입해 보세요. 뇌의 전두엽 근육이 다시 단단해지는 것을 느낄 수 있습니다.</p>
 
-    <div class="tip-box">
-        <strong>💡 오늘의 훈련 처방전</strong>
-        <p>SKZ Brain Lab의 <strong>[동물 인지]</strong>와 <strong>[수리 판단]</strong> 게임은 바로 이 '채널 전환 효율'을 높이고 집중력을 단련하기 위해 설계되었습니다. 오늘 훈련, 거르지 마세요!</p>
-    </div>
+            <div class="tip-box">
+                <strong>💡 오늘의 훈련 가이드</strong>
+                <p>멀티태스킹으로 지친 뇌를 위해 <strong>[동물 인지]</strong> 훈련을 추천합니다. 글자와 색상 사이의 방해 요인을 제거하고 정답을 찾아내는 과정은 당신의 뇌 채널 전환 효율을 비약적으로 높여줄 것입니다.</p>
+            </div>
+        </div>
 
-    <p style="text-align: center; font-weight: bold; color: var(--primary-color);">"진짜 고수는 여러 일을 벌이는 사람이 아니라,<br>지금 하는 일에 마침표를 찍을 줄 아는 사람입니다."</p>
-    <div style="text-align: center; margin-top: 3rem;">
-    <p style="font-size: 0.9rem; color: #666;">지금 내 '집중 채널' 속도를 테스트하고 싶다면?</p>
-    <a href="game6.html" style="display: inline-block; background: var(--accent-color); color: white; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(211, 84, 0, 0.3);">
-        🎯 동물 인지 훈련 바로가기
-    </a>
-</div>
-</article>
+        <div class="article-footer">
+            <a href="index.html" class="btn-list">전체 칼럼 보기</a>
+            <a href="game6.html" class="btn-game">🎯 인지력 강화 훈련 시작</a>
+        </div>
+    </article>
+</main>
 
 <footer>
-    &copy; 2026 SKZ Brain Lab. All rights reserved.
+    &copy; 2026 SKZ Brain Lab. 과학적 근거를 바탕으로 한 인지 훈련 콘텐츠를 제공합니다.
 </footer>
 
 </body>
