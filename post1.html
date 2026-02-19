@@ -7,36 +7,23 @@
     <style>
         :root {
             --primary-color: #1a3a5f;
-            --bg-color: #f8f9fa;
+            --bg-color: #f4f7f9;
             --text-color: #2c3e50;
             --accent-color: #e74c3c;
         }
-        body {
-            font-family: 'Pretendard', sans-serif;
-            line-height: 1.8;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 0;
-        }
-
-        /* 통일된 헤더 및 네비게이션 */
-        header { background: var(--primary-color); color: white; padding: 2rem 1rem; text-align: center; }
+        body { font-family: 'Pretendard', sans-serif; line-height: 1.8; color: var(--text-color); background-color: var(--bg-color); margin: 0; }
+        
+        /* 공통 스타일 (헤더/나비/푸터용) */
+        header { background: var(--primary-color); color: white; padding: 2.5rem 1rem; text-align: center; }
         nav { background: white; padding: 1rem; display: flex; justify-content: center; gap: 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
         nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; }
-        nav a:hover { color: var(--accent-color); }
-        header h1 a {
-    transition: opacity 0.3s;
-}
-header h1 a:hover {
-    opacity: 0.8;
-}
+        footer { text-align: center; padding: 4rem 1rem; color: #888; font-size: 0.9rem; border-top: 1px solid #ddd; margin-top: 50px; }
 
         .container {
             max-width: 800px;
             margin: 2rem auto;
             background: white;
-            padding: 40px 60px;
+            padding: 40px 50px;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
@@ -46,8 +33,8 @@ header h1 a:hover {
             margin-bottom: 30px;
             padding-bottom: 20px;
         }
-        h1 { color: var(--primary-color); font-size: 2rem; word-break: keep-all; margin-top: 10px; }
-        .meta { color: #888; font-size: 0.9rem; }
+        h1 { color: var(--primary-color); font-size: 1.8rem; word-break: keep-all; margin-top: 10px; }
+        .meta { color: #888; font-size: 0.85rem; }
         
         .highlight-box {
             background: #fff3f3;
@@ -57,10 +44,10 @@ header h1 a:hover {
             font-weight: 500;
         }
         
-        h2 { border-left: 5px solid var(--primary-color); padding-left: 15px; margin-top: 40px; }
+        h2 { border-left: 5px solid var(--primary-color); padding-left: 15px; margin-top: 40px; font-size: 1.4rem; }
         
         .citation {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #666;
             background: #eee;
             padding: 2px 5px;
@@ -71,14 +58,15 @@ header h1 a:hover {
             margin-top: 50px;
             padding: 20px;
             background: #f1f1f1;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             border-radius: 8px;
+            line-height: 1.6;
         }
         .cta-button {
             display: block;
             width: fit-content;
             margin: 40px auto;
-            padding: 15px 30px;
+            padding: 15px 35px;
             background: var(--primary-color);
             color: white;
             text-decoration: none;
@@ -87,58 +75,55 @@ header h1 a:hover {
             transition: 0.3s;
         }
         .cta-button:hover { background: var(--accent-color); transform: scale(1.05); }
-
-        footer { text-align: center; padding: 40px; font-size: 0.8rem; color: #888; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1><a href="index.html" style="text-decoration: none; color: inherit;">🧠 SKZ Brain Lab</a></h1>
-    <p>디지털 피로에 지친 당신의 뇌를 위한 맞춤형 대시보드</p>
-</header>
+    <div id="header-container"></div>
 
-<nav>
-    <a href="index.html">대시보드</a>
-    <a href="game.html">훈련소</a>
-    <a href="post1.html">칼럼</a>
-</nav>
-
-<div class="container">
-    <div class="post-header">
-        <div class="meta">카테고리: 뇌 과학 리포트 | 작성일: 2026. 02. 20</div>
-        <h1>스마트폰이 앗아간 지능: ‘역 플린 효과’와 멈춰버린 10대의 뇌</h1>
-    </div>
-
-    <section>
-        <p>전 인류의 지능 지수(IQ)가 세대마다 3점씩 상승한다는 ‘플린 효과’는 이제 옛말이 되었습니다. 최근 전 세계 곳곳에서 지능 지수가 오히려 하락하는 <strong>‘역 플린 효과(Reverse Flynn Effect)’</strong>가 관측되고 있으며, 그 중심에는 스마트폰과 숏폼 콘텐츠가 있습니다.</p>
-
-        
-
-        <div class="highlight-box">
-            "미국 노스웨스턴 대학교 연구팀의 조사 결과, 지난 20년간 미국인의 IQ 점수가 특정 영역에서 지속적으로 하락하는 추세가 확인되었습니다." <a href="#ref1" class="citation">[1]</a>
+    <article class="container">
+        <div class="post-header">
+            <div class="meta">카테고리: 뇌 과학 리포트 | 작성일: 2026. 02. 20</div>
+            <h1>스마트폰이 앗아간 지능: ‘역 플린 효과’와 멈춰버린 10대의 뇌</h1>
         </div>
 
-        <h2>1. 팝콘 브레인: 자극 없이는 반응하지 않는 뇌</h2>
-        <p>우리는 매일 평균 2시간 이상 유튜브 쇼츠, 인스타그램 릴스 등 1분 내외의 강력한 시각 자극에 노출됩니다. CNN 보도에 따르면, 이러한 환경은 뇌의 전두엽 발달을 저해하여 <strong>‘팝콘 브레인’</strong> 현상을 야기합니다. <a href="#ref2" class="citation">[2]</a></p>
+        <section>
+            <p>전 인류의 지능 지수(IQ)가 세대마다 3점씩 상승한다는 ‘플린 효과’는 이제 옛말이 되었습니다. 최근 전 세계 곳곳에서 지능 지수가 오히려 하락하는 <strong>‘역 플린 효과(Reverse Flynn Effect)’</strong>가 관측되고 있으며, 그 중심에는 스마트폰과 숏폼 콘텐츠가 있습니다.</p>
 
-        <h2>2. 해결책: 의도적인 '뇌 깨우기' 훈련</h2>
-        <p>멈춰버린 전두엽을 다시 깨우기 위해서는 <strong>능동적 인지 개입</strong>이 필요합니다. 단순히 정보를 수용하는 것이 아니라, 뇌가 직접 데이터를 분류하고, 기억하고, 대조하는 과정을 거쳐야 합니다.</p>
+            <div class="highlight-box">
+                "최근 연구 결과, 지난 20년간 특정 영역에서의 IQ 점수가 지속적으로 하락하는 추세가 확인되었습니다. 이는 환경적 요인, 특히 디지털 기기의 과도한 사용과 밀접한 관련이 있습니다." <a href="#ref1" class="citation">[1]</a>
+            </div>
 
-        <a href="game.html" class="cta-button">지금 바로 내 뇌 깨우기 (훈련 시작)</a>
-    </section>
+            <h2>1. 팝콘 브레인: 자극 없이는 반응하지 않는 뇌</h2>
+            <p>우리는 매일 수많은 숏폼 영상의 시각 자극에 노출됩니다. 전문가들은 이러한 환경이 뇌의 전두엽 발달을 저해하여 <strong>‘팝콘 브레인’</strong> 현상을 야기한다고 경고합니다. <a href="#ref2" class="citation">[2]</a> 팝콘이 터지듯 강렬한 자극에는 반응하지만, 깊은 사고가 필요한 영역에서는 뇌가 활성화되지 않는 것입니다.</p>
 
-    <div class="reference-list" id="references">
-        <strong>참고 문헌 및 출처:</strong><br>
-        <span id="ref1">[1] Northwestern University, "Looking for the Flynn effect in a modern online sample", Intelligence Journal.</span><br>
-        <span id="ref2">[2] CNN Health, "How 'Popcorn Brain' is reshaping our attention spans in the digital age".</span>
-    </div>
-</div>
+            <h2>2. 해결책: 의도적인 '능동적 인지 훈련'</h2>
+            <p>멈춰버린 뇌를 다시 깨우기 위해서는 수동적인 정보 수용에서 벗어나야 합니다. 직접 문제를 풀고, 기억을 더듬고, 정보를 조합하는 <strong>능동적 개입</strong>만이 뇌의 가소성을 회복시킬 수 있습니다.</p>
 
-<footer>
-    <p>&copy; 2026 SKZ Brain Lab. All rights reserved.</p>
-    <p><a href="#">개인정보처리방침</a> | <a href="#">이용약관</a></p>
-</footer>
+            <p><strong>SKZ Brain Lab</strong>이 제공하는 훈련 프로그램들은 바로 이러한 인지 회복에 초점을 맞추고 있습니다. 지금 바로 당신의 기억력을 테스트하고 잠든 전두엽을 깨워보세요.</p>
 
+            <a href="game.html" class="cta-button">지금 바로 내 뇌 깨우기 (훈련 시작)</a>
+        </section>
+
+        <div class="reference-list" id="references">
+            <strong>참고 문헌 및 출처:</strong><br>
+            <span id="ref1">[1] Northwestern University Research Data on Flynn Effect (Modern Online Sample Analysis).</span><br>
+            <span id="ref2">[2] CNN Health: The Impact of Short-form Content on Human Attention Span.</span><br>
+            <span id="ref3">[3] 대한민국 교육부: 디지털 시대의 문해력 저하 실태 보고서.</span>
+        </div>
+    </article>
+
+    <div id="footer-container"></div>
+
+    <script>
+        // 공통 요소 로드 스크립트
+        function loadHTML(id, filename) {
+            fetch(filename)
+                .then(response => response.text())
+                .then(data => { document.getElementById(id).innerHTML = data; });
+        }
+        loadHTML('header-container', 'header.html');
+        loadHTML('footer-container', 'footer.html');
+    </script>
 </body>
 </html>
