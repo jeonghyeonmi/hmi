@@ -8,98 +8,104 @@
         :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
-        html, body { 
-            margin: 0; 
-            font-family: 'Pretendard', sans-serif; 
-            background-color: var(--bg-color); 
-            color: #333;
-            overflow-x: hidden; 
+        body { 
+            margin: 0; font-family: 'Pretendard', -apple-system, sans-serif; 
+            background-color: var(--bg-color); color: #333; line-height: 1.6;
         }
         
-        header { background: var(--primary-color); color: white; padding: 1rem; text-align: center; }
-        header h1 { margin: 0; font-size: 1.2rem; }
-        header h1 a { text-decoration: none; color: inherit; }
+        header { background: var(--primary-color); color: white; padding: 1.5rem 1rem; text-align: center; }
+        header h1 { margin: 0; }
+        header h1 a { text-decoration: none; color: inherit; font-size: 1.4rem; font-weight: 800; }
+        header p { margin: 5px 0 0; font-size: 0.85rem; opacity: 0.8; }
 
-        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow-x: auto; position: sticky; top: 0; z-index: 1000; }
-        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; white-space: nowrap; }
+        /* 네비게이션 공통 스타일 */
+        nav.main-nav { 
+            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+            overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        }
+        nav.main-nav::-webkit-scrollbar { display: none; }
+        @media (max-width: 480px) { nav.main-nav { justify-content: flex-start; padding-left: 1.2rem; padding-right: 1.2rem; } }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; flex-shrink: 0; }
+        nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
 
-        .sub-nav { display: flex; justify-content: center; gap: 10px; padding: 12px 0; background: #fff; border-bottom: 1px solid #eee; font-size: 0.75rem; }
-        .sub-nav a { text-decoration: none; color: #aaa; }
-        .sub-nav a.active { color: var(--accent-color); font-weight: bold; }
+        /* 서브 네비게이션 */
+        .sub-nav { display: flex; justify-content: center; gap: 15px; padding: 12px 0; background: #fff; border-bottom: 1px solid #eee; font-size: 0.75rem; }
+        .sub-nav a { text-decoration: none; color: #aaa; font-weight: 500; }
+        .sub-nav a.current { color: var(--accent-color); font-weight: bold; }
 
         .game-container {
-            max-width: 500px; 
-            margin: 1.5rem auto; 
-            padding: 25px;
-            background: white; 
-            border-radius: 24px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
-            text-align: center;
-            min-height: 400px;
+            width: 94%; max-width: 500px; margin: 1.5rem auto; padding: 25px;
+            background: white; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+            text-align: center; position: relative;
         }
 
+        /* 미션 알림 오버레이 */
         #mission-signal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: none; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 9999; color: white;
+            z-index: 100; color: white; border-radius: 24px; transition: 0.3s;
         }
-        .signal-text { font-size: 2.2rem; font-weight: 900; text-align: center; line-height: 1.5; padding: 20px; word-break: keep-all; }
+        .signal-text { font-size: 1.8rem; font-weight: 900; text-align: center; line-height: 1.4; padding: 20px; word-break: keep-all; }
 
         .display-area {
-            min-height: 200px; background: #f8f9fa; border-radius: 20px;
+            min-height: 180px; background: #f8f9fa; border-radius: 20px;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            margin: 15px 0; border: 2px solid #eee;
+            margin: 15px 0; border: 2px solid #f0f0f0;
         }
-        #target-name { font-size: 2.2rem; font-weight: 900; color: var(--primary-color); }
-        #target-emoji { font-size: 4.5rem; margin-top: 10px; }
+        #target-name { font-size: 2.5rem; font-weight: 900; color: var(--primary-color); margin-bottom: 5px; }
+        #target-emoji { font-size: 4.5rem; }
 
-        .animal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+        .animal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
         .animal-btn { 
-            background: white; border: 2px solid #eee; border-radius: 16px; 
-            padding: 12px 5px; cursor: pointer; transition: all 0.2s;
+            background: white; border: 1px solid #eee; border-radius: 16px; 
+            padding: 15px 5px; cursor: pointer; transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
-        .animal-btn:active { transform: scale(0.95); background: #f0f0f0; }
-        .animal-btn .emoji { font-size: 1.8rem; display: block; margin-bottom: 4px; }
-        .animal-btn .label { font-size: 0.8rem; font-weight: bold; color: #555; }
-
-        /* ✨ 랭킹 시스템 스타일 */
-        .ranking-box {
-            margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee;
-            text-align: left;
-        }
-        .ranking-title { font-size: 0.95rem; font-weight: bold; color: var(--primary-color); margin-bottom: 10px; display: flex; align-items: center; gap: 5px; }
-        .ranking-list { list-style: none; padding: 0; margin: 0; font-size: 0.85rem; color: #666; }
-        .ranking-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dotted #f0f0f0; }
-        .ranking-item.best { color: var(--accent-color); font-weight: bold; }
+        .animal-btn:active { transform: scale(0.95); background: #fdf2e9; border-color: var(--accent-color); }
+        .animal-btn .emoji { font-size: 2rem; display: block; margin-bottom: 6px; }
+        .animal-btn .label { font-size: 0.85rem; font-weight: bold; color: #555; }
 
         .btn-start { 
             width: 100%; max-width: 280px; padding: 18px; 
             background: var(--accent-color); color: white; 
             border: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(211, 84, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(211, 84, 0, 0.3); transition: 0.2s;
         }
-        #score-panel { text-align: center; font-weight: bold; padding: 15px 0; font-size: 1.1rem; color: var(--primary-color); }
+        .btn-start:active { transform: scale(0.98); }
         
-        footer { text-align: center; padding: 2rem 0; color: #bbb; font-size: 0.8rem; }
+        #score-panel { font-weight: bold; padding: 15px 0; font-size: 1.1rem; color: var(--primary-color); }
+
+        /* 랭킹 섹션 */
+        .ranking-box { margin-top: 30px; padding-top: 20px; border-top: 2px dashed #eee; text-align: left; }
+        .ranking-title { font-size: 1rem; font-weight: bold; color: var(--primary-color); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .ranking-list { list-style: none; padding: 0; margin: 0; }
+        .ranking-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f9f9f9; font-size: 0.9rem; color: #666; }
+        .ranking-item.best { color: var(--accent-color); font-weight: bold; }
+
+        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; line-height: 1.8; }
+        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
     </style>
 </head>
 <body>
-    <header><h1><a href="index.html">🧠 SKZ Brain Lab</a></h1></header>
+    <header>
+        <h1><a href="index.html">🧠 SKZ Brain Lab</a></h1>
+        <p>우리 뇌를 위한 건강한 디지털 습관</p>
+    </header>
     
     <nav class="main-nav">
         <a href="index.html">홈</a>
         <a href="game.html">집중력</a>
         <a href="game2.html">논리력</a>
-        <a href="game3.html" style="color:var(--accent-color); border-bottom:2px solid var(--accent-color);">판단력</a>
-        <a href="post1.html">분석실</a>
+        <a href="game3.html" class="active">판단력</a>
+        <a href="posts.html">분석실</a>
     </nav>
 
     <div class="sub-nav">
         <a href="game3.html">[순발력]</a>
         <a href="game4.html">[기억력]</a>
         <a href="game5.html">[수리판단]</a>
-        <a href="game6.html" class="active">[동물인지]</a>
+        <a href="game6.html" class="current">[동물인지]</a>
     </div>
 
     <main class="game-container">
@@ -107,26 +113,32 @@
             <div class="signal-text" id="signal-title">준비하세요!</div>
         </div>
 
-        <div class="display-area" id="play-zone" style="display: none;">
-            <div id="target-name">준비</div>
-            <div id="target-emoji">❔</div>
-        </div>
-
-        <div class="animal-grid" id="game-ui" style="display: none;"></div>
-
-        <button id="startBtn" class="btn-start" onclick="startGame()">훈련 시작하기</button>
         <div id="score-panel">맞춘 마릿수: 0</div>
 
+        <div class="display-area" id="play-zone">
+            <div id="target-name">훈련 시작을</div>
+            <div id="target-emoji">👆</div>
+            <div style="font-size: 0.8rem; color: #aaa; margin-top: 10px;">눌러주세요</div>
+        </div>
+
+        <div class="animal-grid" id="game-ui"></div>
+
+        <button id="startBtn" class="btn-start" onclick="startGame()">훈련 시작하기</button>
+
         <div class="ranking-box" id="ranking-section">
-            <div class="ranking-title">🏆 명예의 전당 (Top 3)</div>
-            <div id="ranking-list-container">
-                <ul class="ranking-list" id="ranking-list">
-                    </ul>
-            </div>
+            <div class="ranking-title">🏆 나의 최고 기록 (Top 3)</div>
+            <ul class="ranking-list" id="ranking-list"></ul>
+            <button onclick="clearRankings()" style="margin-top:15px; background:none; border:none; color:#ccc; font-size:0.75rem; text-decoration:underline; cursor:pointer;">기록 초기화</button>
         </div>
     </main>
 
-    <footer>&copy; 2026 SKZ Brain Lab.</footer>
+    <footer>
+        <div style="margin-bottom: 10px;">
+            <a href="privacy.html">개인정보처리방침</a> | 
+            <a href="terms.html">이용약관</a>
+        </div>
+        &copy; 2026 SKZ Brain Lab. All rights reserved.
+    </footer>
 
     <script>
         const animals = [
@@ -137,10 +149,7 @@
 
         let score = 0, isGameActive = false, currentMission = "", correctTarget = "", gameTimer = null;
 
-        // 초기 실행: 랭킹 불러오기
-        updateRankingUI();
-
-        // 버튼 생성
+        // 초기화
         const ui = document.getElementById('game-ui');
         animals.forEach(ani => {
             const btn = document.createElement('button');
@@ -149,6 +158,7 @@
             btn.innerHTML = `<span class="emoji">${ani.emoji}</span><span class="label">${ani.name}</span>`;
             ui.appendChild(btn);
         });
+        updateRankingUI();
 
         function startGame() {
             score = 0;
@@ -157,7 +167,7 @@
             document.getElementById('ranking-section').style.display = 'none';
             document.getElementById('score-panel').innerText = "맞춘 마릿수: 0";
             showMission();
-            gameTimer = setTimeout(endGame, 40000); 
+            gameTimer = setTimeout(endGame, 40000); // 40초 훈련
         }
 
         function showMission() {
@@ -167,10 +177,10 @@
             const title = document.getElementById('signal-title');
             
             if(currentMission === "글자") {
-                title.innerText = "이번엔...\n[글자] 보고 맞추기!";
+                title.innerHTML = "미션 변경!<br><span style='font-size:2.5rem; color:#ffd700;'>[글자]</span><br>보고 맞추기";
                 signal.style.backgroundColor = "rgba(41, 128, 185, 0.95)";
             } else {
-                title.innerText = "이번엔...\n[그림] 보고 맞추기!";
+                title.innerHTML = "미션 변경!<br><span style='font-size:2.5rem; color:#ffd700;'>[그림]</span><br>보고 맞추기";
                 signal.style.backgroundColor = "rgba(192, 57, 43, 0.95)";
             }
             
@@ -178,16 +188,16 @@
             setTimeout(() => {
                 if(!isGameActive) return;
                 signal.style.display = 'none';
-                document.getElementById('play-zone').style.display = 'flex';
-                document.getElementById('game-ui').style.display = 'grid';
                 nextQuestion();
-            }, 800);
+            }, 1000);
         }
 
         function nextQuestion() {
             let textIdx = Math.floor(Math.random() * animals.length);
             let emojiIdx;
+            // 인지 갈등을 유도하기 위해 이름과 그림이 다른 동물이 나오도록 설정
             do { emojiIdx = Math.floor(Math.random() * animals.length); } while (textIdx === emojiIdx);
+            
             document.getElementById('target-name').innerText = animals[textIdx].name;
             document.getElementById('target-emoji').innerText = animals[emojiIdx].emoji;
             correctTarget = currentMission === "글자" ? animals[textIdx].name : animals[emojiIdx].emoji;
@@ -196,11 +206,15 @@
         function checkAnswer(userChoice) {
             if(!isGameActive) return;
             const userVal = currentMission === "글자" ? userChoice.name : userChoice.emoji;
+            
             if(userVal === correctTarget) {
                 score++;
                 document.getElementById('score-panel').innerText = `맞춘 마릿수: ${score}`;
-                showMission(); 
+                // 3문제마다 미션(글자/그림) 전환 시도
+                if(score % 3 === 0) showMission();
+                else nextQuestion();
             } else {
+                // 오답 시 화면 깜빡임
                 document.body.style.backgroundColor = "#fadbd8";
                 setTimeout(() => document.body.style.backgroundColor = "#f4f7f9", 100);
             }
@@ -210,23 +224,27 @@
             isGameActive = false;
             if(gameTimer) clearTimeout(gameTimer);
 
-            // 점수 저장 (리포트용)
+            // 점수 저장 (리포트용 100점 환산)
             localStorage.setItem('game6_score', Math.min(100, score * 4));
-            
-            // 랭킹 저장 로직
             saveRanking(score);
             
-            alert(`훈련 종료! 총 ${score}마리를 인지했습니다.`);
-            location.href = 'report.html';
+            const grade = score >= 25 ? "동물 전문가 🐆" : score >= 15 ? "인지력 우등생 🦊" : "천천히 알아가는 중 🐢";
+            const resultMsg = `훈련 종료!\n등급: ${grade}\n총 ${score}마리를 인지했습니다.\n\n분석 리포트를 확인하시겠습니까?`;
+
+            if(confirm(resultMsg)) {
+                location.href = 'report.html';
+            } else {
+                location.reload();
+            }
         }
 
-        // ✨ 랭킹 관련 함수들
         function saveRanking(newScore) {
             let history = JSON.parse(localStorage.getItem('game6_rankings')) || [];
-            history.push({ score: newScore, date: new Date().toLocaleDateString() });
-            history.sort((a, b) => b.score - a.score); // 높은 점수순 정렬
-            history = history.slice(0, 3); // 상위 3개만 유지
-            localStorage.setItem('game6_rankings', JSON.stringify(history));
+            const date = new Date();
+            const dateStr = `${date.getMonth()+1}/${date.getDate()}`;
+            history.push({ score: newScore, date: dateStr });
+            history.sort((a, b) => b.score - a.score);
+            localStorage.setItem('game6_rankings', JSON.stringify(history.slice(0, 3)));
         }
 
         function updateRankingUI() {
@@ -234,16 +252,23 @@
             const listContainer = document.getElementById('ranking-list');
             
             if (history.length === 0) {
-                listContainer.innerHTML = "<li style='padding:10px 0; color:#ccc;'>아직 기록이 없습니다.</li>";
+                listContainer.innerHTML = "<li style='padding:10px 0; color:#ccc; font-size:0.8rem;'>아직 기록이 없습니다.</li>";
                 return;
             }
 
             listContainer.innerHTML = history.map((record, index) => `
                 <li class="ranking-item ${index === 0 ? 'best' : ''}">
                     <span>${index + 1}위: ${record.score}마리</span>
-                    <span style="font-size:0.75rem; color:#aaa;">${record.date}</span>
+                    <span>${record.date}</span>
                 </li>
             `).join('');
+        }
+
+        function clearRankings() {
+            if(confirm("기록을 모두 삭제할까요?")) {
+                localStorage.removeItem('game6_rankings');
+                location.reload();
+            }
         }
     </script>
 </body>
