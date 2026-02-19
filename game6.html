@@ -8,86 +8,87 @@
         :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
-        /* 스크롤 방지 및 전체 높이 고정 */
+        /* 💡 스크롤 방지는 유지하되, 네비게이션 공간 확보 */
         html, body { height: 100%; margin: 0; overflow: hidden; font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); }
         
-        header { background: var(--primary-color); color: white; padding: 1rem; text-align: center; height: 50px; }
-        header h1 { margin: 0; font-size: 1.1rem; line-height: 1.2; }
+        header { background: var(--primary-color); color: white; padding: 1rem; text-align: center; }
+        header h1 { margin: 0; font-size: 1.2rem; }
+        header h1 a { text-decoration: none; color: inherit; }
 
-        /* 메인 컨테이너: 화면 높이에 딱 맞게 조절 */
+        /* 메인 네비게이션 (복구) */
+        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow-x: auto; }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; white-space: nowrap; }
+
+        /* 서브 네비게이션 (복구) */
+        .sub-nav { display: flex; justify-content: center; gap: 10px; padding: 8px 0; background: #fff; border-bottom: 1px solid #eee; font-size: 0.7rem; }
+        .sub-nav a { text-decoration: none; color: #aaa; }
+        .sub-nav a.active { color: var(--accent-color); font-weight: bold; }
+
+        /* 💡 게임 컨테이너: 상단 메뉴들을 제외한 나머지 높이만 사용 */
         .game-container {
             display: flex;
             flex-direction: column;
-            height: calc(100% - 50px);
+            /* 헤더(약 52px) + 메인네비(약 45px) + 서브네비(약 35px) 제외 */
+            height: calc(100vh - 135px); 
             padding: 10px;
             position: relative;
             justify-content: space-between;
         }
 
-        /* 미션 알림 레이어 (화면 전체 덮기) */
+        /* 미션 알림 레이어 */
         #mission-signal {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            display: none; 
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            color: white;
-            text-align: center;
+            display: none; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 2000; color: white; border-radius: 20px;
         }
-        .signal-text { font-size: 2.2rem; font-weight: 900; line-height: 1.3; }
+        .signal-text { font-size: 2rem; font-weight: 900; text-align: center; line-height: 1.3; }
 
-        /* 문제 전시 구역: 유동적 크기 조절로 하단 버튼 보호 */
+        /* 문제 전시 구역 (유동적 크기) */
         .display-area {
             flex: 1;
-            min-height: 100px;
-            max-height: 220px;
+            min-height: 80px;
+            max-height: 200px; /* 네비게이션 때문에 높이를 좀 더 줄임 */
             background: white;
             border-radius: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
             margin: 10px 0;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             border: 2px solid #eee;
         }
-        #target-name { font-size: 2.2rem; font-weight: 900; color: #333; }
-        #target-emoji { font-size: 4.5rem; line-height: 1; }
+        #target-name { font-size: 2rem; font-weight: 900; }
+        #target-emoji { font-size: 4rem; }
 
-        /* 동물 버튼 그리드 */
-        .animal-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            padding-bottom: env(safe-area-inset-bottom);
-        }
-        .animal-btn {
-            background: white; border: 2px solid #eee; border-radius: 12px;
-            padding: 12px 2px; cursor: pointer;
-        }
-        .animal-btn .emoji { font-size: 1.8rem; display: block; }
-        .animal-btn .label { font-size: 0.75rem; font-weight: bold; color: #666; }
+        .animal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .animal-btn { background: white; border: 2px solid #eee; border-radius: 12px; padding: 10px 2px; }
+        .animal-btn .emoji { font-size: 1.6rem; display: block; }
+        .animal-btn .label { font-size: 0.7rem; font-weight: bold; }
 
-        /* 가이드 박스 스타일 */
-        .guide-box {
-            background: white;
-            border: 1px dashed var(--primary-color);
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 10px;
-            text-align: left;
-        }
-        .guide-box p { margin: 0 0 5px 0; font-weight: bold; font-size: 0.95rem; }
-        .guide-box ul { margin: 0; padding-left: 18px; font-size: 0.8rem; color: #555; }
+        .guide-box { background: white; border: 1px dashed var(--primary-color); border-radius: 12px; padding: 10px; margin-bottom: 10px; }
+        .guide-box p { margin: 0; font-weight: bold; font-size: 0.85rem; }
+        .guide-box ul { margin: 5px 0 0 0; padding-left: 15px; font-size: 0.75rem; color: #555; }
 
-        .btn-start { width: 100%; padding: 18px; background: var(--accent-color); color: white; border: none; border-radius: 15px; font-weight: bold; font-size: 1.2rem; }
-        #score-panel { text-align: center; font-weight: bold; padding: 5px; font-size: 1rem; }
+        .btn-start { width: 100%; padding: 15px; background: var(--accent-color); color: white; border: none; border-radius: 15px; font-weight: bold; font-size: 1.1rem; }
+        #score-panel { text-align: center; font-weight: bold; padding: 5px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
-    <header><h1>🧠 SKZ Brain Lab</h1></header>
+    <header><h1><a href="index.html">🧠 SKZ Brain Lab</a></h1></header>
+    
+    <nav class="main-nav">
+        <a href="index.html">홈</a>
+        <a href="game.html">집중력</a>
+        <a href="game2.html">논리력</a>
+        <a href="game3.html" style="color:var(--accent-color); border-bottom:2px solid var(--accent-color);">판단력</a>
+        <a href="post1.html">분석실</a>
+    </nav>
+
+    <div class="sub-nav">
+        <a href="game3.html">[순발력]</a>
+        <a href="game4.html">[기억력]</a>
+        <a href="game5.html">[수리판단]</a>
+        <a href="game6.html" class="active">[동물인지]</a>
+    </div>
 
     <div class="game-container">
         <div id="mission-signal">
@@ -105,8 +106,7 @@
             <p>💡 훈련 방법</p>
             <ul>
                 <li>시작 시 <strong>[글자]</strong> 혹은 <strong>[그림]</strong> 미션이 표시됩니다.</li>
-                <li>안내된 미션에 맞는 정답을 하단에서 고르세요.</li>
-                <li>매번 미션이 랜덤하게 바뀌니 주의하세요!</li>
+                <li>미션에 맞는 정답 동물을 하단에서 고르세요.</li>
             </ul>
         </div>
 
@@ -136,20 +136,17 @@
             score = 0;
             isGameActive = true;
             document.getElementById('startBtn').style.display = 'none';
-            document.getElementById('game-guide').style.display = 'none'; // 설명 숨기기
+            document.getElementById('game-guide').style.display = 'none';
             document.getElementById('score-panel').innerText = "맞춘 마릿수: 0";
-            
             showMission();
             setTimeout(endGame, 40000); 
         }
 
         function showMission() {
             if(!isGameActive) return;
-
             currentMission = Math.random() > 0.5 ? "글자" : "그림";
             const signal = document.getElementById('mission-signal');
             const title = document.getElementById('signal-title');
-
             if(currentMission === "글자") {
                 title.innerText = "이번엔...\n[글자] 보고 맞추기!";
                 signal.style.backgroundColor = "#2980b9";
@@ -157,11 +154,9 @@
                 title.innerText = "이번엔...\n[그림] 보고 맞추기!";
                 signal.style.backgroundColor = "#c0392b";
             }
-
             signal.style.display = 'flex';
             document.getElementById('play-zone').style.display = 'none';
             document.getElementById('game-ui').style.display = 'none';
-
             setTimeout(() => {
                 signal.style.display = 'none';
                 document.getElementById('play-zone').style.display = 'flex';
@@ -174,7 +169,6 @@
             let textIdx = Math.floor(Math.random() * animals.length);
             let emojiIdx;
             do { emojiIdx = Math.floor(Math.random() * animals.length); } while (textIdx === emojiIdx);
-
             document.getElementById('target-name').innerText = animals[textIdx].name;
             document.getElementById('target-emoji').innerText = animals[emojiIdx].emoji;
             correctTarget = currentMission === "글자" ? animals[textIdx].name : animals[emojiIdx].emoji;
@@ -183,7 +177,6 @@
         function checkAnswer(userChoice) {
             if(!isGameActive) return;
             const userVal = currentMission === "글자" ? userChoice.name : userChoice.emoji;
-            
             if(userVal === correctTarget) {
                 score++;
                 document.getElementById('score-panel').innerText = `맞춘 마릿수: ${score}`;
