@@ -74,6 +74,37 @@
         .top-3 { color: var(--accent-color); font-weight: 800; }
 
         footer { text-align: center; padding: 2rem 0; color: #bbb; font-size: 0.75rem; }
+        /* 입력창 텍스트 크기 및 정렬 최적화 */
+.cell input { 
+    width: 100%; 
+    height: 100%; 
+    border: none; 
+    text-align: center; 
+    /* 고정 숫자와 동일한 크기로 설정 */
+    font-size: inherit; 
+    font-family: inherit;
+    font-weight: 800; /* 조금 더 두껍게 설정하여 가독성 확보 */
+    color: var(--accent-color); 
+    outline: none; 
+    background: transparent; 
+    padding: 0;
+    margin: 0;
+    appearance: none;
+    -moz-appearance: textfield; /* 파이어폭스 숫자 화살표 제거 */
+}
+
+/* 숫자 입력창의 스핀 버튼(화살표) 제거 */
+.cell input::-webkit-outer-spin-button,
+.cell input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* 4x4, 5x5 등 각 레벨별 입력 텍스트 크기 강제 고정 */
+.grid-3 .cell, .grid-3 input { font-size: 2rem !important; }
+.grid-4 .cell, .grid-4 input { font-size: 1.8rem !important; }
+.grid-5 .cell, .grid-5 input { font-size: 1.5rem !important; }
+.grid-9 .cell, .grid-9 input { font-size: 1.2rem !important; }
     </style>
 </head>
 <body>
