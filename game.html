@@ -42,17 +42,35 @@
     </nav>
 
     <main class="container">
-        <span id="timer">0.00</span>
-        <div id="gameBoard" class="game-board"></div>
-        
-        <div class="ranking-container">
-            <div class="ranking-title">🏆 집중력 TOP 10</div>
-            <table class="rank-table">
-                <thead><tr><th>순위</th><th>아이디</th><th>기록</th></tr></thead>
-                <tbody id="rankingBody"></tbody>
-            </table>
-        </div>
+    <div class="game-guide">
+        <strong>📝 훈련 규칙:</strong> 뒤집힌 카드들을 하나씩 클릭하여 <strong>같은 모양의 카드 짝</strong>을 모두 찾으세요. 카드를 뒤집는 순간부터 타이머가 작동하며, 모든 짝을 맞추면 집중력 데이터가 기록됩니다.
+    </div>
+
+    <span id="timer">0.00</span>
+    <div id="gameBoard" class="game-board"></div>
+    
     </main>
+
+<style>
+    /* 가이드 박스 스타일 (기존 CSS에 추가하거나 교체) */
+    .game-guide {
+        background: #fff8f0; /* 집중력 테마에 맞춘 연한 오렌지/베이지톤 */
+        border-radius: 12px;
+        padding: 12px 15px;
+        font-size: 0.82rem;
+        line-height: 1.5;
+        color: #444;
+        margin-bottom: 15px;
+        text-align: left;
+        word-break: keep-all;
+        border-left: 4px solid var(--accent-color); /* 오렌지색 포인트 */
+    }
+    .game-guide strong {
+        color: #d35400;
+        display: block;
+        margin-bottom: 3px;
+    }
+</style>
 
     <script>
         const emojis = ['🍎', '🍌', '🍓', '🍊', '🍇', '🍉', '🥝', '🥑'];
