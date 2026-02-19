@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>역 플린 효과와 팝콘 브레인: 위기의 현대인 두뇌 | SKZ Brain Lab</title>
+    <style>
+        :root {
+            --primary-color: #1a3a5f;
+            --bg-color: #f8f9fa;
+            --text-color: #2c3e50;
+            --accent-color: #e74c3c;
+        }
+        body {
+            font-family: 'Pretendard', sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        header {
+            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+        h1 { color: var(--primary-color); font-size: 2rem; word-break: keep-all; }
+        .meta { color: #888; font-size: 0.9rem; }
+        
+        .highlight-box {
+            background: #fff3f3;
+            border-left: 5px solid var(--accent-color);
+            padding: 20px;
+            margin: 30px 0;
+            font-weight: 500;
+        }
+        
+        h2 { border-left: 5px solid var(--primary-color); padding-left: 15px; margin-top: 40px; }
+        
+        .citation {
+            font-size: 0.85rem;
+            color: #666;
+            background: #eee;
+            padding: 2px 5px;
+            border-radius: 3px;
+            text-decoration: none;
+        }
+        .reference-list {
+            margin-top: 50px;
+            padding: 20px;
+            background: #f1f1f1;
+            font-size: 0.85rem;
+            border-radius: 8px;
+        }
+        .cta-button {
+            display: block;
+            width: fit-content;
+            margin: 40px auto;
+            padding: 15px 30px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .cta-button:hover { background: var(--accent-color); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="meta">카테고리: 뇌 과학 리포트 | 작성일: 2026. 02. 20</div>
+        <h1>스마트폰이 앗아간 지능: ‘역 플린 효과’와 멈춰버린 10대의 뇌</h1>
+    </header>
+
+    <section>
+        <p>전 인류의 지능 지수(IQ)가 세대마다 3점씩 상승한다는 ‘플린 효과’는 이제 옛말이 되었습니다. 최근 전 세계 곳곳에서 지능 지수가 오히려 하락하는 <strong>‘역 플린 효과(Reverse Flynn Effect)’</strong>가 관측되고 있으며, 그 중심에는 스마트폰과 숏폼 콘텐츠가 있습니다.</p>
+
+        <div class="highlight-box">
+            "미국 노스웨스턴 대학교 연구팀의 조사 결과, 지난 20년간 미국인의 IQ 점수가 특정 영역에서 지속적으로 하락하는 추세가 확인되었습니다." <a href="#ref1" class="citation">[1]</a>
+        </div>
+
+        <h2>1. 팝콘 브레인: 자극 없이는 반응하지 않는 뇌</h2>
+        <p>우리는 매일 평균 2시간 이상 유튜브 쇼츠, 인스타그램 릴스 등 1분 내외의 강력한 시각 자극에 노출됩니다. CNN 보도에 따르면, 이러한 환경은 뇌의 전두엽 발달을 저해하여 <strong>‘팝콘 브레인’</strong> 현상을 야기합니다. <a href="#ref2" class="citation">[2]</a> 팝콘이 톡톡 터지듯 강렬한 자극에는 즉각 반응하지만, 책을 읽거나 복잡한 문제를 풀 때 필요한 잔잔한 인지 능력은 상실되는 것입니다.</p>
+
+        <h2>2. 이전 세대보다 낮은 인지 능력, 통계가 증명하다</h2>
+        <p>우리나라 역시 예외는 아닙니다. 최근 교육계 보도에 따르면 학생들의 ‘문해력 저하’가 심각한 사회 문제로 대두되고 있습니다. 글의 맥락을 파악하지 못하고 긴 문장을 읽어내지 못하는 현상은 수동적인 영상 시청 습관 때문입니다. <a href="#ref3" class="citation">[3]</a> 전문가들은 뇌가 능동적으로 사고하는 법을 잊어가고 있다고 경고합니다.</p>
+
+        <h2>3. 해결책: 의도적인 '뇌 깨우기' 훈련</h2>
+        <p>멈춰버린 전두엽을 다시 깨우기 위해서는 <strong>능동적 인지 개입</strong>이 필요합니다. 단순히 정보를 수용하는 것이 아니라, 뇌가 직접 데이터를 분류하고, 기억하고, 대조하는 과정을 거쳐야 합니다.</p>
+        
+        <p><strong>SKZ Brain Lab</strong>에서 제공하는 카드 뒤집기 게임과 스트룹 테스트는 이러한 '디지털 단식'의 첫걸음입니다. 하루 5분, 자극적인 영상 대신 당신의 작업 기억력을 테스트해 보세요.</p>
+
+        <a href="index.html" class="cta-button">지금 바로 내 뇌 깨우기 (훈련 시작)</a>
+    </section>
+
+    <div class="reference-list" id="references">
+        <strong>참고 문헌 및 출처:</strong><br>
+        <span id="ref1">[1] Northwestern University, "Looking for the Flynn effect in a modern online sample", Intelligence Journal.</span><br>
+        <span id="ref2">[2] CNN Health, "How 'Popcorn Brain' is reshaping our attention spans in the digital age".</span><br>
+        <span id="ref3">[3] 대한민국 교육부 보도자료, "학생들의 디지털 문해력 실태 분석 및 대응 방안".</span>
+    </div>
+</div>
+
+<footer>
+    <p style="text-align: center; color: #888; font-size: 0.8rem; margin: 40px 0;">
+        &copy; 2026 SKZ Brain Lab. All rights reserved.
+    </p>
+</footer>
+
+</body>
+</html>
