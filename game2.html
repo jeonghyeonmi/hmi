@@ -152,6 +152,15 @@
             // 모든 검증 통과 시 저장
             clearInterval(timerInterval);
             const time = parseFloat(document.getElementById('timer').innerText);
+
+            // --- 💡 [리포트용 데이터 저장 시작] ---
+            // 레벨당 기본 점수(Lv1:20점, Lv2:40점...) + 시간 보너스(60초 기준)
+            let logicScore = (currentLevel * 20) + Math.max(0, Math.floor(20 - (time / 5)));
+            // 최대 100점이 넘지 않도록 제한
+            logicScore = Math.min(100, logicScore);
+            localStorage.setItem('game2_score', logicScore);
+            // --- 💡 [리포트용 데이터 저장 끝] ---
+            
             const now = new Date();
             const info = `${now.getMonth()+1}/${now.getDate()} (Lv.${currentLevel})`;
             let history = JSON.parse(localStorage.getItem('sudokuHistory')) || [];
