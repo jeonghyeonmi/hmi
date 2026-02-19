@@ -8,68 +8,99 @@
         :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
-        /* 💡 스크롤 방지는 유지하되, 네비게이션 공간 확보 */
-        html, body { height: 100%; margin: 0; overflow: hidden; font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); }
+        html, body { 
+            margin: 0; 
+            font-family: 'Pretendard', sans-serif; 
+            background-color: var(--bg-color); 
+            color: #333;
+            /* 모바일에서 불필요한 스크롤 방지, PC에서는 자동 */
+            overflow-x: hidden; 
+        }
         
         header { background: var(--primary-color); color: white; padding: 1rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.2rem; }
         header h1 a { text-decoration: none; color: inherit; }
 
-        /* 메인 네비게이션 (복구) */
+        /* 메인 네비게이션 */
         nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow-x: auto; }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; white-space: nowrap; }
 
-        /* 서브 네비게이션 (복구) */
+        /* 서브 네비게이션 */
         .sub-nav { display: flex; justify-content: center; gap: 10px; padding: 8px 0; background: #fff; border-bottom: 1px solid #eee; font-size: 0.7rem; }
         .sub-nav a { text-decoration: none; color: #aaa; }
         .sub-nav a.active { color: var(--accent-color); font-weight: bold; }
 
-        /* 💡 게임 컨테이너: 상단 메뉴들을 제외한 나머지 높이만 사용 */
+        /* 💡 게임 컨테이너: PC 너비 제한 및 중앙 정렬 */
         .game-container {
+            max-width: 600px; /* 다른 페이지와 동일하게 설정 */
+            margin: 0 auto;   /* PC에서 중앙 정렬 */
+            padding: 20px;
+            min-height: calc(100vh - 135px);
             display: flex;
             flex-direction: column;
-            /* 헤더(약 52px) + 메인네비(약 45px) + 서브네비(약 35px) 제외 */
-            height: calc(100vh - 135px); 
-            padding: 10px;
             position: relative;
-            justify-content: space-between;
+            background: white; /* 박스 레이아웃 강조 */
+            box-shadow: 0 0 20px rgba(0,0,0,0.03);
         }
 
-        /* 미션 알림 레이어 */
+        /* 미션 알림 레이어 (부모인 game-container 기준으로 위치) */
         #mission-signal {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 20px; left: 20px; right: 20px; bottom: 20px;
             display: none; flex-direction: column; justify-content: center; align-items: center;
             z-index: 2000; color: white; border-radius: 20px;
         }
         .signal-text { font-size: 2rem; font-weight: 900; text-align: center; line-height: 1.3; }
 
-        /* 문제 전시 구역 (유동적 크기) */
+        /* 문제 전시 구역 */
         .display-area {
             flex: 1;
-            min-height: 80px;
-            max-height: 200px; /* 네비게이션 때문에 높이를 좀 더 줄임 */
-            background: white;
+            min-height: 180px;
+            background: #f8f9fa;
             border-radius: 20px;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             margin: 10px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             border: 2px solid #eee;
         }
-        #target-name { font-size: 2rem; font-weight: 900; }
-        #target-emoji { font-size: 4rem; }
+        #target-name { font-size: 2.2rem; font-weight: 900; color: var(--primary-color); }
+        #target-emoji { font-size: 4.5rem; margin-top: 10px; }
 
-        .animal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .animal-btn { background: white; border: 2px solid #eee; border-radius: 12px; padding: 10px 2px; }
-        .animal-btn .emoji { font-size: 1.6rem; display: block; }
-        .animal-btn .label { font-size: 0.7rem; font-weight: bold; }
+        /* 동물 버튼 그리드 (PC 3열 / 모바일 2열 가변 가능) */
+        .animal-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 12px; 
+            margin-bottom: 20px;
+        }
+        .animal-btn { 
+            background: white; 
+            border: 2px solid #eee; 
+            border-radius: 16px; 
+            padding: 15px 5px; 
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        .animal-btn:active { transform: scale(0.95); background: #f0f0f0; }
+        .animal-btn .emoji { font-size: 2rem; display: block; margin-bottom: 5px; }
+        .animal-btn .label { font-size: 0.85rem; font-weight: bold; color: #555; }
 
-        .guide-box { background: white; border: 1px dashed var(--primary-color); border-radius: 12px; padding: 10px; margin-bottom: 10px; }
-        .guide-box p { margin: 0; font-weight: bold; font-size: 0.85rem; }
-        .guide-box ul { margin: 5px 0 0 0; padding-left: 15px; font-size: 0.75rem; color: #555; }
+        .guide-box { background: #fffdf9; border: 1px dashed #e67e22; border-radius: 12px; padding: 15px; margin-bottom: 20px; }
+        .guide-box p { margin: 0 0 8px 0; font-weight: bold; font-size: 0.9rem; color: #d35400; }
+        .guide-box ul { margin: 0; padding-left: 18px; font-size: 0.8rem; color: #666; line-height: 1.6; }
 
-        .btn-start { width: 100%; padding: 15px; background: var(--accent-color); color: white; border: none; border-radius: 15px; font-weight: bold; font-size: 1.1rem; }
-        #score-panel { text-align: center; font-weight: bold; padding: 5px; font-size: 0.9rem; }
+        .btn-start { 
+            width: 100%; padding: 18px; 
+            background: var(--primary-color); color: white; 
+            border: none; border-radius: 15px; 
+            font-weight: bold; font-size: 1.1rem; cursor: pointer;
+        }
+        #score-panel { text-align: center; font-weight: bold; padding: 15px 0; font-size: 1rem; color: var(--primary-color); }
+
+        /* 모바일 최적화 */
+        @media (max-width: 600px) {
+            .game-container { padding: 15px; box-shadow: none; }
+            .animal-grid { gap: 8px; }
+        }
     </style>
 </head>
 <body>
@@ -107,10 +138,11 @@
             <ul>
                 <li>시작 시 <strong>[글자]</strong> 혹은 <strong>[그림]</strong> 미션이 표시됩니다.</li>
                 <li>미션에 맞는 정답 동물을 하단에서 고르세요.</li>
+                <li>40초 동안 최대한 많은 동물을 인지해야 합니다.</li>
             </ul>
         </div>
 
-        <button id="startBtn" class="btn-start" onclick="startGame()">훈련 시작</button>
+        <button id="startBtn" class="btn-start" onclick="startGame()">훈련 시작하기</button>
         <div id="score-panel">맞춘 마릿수: 0</div>
     </div>
 
@@ -190,25 +222,16 @@
         function endGame() {
             isGameActive = false;
 
-            // 💡 [추가] 리포트 페이지를 위한 인지력 점수 저장
-            // 40초 동안 25마리 이상 맞추면 '전문가'이므로, (score * 4)로 100점 만점 환산
+            // 리포트 페이지를 위한 인지력 점수 저장
             const reportScore = Math.min(100, score * 4);
             localStorage.setItem('game6_score', reportScore);
             
-            
-            // 점수별 위트 있는 등급 판정
             let grade = "";
-            if (score >= 25) {
-                grade = "동물 소통 전문가 🐾 (혹시 전생에 닥터 두리틀?)";
-            } else if (score >= 15) {
-                grade = "동물원 원장님 🦁 (눈썰미가 보통이 아니신데요?)";
-            } else if (score >= 8) {
-                grade = "동물 애호가 🐶 (집중력 유지! 조금만 더 하면 전문가!)";
-            } else if (score >= 3) {
-                grade = "길고양이 친구 🐱 (뇌가 동물 구별법을 익히는 중입니다.)";
-            } else {
-                grade = "도시 사람 🏙️ (동물이랑 친해질 시간이 필요해요!)";
-            }
+            if (score >= 25) grade = "동물 소통 전문가 🐾";
+            else if (score >= 15) grade = "동물원 원장님 🦁";
+            else if (score >= 8) grade = "동물 애호가 🐶";
+            else if (score >= 3) grade = "길고양이 친구 🐱";
+            else grade = "도시 사람 🏙️";
 
             alert(`훈련 종료!\n\n나의 등급: ${grade}\n총 ${score}마리를 정확히 구별했습니다.`);
             location.reload();
