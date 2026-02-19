@@ -35,64 +35,48 @@
             border-radius: 24px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.04);
             text-align: center;
-            min-height: 400px; /* 고정 높이 확보 */
+            min-height: 400px;
         }
 
-        /* ✨ 에러 수정: 화면 전체를 덮도록 고정 배치 */
         #mission-signal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             display: none; flex-direction: column; justify-content: center; align-items: center;
             z-index: 9999; color: white;
-            transition: opacity 0.3s;
         }
-        .signal-text { 
-            font-size: 2.2rem; 
-            font-weight: 900; 
-            text-align: center; 
-            line-height: 1.5; 
-            word-break: keep-all;
-            padding: 20px;
-        }
+        .signal-text { font-size: 2.2rem; font-weight: 900; text-align: center; line-height: 1.5; padding: 20px; word-break: keep-all; }
 
         .display-area {
-            min-height: 200px;
-            background: #f8f9fa;
-            border-radius: 20px;
+            min-height: 200px; background: #f8f9fa; border-radius: 20px;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            margin: 15px 0;
-            border: 2px solid #eee;
+            margin: 15px 0; border: 2px solid #eee;
         }
         #target-name { font-size: 2.2rem; font-weight: 900; color: var(--primary-color); }
         #target-emoji { font-size: 4.5rem; margin-top: 10px; }
 
-        .animal-grid { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 10px; 
-            margin-bottom: 20px;
-        }
+        .animal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
         .animal-btn { 
-            background: white; 
-            border: 2px solid #eee; 
-            border-radius: 16px; 
-            padding: 12px 5px; 
-            cursor: pointer;
-            transition: all 0.2s;
+            background: white; border: 2px solid #eee; border-radius: 16px; 
+            padding: 12px 5px; cursor: pointer; transition: all 0.2s;
         }
         .animal-btn:active { transform: scale(0.95); background: #f0f0f0; }
         .animal-btn .emoji { font-size: 1.8rem; display: block; margin-bottom: 4px; }
         .animal-btn .label { font-size: 0.8rem; font-weight: bold; color: #555; }
 
-        .guide-box { background: #fffdf9; border: 1px dashed #e67e22; border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: left; }
-        .guide-box p { margin: 0 0 8px 0; font-weight: bold; font-size: 0.9rem; color: #d35400; }
-        .guide-box ul { margin: 0; padding-left: 18px; font-size: 0.8rem; color: #666; line-height: 1.6; }
+        /* ✨ 랭킹 시스템 스타일 */
+        .ranking-box {
+            margin-top: 25px; padding-top: 20px; border-top: 1px solid #eee;
+            text-align: left;
+        }
+        .ranking-title { font-size: 0.95rem; font-weight: bold; color: var(--primary-color); margin-bottom: 10px; display: flex; align-items: center; gap: 5px; }
+        .ranking-list { list-style: none; padding: 0; margin: 0; font-size: 0.85rem; color: #666; }
+        .ranking-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dotted #f0f0f0; }
+        .ranking-item.best { color: var(--accent-color); font-weight: bold; }
 
         .btn-start { 
             width: 100%; max-width: 280px; padding: 18px; 
             background: var(--accent-color); color: white; 
-            border: none; border-radius: 30px; 
-            font-weight: bold; font-size: 1.1rem; cursor: pointer;
+            border: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem; cursor: pointer;
             box-shadow: 0 4px 15px rgba(211, 84, 0, 0.3);
         }
         #score-panel { text-align: center; font-weight: bold; padding: 15px 0; font-size: 1.1rem; color: var(--primary-color); }
@@ -130,18 +114,16 @@
 
         <div class="animal-grid" id="game-ui" style="display: none;"></div>
 
-        <div id="game-guide" class="guide-box">
-            <p>💡 훈련 방법</p>
-            <ul>
-                <li>시작 시 <strong>[글자]</strong> 혹은 <strong>[그림]</strong> 지시가 뜹니다.</li>
-                <li><strong>글자 보고 맞추기:</strong> 상단 큰 글자에 적힌 동물을 클릭!</li>
-                <li><strong>그림 보고 맞추기:</strong> 상단 큰 이모지에 해당하는 동물을 클릭!</li>
-                <li>40초 동안 인지 부조화를 극복하고 빠르게 맞춰보세요.</li>
-            </ul>
-        </div>
-
         <button id="startBtn" class="btn-start" onclick="startGame()">훈련 시작하기</button>
         <div id="score-panel">맞춘 마릿수: 0</div>
+
+        <div class="ranking-box" id="ranking-section">
+            <div class="ranking-title">🏆 명예의 전당 (Top 3)</div>
+            <div id="ranking-list-container">
+                <ul class="ranking-list" id="ranking-list">
+                    </ul>
+            </div>
+        </div>
     </main>
 
     <footer>&copy; 2026 SKZ Brain Lab.</footer>
@@ -154,6 +136,9 @@
         ];
 
         let score = 0, isGameActive = false, currentMission = "", correctTarget = "", gameTimer = null;
+
+        // 초기 실행: 랭킹 불러오기
+        updateRankingUI();
 
         // 버튼 생성
         const ui = document.getElementById('game-ui');
@@ -169,12 +154,9 @@
             score = 0;
             isGameActive = true;
             document.getElementById('startBtn').style.display = 'none';
-            document.getElementById('game-guide').style.display = 'none';
+            document.getElementById('ranking-section').style.display = 'none';
             document.getElementById('score-panel').innerText = "맞춘 마릿수: 0";
-            
             showMission();
-            
-            // 40초 후 종료
             gameTimer = setTimeout(endGame, 40000); 
         }
 
@@ -186,45 +168,39 @@
             
             if(currentMission === "글자") {
                 title.innerText = "이번엔...\n[글자] 보고 맞추기!";
-                signal.style.backgroundColor = "rgba(41, 128, 185, 0.95)"; // 투명도 추가로 고급스럽게
+                signal.style.backgroundColor = "rgba(41, 128, 185, 0.95)";
             } else {
                 title.innerText = "이번엔...\n[그림] 보고 맞추기!";
                 signal.style.backgroundColor = "rgba(192, 57, 43, 0.95)";
             }
             
             signal.style.display = 'flex';
-            
             setTimeout(() => {
                 if(!isGameActive) return;
                 signal.style.display = 'none';
                 document.getElementById('play-zone').style.display = 'flex';
                 document.getElementById('game-ui').style.display = 'grid';
                 nextQuestion();
-            }, 800); // 속도감 있게 0.8초로 조정
+            }, 800);
         }
 
         function nextQuestion() {
             let textIdx = Math.floor(Math.random() * animals.length);
             let emojiIdx;
-            // 인지 부조화를 위해 일부러 글자와 이모지가 다른 동물이 나오도록 유도
             do { emojiIdx = Math.floor(Math.random() * animals.length); } while (textIdx === emojiIdx);
-            
             document.getElementById('target-name').innerText = animals[textIdx].name;
             document.getElementById('target-emoji').innerText = animals[emojiIdx].emoji;
-            
             correctTarget = currentMission === "글자" ? animals[textIdx].name : animals[emojiIdx].emoji;
         }
 
         function checkAnswer(userChoice) {
             if(!isGameActive) return;
             const userVal = currentMission === "글자" ? userChoice.name : userChoice.emoji;
-            
             if(userVal === correctTarget) {
                 score++;
                 document.getElementById('score-panel').innerText = `맞춘 마릿수: ${score}`;
                 showMission(); 
             } else {
-                // 틀렸을 때 시각적 피드백
                 document.body.style.backgroundColor = "#fadbd8";
                 setTimeout(() => document.body.style.backgroundColor = "#f4f7f9", 100);
             }
@@ -234,22 +210,40 @@
             isGameActive = false;
             if(gameTimer) clearTimeout(gameTimer);
 
-            const reportScore = Math.min(100, score * 4);
-            localStorage.setItem('game6_score', reportScore);
+            // 점수 저장 (리포트용)
+            localStorage.setItem('game6_score', Math.min(100, score * 4));
             
-            let grade = "";
-            if (score >= 25) grade = "동물 소통 전문가 🐾";
-            else if (score >= 15) grade = "동물원 원장님 🦁";
-            else if (score >= 8) grade = "동물 애호가 🐶";
-            else grade = "길고양이 친구 🐱";
+            // 랭킹 저장 로직
+            saveRanking(score);
+            
+            alert(`훈련 종료! 총 ${score}마리를 인지했습니다.`);
+            location.href = 'report.html';
+        }
 
-            const resultMsg = `훈련 종료!\n\n등급: ${grade}\n기록: ${score}마리 인지\n\n분석 리포트에서 결과를 확인하시겠습니까?`;
+        // ✨ 랭킹 관련 함수들
+        function saveRanking(newScore) {
+            let history = JSON.parse(localStorage.getItem('game6_rankings')) || [];
+            history.push({ score: newScore, date: new Date().toLocaleDateString() });
+            history.sort((a, b) => b.score - a.score); // 높은 점수순 정렬
+            history = history.slice(0, 3); // 상위 3개만 유지
+            localStorage.setItem('game6_rankings', JSON.stringify(history));
+        }
+
+        function updateRankingUI() {
+            const history = JSON.parse(localStorage.getItem('game6_rankings')) || [];
+            const listContainer = document.getElementById('ranking-list');
             
-            if (confirm(resultMsg)) {
-                location.href = 'report.html';
-            } else {
-                location.reload();
+            if (history.length === 0) {
+                listContainer.innerHTML = "<li style='padding:10px 0; color:#ccc;'>아직 기록이 없습니다.</li>";
+                return;
             }
+
+            listContainer.innerHTML = history.map((record, index) => `
+                <li class="ranking-item ${index === 0 ? 'best' : ''}">
+                    <span>${index + 1}위: ${record.score}마리</span>
+                    <span style="font-size:0.75rem; color:#aaa;">${record.date}</span>
+                </li>
+            `).join('');
         }
     </script>
 </body>
