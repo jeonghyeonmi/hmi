@@ -3,213 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>역 플린 효과와 팝콘 브레인: 인류 지능의 위기 | SKZ Brain Lab</title>
+    <title>브레인 분석실 | SKZ Brain Lab</title>
     <style>
-        /* 1. 디자인 시스템 정의 */
         :root { 
-            --primary-color: #1a3a5f; 
-            --bg-color: #f4f7f9; 
-            --text-color: #2c3e50; 
-            --accent-color: #e74c3c; 
-            --box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #3498db; 
+            --gold: #f1c40f; --silver: #bdc3c7; --bronze: #cd7f32;
         }
+        * { box-sizing: border-box; }
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; }
         
-        body { 
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif; 
-            line-height: 1.8; 
-            color: var(--text-color); 
-            background-color: var(--bg-color); 
-            margin: 0; 
-            word-break: keep-all;
-        }
-
-        /* 2. 상단 공통 헤더 (충돌 방지 클래스) */
-        .main-header { 
-            background: var(--primary-color) !important; 
-            color: white !important; 
-            padding: 3rem 1rem; 
-            text-align: center; 
-        }
-        .main-header h1 { margin: 0; font-size: 2.5rem; letter-spacing: -1px; }
-        .main-header h1 a { text-decoration: none; color: white !important; }
-        .main-header p { margin: 15px 0 0; color: rgba(255,255,255,0.8); font-size: 1.1rem; }
-
-        .main-nav { 
-            background: white; 
-            padding: 1rem; 
-            display: flex; 
-            justify-content: center; 
-            gap: 2.5rem; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08); 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000; 
-        }
-        .main-nav a { 
-            text-decoration: none; 
-            color: var(--primary-color); 
-            font-weight: 700; 
-            font-size: 1.05rem;
-            transition: color 0.3s;
-        }
-        .main-nav a:hover { color: var(--accent-color); }
-
-        /* 3. 본문 레이아웃 */
-        .content-container {
-            max-width: 850px;
-            margin: 3rem auto;
-            background: white;
-            padding: 60px 80px;
-            border-radius: 16px;
-            box-shadow: var(--box-shadow);
-        }
+        header { background: var(--primary-color); color: white; padding: 1rem; text-align: center; }
+        header h1 a { text-decoration: none; color: inherit; font-size: 1.3rem; }
         
-        @media (max-width: 768px) {
-            .content-container { padding: 30px 20px; margin: 1rem auto; }
-        }
+        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.85rem; }
+        nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
 
-        /* 4. 칼럼 텍스트 스타일링 */
-        .post-header {
-            border-bottom: 3px solid var(--primary-color);
-            margin-bottom: 40px;
-            padding-bottom: 25px;
-        }
-        .post-header h2 { 
-            color: var(--primary-color); 
-            font-size: 2.2rem; 
-            line-height: 1.4;
-            margin: 10px 0;
-        }
-        .meta { color: #8c92a0; font-size: 0.9rem; font-weight: 500; }
+        .container { width: 95%; max-width: 500px; margin: 2rem auto; padding: 25px; background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; }
         
-        .post-body p {
-            margin-bottom: 1.8rem;
-            font-size: 1.1rem;
-            text-align: justify;
-        }
+        h2 { color: var(--primary-color); margin-bottom: 1.5rem; font-size: 1.5rem; }
 
-        .highlight-box {
-            background: #fff5f5;
-            border-left: 6px solid var(--accent-color);
-            padding: 25px 30px;
-            margin: 40px 0;
-            font-style: italic;
-            font-weight: 500;
-            color: #444;
-        }
+        /* 🏆 랭킹 보드 스타일 */
+        .ranking-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .ranking-table th { border-bottom: 2px solid #eee; padding: 10px; font-size: 0.9rem; color: #888; }
+        .ranking-table td { padding: 12px 10px; border-bottom: 1px solid #f9f9f9; font-weight: 500; }
+        
+        .rank-1 { color: var(--gold); font-weight: 800; font-size: 1.2rem; }
+        .rank-2 { color: var(--silver); font-weight: 700; }
+        .rank-3 { color: var(--bronze); font-weight: 700; }
 
-        .post-body h3 { 
-            font-size: 1.6rem;
-            color: var(--primary-color);
-            margin: 3.5rem 0 1.5rem;
-            padding-left: 15px;
-            border-left: 5px solid var(--primary-color);
-        }
+        /* 기록 등록 폼 */
+        .register-box { background: #f8f9fa; padding: 20px; border-radius: 12px; margin-bottom: 30px; }
+        .register-box input { padding: 10px; width: 60%; border: 1px solid #ddd; border-radius: 8px; margin-right: 5px; outline: none; }
+        .register-box button { padding: 10px 15px; background: var(--accent-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
 
-        /* 5. 기타 요소 */
-        .cta-button {
-            display: block;
-            width: fit-content;
-            margin: 50px auto;
-            padding: 20px 45px;
-            background: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 15px rgba(26, 58, 95, 0.3);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .cta-button:hover { 
-            background: var(--accent-color); 
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
-        }
-
-        .reference-list {
-            margin-top: 60px;
-            padding: 35px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            color: #555;
-            border: 1px solid #e9ecef;
-        }
-        .reference-list strong { color: var(--primary-color); display: block; margin-bottom: 15px; font-size: 1.1rem; }
-        .reference-list ul { padding-left: 20px; list-style-type: decimal; }
-        .reference-list li { margin-bottom: 12px; line-height: 1.6; }
-
-        footer { text-align: center; padding: 5rem 1rem; color: #adb5bd; font-size: 0.95rem; border-top: 1px solid #eee; }
+        .no-data { color: #aaa; padding: 20px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
-
-    <header class="main-header">
-        <h1><a href="index.html">🧠 SKZ Brain Lab</a></h1>
-        <p>최신 뇌과학 데이터 기반 인지 회복 프로젝트</p>
-    </header>
-
-    <nav>
+    <header><h1><a href="index.html">🧠 SKZ Brain Lab</a></h1></header>
+    <nav class="main-nav">
         <a href="index.html">홈</a>
         <a href="game.html">집중력 훈련</a>
         <a href="game2.html">논리력 훈련</a>
-        <a href="post1.html">브레인 분석실</a>
+        <a href="post1.html" class="active">브레인 분석실</a>
     </nav>
-    <article class="content-container">
-        <div class="post-header">
-            <div class="meta">리포트 #001 | 지능 발달 심리학 | 작성자: SKZ Lab 연구팀</div>
-            <h2>스마트폰이 앗아간 지능: ‘역 플린 효과’와 디지털 치매의 과학적 실체</h2>
+
+    <main class="container">
+        <h2>🏆 논리력 명예의 전당</h2>
+
+        <div class="register-box">
+            <p style="font-size: 0.85rem; margin-bottom: 10px; color: #666;">훈련을 마친 후 아이디를 남겨보세요!</p>
+            <input type="text" id="userId" placeholder="아이디 입력 (최대 8자)" maxlength="8">
+            <button onclick="addRecord()">등록</button>
         </div>
 
-        <section class="post-body">
-            <p>지난 수십 년간 인류는 세대가 거듭될수록 평균 지능 지수(IQ)가 상승한다는 이른바 <strong>'플린 효과(Flynn Effect)'</strong>를 문명의 진보를 증명하는 확고한 정설로 받아들여 왔습니다. 하지만 21세기에 들어서며 이 장밋빛 추세는 급격한 반전을 맞이했습니다. 노르웨이, 덴마크, 영국 등 주요 선진국을 중심으로 IQ 점수가 오히려 하락하는 <strong>'역 플린 효과(Reverse Flynn Effect)'</strong>가 관측되기 시작한 것입니다.</p>
+        <table class="ranking-table">
+            <thead>
+                <tr>
+                    <th>순위</th>
+                    <th>아이디</th>
+                    <th>기록(초)</th>
+                </tr>
+            </thead>
+            <tbody id="rankingBody">
+                </tbody>
+        </table>
+        <div id="emptyMsg" class="no-data" style="display: none;">아직 등록된 기록이 없습니다.</div>
+        
+        <button onclick="clearRanking()" style="margin-top: 30px; background: none; border: none; color: #ccc; font-size: 0.7rem; cursor: pointer;">기록 초기화(테스트용)</button>
+    </main>
 
-            <h3>1. 인류 지능의 퇴행, 데이터가 말하는 경고</h3>
-            <p>노르웨이 프리쉬 센터(Frisch Centre)의 베른트 브라츠베르크(Bernt Bratsberg) 박사 팀이 약 73만 명의 입대 예정자 데이터를 분석한 결과, 1970년대 이후 출생자부터 세대당 IQ가 약 7점씩 하락하는 충격적인 결과가 나타났습니다. 학계는 이를 단순히 교육 시스템의 문제로 치부하지 않습니다. 인류가 정보를 수집, 처리, 기억하는 방식이 디지털 기기에 과도하게 의존하면서 뇌의 핵심 인지 영역이 물리적으로 변화하고 있다는 점에 주목하고 있습니다.</p>
+    <script>
+        // 페이지 로드 시 랭킹 표시
+        document.addEventListener('DOMContentLoaded', displayRanking);
 
+        function addRecord() {
+            const idInput = document.getElementById('userId');
+            const userId = idInput.value.trim();
             
+            // 실제 게임 페이지에서 기록을 받아오는 연동이 필요하지만, 
+            // 현재는 테스트를 위해 랜덤 기록을 생성합니다.
+            // (나중에 game2.html에서 넘겨받은 실제 시간을 넣도록 연동 가능)
+            const playTime = (Math.random() * (120 - 30) + 30).toFixed(2); 
 
-            <h3>2. 팝콘 브레인: 전두엽의 기능적 위축</h3>
-            <p>우리는 이제 유튜브 쇼츠, 틱톡과 같은 60초 내외의 숏폼 콘텐츠에 뇌를 노출시킵니다. 인지과학자들은 이러한 환경이 <strong>'팝콘 브레인(Popcorn Brain)'</strong> 현상을 야기한다고 경고합니다. 팝콘이 열을 가하면 터지듯, 강렬하고 즉각적인 시각 자극에만 반응하고 일상의 잔잔한 자극이나 깊은 사유에는 뇌가 무감각해지는 것입니다.</p>
-            <p>이 과정에서 뇌의 '관제탑' 역할을 하는 전두엽(Prefrontal Cortex)의 기능적 활성도는 급격히 떨어집니다. 전두엽은 논리적 추론, 충동 억제, 집중력 유지를 담당하는데, 시각 자극에만 매몰된 뇌는 전두엽을 거치지 않고 즉각적인 도파민 보상 회로만을 활성화합니다. 이는 주의력 결핍(ADHD)과 감정 조절 장애의 직접적인 원인이 됩니다.</p>
+            if (!userId) {
+                alert("아이디를 입력해주세요!");
+                return;
+            }
 
-            <div class="highlight-box">
-                "인간의 신경계는 '사용하지 않으면 퇴화한다(Use it or Lose it)'는 원칙을 따릅니다. 외부 기기가 기억과 연산을 대신할 때, 우리 뇌의 해당 시냅스 연결은 스스로를 해체합니다."
-            </div>
-
-            <h3>3. 작업 기억력(Working Memory)의 붕괴와 문해력 저하</h3>
-            <p>과거의 인류는 정보를 뇌의 일시적 저장소인 '작업 기억 장치'에 올려두고 이를 조작하여 새로운 결론을 도출했습니다. 하지만 현대인은 이 기억의 과정을 스마트폰 검색으로 대체합니다. 인지심리학적으로 이는 뇌의 **'정보 처리 용량'** 자체를 축소시키는 결과를 낳습니다. </p>
-            <p>작업 기억력이 감퇴하면 긴 문장을 읽고 맥락을 파악하는 '문해력(Literacy)'이 가장 먼저 무너집니다. 최근 한국을 포함한 주요 국가의 청소년들이 텍스트를 읽어도 의미를 파악하지 못하는 현상은 뇌의 하드웨어적 성능 저하와 밀접한 관련이 있습니다.</p>
-
+            let rankings = JSON.parse(localStorage.getItem('sudokuRankings')) || [];
             
+            // 새 기록 추가
+            rankings.push({ id: userId, time: parseFloat(playTime), date: new Date().toLocaleDateString() });
+            
+            // 시간순 정렬 (짧을수록 높은 순위)
+            rankings.sort((a, b) => a.time - b.time);
+            
+            // 10위까지만 유지
+            rankings = rankings.slice(0, 10);
+            
+            localStorage.setItem('sudokuRankings', JSON.stringify(rankings));
+            idInput.value = '';
+            displayRanking();
+            alert(`${playTime}초의 기록으로 등록되었습니다!`);
+        }
 
-            <h3>4. 뇌의 회복 탄력성: 능동적 인지 개입의 필요성</h3>
-            <p>뇌과학은 다행히도 우리에게 희망적인 소식을 전합니다. 뇌는 평생에 걸쳐 변화하는 '신경 가소성'을 가지고 있습니다. 멈춰버린 전두엽을 다시 깨우기 위해서는 수동적인 정보 소비를 멈추고 **'능동적 인지 훈련'**을 시작해야 합니다.</p>
-            <p>직접 데이터를 분류하고, 짝을 맞추며, 반응을 억제하는 등의 훈련은 전두엽의 혈류량을 증가시키고 신경 연결망을 재구성합니다. SKZ Brain Lab이 제공하는 훈련 프로그램들은 바로 이러한 인지적 회복 탄력성을 극대화하기 위해 설계되었습니다. 기술의 도구가 될 것인지, 기술을 다스리는 주체가 될 것인지는 당신의 선택에 달려 있습니다.</p>
+        function displayRanking() {
+            const rankingBody = document.getElementById('rankingBody');
+            const emptyMsg = document.getElementById('emptyMsg');
+            const rankings = JSON.parse(localStorage.getItem('sudokuRankings')) || [];
 
-            <a href="game.html" class="cta-button">무료 기억력 테스트로 내 뇌 등급 확인하기</a>
-        </section>
+            rankingBody.innerHTML = '';
 
-        <div class="reference-list" id="references">
-            <strong>📚 참고 문헌 및 학술 데이터 출처</strong>
-            <ul>
-                <li><strong>Bratsberg, B., & Rogeberg, O. (2018).</strong> "Flynn effect and its reversal are environmentally caused." <em>PNAS (Proceedings of the National Academy of Sciences)</em>.</li>
-                <li><strong>Northwestern University (2023).</strong> "IQ scores in the U.S. have dropped in certain areas for the first time in nearly 100 years." <em>Intelligence Journal</em>.</li>
-                <li><strong>CNN Health Report (2024).</strong> "The Science of 'Popcorn Brain': Why our attention spans are vanishing."</li>
-                <li><strong>Dutton, E., & Lynn, R. (2019).</strong> <em>The Flynn Effect: Retrospect and Prospect.</em> Cambridge Scholars Publishing.</li>
-                <li><strong>Korea Institute of Brain Science (2025).</strong> "Impact of Short-form Content on the Prefrontal Cortex Development in Adolescents."</li>
-            </ul>
-        </div>
-    </article>
+            if (rankings.length === 0) {
+                emptyMsg.style.display = 'block';
+                return;
+            }
 
-    <footer>
-        <p>&copy; 2026 SKZ Brain Lab. All rights reserved.</p>
-        <p>
-            <a href="#" style="color:#adb5bd; text-decoration:none;">개인정보처리방침</a> | 
-            <a href="#" style="color:#adb5bd; text-decoration:none;">이용약관</a>
-        </p>
-    </footer>
+            emptyMsg.style.display = 'none';
+            rankings.forEach((data, index) => {
+                const row = document.createElement('tr');
+                const rankNum = index + 1;
+                let rankClass = '';
+                if(rankNum === 1) rankClass = 'rank-1';
+                else if(rankNum === 2) rankClass = 'rank-2';
+                else if(rankNum === 3) rankClass = 'rank-3';
 
+                row.innerHTML = `
+                    <td class="${rankClass}">${rankNum}위</td>
+                    <td>${data.id}</td>
+                    <td>${data.time}s</td>
+                `;
+                rankingBody.appendChild(row);
+            });
+        }
+
+        function clearRanking() {
+            if(confirm("모든 기록을 삭제하시겠습니까?")) {
+                localStorage.removeItem('sudokuRankings');
+                displayRanking();
+            }
+        }
+    </script>
 </body>
 </html>
