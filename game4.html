@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>기억력 훈련 | SKZ Brain Lab</title>
+    <style>
+        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #e67e22; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; }
+        header { background: var(--primary-color); color: white; padding: 1rem; text-align: center; }
+        header h1 a { text-decoration: none; color: inherit; font-size: 1.3rem; font-weight: 800; }
+        
+        /* 메인 네비게이션 */
+        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: flex-start; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+        nav.main-nav::-webkit-scrollbar { display: none; }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; flex-shrink: 0; }
+        
+        /* 💡 2차 네비게이션 (판단력 하위 메뉴) */
+        .sub-nav { display: flex; justify-content: center; gap: 20px; padding: 10px 0; background: #fff; border-bottom: 1px solid #eee; font-size: 0.8rem; }
+        .sub-nav a { text-decoration: none; }
+
+        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 20px; background: white; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; }
+        .game-guide { background: #fff5eb; border-radius: 12px; padding: 12px 15px; font-size: 0.82rem; line-height: 1.5; color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--accent-color); }
+        
+        #status-msg { font-size: 1.1rem; font-weight: 800; color: var(--primary-color); margin-bottom: 10px; height: 1.5rem; }
+        .memory-grid { display: grid; margin: 20px auto; gap: 8px; width: fit-content; transition: 0.3s; }
+        .tile { width: 70px; height: 70px; background: #eee; border-radius: 10px; cursor: pointer; transition: 0.2s; }
+        .tile.active { background: var(--accent-color); }
+        .tile.correct { background: #2ecc71; }
+        .tile.wrong { background: #e74c3c; }
+
+        .btn-start { width: 100%; max-width: 250px; padding: 15px; background: var(--accent-color); color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 1rem; }
+        
+        .ranking-container { margin-top: 30px; border-top: 2px dashed #eee; padding-top: 20px; }
+        .rank-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        .rank-table td { padding: 12px 5px; border-bottom: 1px solid #f9f9f9; }
+    </style>
+</head>
+<body>
+    <header><h1><a href="index.html">🧠 SKZ Brain Lab</a></h1></header>
+    
+    <nav class="main-nav">
+        <a href="index.html">홈</a>
+        <a href="game.html">집중력</a>
+        <a href="game2.html">논리력</a>
+        <a href="game3.html" style="color:var(--accent-color); border-bottom:2px solid var(--accent-color);">판단력</a>
+        <a href="post1.html">분석실</a>
+    </nav>
+
+    <div class="sub-nav">
+        <a href="game3.html" style="color: #aaa;">[순발력 테스트]</a>
+        <a href="game4.html" style="color: var(--accent-color); font-weight: bold;">[기억력 테스트]</a>
+    </div>
+
+    <main class="container">
+        <div class="game-guide"><strong>🧩 훈련 규칙:</strong> 주황색 타일들의 위치를 기억하세요. 타일이 사라지면 기억한 위치를 모두 클릭하세요!</div>
+        <div id="status-msg">준비되셨나요?</div>
+        <div id="memoryBoard" class="memory-grid" style="grid-template-columns: repeat(3, 1fr);"></div>
+        <button id="startBtn" class="btn-start" onclick="startGame()">훈련 시작</button>
+
+        <div class="ranking-container">
+            <div id="best-record" style="font-size:0.9rem; color:var(--accent-color); font-weight:bold; margin-bottom:10px;">최고 레벨: -</div>
+            <table class="rank-table"><thead><tr><th>회차</th><th>날짜</th><th>레벨</th></tr></thead><tbody id="rankingBody"></tbody></table>
+            <button onclick="clearHistory()" style="margin-top:15px; background:none; border:none; color:#ccc; font-size:0.7rem; text-decoration:underline;">초기화</button>
+        </div>
+    </main>
+
+    <script>
+        let level = 1, targetTiles = [], userSelection = [], isWait = false;
+
+        function initBoard() {
+            const board = document.getElementById('memoryBoard');
+            board.innerHTML = '';
+            const size = level < 4 ? 3 : (level < 7 ? 4 : 5);
+            board.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+            for(let i=0; i < size * size; i++) {
+                const tile = document.createElement('div');
+                tile.className = 'tile';
+                tile.onclick = () => handleTileClick(i, tile);
+                board.appendChild(tile);
+            }
+        }
+
+        function startGame() {
+            if(isWait) return;
+            isWait = true; userSelection = [];
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('status-msg').innerText = `Lv.${level} - 기억하세요!`;
+            
+            const tiles = document.querySelectorAll('.tile');
+            tiles.forEach(t => t.className = 'tile');
+
+            targetTiles = [];
+            const count = level + 2;
+            while(targetTiles.length < count) {
+                let rand = Math.floor(Math.random() * tiles.length);
+                if(!targetTiles.includes(rand)) targetTiles.push(rand);
+            }
+
+            targetTiles.forEach(idx => tiles[idx].classList.add('active'));
+
+            setTimeout(() => {
+                targetTiles.forEach(idx => tiles[idx].classList.remove('active'));
+                document.getElementById('status-msg').innerText = `위치를 찾으세요!`;
+                isWait = false;
+            }, 1000 + (level * 200));
+        }
+
+        function handleTileClick(idx, tile) {
+            if(isWait || targetTiles.length === 0 || userSelection.includes(idx)) return;
+
+            if(targetTiles.includes(idx)) {
+                tile.classList.add('correct');
+                userSelection.push(idx);
+                if(userSelection.length === targetTiles.length) {
+                    level++; isWait = true;
+                    setTimeout(() => { initBoard(); isWait = false; startGame(); }, 600);
+                }
+            } else {
+                tile.classList.add('wrong');
+                endGame();
+            }
+        }
+
+        function endGame() {
+            let grade = level >= 10 ? "기억력 천재 🐘" : level >= 6 ? "브레인 🧠" : level >= 3 ? "보통 사람 👤" : "깜빡이 🐠";
+            alert(`훈련 종료!\n등급: ${grade}\n최종 레벨: ${level}`);
+            
+            const now = new Date();
+            const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
+            let history = JSON.parse(localStorage.getItem('memHistory')) || [];
+            history.unshift({date:dateStr, score:level});
+            localStorage.setItem('memHistory', JSON.stringify(history.slice(0, 10)));
+            
+            level = 1;
+            document.getElementById('startBtn').style.display = 'inline-block';
+            document.getElementById('startBtn').innerText = '다시 시작';
+            initBoard();
+            displayHistory();
+        }
+
+        function displayHistory() {
+            const body = document.getElementById('rankingBody');
+            const history = JSON.parse(localStorage.getItem('memHistory')) || [];
+            if(history.length > 0) {
+                const best = Math.max(...history.map(h => h.score));
+                document.getElementById('best-record').innerText = `⭐ 최고 레벨: ${best}`;
+                body.innerHTML = history.map((h, i) => `<tr><td>${history.length-i}회</td><td>${h.date}</td><td>Lv.${h.score}</td></tr>`).join('');
+            } else { body.innerHTML = '<tr><td colspan="3">기록이 없습니다.</td></tr>'; }
+        }
+
+        function clearHistory() { if(confirm("초기화할까요?")) { localStorage.removeItem('memHistory'); location.reload(); } }
+
+        initBoard();
+        displayHistory();
+    </script>
+</body>
+</html>
