@@ -189,7 +189,22 @@
 
         function endGame() {
             isGameActive = false;
-            alert(`훈련 종료!\n총 ${score}마리를 구별했습니다.`);
+            
+            // 점수별 위트 있는 등급 판정
+            let grade = "";
+            if (score >= 25) {
+                grade = "동물 소통 전문가 🐾 (혹시 전생에 닥터 두리틀?)";
+            } else if (score >= 15) {
+                grade = "동물원 원장님 🦁 (눈썰미가 보통이 아니신데요?)";
+            } else if (score >= 8) {
+                grade = "동물 애호가 🐶 (집중력 유지! 조금만 더 하면 전문가!)";
+            } else if (score >= 3) {
+                grade = "길고양이 친구 🐱 (뇌가 동물 구별법을 익히는 중입니다.)";
+            } else {
+                grade = "도시 사람 🏙️ (동물이랑 친해질 시간이 필요해요!)";
+            }
+
+            alert(`훈련 종료!\n\n나의 등급: ${grade}\n총 ${score}마리를 정확히 구별했습니다.`);
             location.reload();
         }
     </script>
