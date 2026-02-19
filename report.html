@@ -2,75 +2,134 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>브레인 리포트 | SKZ Brain Lab</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>리포트 | SKZ Brain Lab</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; }
-        body { font-family: 'Pretendard', sans-serif; background: var(--bg-color); margin: 0; padding: 0; color: #333; }
+        :root { 
+            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
+            --text-main: #2c3e50; --text-muted: #7f8c8d;
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
-        header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
-        header h1 { margin: 0; font-size: 1.3rem; }
-        header h1 a { text-decoration: none; color: inherit; }
-
-        nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
-
-        .container { max-width: 600px; margin: 1.5rem auto; padding: 0 15px; }
+        body { 
+            font-family: 'Pretendard', -apple-system, sans-serif; 
+            background: var(--bg-color); margin: 0; color: var(--text-main); 
+            line-height: 1.6;
+        }
         
-        .report-card { background: white; border-radius: 24px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; margin-bottom: 1.5rem; }
+        header { background: var(--primary-color); color: white; padding: 1.5rem 1rem; text-align: center; }
+        header h1 { margin: 0; }
+        header h1 a { text-decoration: none; color: inherit; font-size: 1.4rem; font-weight: 800; }
+
+        nav.main-nav { 
+            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+        }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+        nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
+
+        .container { width: 94%; max-width: 600px; margin: 2rem auto; }
         
-        .user-type { font-size: 1.1rem; color: #666; margin-bottom: 0.5rem; }
-        .type-name { font-size: 1.8rem; font-weight: 900; color: var(--primary-color); margin-bottom: 1.5rem; }
-        .type-name mark { background: none; color: var(--accent-color); }
+        .report-card { 
+            background: white; border-radius: 30px; padding: 40px 25px; 
+            box-shadow: 0 15px 50px rgba(0,0,0,0.05); text-align: center; 
+            position: relative; overflow: hidden;
+        }
+        
+        /* 상단 장식 요소 */
+        .report-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 8px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+        
+        .user-type { font-size: 1rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 500; }
+        .type-name { font-size: 2.2rem; font-weight: 900; color: var(--primary-color); margin-bottom: 30px; letter-spacing: -0.05em; }
+        .type-name mark { background: transparent; color: var(--accent-color); position: relative; }
+        .type-name mark::after {
+            content: ''; position: absolute; bottom: 5px; left: 0; width: 100%; height: 8px;
+            background: rgba(211, 84, 0, 0.1); z-index: -1;
+        }
 
-        .chart-container { position: relative; margin: 0 auto 2rem; height: 300px; width: 300px; }
+        .chart-wrapper { 
+            position: relative; margin: 0 auto 40px; 
+            background: #fff; border-radius: 50%; padding: 10px;
+        }
 
-        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 2rem; }
-        .stat-item { background: #f8f9fa; padding: 15px; border-radius: 16px; text-align: left; }
-        .stat-label { font-size: 0.8rem; color: #888; display: block; }
-        .stat-value { font-size: 1.1rem; font-weight: bold; color: var(--primary-color); }
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 35px; }
+        .stat-item { 
+            background: #f8fafc; padding: 18px 15px; border-radius: 20px; 
+            text-align: center; border: 1px solid #f1f5f9;
+        }
+        .stat-label { font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 5px; }
+        .stat-value { font-size: 1.15rem; font-weight: 800; color: var(--primary-color); }
 
-        .btn-retry { display: block; background: var(--primary-color); color: white; padding: 18px; border-radius: 15px; text-decoration: none; font-weight: bold; margin-bottom: 1rem; }
-        .btn-reset { display: block; background: #eee; color: #666; padding: 10px; border-radius: 10px; text-decoration: none; font-size: 0.8rem; margin-top: 10px; }
+        .description-box {
+            background: #fff9f5; border-radius: 20px; padding: 25px;
+            color: var(--text-content); font-size: 0.98rem; line-height: 1.7;
+            margin-bottom: 40px; border: 1px solid #ffedd5; word-break: keep-all;
+        }
 
-        footer { text-align: center; padding: 2rem; color: #aaa; font-size: 0.8rem; }
+        .action-buttons { display: flex; flex-direction: column; gap: 12px; }
+        .btn {
+            display: block; padding: 18px; border-radius: 16px; 
+            text-decoration: none; font-weight: 800; font-size: 1rem; 
+            transition: 0.2s; border: none; cursor: pointer;
+        }
+        .btn-retry { background: var(--primary-color); color: white; box-shadow: 0 4px 15px rgba(26, 58, 95, 0.2); }
+        .btn-retry:active { transform: scale(0.98); }
+        
+        .btn-reset { background: transparent; color: #94a3b8; font-size: 0.85rem; padding: 10px; margin-top: 20px; text-decoration: underline; }
+
+        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; }
+
+        @media (max-width: 480px) {
+            .report-card { padding: 40px 20px; }
+            .type-name { font-size: 1.8rem; }
+            .stat-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
-<header><h1><a href="index.html">🧠 SKZ Brain Lab</a></h1></header>
+<header>
+    <h1><a href="index.html">🧠 SKZ Brain Lab</a></h1>
+</header>
 
-<nav>
+<nav class="main-nav">
     <a href="index.html">홈</a>
     <a href="game.html">훈련실</a>
-    <a href="report.html" style="color:var(--accent-color); border-bottom:2px solid var(--accent-color);">리포트</a>
-    <a href="post1.html">분석실</a>
+    <a href="report.html" class="active">리포트</a>
+    <a href="posts.html">분석실</a>
 </nav>
 
 <div class="container">
-    <div class="report-card">
-        <p class="user-type">당신의 브레인 타입은</p>
+    <main class="report-card">
+        <p class="user-type">당신의 브레인 분석 결과</p>
         <div class="type-name" id="brain-type">분석 중...</div>
         
-        <div class="chart-container">
+        <div class="chart-wrapper">
             <canvas id="abilityChart"></canvas>
         </div>
 
-        <div class="stat-grid" id="stat-summary"></div>
+        <div class="stat-grid" id="stat-summary">
+            </div>
 
-        <p id="type-desc" style="color: #555; font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem; padding: 0 10px; word-break: keep-all;"></p>
+        <div class="description-box" id="type-desc">
+            </div>
 
-        <a href="index.html" class="btn-retry">다른 훈련 더 하기</a>
-        <a href="#" class="btn-reset" onclick="resetData()">데이터 초기화</a>
-    </div>
+        <div class="action-buttons">
+            <a href="index.html" class="btn btn-retry">다른 훈련 계속하기</a>
+            <button onclick="shareResult()" class="btn" style="background:#e2e8f0; color:#475569;">📊 결과 이미지로 저장하기</button>
+            <button class="btn-reset" onclick="resetData()">모든 훈련 기록 초기화</button>
+        </div>
+    </main>
 </div>
 
 <footer>&copy; 2026 SKZ Brain Lab. 종합 인지 능력 분석</footer>
 
 <script>
-    // 1. 데이터 불러오기 및 정규화 (모든 게임의 점수를 0~100 사이로 환산)
-    // 게임을 안 했을 경우 0점으로 표시되도록 수정
+    // 1. 데이터 불러오기 (로컬 스토리지)
     const rawScores = {
         focus: localStorage.getItem('game1_score'),
         logic: localStorage.getItem('game2_score'),
@@ -89,7 +148,7 @@
         cognition: parseInt(rawScores.cognition) || 0
     };
 
-    // 2. 그래프 그리기 (Chart.js)
+    // 2. 레이더 차트 (Chart.js 커스텀)
     const ctx = document.getElementById('abilityChart').getContext('2d');
     new Chart(ctx, {
         type: 'radar',
@@ -98,36 +157,46 @@
             datasets: [{
                 label: '내 능력치',
                 data: [scores.focus, scores.logic, scores.speed, scores.memory, scores.math, scores.cognition],
-                backgroundColor: 'rgba(211, 84, 0, 0.2)',
+                backgroundColor: 'rgba(211, 84, 0, 0.15)',
                 borderColor: 'rgba(211, 84, 0, 1)',
-                borderWidth: 2,
+                borderWidth: 3,
                 pointBackgroundColor: 'rgba(211, 84, 0, 1)',
-                pointRadius: 3
+                pointBorderColor: '#fff',
+                pointHoverRadius: 5,
+                pointRadius: 4
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: true,
             scales: {
                 r: {
-                    angleLines: { display: true },
+                    angleLines: { color: '#e2e8f0' },
+                    grid: { color: '#f1f5f9' },
                     suggestedMin: 0,
                     suggestedMax: 100,
-                    ticks: { stepSize: 20, display: false }
+                    ticks: { display: false, stepSize: 20 },
+                    pointLabels: {
+                        font: { size: 13, weight: 'bold', family: 'Pretendard' },
+                        color: '#64748b'
+                    }
                 }
             },
-            plugins: { legend: { display: false } }
+            plugins: {
+                legend: { display: false }
+            }
         }
     });
 
-    // 3. 타입 진단 로직
+    // 3. 타입 진단 및 화면 표시 로직
     const brainTypeElem = document.getElementById('brain-type');
     const descElem = document.getElementById('type-desc');
-    
-    // 점수가 모두 0점인 경우 처리
     const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
-    
+    const avgScore = Math.floor(totalScore / 6);
+
     if (totalScore === 0) {
         brainTypeElem.innerHTML = "새내기 <mark>훈련사</mark>";
-        descElem.innerText = "아직 충분한 데이터가 쌓이지 않았습니다. 게임을 플레이하고 당신의 능력을 확인하세요!";
+        descElem.innerText = "아직 훈련 데이터가 부족합니다. 각 영역별 게임을 플레이하시면 정밀한 브레인 분석 리포트가 생성됩니다!";
     } else {
         const maxVal = Math.max(...Object.values(scores));
         const bestAbility = Object.keys(scores).find(key => scores[key] === maxVal);
@@ -137,44 +206,55 @@
 
         if(bestAbility === 'math') {
             typeName = "냉철한 <mark>수학자</mark>";
-            description = "수치와 계산에 매우 강점을 보입니다. 복잡한 데이터 속에서 정답을 찾아내는 능력이 탁월하시네요!";
+            description = "당신은 숫자의 질서 속에서 안정감을 느끼는 타입입니다. 복잡한 데이터 속에서 정답을 빠르게 도출하는 수리적 직관이 매우 발달해 있습니다.";
         } else if(bestAbility === 'speed' || bestAbility === 'cognition') {
-            typeName = "직관적인 <mark>사냥꾼</mark>";
-            description = "반응 속도와 상황 인지 능력이 최고 수준입니다. 위기 상황에서 본능적으로 올바른 판단을 내리는 타입입니다.";
+            typeName = "날렵한 <mark>치타</mark>";
+            description = "상황을 판단하고 반응하는 속도가 남다릅니다. 변화하는 환경에 즉각적으로 대응하는 인지 유연성이 당신의 가장 큰 무기입니다.";
         } else if(bestAbility === 'memory') {
-            typeName = "기록하는 <mark>사서</mark>";
-            description = "탁월한 기억력을 바탕으로 정보를 체계적으로 저장합니다. 남들이 놓치는 작은 디테일도 기억해내는 능력이 있습니다.";
+            typeName = "기록하는 <mark>현자</mark>";
+            description = "한 번 본 정보를 놓치지 않는 정교한 기억 메커니즘을 가졌습니다. 경험을 지식으로 변환하여 활용하는 능력이 뛰어납니다.";
         } else if(bestAbility === 'focus') {
-            typeName = "집요한 <mark>명사수</mark>";
-            description = "하나에 몰입하면 주변의 소음도 잊어버리는 놀라운 집중력의 소유자입니다. 과제 완수 능력이 매우 높습니다.";
+            typeName = "몰입하는 <mark>장인</mark>";
+            description = "주변의 소음을 차단하고 목표에만 에너지를 쏟아붓는 놀라운 집중력을 보유하고 계시군요. 딥 워크(Deep Work)에 최적화된 뇌입니다.";
         } else {
             typeName = "균형 잡힌 <mark>전략가</mark>";
-            description = "모든 능력이 조화롭게 발달했습니다. 상황을 다각도로 분석하고 유연한 전략을 세우는 데 능숙합니다.";
+            description = "모든 인지 영역이 고르게 발달했습니다. 어느 한쪽에 치우치지 않고 상황을 다각도로 분석하여 최선의 결과를 만들어내는 능력이 탁월합니다.";
         }
 
         brainTypeElem.innerHTML = typeName;
         descElem.innerText = description;
     }
 
-    // 4. 요약 수치 표시
-    const avgScore = Math.floor(totalScore / 6);
-    const summaryElem = document.getElementById('stat-summary');
-    summaryElem.innerHTML = `
+    // 4. 통계 요약 삽입
+    document.getElementById('stat-summary').innerHTML = `
         <div class="stat-item">
-            <span class="stat-label">나의 최대 강점</span>
-            <span class="stat-value">${totalScore === 0 ? '-' : brainTypeElem.innerText}</span>
+            <span class="stat-label">종합 평균 점수</span>
+            <span class="stat-value">${avgScore}점</span>
         </div>
         <div class="stat-item">
-            <span class="stat-label">브레인 평균 점수</span>
-            <span class="stat-value">${avgScore}점</span>
+            <span class="stat-label">가장 강한 영역</span>
+            <span class="stat-value">${totalScore === 0 ? '-' : getAbilityName(getMaxAbility())}</span>
         </div>
     `;
 
+    function getMaxAbility() {
+        return Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+    }
+
+    function getAbilityName(key) {
+        const names = { focus:'집중력', logic:'논리력', speed:'순발력', memory:'기억력', math:'수리력', cognition:'인지력' };
+        return names[key];
+    }
+
     function resetData() {
-        if(confirm("모든 훈련 데이터를 초기화하시겠습니까?")) {
+        if(confirm("모든 훈련 데이터와 기록이 삭제됩니다. 정말 초기화하시겠습니까?")) {
             localStorage.clear();
             location.reload();
         }
+    }
+
+    function shareResult() {
+        alert("현재 웹 버전에서는 브라우저 캡처 기능을 이용해 주세요! (기기별 스크린샷 캡처)");
     }
 </script>
 </body>
