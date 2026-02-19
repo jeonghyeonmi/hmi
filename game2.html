@@ -3,55 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>논리 강화 스도쿠 | SKZ Brain Lab</title>
+    <title>논리력 트레이닝 | SKZ Brain Lab</title>
     <style>
         :root { 
             --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #3498db; 
-            --success-color: #2ecc71; --error-color: #e74c3c; --border-dark: #222;
+            --success-color: #2ecc71; --border-dark: #222;
         }
-        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; }
-        header { background: var(--primary-color); color: white; padding: 1.5rem; text-align: center; }
-        .container { max-width: 600px; margin: 2rem auto; padding: 25px; background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; }
-        .level-indicator { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
-        .level-badge { padding: 8px 15px; background: #eee; border-radius: 20px; font-weight: bold; font-size: 0.85rem; color: #888; cursor: pointer; }
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; overflow-x: hidden; }
+        
+        header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
+        header h1 a { text-decoration: none; color: inherit; font-size: 1.5rem; }
+        
+        /* 💡 메뉴 이름 리브랜딩 적용 */
+        nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex-wrap: wrap; }
+        nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; transition: 0.2s; }
+        nav a:hover { color: var(--accent-color); }
+
+        .container { width: 95%; max-width: 600px; margin: 1.5rem auto; padding: 15px; background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; box-sizing: border-box; }
+        
+        .level-indicator { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
+        .level-badge { padding: 6px 12px; background: #eee; border-radius: 20px; font-weight: bold; font-size: 0.75rem; color: #888; cursor: pointer; }
         .level-badge.active { background: var(--accent-color); color: white; }
-        #timer { font-size: 2.2rem; font-weight: 800; color: var(--primary-color); margin: 10px 0; display: block; }
-        .sudoku-grid { display: grid; margin: 20px auto; background: var(--border-dark); border: 2px solid var(--border-dark); gap: 1px; width: fit-content; }
-        .cell { width: 50px; height: 50px; background: white; display: flex; align-items: center; justify-content: center; }
-        .cell input { width: 100%; height: 100%; border: none; text-align: center; font-size: 1.4rem; font-weight: bold; color: var(--accent-color); outline: none; }
-        .cell.fixed { background: #f1f3f5; font-weight: bold; color: #2c3e50; font-size: 1.4rem; }
-        /* 9x9 전용 굵은 선 */
+
+        #timer { font-size: 1.8rem; font-weight: 800; color: var(--primary-color); margin: 5px 0; display: block; }
+
+        /* 📱 반응형 그리드 */
+        .sudoku-grid { display: grid; margin: 15px auto; background: var(--border-dark); border: 2px solid var(--border-dark); gap: 1px; width: fit-content; max-width: 100%; }
+        .cell { width: min(50px, 10vw); height: min(50px, 10vw); background: white; display: flex; align-items: center; justify-content: center; }
+        .cell input { width: 100%; height: 100%; border: none; text-align: center; font-size: clamp(1rem, 4vw, 1.4rem); font-weight: bold; color: var(--accent-color); outline: none; background: transparent; }
+        .cell.fixed { background: #f1f3f5; font-weight: bold; color: #2c3e50; font-size: clamp(1rem, 4vw, 1.4rem); }
+
+        /* 9x9 최적화 */
+        .grid-9 .cell { width: min(40px, 10.5vw); height: min(40px, 10.5vw); }
         .grid-9 .cell:nth-child(3n) { border-right: 2px solid var(--border-dark); }
         .grid-9 .cell:nth-child(9n) { border-right: none; }
         .grid-9 .cell:nth-child(n+19):nth-child(-n+27), .grid-9 .cell:nth-child(n+46):nth-child(-n+54) { border-bottom: 2px solid var(--border-dark); }
-        .btn-group { margin-top: 30px; display: flex; justify-content: center; gap: 15px; }
-        .btn { padding: 12px 25px; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1rem; }
+
+        .btn-group { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+        .btn { width: 80%; max-width: 250px; padding: 12px; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: 0.3s; }
         .btn-check { background: var(--success-color); color: white; }
         .btn-next { background: var(--primary-color); color: white; display: none; }
+        
+        footer { text-align: center; padding: 2rem 0; color: #888; font-size: 0.8rem; }
     </style>
 </head>
 <body>
-    <header><h1>🧠 SKZ Brain Lab</h1></header>
-    <div class="container">
+    <header>
+        <h1><a href="index.html">🧠 SKZ Brain Lab</a></h1>
+    </header>
+    
+    <nav>
+        <a href="index.html">홈</a>
+        <a href="game.html">집중력 훈련</a>
+        <a href="game2.html">논리력 훈련</a>
+        <a href="post1.html">브레인 분석실</a>
+    </nav>
+
+    <main class="container">
         <div class="level-indicator">
-            <div id="lv1" class="level-badge active" onclick="changeLevel(1)">입문 (3x3)</div>
-            <div id="lv2" class="level-badge" onclick="changeLevel(2)">초보 (5x5)</div>
-            <div id="lv3" class="level-badge" onclick="changeLevel(3)">마스터 (9x9)</div>
+            <div id="lv1" class="level-badge active" onclick="changeLevel(1)">Level 1 (3x3)</div>
+            <div id="lv2" class="level-badge" onclick="changeLevel(2)">Level 2 (5x5)</div>
+            <div id="lv3" class="level-badge" onclick="changeLevel(3)">Level 3 (9x9)</div>
         </div>
+
         <span id="timer">0.00</span>
+        
         <div id="sudokuBoard" class="sudoku-grid"></div>
+
         <div class="btn-group">
-            <button class="btn btn-check" onclick="validateUserSolution()">정답 확인</button>
-            <button id="nextBtn" class="btn btn-next" onclick="goToNextLevel()">성공! 다음 단계</button>
+            <button class="btn btn-check" onclick="validateUserSolution()">결과 분석하기</button>
+            <button id="nextBtn" class="btn btn-next" onclick="goToNextLevel()">다음 단계 트레이닝</button>
         </div>
-    </div>
+    </main>
+
+    <footer>&copy; 2026 SKZ Brain Lab. All rights reserved.</footer>
 
     <script>
         let currentLevel = 1;
         let startTime, timerInterval, gameStarted = false;
-        const configs = { 1: { size: 3, empty: 3 }, 2: { size: 5, empty: 10 }, 3: { size: 9, empty: 40 } };
+        const configs = { 1: { size: 3, empty: 3 }, 2: { size: 5, empty: 12 }, 3: { size: 9, empty: 40 } };
 
-        // 1. 수학적으로 무결한 보드 생성 (Backtracking 사용)
         function generatePerfectBoard(size) {
             let board = Array.from({length: size}, () => Array(size).fill(0));
             function solve(b) {
@@ -114,6 +145,7 @@
                     } else {
                         const input = document.createElement('input');
                         input.type = 'number';
+                        input.inputMode = "numeric";
                         input.oninput = (e) => {
                             if(e.target.value.length > 1) e.target.value = e.target.value.slice(0,1);
                             if(!gameStarted) startTimer();
@@ -133,7 +165,6 @@
             }, 10);
         }
 
-        // 🌟 핵심: 사용자 입력값의 규칙 위반 여부를 실시간 검사
         function validateUserSolution() {
             const size = configs[currentLevel].size;
             const cells = document.querySelectorAll('.cell');
@@ -151,25 +182,23 @@
                 board.push(row);
             }
 
-            // 가로, 세로 중복 체크
             for (let i = 0; i < size; i++) {
                 let rowSet = new Set(), colSet = new Set();
                 for (let j = 0; j < size; j++) {
                     if (rowSet.has(board[i][j]) || colSet.has(board[j][i])) {
-                        alert(`중복 발견! ${i+1}행 또는 ${j+1}열을 확인하세요.`); return;
+                        alert("가로/세로 중복이 감지되었습니다. 다시 확인해보세요!"); return;
                     }
                     rowSet.add(board[i][j]); colSet.add(board[j][i]);
                 }
             }
 
-            // 9x9 전용 박스 체크
             if (size === 9) {
                 for (let r = 0; r < 9; r += 3) {
                     for (let c = 0; c < 9; c += 3) {
                         let boxSet = new Set();
                         for (let i = 0; i < 3; i++) {
                             for (let j = 0; j < 3; j++) {
-                                if (boxSet.has(board[r + i][c + j])) { alert("박스 내 중복이 있습니다."); return; }
+                                if (boxSet.has(board[r + i][c + j])) { alert("3x3 영역 내 중복이 있습니다."); return; }
                                 boxSet.add(board[r + i][c + j]);
                             }
                         }
@@ -178,7 +207,7 @@
             }
 
             clearInterval(timerInterval);
-            alert("🎊 축하합니다! 완벽하게 해결하셨습니다.");
+            alert("🎊 분석 완료! 논리적인 배치가 완벽합니다.");
             if(currentLevel < 3) document.getElementById('nextBtn').style.display = 'block';
         }
 
