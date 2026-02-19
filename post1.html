@@ -3,114 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>브레인 분석실 | SKZ Brain Lab</title>
+    <title>분석실 | SKZ Brain Lab</title>
     <style>
         :root { 
-            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #3498db; 
+            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
             --text-main: #2c3e50; --text-content: #34495e; --text-muted: #7f8c8d;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
         body { 
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif; 
+            font-family: 'Pretendard', -apple-system, sans-serif; 
             background-color: var(--bg-color); margin: 0; color: var(--text-main);
-            letter-spacing: -0.01em; 
+            line-height: 1.7; letter-spacing: -0.02em;
         }
         
-        header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
-        header h1 a { text-decoration: none; color: inherit; font-size: 1.4rem; font-weight: 800; display: inline-block; }
-        
-        nav.main-nav { 
-            background: white; 
-            padding: 0.8rem; 
-            display: flex; 
-            justify-content: center; 
-            gap: 1.2rem; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000;
-            overflow-x: auto; 
-            white-space: nowrap; 
-            -webkit-overflow-scrolling: touch; 
-        }
-        nav.main-nav::-webkit-scrollbar { display: none; }
-        
-        @media (max-width: 480px) {
-            nav.main-nav { justify-content: flex-start; padding-left: 1.2rem; padding-right: 1.2rem; }
+        /* 읽기 진행바 */
+        #progress-bar {
+            position: fixed; top: 0; left: 0; width: 0%; height: 4px;
+            background: var(--accent-color); z-index: 2000; transition: width 0.1s;
         }
 
-        nav.main-nav a { 
-            text-decoration: none; 
-            color: var(--primary-color); 
-            font-weight: bold; 
-            font-size: 0.9rem; 
-            flex-shrink: 0; 
+        header { background: var(--primary-color); color: white; padding: 1.5rem 1rem; text-align: center; }
+        header h1 { margin: 0; }
+        header h1 a { text-decoration: none; color: inherit; font-size: 1.4rem; font-weight: 800; }
+        header p { margin: 5px 0 0; font-size: 0.85rem; opacity: 0.8; }
+
+        nav.main-nav { 
+            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+            overflow-x: auto; white-space: nowrap;
         }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
         nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
 
-        .container { width: 94%; max-width: 750px; margin: 2rem auto; }
+        .container { width: 94%; max-width: 700px; margin: 2rem auto; }
         
-        .article { background: white; padding: 45px 30px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.04); }
+        .article-card { 
+            background: white; padding: 40px 25px; border-radius: 28px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03); 
+        }
+
         .category-tag { 
-            display: inline-block; padding: 4px 12px; background: #e8f4fd; color: #3498db; 
-            border-radius: 6px; font-size: 0.8rem; font-weight: 700; margin-bottom: 15px; 
+            display: inline-block; padding: 5px 14px; background: #fff1f2; color: #e11d48; 
+            border-radius: 8px; font-size: 0.75rem; font-weight: 800; margin-bottom: 20px; 
         }
-        .article h2 { 
-            font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1.4; margin: 0 0 20px 0; 
-            word-break: keep-all; color: var(--primary-color);
-        }
-        .meta-info { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 35px; display: flex; justify-content: space-between; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px; }
 
-        .content { 
-            line-height: 1.9; font-size: 1.08rem; color: var(--text-content); 
-            text-align: justify;
+        .article-card h2 { 
+            font-size: clamp(1.5rem, 6vw, 2.1rem); line-height: 1.35; margin: 0 0 25px 0; 
+            word-break: keep-all; color: var(--primary-color); font-weight: 800;
         }
-        .content p { margin-bottom: 1.8rem; }
-        .content h3 { font-size: 1.4rem; color: var(--primary-color); margin-top: 2.5rem; margin-bottom: 1rem; border-left: 4px solid var(--accent-color); padding-left: 15px; }
+
+        .meta-info { 
+            font-size: 0.85rem; color: var(--text-muted); margin-bottom: 40px; 
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid #f0f0f0; padding-bottom: 20px; 
+        }
+
+        /* 본문 스타일 */
+        .content { font-size: 1.05rem; color: var(--text-content); }
+        .content p { margin-bottom: 1.8rem; text-align: justify; }
+        .content strong { color: var(--primary-color); }
         
+        .content h3 { 
+            font-size: 1.4rem; color: var(--primary-color); margin-top: 3rem; margin-bottom: 1.2rem; 
+            display: flex; align-items: center; gap: 10px;
+        }
+        .content h3::before { content: ''; width: 4px; height: 1.2rem; background: var(--accent-color); border-radius: 2px; }
+
         .highlight-box { 
-            background: #f0f7ff; border-left: 4px solid var(--accent-color); padding: 25px; 
-            margin: 35px 0; border-radius: 0 12px 12px 0; font-weight: 500; color: #2c3e50;
+            background: #f8fafc; border: 1px solid #e2e8f0; padding: 25px; 
+            margin: 40px 0; border-radius: 20px; font-style: italic;
+            position: relative;
         }
+        .highlight-box::after { content: '“'; position: absolute; top: 10px; left: 15px; font-size: 3rem; color: #e2e8f0; font-family: serif; }
 
-        /* ✨ 하단 네비게이션 버튼 추가 */
+        /* 하단 액션 버튼 */
         .article-footer {
-            margin-top: 50px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
+            margin-top: 60px; display: flex; gap: 12px; justify-content: center;
         }
-        .btn-list {
-            text-decoration: none; background: #f1f3f5; color: #495057;
-            padding: 12px 25px; border-radius: 12px; font-weight: bold; font-size: 0.9rem;
+        .btn {
+            padding: 14px 24px; border-radius: 14px; font-weight: bold; font-size: 0.95rem;
+            text-decoration: none; transition: 0.2s; border: none; cursor: pointer;
         }
-        .btn-next {
-            text-decoration: none; background: var(--primary-color); color: white;
-            padding: 12px 25px; border-radius: 12px; font-weight: bold; font-size: 0.9rem;
-        }
+        .btn-list { background: #f1f3f5; color: #495057; }
+        .btn-next { background: var(--primary-color); color: white; flex-grow: 1; text-align: center; max-width: 300px; }
+        .btn:active { transform: scale(0.98); opacity: 0.9; }
 
+        /* 참고자료 */
         .references { 
-            margin-top: 60px; padding-top: 25px; border-top: 2px solid #f0f0f0; 
-            font-size: 0.85rem; color: var(--text-muted); 
+            margin-top: 60px; padding: 25px; background: #fafafa; border-radius: 16px;
+            font-size: 0.8rem; color: var(--text-muted); 
         }
-        .references h4 { margin: 0 0 12px 0; color: var(--text-main); }
+        .references h4 { margin: 0 0 15px 0; color: var(--text-main); font-size: 0.9rem; }
         .references ul { list-style: none; padding: 0; margin: 0; }
-        .references li { margin-bottom: 8px; line-height: 1.5; }
+        .references li { margin-bottom: 10px; line-height: 1.6; padding-left: 15px; position: relative; }
+        .references li::before { content: '•'; position: absolute; left: 0; color: #ccc; }
 
-        footer { text-align: center; padding: 4rem 0; color: #bbb; font-size: 0.8rem; }
+        footer { text-align: center; padding: 4rem 0; color: #bbb; font-size: 0.8rem; border-top: 1px solid #eee; margin-top: 50px; }
+        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
 
         @media (max-width: 480px) {
-            .article { padding: 30px 20px; }
-            .content { font-size: 1.02rem; line-height: 1.8; }
-            .article-footer { flex-direction: column; }
-            .btn-list, .btn-next { text-align: center; }
+            .article-card { padding: 35px 20px; border-radius: 0; }
+            .container { width: 100%; margin: 0; }
+            .article-footer { flex-direction: column-reverse; }
+            .btn-next { max-width: none; }
         }
     </style>
 </head>
 <body>
+    <div id="progress-bar"></div>
+
     <header>
         <h1><a href="index.html">🧠 SKZ Brain Lab</a></h1>
-        <p>우리 뇌를 위한 건강한 디지털 습관 만들기</p>
+        <p>우리 뇌를 위한 건강한 디지털 습관</p>
     </header>
 
     <nav class="main-nav">
@@ -118,51 +123,69 @@
         <a href="game.html">집중력</a>
         <a href="game2.html">논리력</a>
         <a href="game3.html">판단력</a>
-        <a href="post1.html" class="active">분석실</a>
+        <a href="posts.html" class="active">분석실</a>
     </nav>
 
     <main class="container">
-        <article class="article">
-            <span class="category-tag">두뇌 이야기 #01</span>
+        <article class="article-card">
+            <span class="category-tag">INSIGHT</span>
             <h2>요즘 우리의 지능이 정말 낮아지고 있을까요? '역 플린 효과' 알아보기</h2>
             
             <div class="meta-info">
-                <span>글쓴이: SKZ 운영자</span>
+                <span>By SKZ Lab 훈련사</span>
                 <span>2026. 02. 20</span>
             </div>
 
             <div class="content">
-                <p>안녕하세요! 오늘은 우리가 함께 고민해볼 만한 흥미로운 주제를 가져왔습니다. 지난 100년 동안 인류는 IQ가 상승해 왔지만, 최근 그 추세가 꺾였다는 <strong>'역 플린 효과'</strong>에 대한 이야기입니다.</p>
+                <p>안녕하세요! 오늘은 우리가 함께 고민해볼 만한 흥미로운 주제를 가져왔습니다. 지난 100년 동안 인류는 풍족한 영양과 교육 덕분에 IQ가 꾸준히 상승해 왔지만, 최근 그 추세가 꺾였다는 <strong>'역 플린 효과(Reverse Flynn Effect)'</strong>에 대한 이야기입니다.</p>
 
                 <div class="highlight-box">
-                    "노르웨이의 한 연구소 분석에 따르면, 1970년대 중반 이후 태생부터 IQ 점수가 낮아지고 있습니다. 이는 단순한 우연일까요?"
+                    <p style="margin:0; position:relative; z-index:1;">"노르웨이의 연구 분석에 따르면, 1970년대 중반 이후 태생부터 IQ 점수가 낮아지고 있습니다. 이는 단순한 우연일까요?"</p>
                 </div>
 
                 <h3>1. 지능 지수가 낮아지는 현상</h3>
-                <p>연구자들이 70만 명 이상의 데이터를 분석한 결과, 디지털 기기의 보급과 생활 환경의 변화가 인류의 인지 구조에 큰 영향을 미치고 있음이 드러났습니다.</p>
+                <p>연구자들이 70만 명 이상의 데이터를 분석한 결과, 전 세계적으로 수십 년간 지속되던 IQ 상승세가 멈추고 오히려 하락세로 돌아섰음이 확인되었습니다. 특히 수리 능력과 어휘력 부분에서 두드러진 변화가 나타나고 있습니다.</p>
 
                 <h3>2. 왜 이런 일이 생기는 걸까요?</h3>
-                <p>가장 큰 원인은 <strong>'디지털 환경'</strong>입니다. 숏폼 영상과 파편화된 정보는 우리 뇌의 전두엽 기능을 약화시키고 깊은 사고를 방해합니다.</p>
+                <p>가장 강력한 원인 중 하나는 <strong>'디지털 환경으로의 변화'</strong>입니다. 스마트폰의 숏폼 영상과 파편화된 정보 소비는 우리 뇌의 전두엽 기능을 약화시키고, 긴 글을 읽거나 복잡한 문제를 인내심 있게 해결하는 능력을 방해합니다.</p>
 
                 <h3>3. 해결책은 능동적인 훈련</h3>
-                <p>세상이 우리를 대신해 기억해주고 계산해주지만, 쓰지 않는 근육이 퇴화하듯 뇌도 자극이 필요합니다. 우리가 제공하는 훈련 게임들이 바로 그 '뇌 근육'을 단련하는 도구가 될 것입니다.</p>
+                <p>쓰지 않는 근육이 퇴화하듯, 우리 뇌도 자극이 없으면 인지 기능이 저하됩니다. SKZ Brain Lab이 제공하는 <strong>집중력, 논리력, 판단력 게임</strong>들은 단순히 시간을 때우는 것이 아니라, 현대 사회에서 소외되기 쉬운 뇌 부위를 자극하는 '디지털 헬스' 도구입니다.</p>
+                
+                <p>오늘부터라도 짧은 게임 한 판으로 여러분의 소중한 인지 근육을 깨워보는 건 어떨까요?</p>
             </div>
 
             <div class="article-footer">
-                <a href="posts.html" class="btn-list">목록으로</a>
-                <a href="post2.html" class="btn-next">다음 글: 뇌 성장 리포트 보기 →</a>
+                <a href="posts.html" class="btn btn-list">목록으로</a>
+                <a href="post2.html" class="btn btn-next">다음: 뇌 성장 리포트 보기 →</a>
             </div>
 
             <section class="references">
                 <h4>📚 참고 자료</h4>
                 <ul>
-                    <li>- Bratsberg & Rogeberg (2018). IQ 하락 연구. PNAS.</li>
-                    <li>- Carr, N. (2010). '생각하지 않는 사람들'.</li>
+                    <li>Bratsberg, B., & Rogeberg, O. (2018). Flynn effect and its reversal are environmentally caused. PNAS.</li>
+                    <li>니콜라스 카 (2010). '생각하지 않는 사람들'. 청림출판.</li>
                 </ul>
             </section>
         </article>
     </main>
 
-    <footer>&copy; 2026 SKZ Brain Lab. 모든 칼럼 내용은 객관적 연구 결과를 바탕으로 작성되었습니다.</footer>
+    <footer>
+        <div style="margin-bottom: 10px;">
+            <a href="privacy.html">개인정보처리방침</a> | 
+            <a href="terms.html">이용약관</a>
+        </div>
+        &copy; 2026 SKZ Brain Lab. 모든 칼럼은 연구 결과를 바탕으로 작성되었습니다.
+    </footer>
+
+    <script>
+        // 읽기 진행바 로직
+        window.onscroll = function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        };
+    </script>
 </body>
 </html>
