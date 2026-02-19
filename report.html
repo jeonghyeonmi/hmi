@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>브레인 리포트 | SKZ Brain Lab</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; }
+        body { font-family: 'Pretendard', sans-serif; background: var(--bg-color); margin: 0; padding: 0; color: #333; }
+        
+        header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
+        header h1 { margin: 0; font-size: 1.3rem; }
+        header h1 a { text-decoration: none; color: inherit; }
+
+        nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+
+        .container { max-width: 600px; margin: 1.5rem auto; padding: 0 15px; }
+        
+        .report-card { background: white; border-radius: 24px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; margin-bottom: 1.5rem; }
+        
+        .user-type { font-size: 1.1rem; color: #666; margin-bottom: 0.5rem; }
+        .type-name { font-size: 1.8rem; font-weight: 900; color: var(--primary-color); margin-bottom: 1.5rem; }
+        .type-name mark { background: none; color: var(--accent-color); }
+
+        /* 그래프 컨테이너 */
+        .chart-container { position: relative; margin: 0 auto 2rem; height: 300px; width: 300px; }
+
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 2rem; }
+        .stat-item { background: #f8f9fa; padding: 15px; border-radius: 16px; text-align: left; }
+        .stat-label { font-size: 0.8rem; color: #888; display: block; }
+        .stat-value { font-size: 1.1rem; font-weight: bold; color: var(--primary-color); }
+
+        .btn-retry { display: block; background: var(--primary-color); color: white; padding: 18px; border-radius: 15px; text-decoration: none; font-weight: bold; margin-bottom: 1rem; }
+        .btn-share { display: block; background: white; color: var(--primary-color); border: 2px solid var(--primary-color); padding: 15px; border-radius: 15px; text-decoration: none; font-weight: bold; }
+
+        footer { text-align: center; padding: 2rem; color: #aaa; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<header><h1><a href="index.html">🧠 SKZ Brain Lab</a></h1></header>
+
+<nav>
+    <a href="index.html">홈</a>
+    <a href="game.html">훈련실</a>
+    <a href="report.html" style="color:var(--accent-color); border-bottom:2px solid var(--accent-color);">리포트</a>
+    <a href="post1.html">분석실</a>
+</nav>
+
+<div class="container">
+    <div class="report-card">
+        <p class="user-type">당신의 브레인 타입은</p>
+        <div class="type-name" id="brain-type">데이터 수집 중...</div>
+        
+        <div class="chart-container">
+            <canvas id="abilityChart"></canvas>
+        </div>
+
+        <div class="stat-grid" id="stat-summary">
+            </div>
+
+        <p id="type-desc" style="color: #555; font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem;"></p>
+
+        <a href="game.html" class="btn-retry">추천 훈련하러 가기</a>
+        <a href="#" class="btn-share" onclick="alert('준비 중인 기능입니다!')">리포트 이미지 저장</a>
+    </div>
+</div>
+
+<footer>&copy; 2026 SKZ Brain Lab. 종합 인지 능력 분석</footer>
+
+<script>
+    // 1. 데이터 불러오기 (실제 키값에 맞게 수정 필요)
+    const scores = {
+        focus: parseInt(localStorage.getItem('game1_score')) || 45, // 집중 (빨리 누르기)
+        logic: parseInt(localStorage.getItem('game2_score')) || 30, // 논리 (카드 맞추기)
+        speed: parseInt(localStorage.getItem('game3_score')) || 55, // 순발 (숫자 순서)
+        memory: parseInt(localStorage.getItem('game4_score')) || 25, // 기억 (순서 기억)
+        math: parseInt(localStorage.getItem('game5_score')) || 40,   // 수리 (산수)
+        cognition: parseInt(localStorage.getItem('game6_score')) || 35 // 인지 (동물 인지)
+    };
+
+    // 2. 그래프 그리기 (Chart.js)
+    const ctx = document.getElementById('abilityChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ['집중력', '논리력', '순발력', '기억력', '수리력', '인지력'],
+            datasets: [{
+                label: '내 능력치',
+                data: [scores.focus, scores.logic, scores.speed, scores.memory, scores.math, scores.cognition],
+                backgroundColor: 'rgba(211, 84, 0, 0.2)',
+                borderColor: 'rgba(211, 84, 0, 1)',
+                borderWidth: 2,
+                pointBackgroundColor: 'rgba(211, 84, 0, 1)'
+            }]
+        },
+        options: {
+            scales: {
+                r: {
+                    angleLines: { display: true },
+                    suggestedMin: 0,
+                    suggestedMax: 100,
+                    ticks: { display: false }
+                }
+            },
+            plugins: { legend: { display: false } }
+        }
+    });
+
+    // 3. 타입 진단 로직
+    const brainTypeElem = document.getElementById('brain-type');
+    const descElem = document.getElementById('type-desc');
+    
+    // 가장 높은 점수 찾기
+    const maxVal = Math.max(...Object.values(scores));
+    const bestAbility = Object.keys(scores).find(key => scores[key] === maxVal);
+
+    let typeName = "";
+    let description = "";
+
+    if(bestAbility === 'math') {
+        typeName = "냉철한 <mark>수학자</mark>";
+        description = "복잡한 계산과 논리적인 상황에서 빛을 발하는 타입입니다. 감정보다 수치를 믿는 경향이 있군요!";
+    } else if(bestAbility === 'speed' || bestAbility === 'cognition') {
+        typeName = "직관적인 <mark>사냥꾼</mark>";
+        description = "순발력과 인지력이 매우 뛰어납니다. 남들이 고민할 때 이미 몸이 먼저 움직이는 실행력의 대가입니다.";
+    } else if(bestAbility === 'memory') {
+        typeName = "걸어다니는 <mark>백과사전</mark>";
+        description = "한 번 본 것은 놓치지 않는 기억력을 가졌군요. 세밀한 디테일을 잡아내는 데 특화되어 있습니다.";
+    } else {
+        typeName = "균형 잡힌 <mark>전략가</mark>";
+        description = "다양한 상황에 유연하게 대처하는 능력을 가졌습니다. 전체적인 흐름을 읽는 눈이 좋으시네요!";
+    }
+
+    brainTypeElem.innerHTML = typeName;
+    descElem.innerText = description;
+
+    // 4. 요약 수치 표시
+    const summaryElem = document.getElementById('stat-summary');
+    summaryElem.innerHTML = `
+        <div class="stat-item"><span class="stat-label">종합 강점</span><span class="stat-value">${typeName.replace(/<[^>]*>?/gm, '')}</span></div>
+        <div class="stat-item"><span class="stat-label">평균 점수</span><span class="stat-value">${Math.floor(Object.values(scores).reduce((a,b)=>a+b)/6)}점</span></div>
+    `;
+</script>
+</body>
+</html>
