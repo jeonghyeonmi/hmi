@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>단계별 뇌 훈련: 스도쿠 | SKZ Brain Lab</title>
+    <title>단계별 스도쿠 훈련 | SKZ Brain Lab</title>
     <style>
         :root { 
             --primary-color: #1a3a5f; 
@@ -12,59 +12,73 @@
             --success-color: #2ecc71; 
             --border-dark: #222;
         }
-        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; }
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; line-height: 1.6; }
+        
+        /* 헤더 & 네비 */
         header { background: var(--primary-color); color: white; padding: 2rem 1rem; text-align: center; }
         header h1 a { text-decoration: none; color: inherit; }
         nav { background: white; padding: 1rem; display: flex; justify-content: center; gap: 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; }
 
-        .container { max-width: 600px; margin: 2rem auto; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; }
+        .container { max-width: 650px; margin: 2rem auto; padding: 25px; background: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; }
         
+        /* 규칙 설명 섹션 */
+        .rule-box { 
+            background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 25px; 
+            text-align: left; border-left: 5px solid var(--accent-color); 
+        }
+        .rule-box h3 { margin-top: 0; color: var(--primary-color); font-size: 1.1rem; }
+        .rule-box p { font-size: 0.9rem; margin-bottom: 8px; color: #555; }
+        .rule-highlight { color: #e74c3c; font-weight: bold; }
+
         /* 레벨 표시기 */
-        .level-indicator { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        .level-badge { padding: 8px 12px; background: #eee; border-radius: 20px; font-weight: bold; font-size: 0.85rem; color: #888; transition: 0.3s; }
+        .level-indicator { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .level-badge { padding: 8px 15px; background: #eee; border-radius: 20px; font-weight: bold; font-size: 0.85rem; color: #888; transition: 0.3s; }
         .level-badge.active { background: var(--accent-color); color: white; transform: scale(1.05); }
 
-        #timer { font-size: 2rem; font-weight: 800; color: var(--primary-color); margin: 10px 0; display: block; }
+        #timer { font-size: 2.2rem; font-weight: 800; color: var(--primary-color); margin: 10px 0; display: block; }
 
-        /* 스도쿠 공통 그리드 스타일 */
+        /* 스도쿠 그리드 디자인 */
         .sudoku-grid { 
             display: grid; 
-            margin: 20px auto; 
+            margin: 25px auto; 
             background: var(--border-dark); 
             border: 3px solid var(--border-dark);
             gap: 1px;
             width: fit-content;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
         .cell { 
-            width: 42px; height: 42px; background: white; 
+            width: 45px; height: 45px; background: white; 
             display: flex; align-items: center; justify-content: center; 
         }
         .cell input { 
             width: 100%; height: 100%; border: none; text-align: center; 
-            font-size: 1.1rem; font-weight: bold; color: var(--accent-color); outline: none; 
+            font-size: 1.2rem; font-weight: bold; color: var(--accent-color); outline: none; 
         }
-        .cell.fixed { background: #f0f0f0; font-weight: bold; color: #333; }
+        .cell.fixed { background: #f1f3f5; font-weight: bold; color: #2c3e50; }
 
-        /* 9x9 전용: 3x3 구역 강조 */
+        /* 9x9 마스터 단계: 3x3 박스 강조선 */
         .grid-9 .cell:nth-child(3n) { border-right: 2px solid var(--border-dark); }
         .grid-9 .cell:nth-child(9n) { border-right: none; }
         .grid-9 .cell:nth-child(n+19):nth-child(-n+27),
         .grid-9 .cell:nth-child(n+46):nth-child(-n+54) { border-bottom: 2px solid var(--border-dark); }
 
-        .btn-group { margin-top: 25px; display: flex; justify-content: center; gap: 10px; }
-        .btn { padding: 12px 25px; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1rem; }
-        .btn-check { background: var(--success-color); color: white; }
-        .btn-next { background: var(--primary-color); color: white; display: none; }
+        /* 하단 버튼 */
+        .btn-group { margin-top: 30px; display: flex; justify-content: center; gap: 15px; }
+        .btn { padding: 14px 30px; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1rem; }
+        .btn-check { background: var(--success-color); color: white; box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); }
+        .btn-next { background: var(--primary-color); color: white; display: none; box-shadow: 0 4px 15px rgba(26, 58, 95, 0.3); }
+        .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-        footer { text-align: center; padding: 3rem 0; color: #888; font-size: 0.9rem; }
+        footer { text-align: center; padding: 4rem 0; color: #888; font-size: 0.9rem; }
     </style>
 </head>
 <body>
     <header>
         <h1><a href="index.html">🧠 SKZ Brain Lab</a></h1>
-        <p>기초부터 마스터까지, 뇌의 논리력을 단계적으로 깨우세요</p>
+        <p>단계별 스도쿠: 논리적 소거법으로 뇌를 깨우세요</p>
     </header>
     <nav>
         <a href="index.html">대시보드</a>
@@ -73,6 +87,14 @@
         <a href="post1.html">리포트</a>
     </nav>
     <main class="container">
+        <section class="rule-box">
+            <h3 id="rule-title">📝 스도쿠란?</h3>
+            <p id="rule-desc">가로, 세로 줄에 숫자가 중복되지 않게 채우는 논리 퍼즐입니다.</p>
+            <p id="rule-detail" class="rule-highlight">현재 규칙: 가로와 세로 줄에 1~3이 한 번씩만 들어가야 합니다.</p>
+        </section>
+
+        
+
         <div class="level-indicator">
             <div id="lv1" class="level-badge active">입문 (3x3)</div>
             <div id="lv2" class="level-badge">초보 (5x5)</div>
@@ -85,27 +107,42 @@
 
         <div class="btn-group">
             <button class="btn btn-check" onclick="checkSolution()">정답 확인</button>
-            <button id="nextBtn" class="btn btn-next" onclick="goToNextLevel()">다음 단계로!</button>
+            <button id="nextBtn" class="btn btn-next" onclick="goToNextLevel()">성공! 다음 단계로 가기</button>
         </div>
     </main>
-    <footer>&copy; 2026 SKZ Brain Lab.</footer>
+    <footer>&copy; 2026 SKZ Brain Lab. 전두엽 활성화 프로젝트</footer>
 
     <script>
         let currentLevel = 1;
         let startTime, timerInterval, gameStarted = false;
         let currentSolution = [];
 
-        // 레벨별 데이터 정의 (3x3, 5x5는 간단한 규칙 학습용)
         const levels = {
-            1: { size: 3, puzzle: [[1,0,3],[0,2,0],[3,0,1]] },
-            2: { size: 5, puzzle: [[1,0,3,0,5],[0,2,0,4,0],[3,0,5,0,2],[0,4,0,1,0],[5,0,2,0,4]] },
-            3: { size: 9, puzzle: [
-                [5,3,0,0,7,0,0,0,0], [6,0,0,1,9,5,0,0,0], [0,9,8,0,0,0,0,6,0],
-                [8,0,0,0,6,0,0,0,3], [4,0,0,8,0,3,0,0,1], [7,0,0,0,2,0,0,0,6],
-                [0,6,0,0,0,0,2,8,0], [0,0,0,4,1,9,0,0,5], [0,0,0,0,8,0,0,7,9]
-            ]}
+            1: { 
+                size: 3, 
+                title: "📝 입문 단계 규칙",
+                desc: "기본 원리를 익히는 단계입니다. 가로와 세로 줄에 1, 2, 3이 겹치지 않게 채우세요.",
+                puzzle: [[1,0,3],[0,2,0],[3,0,1]] 
+            },
+            2: { 
+                size: 5, 
+                title: "🚀 초보 단계 규칙",
+                desc: "판이 넓어졌습니다! 이제 가로와 세로 줄에 1부터 5까지 중복 없이 배치해야 합니다.",
+                puzzle: [[1,0,3,0,5],[0,2,0,4,0],[3,0,5,0,2],[0,4,0,1,0],[5,0,2,0,4]] 
+            },
+            3: { 
+                size: 9, 
+                title: "👑 마스터 단계 규칙 (정식)",
+                desc: "가로, 세로 뿐만 아니라 <span class='rule-highlight'>굵은 선으로 구분된 3x3 박스</span> 안에도 1~9가 겹치면 안 됩니다.",
+                puzzle: [
+                    [5,3,0,0,7,0,0,0,0], [6,0,0,1,9,5,0,0,0], [0,9,8,0,0,0,0,6,0],
+                    [8,0,0,0,6,0,0,0,3], [4,0,0,8,0,3,0,0,1], [7,0,0,0,2,0,0,0,6],
+                    [0,6,0,0,0,0,2,8,0], [0,0,0,4,1,9,0,0,5], [0,0,0,0,8,0,0,7,9]
+                ]
+            }
         };
 
+        // 백트래킹 정답 생성 로직 (단순화)
         function solve(board, size) {
             for (let r = 0; r < size; r++) {
                 for (let c = 0; c < size; c++) {
@@ -126,7 +163,6 @@
 
         function isValid(board, r, c, n, size) {
             for (let i = 0; i < size; i++) if (board[r][i] === n || board[i][c] === n) return false;
-            // 9x9일 때만 3x3 박스 체크
             if (size === 9) {
                 let sr = r - r % 3, sc = c - c % 3;
                 for (let i = 0; i < 3; i++)
@@ -139,15 +175,18 @@
         function initGame() {
             const boardElement = document.getElementById('sudokuBoard');
             const config = levels[currentLevel];
-            const size = config.size;
             
-            boardElement.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
-            boardElement.className = `sudoku-grid grid-${size}`;
+            // 설명 텍스트 업데이트
+            document.getElementById('rule-title').innerText = config.title;
+            document.getElementById('rule-desc').innerHTML = config.desc;
+            document.getElementById('rule-detail').innerText = `현재 규칙: 모든 줄에 1~${config.size}까지 채우기`;
+
+            boardElement.style.gridTemplateColumns = `repeat(${config.size}, 1fr)`;
+            boardElement.className = `sudoku-grid grid-${config.size}`;
             boardElement.innerHTML = '';
             
-            // 정답지 생성
             let tempBoard = config.puzzle.map(row => [...row]);
-            solve(tempBoard, size);
+            solve(tempBoard, config.size);
             currentSolution = tempBoard;
 
             config.puzzle.forEach((row, r) => {
@@ -189,22 +228,20 @@
                 for (let c = 0; c < size; c++) {
                     const cell = cells[idx++];
                     const val = cell.classList.contains('fixed') ? parseInt(cell.innerText) : parseInt(cell.querySelector('input').value);
-                    if (val !== currentSolution[r][c]) isCorrect = false;
+                    if (isNaN(val) || val !== currentSolution[r][c]) isCorrect = false;
                 }
             }
 
             if (isCorrect) {
                 clearInterval(timerInterval);
-                const finalTime = document.getElementById('timer').innerText;
-                alert(`✨ 성공! 레벨 ${currentLevel} 클리어!\n기록: ${finalTime}초`);
-                
+                alert(`🎊 성공! 레벨 ${currentLevel}을(를) 정복했습니다!`);
                 if (currentLevel < 3) {
                     document.getElementById('nextBtn').style.display = 'block';
                 } else {
-                    alert("축하합니다! 마스터 단계까지 모두 정복하셨습니다!");
+                    alert("🏆 대단합니다! 마스터 단계까지 완수하셨습니다. 당신의 뇌는 지금 최상의 상태입니다!");
                 }
             } else {
-                alert("틀린 숫자가 있습니다. 다시 확인해 보세요!");
+                alert("다시 확인해 보세요! 가로나 세로 줄에 숫자가 겹치거나 빈칸이 있는 것 같습니다.");
             }
         }
 
