@@ -189,6 +189,12 @@
 
         function endGame() {
             isGameActive = false;
+
+            // 💡 [추가] 리포트 페이지를 위한 인지력 점수 저장
+            // 40초 동안 25마리 이상 맞추면 '전문가'이므로, (score * 4)로 100점 만점 환산
+            const reportScore = Math.min(100, score * 4);
+            localStorage.setItem('game6_score', reportScore);
+            
             
             // 점수별 위트 있는 등급 판정
             let grade = "";
