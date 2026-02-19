@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>브레인 분석실 리스트 | SKZ Brain Lab</title>
+    <style>
+        :root { 
+            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #3498db; 
+            --text-main: #2c3e50; --text-content: #34495e; --text-muted: #7f8c8d;
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { 
+            font-family: 'Pretendard', -apple-system, sans-serif; 
+            background-color: var(--bg-color); margin: 0; color: var(--text-main);
+        }
+        
+        header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
+        header h1 a { text-decoration: none; color: inherit; font-size: 1.4rem; font-weight: 800; }
+        
+        nav.main-nav { 
+            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+        }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+        nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
+
+        .container { width: 94%; max-width: 700px; margin: 2rem auto; }
+        
+        .list-header { margin-bottom: 2rem; }
+        .list-header h2 { font-size: 1.5rem; color: var(--primary-color); margin-bottom: 0.5rem; }
+        .list-header p { color: var(--text-muted); font-size: 0.9rem; margin: 0; }
+
+        /* 포스트 카드 스타일 */
+        .post-card {
+            background: white; border-radius: 20px; padding: 25px; margin-bottom: 1.5rem;
+            display: flex; flex-direction: column; gap: 12px;
+            text-decoration: none; color: inherit;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .post-card:active { transform: scale(0.98); }
+        
+        .post-card .tag {
+            align-self: flex-start; padding: 4px 10px; border-radius: 6px;
+            font-size: 0.75rem; font-weight: bold;
+        }
+        .tag.blue { background: #e3f2fd; color: #1976d2; }
+        .tag.orange { background: #fff3e0; color: #e65100; }
+
+        .post-card h3 { margin: 0; font-size: 1.2rem; line-height: 1.4; color: var(--text-main); }
+        .post-card p { margin: 0; font-size: 0.95rem; color: var(--text-content); line-height: 1.5; opacity: 0.8; }
+        
+        .post-meta { font-size: 0.8rem; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; margin-top: 5px; }
+
+        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html">🧠 SKZ Brain Lab</a></h1>
+    </header>
+
+    <nav class="main-nav">
+        <a href="index.html">홈</a>
+        <a href="game.html">집중력</a>
+        <a href="game2.html">논리력</a>
+        <a href="game3.html">판단력</a>
+        <a href="posts.html" class="active">분석실</a>
+    </nav>
+
+    <main class="container">
+        <div class="list-header">
+            <h2>브레인 분석실</h2>
+            <p>뇌 과학 데이터를 기반으로 한 똑똑한 습관 가이드</p>
+        </div>
+
+        <a href="post1.html" class="post-card">
+            <span class="tag blue">두뇌 이야기 #01</span>
+            <h3>요즘 우리의 지능이 정말 낮아지고 있을까요? '역 플린 효과'</h3>
+            <p>1970년대 이후 전 세계적으로 IQ가 하락하는 현상의 원인과 디지털 환경의 상관관계를 분석합니다.</p>
+            <div class="post-meta">
+                <span>운영자</span>
+                <span>2026. 02. 20</span>
+            </div>
+        </a>
+
+        <a href="post2.html" class="post-card">
+            <span class="tag orange">분석 리포트 #02</span>
+            <h3>유튜브 보면서 게임하는 당신, 뇌는 지금 비명을 지르고 있다?</h3>
+            <p>멀티태스킹이 뇌에 미치는 치명적인 영향과 '일시적 IQ 하락' 현상을 방지하는 몰입의 기술을 소개합니다.</p>
+            <div class="post-meta">
+                <span>운영자</span>
+                <span>2026. 02. 21</span>
+            </div>
+        </a>
+
+        <div class="post-card" style="opacity: 0.5; background: #eee; cursor: default;">
+            <span class="tag" style="background: #ddd;">Coming Soon</span>
+            <h3>잠이 부족한 뇌는 술 취한 뇌와 같다?</h3>
+            <p>수면 부족이 판단력과 수리 능력에 미치는 영향에 대해 곧 다룰 예정입니다.</p>
+        </div>
+    </main>
+
+    <footer>&copy; 2026 SKZ Brain Lab. 모든 칼럼은 과학적 근거를 바탕으로 작성됩니다.</footer>
+</body>
+</html>
