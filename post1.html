@@ -25,6 +25,12 @@
         nav { background: white; padding: 1rem; display: flex; justify-content: center; gap: 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
         nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; }
         nav a:hover { color: var(--accent-color); }
+        header h1 a {
+    transition: opacity 0.3s;
+}
+header h1 a:hover {
+    opacity: 0.8;
+}
 
         .container {
             max-width: 800px;
@@ -88,8 +94,8 @@
 <body>
 
 <header>
-    <h1>🧠 SKZ Brain Lab</h1>
-    <p>뇌 과학 리포트 & 데이터 아카이브</p>
+    <h1><a href="index.html" style="text-decoration: none; color: inherit;">🧠 SKZ Brain Lab</a></h1>
+    <p>디지털 피로에 지친 당신의 뇌를 위한 맞춤형 대시보드</p>
 </header>
 
 <nav>
