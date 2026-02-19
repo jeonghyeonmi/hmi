@@ -15,6 +15,12 @@
         header { background-color: var(--primary-color); color: white; padding: 2rem; text-align: center; }
         nav { display: flex; justify-content: center; gap: 20px; background: #fff; padding: 15px; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 100; }
         nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; }
+        header h1 a {
+    transition: opacity 0.3s;
+}
+header h1 a:hover {
+    opacity: 0.8;
+}
 
         main { max-width: 900px; margin: 20px auto; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         
@@ -42,8 +48,8 @@
 <body>
 
 <header>
-    <h1>🧠 SKZ Brain Lab</h1>
-    <p>쇼츠에 절여진 뇌를 깨우는 능동적 인지 훈련</p>
+    <h1><a href="index.html" style="text-decoration: none; color: inherit;">🧠 SKZ Brain Lab</a></h1>
+    <p>디지털 피로에 지친 당신의 뇌를 위한 맞춤형 대시보드</p>
 </header>
 
 <nav>
