@@ -7,72 +7,123 @@
     <style>
         :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #e67e22; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; }
         
-        header { background: var(--primary-color); color: white; padding: 1rem; text-align: center; }
-        header h1 a { text-decoration: none; color: inherit; font-size: 1.3rem; font-weight: 800; display: inline-block; /* 터치 영역 확보 */ }
-     
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; }
+        
+        header { background: var(--primary-color); color: white; padding: 1.5rem 1rem; text-align: center; }
+        header h1 { margin: 0; }
+        header h1 a { text-decoration: none; color: inherit; font-size: 1.4rem; font-weight: 800; }
+        header p { margin: 5px 0 0; font-size: 0.85rem; opacity: 0.8; }
 
-        /* ✨ 메뉴 가독성 및 정렬 최적화 */
+        /* 네비게이션 가로 스크롤 최적화 */
         nav.main-nav { 
             background: white; 
             padding: 0.8rem; 
             display: flex; 
-            justify-content: center; /* 기본적으로 가운데 정렬 */
+            justify-content: center; 
             gap: 1.2rem; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
             overflow-x: auto; 
             white-space: nowrap; 
-            -webkit-overflow-scrolling: touch; 
-            scrollbar-width: none; 
             position: sticky;
             top: 0;
             z-index: 1000;
         }
         nav.main-nav::-webkit-scrollbar { display: none; }
-        
-        /* 모바일(화면이 좁을 때) 처리 */
-        @media (max-width: 480px) {
-            nav.main-nav { 
-                justify-content: flex-start; /* 모바일선 왼쪽부터 스크롤 가능하게 */
-                padding-left: 1.2rem;
-                padding-right: 1.2rem;
-            }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; flex-shrink: 0; }
+        nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
+
+        .container { 
+            width: 95%; 
+            max-width: 500px; 
+            margin: 1.5rem auto; 
+            padding: 20px; 
+            background: white; 
+            border-radius: 24px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+            text-align: center; 
         }
 
-        nav.main-nav a { 
-            text-decoration: none; 
-            color: var(--primary-color); 
-            font-weight: bold; 
-            font-size: 0.9rem; 
-            flex-shrink: 0; 
+        .game-guide { 
+            background: #fff8f0; 
+            border-radius: 12px; 
+            padding: 15px; 
+            font-size: 0.85rem; 
+            line-height: 1.6; 
+            color: #444; 
+            margin-bottom: 15px; 
+            text-align: left; 
+            border-left: 4px solid var(--accent-color); 
         }
-        nav.main-nav a.active { color: var(--accent-color); }
+        .game-guide strong { color: #d35400; display: block; margin-bottom: 4px; }
 
-        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 20px; background: white; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; }
-        .game-guide { background: #fff8f0; border-radius: 12px; padding: 12px 15px; font-size: 0.82rem; line-height: 1.5; color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--accent-color); }
-        .game-guide strong { color: #d35400; display: block; margin-bottom: 3px; }
-        .grade-info { background: #f1f3f5; border-radius: 10px; padding: 10px; margin-bottom: 15px; font-size: 0.75rem; color: #666; display: flex; justify-content: space-around; }
+        .grade-info { 
+            background: #f8f9fa; 
+            border-radius: 12px; 
+            padding: 12px; 
+            margin-bottom: 20px; 
+            font-size: 0.75rem; 
+            color: #777; 
+            display: flex; 
+            justify-content: space-around; 
+            border: 1px solid #eee;
+        }
         .grade-star { color: #f1c40f; font-weight: bold; }
         
-        #timer { font-size: 2.2rem; font-weight: 800; color: var(--primary-color); margin: 10px 0; display: block; }
-        .game-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 20px auto; }
+        #timer { font-size: 2.5rem; font-weight: 800; color: var(--primary-color); margin: 10px 0; display: block; font-variant-numeric: tabular-nums; }
         
-        .card { height: min(90px, 20vw); background: var(--primary-color); border-radius: 8px; cursor: pointer; position: relative; transform-style: preserve-3d; transition: transform 0.4s; }
+        /* 카드 그리드 배치 수정 */
+        .game-board { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 10px; 
+            margin: 20px auto; 
+        }
+        
+        .card { 
+            aspect-ratio: 1/1; 
+            background: var(--primary-color); 
+            border-radius: 12px; 
+            cursor: pointer; 
+            position: relative; 
+            transform-style: preserve-3d; 
+            transition: transform 0.4s; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
         .card.flipped { transform: rotateY(180deg); }
-        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; border-radius: 8px; }
+        .card-front, .card-back { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            backface-visibility: hidden; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 2rem; 
+            border-radius: 12px; 
+        }
         .card-back { background: #fff; border: 2px solid var(--primary-color); transform: rotateY(180deg); }
         
-        .ranking-container { margin-top: 30px; border-top: 2px dashed #eee; padding-top: 20px; }
-        .ranking-title { font-size: 1.1rem; font-weight: bold; color: var(--primary-color); margin-bottom: 10px; }
+        /* 기록 영역 */
+        .ranking-container { margin-top: 30px; border-top: 2px dashed #eee; padding-top: 25px; }
+        .ranking-title { font-size: 1.1rem; font-weight: bold; color: var(--primary-color); margin-bottom: 15px; }
         .rank-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-        .rank-table th { padding: 8px; color: #888; border-bottom: 1px solid #eee; }
-        .rank-table td { padding: 10px 5px; border-bottom: 1px solid #f9f9f9; }
+        .rank-table th { padding: 10px; color: #888; border-bottom: 1px solid #eee; }
+        .rank-table td { padding: 12px 5px; border-bottom: 1px solid #f9f9f9; }
+
+        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; line-height: 1.8; }
+        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
+
+        @media (max-width: 400px) {
+            .card-back { font-size: 1.5rem; }
+            .game-board { gap: 6px; }
+        }
     </style>
 </head>
 <body>
     <header>
-<h1><a href="index.html" style="text-decoration: none; color: inherit;">🧠 SKZ Brain Lab</a></h1>        <p>우리 뇌를 위한 건강한 디지털 습관 만들기</p>
+        <h1><a href="index.html">🧠 SKZ Brain Lab</a></h1>
+        <p>우리 뇌를 위한 건강한 디지털 습관</p>
     </header>
 
     <nav class="main-nav">
@@ -80,29 +131,43 @@
         <a href="game.html" class="active">집중력</a>
         <a href="game2.html">논리력</a>
         <a href="game3.html">판단력</a>
-        <a href="post1.html">분석실</a>
+        <a href="posts.html">분석실</a>
     </nav>
 
     <main class="container">
-        <div class="game-guide"><strong>📝 훈련 규칙:</strong> 같은 모양의 카드 짝을 모두 찾으세요. 카드를 뒤집는 순간부터 타이머가 작동하며, 결과는 일지에 저장됩니다.</div>
+        <div class="game-guide">
+            <strong>📝 훈련 규칙</strong>
+            같은 모양의 카드 짝을 모두 찾으세요. 카드를 뒤집는 순간부터 타이머가 작동하며, 결과는 일지에 저장됩니다.
+        </div>
+        
         <div class="grade-info">
             <div><span class="grade-star">★★★</span> 25s 미만</div>
             <div><span class="grade-star">★★</span> 35s 미만</div>
             <div><span class="grade-star">★</span> 도전!</div>
         </div>
+
         <span id="timer">0.00</span>
+        
         <div id="gameBoard" class="game-board"></div>
         
         <div class="ranking-container">
             <div class="ranking-title">📊 나의 집중력 일지</div>
-            <div id="best-record" style="font-size:0.9rem; color:var(--accent-color); font-weight:bold; margin-bottom:10px;">최고 기록: -</div>
+            <div id="best-record" style="font-size:0.95rem; color:var(--accent-color); font-weight:bold; margin-bottom:12px;">최고 기록: -</div>
             <table class="rank-table">
                 <thead><tr><th>회차</th><th>날짜</th><th>기록</th></tr></thead>
                 <tbody id="rankingBody"></tbody>
             </table>
-            <button onclick="clearHistory()" style="margin-top:15px; background:none; border:none; color:#ccc; font-size:0.7rem; text-decoration:underline; cursor:pointer;">기록 초기화</button>
+            <button onclick="clearHistory()" style="margin-top:20px; background:none; border:none; color:#ccc; font-size:0.75rem; text-decoration:underline; cursor:pointer;">기록 초기화</button>
         </div>
     </main>
+
+    <footer>
+        <div style="margin-bottom: 10px;">
+            <a href="privacy.html">개인정보처리방침</a> | 
+            <a href="#">이용약관</a>
+        </div>
+        &copy; 2026 SKZ Brain Lab. All rights reserved.
+    </footer>
 
     <script>
         const emojis = ['🍎', '🍌', '🍓', '🍊', '🍇', '🍉', '🥝', '🥑'];
@@ -110,59 +175,76 @@
 
         function initGame() {
             const board = document.getElementById('gameBoard');
-            board.innerHTML = ''; cards.sort(() => Math.random() - 0.5);
+            board.innerHTML = ''; 
+            cards.sort(() => Math.random() - 0.5);
             matchedCount = 0; flippedCards = []; gameActive = false;
-            clearInterval(timerInterval); document.getElementById('timer').innerText = '0.00';
+            clearInterval(timerInterval); 
+            document.getElementById('timer').innerText = '0.00';
+            
             cards.forEach(emoji => {
-                const card = document.createElement('div'); card.classList.add('card'); card.dataset.emoji = emoji;
+                const card = document.createElement('div'); 
+                card.classList.add('card'); 
+                card.dataset.emoji = emoji;
                 card.innerHTML = `<div class="card-front"></div><div class="card-back">${emoji}</div>`;
-                card.onclick = () => flipCard(card); board.appendChild(card);
+                card.onclick = () => flipCard(card); 
+                board.appendChild(card);
             });
             displayHistory();
         }
 
         function flipCard(card) {
             if (flippedCards.length >= 2 || card.classList.contains('flipped')) return;
-            if (!gameActive) { gameActive = true; startTime = new Date(); timerInterval = setInterval(() => { document.getElementById('timer').innerText = ((new Date() - startTime) / 1000).toFixed(2); }, 10); }
-            card.classList.add('flipped'); flippedCards.push(card);
+            
+            if (!gameActive) { 
+                gameActive = true; 
+                startTime = new Date(); 
+                timerInterval = setInterval(() => { 
+                    const elapsed = (new Date() - startTime) / 1000;
+                    document.getElementById('timer').innerText = elapsed.toFixed(2); 
+                }, 10); 
+            }
+            
+            card.classList.add('flipped'); 
+            flippedCards.push(card);
             if (flippedCards.length === 2) setTimeout(checkMatch, 500);
         }
 
         function checkMatch() {
             const [c1, c2] = flippedCards;
-            if (c1.dataset.emoji === c2.dataset.emoji) { matchedCount += 2; flippedCards = []; if (matchedCount === cards.length) endGame(); }
-            else { c1.classList.remove('flipped'); c2.classList.remove('flipped'); flippedCards = []; }
+            if (c1.dataset.emoji === c2.dataset.emoji) { 
+                matchedCount += 2; 
+                flippedCards = []; 
+                if (matchedCount === cards.length) endGame(); 
+            }
+            else { 
+                c1.classList.remove('flipped'); 
+                c2.classList.remove('flipped'); 
+                flippedCards = []; 
+            }
         }
 
         function endGame() {
             clearInterval(timerInterval);
             const time = parseFloat(document.getElementById('timer').innerText);
             const now = new Date();
-            const dateStr = `${now.getMonth()+1}/${now.getDate()} ${now.getHours()}:${now.getMinutes()}`;
+            const dateStr = `${now.getMonth()+1}/${now.getDate()} ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
             
-            // 기록 불러오기 및 최고 기록 확인
             let history = JSON.parse(localStorage.getItem('memoryHistory')) || [];
             let best = history.length > 0 ? Math.min(...history.map(h => h.time)) : 999;
             
-            // 💡 [추가] 리포트 페이지를 위해 점수 형태로 변환하여 저장
-            // 30초 기준 (15초에 깨면 70점, 10초에 깨면 80점 식)
-            const reportScore = Math.max(0, Math.min(100, Math.floor(100 - (time * 1.5)))); 
+            // 점수 변환 저장 (100점 만점 기준 보정)
+            const reportScore = Math.max(0, Math.min(100, Math.floor(120 - (time * 2)))); 
             localStorage.setItem('game1_score', reportScore);
 
-            // 기록 저장
             history.unshift({ date: dateStr, time: time });
             localStorage.setItem('memoryHistory', JSON.stringify(history.slice(0, 10)));
 
-            // 🏆 [핵심 수정] 리포트 이동 여부 묻기
-            let msg = time < best 
-                ? `🎉 최고 기록 경신! : ${time}초\n` 
-                : `훈련 완료! 기록: ${time}초\n`;
+            let msg = time < best ? `🎉 최고 기록 경신! : ${time}초\n` : `훈련 완료! 기록: ${time}초\n`;
             
-            // 사용자에게 분석 리포트로 갈지 물어봄
             if (confirm(msg + "지금 바로 분석 리포트를 확인하시겠습니까?")) {
-                location.href = 'report.html'; // 리포트 페이지로 이동
+                location.href = 'report.html';
             } else {
-                initGame(); // 취소 누르면 게임 초기화 후 다시 시작
+                initGame();
             }
         }
 
@@ -173,20 +255,19 @@
                 const best = Math.min(...history.map(h => h.time));
                 document.getElementById('best-record').innerText = `⭐ 나의 최고 기록: ${best}초`;
                 body.innerHTML = history.map((h, i) => `<tr><td>${history.length-i}회</td><td>${h.date}</td><td>${h.time}s</td></tr>`).join('');
-            } else { body.innerHTML = '<tr><td colspan="3">기록이 없습니다.</td></tr>'; }
+            } else { 
+                body.innerHTML = '<tr><td colspan="3">기록이 없습니다.</td></tr>'; 
+            }
         }
         
-        function clearHistory() { if(confirm("모든 기록을 지울까요?")) { localStorage.removeItem('memoryHistory'); location.reload(); } }
+        function clearHistory() { 
+            if(confirm("모든 기록을 지울까요?")) { 
+                localStorage.removeItem('memoryHistory'); 
+                location.reload(); 
+            } 
+        }
         
         initGame();
     </script>
-
-    <footer>
-    <div style="margin-bottom: 10px;">
-        <a href="privacy.html" style="color: #bbb; text-decoration: none; margin: 0 10px;">개인정보처리방침</a> | 
-        <a href="#" style="color: #bbb; text-decoration: none; margin: 0 10px;">이용약관</a>
-    </div>
-    &copy; 2026 SKZ Brain Lab. All rights reserved.
-</footer>
 </body>
 </html>
