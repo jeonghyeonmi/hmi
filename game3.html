@@ -64,39 +64,7 @@
         .rank-table th { padding: 8px; color: #888; border-bottom: 1px solid #eee; }
         .rank-table td { padding: 12px 5px; border-bottom: 1px solid #f9f9f9; }
     </style>
-    function endGame() {
-            gameActive = false;
-            clearInterval(timerInterval);
-            
-            const now = new Date();
-            const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
-            let history = JSON.parse(localStorage.getItem('judgeHistory')) || [];
-            
-            // 🧠 재미있는 판단력 등급 판정 로직
-            let grade = "";
-            let emoji = "";
-            if (score >= 45) { grade = "신인류의 뇌 (초월적 판단력)"; emoji = "👽"; }
-            else if (score >= 35) { grade = "AI 알고리즘급 두뇌"; emoji = "🤖"; }
-            else if (score >= 25) { grade = "프로 판단러 (상위 5%)"; emoji = "⚡"; }
-            else if (score >= 15) { grade = "평범하지만 명석한 두뇌"; emoji = "🧠"; }
-            else if (score >= 5) { grade = "졸음과 싸우는 중"; emoji = "🥱"; }
-            else { grade = "뇌가 아직 자고 있어요"; emoji = "💤"; }
-
-            let best = history.length > 0 ? Math.max(...history.map(h => h.score)) : 0;
-            
-            // 결과 알림창 메시지
-            if(score > best && best > 0) {
-                alert(`${emoji} 기록 경신!\n당신의 등급: [ ${grade} ]\n무려 ${score}개나 맞히셨군요!`);
-            } else {
-                alert(`훈련 종료!\n등급: ${grade}\n기록: ${score}개`);
-            }
-            
-            history.unshift({date: dateStr, score: score});
-            localStorage.setItem('judgeHistory', JSON.stringify(history.slice(0, 10)));
-            
-            displayHistory();
-            document.getElementById('word-display').innerText = "RESTART";
-        }
+   
 </head>
 <body>
     <header><h1><a href="index.html">🧠 SKZ Brain Lab</a></h1></header>
@@ -189,23 +157,34 @@
         }
 
         function endGame() {
-            gameActive = false;
-            clearInterval(timerInterval);
-            
-            const now = new Date();
-            const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
-            let history = JSON.parse(localStorage.getItem('judgeHistory')) || [];
-            let best = history.length > 0 ? Math.max(...history.map(h => h.score)) : 0;
-            
-            if(score > best) alert(`🎉 최고 점수 경신! : ${score}개`);
-            else alert(`훈련 종료! 점수: ${score}개`);
-            
-            history.unshift({date: dateStr, score: score});
-            localStorage.setItem('judgeHistory', JSON.stringify(history.slice(0, 10)));
-            
-            displayHistory();
-            document.getElementById('word-display').innerText = "RESTART";
-        }
+    gameActive = false;
+    clearInterval(timerInterval);
+
+    // 🏆 등급 판정 로직 추가
+    let grade = "";
+    if (score >= 40) grade = "신인류의 뇌 👽";
+    else if (score >= 30) grade = "판단력 만렙 ⚡";
+    else if (score >= 20) grade = "명석한 두뇌 🧠";
+    else if (score >= 10) grade = "평범한 일반인 👤";
+    else grade = "뇌가 졸고 있음 🥱";
+
+    const now = new Date();
+    const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
+    let history = JSON.parse(localStorage.getItem('judgeHistory')) || [];
+    let best = history.length > 0 ? Math.max(...history.map(h => h.score)) : 0;
+
+    // 알림창에 등급 표시
+    if (score > best && best > 0) {
+        alert(`🎉 최고 기록 경신!\n등급: ${grade}\n기록: ${score}개`);
+    } else {
+        alert(`훈련 종료!\n등급: ${grade}\n기록: ${score}개`);
+    }
+
+    history.unshift({ date: dateStr, score });
+    localStorage.setItem('judgeHistory', JSON.stringify(history.slice(0, 10)));
+    displayHistory();
+    document.getElementById('word-display').innerText = "RESTART";
+}
 
         function displayHistory() {
             const body = document.getElementById('rankingBody');
