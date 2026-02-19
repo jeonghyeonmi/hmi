@@ -218,9 +218,10 @@
             else if (level >= 4) grade = "명석한 두뇌 🧠";
             else grade = "어제 일도 가물가물 🐠";
 
-            alert(`훈련 종료!\n등급: ${grade}\n최종 도달: Level ${level}`);
-            
-            saveRecord(level);
+            // 🏆 [핵심 수정] 기록 저장 함수를 호출하며 결과 메시지를 전달합니다.
+            const resultMsg = `훈련 종료!\n등급: ${grade}\n최종 도달: Level ${level}\n\n지금 바로 분석 리포트를 확인하시겠습니까?`;
+            saveRecord(level, resultMsg);
+
             level = 1;
             document.getElementById('startBtn').style.display = 'inline-block';
             document.getElementById('startBtn').innerText = '다시 도전하기';
@@ -228,19 +229,26 @@
             initBoard();
         }
 
-        // 로컬스토리지 기록 저장
-        function saveRecord(score) {
+        // 로컬스토리지 기록 저장 및 리포트 이동
+        function saveRecord(score, msg) {
             const now = new Date();
             const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
             let history = JSON.parse(localStorage.getItem('memHistory')) || [];
+            
+            // 기록 저장 로직
             history.unshift({ date: dateStr, score: score });
             localStorage.setItem('memHistory', JSON.stringify(history.slice(0, 10)));
 
-            // 💡 [추가] 리포트 페이지를 위한 기억력 점수 저장
-            // 레벨당 10점으로 계산 (Lv.10 도달 시 100점)
+            // 💡 [데이터 연동] 리포트 페이지를 위한 기억력 점수 저장 (Lv.10 기준 100점)
             const reportScore = Math.min(100, score * 10);
             localStorage.setItem('game4_score', reportScore);
+            
             displayHistory();
+
+            // 🏆 [핵심 수정] 리포트 페이지 이동 선택
+            if (confirm(msg)) {
+                location.href = 'report.html';
+            }
         }
 
         // 기록 표시
