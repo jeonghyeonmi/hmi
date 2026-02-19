@@ -7,74 +7,99 @@
     <style>
         :root { 
             --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
-            --text-main: #2c3e50; --text-muted: #7f8c8d;
+            --text-main: #2c3e50; --text-muted: #7f8c8d; --white: #ffffff;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
         body { 
             font-family: 'Pretendard', -apple-system, sans-serif; 
             background-color: var(--bg-color); margin: 0; color: var(--text-main);
             line-height: 1.6;
         }
         
-        header { background: var(--primary-color); color: white; padding: 1.5rem; text-align: center; }
-        header h1 { margin: 0; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; }
+        header { background: var(--primary-color); color: white; padding: 2rem 1.5rem; text-align: center; }
+        header h1 { margin: 0; font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; }
+        header p { margin: 8px 0 0; font-size: 0.9rem; opacity: 0.8; font-weight: 300; }
 
         /* 네비게이션 */
         nav.main-nav { 
-            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.5rem; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
         }
-        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.95rem; transition: 0.2s; }
         nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
 
-        .container { width: 94%; max-width: 600px; margin: 1.5rem auto; }
+        .container { width: 92%; max-width: 600px; margin: 1.5rem auto; }
 
         /* 배너 섹션 */
         .banner {
-            background: linear-gradient(135deg, #1a3a5f 0%, #2980b9 100%);
-            color: white; padding: 1.5rem; border-radius: 24px; margin-bottom: 2rem;
-            box-shadow: 0 10px 20px rgba(26, 58, 95, 0.1);
+            background: linear-gradient(135deg, #1a3a5f 0%, #2e5a88 100%);
+            color: white; padding: 1.8rem; border-radius: 28px; margin-bottom: 2rem;
+            box-shadow: 0 10px 25px rgba(26, 58, 95, 0.15);
+            position: relative; overflow: hidden;
         }
-        .banner h2 { margin: 0 0 10px 0; font-size: 1.2rem; }
-        .banner p { margin: 0; font-size: 0.9rem; opacity: 0.9; }
+        .banner::after {
+            content: '🧠'; position: absolute; right: -10px; bottom: -10px; 
+            font-size: 5rem; opacity: 0.1; transform: rotate(-15deg);
+        }
+        .banner h2 { margin: 0 0 10px 0; font-size: 1.3rem; }
+        .banner p { margin: 0; font-size: 0.95rem; opacity: 0.9; word-break: keep-all; }
 
         /* 🎮 게임 그리드 섹션 */
-        .section-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; }
+        .section-title { font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; gap: 8px; color: var(--primary-color); }
         
         .game-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 모바일 기본 가로 2개 */
-            gap: 12px;
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 15px;
             margin-bottom: 2.5rem;
         }
 
         .game-card {
-            background: white; border-radius: 20px; padding: 20px;
+            background: var(--white); border-radius: 24px; padding: 22px 15px;
             text-align: center; text-decoration: none; color: inherit;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            border: 1px solid rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-            display: flex; flex-direction: column; align-items: center; gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex; flex-direction: column; align-items: center; gap: 12px;
         }
-        .game-card:active { transform: scale(0.96); background: #f8f9fa; }
+        .game-card:active { transform: scale(0.96); background: #fcfcfc; }
         
-        .game-icon { font-size: 2.2rem; }
-        .game-info span { font-weight: bold; font-size: 0.95rem; color: var(--text-main); }
+        .game-icon-circle {
+            width: 60px; height: 60px; border-radius: 20px; 
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; margin-bottom: 5px;
+        }
+        /* 카테고리별 아이콘 배경색 */
+        .bg-focus { background: #eef2ff; }
+        .bg-logic { background: #fff1f2; }
+        .bg-speed { background: #fff7ed; }
+        .bg-memory { background: #f0fdf4; }
+        .bg-math { background: #f5f3ff; }
+        .bg-cog { background: #ecfeff; }
+
+        .game-info span { font-weight: 700; font-size: 1rem; color: var(--text-main); }
+        .game-info p { margin: 4px 0 0; font-size: 0.75rem; color: var(--text-muted); }
 
         /* 📝 최신 분석글 카드 */
+        .post-list { display: flex; flex-direction: column; gap: 12px; }
         .post-link {
-            background: white; border-radius: 20px; padding: 15px 20px;
+            background: white; border-radius: 20px; padding: 18px 20px;
             display: flex; align-items: center; justify-content: space-between;
-            text-decoration: none; color: inherit; border: 1px solid rgba(0,0,0,0.05);
-            margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            text-decoration: none; color: inherit; border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02); transition: 0.2s;
         }
-        .post-link:active { background: #f8f9fa; }
-        .post-link .post-title { font-size: 0.95rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80%; }
-        .post-link .arrow { color: var(--accent-color); font-weight: bold; }
+        .post-link:active { background: #f8f9fa; transform: translateX(5px); }
+        .post-content { display: flex; flex-direction: column; gap: 4px; max-width: 85%; }
+        .post-tag { font-size: 0.7rem; font-weight: bold; color: var(--accent-color); text-transform: uppercase; }
+        .post-title { font-size: 0.95rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .arrow { color: #ccc; font-size: 1.2rem; }
 
-        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; }
+        footer { text-align: center; padding: 4rem 0 3rem; color: #bbb; font-size: 0.8rem; line-height: 1.8; }
+        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
 
-        /* PC 버전 대응 (600px 이상일 때) */
+        /* PC 버전 대응 */
         @media (min-width: 600px) {
             .game-grid { grid-template-columns: repeat(3, 1fr); }
         }
@@ -84,6 +109,7 @@
 
 <header>
     <h1>🧠 SKZ Brain Lab</h1>
+    <p>우리 뇌를 위한 건강한 디지털 습관</p>
 </header>
 
 <nav class="main-nav">
@@ -97,56 +123,71 @@
 <main class="container">
     <section class="banner">
         <h2>안녕하세요, 훈련사님!</h2>
-        <p>오늘의 훈련 목표를 달성하고<br>당신의 뇌 지수를 높여보세요.</p>
+        <p>어제보다 더 명석한 오늘을 위해<br>지금 바로 훈련을 시작해보세요.</p>
     </section>
 
     <section>
-        <div class="section-title">🎮 데일리 두뇌 훈련</div>
+        <div class="section-header">
+            <div class="section-title">🎮 데일리 두뇌 훈련</div>
+            <a href="report.html" style="font-size: 0.8rem; color: var(--accent-color); font-weight: bold; text-decoration: none;">내 리포트 보기</a>
+        </div>
         <div class="game-grid">
             <a href="game.html" class="game-card">
-                <span class="game-icon">🎯</span>
-                <div class="game-info"><span>집중력</span></div>
+                <div class="game-icon-circle bg-focus">🎯</div>
+                <div class="game-info"><span>집중력</span><p>시각 추적 훈련</p></div>
             </a>
             <a href="game2.html" class="game-card">
-                <span class="game-icon">🧩</span>
-                <div class="game-info"><span>논리력</span></div>
+                <div class="game-icon-circle bg-logic">🧩</div>
+                <div class="game-info"><span>논리력</span><p>패턴 매칭</p></div>
             </a>
             <a href="game3.html" class="game-card">
-                <span class="game-icon">⚡</span>
-                <div class="game-info"><span>순발력</span></div>
+                <div class="game-icon-circle bg-speed">⚡</div>
+                <div class="game-info"><span>순발력</span><p>빠른 반응 속도</p></div>
             </a>
             <a href="game4.html" class="game-card">
-                <span class="game-icon">🧠</span>
-                <div class="game-info"><span>기억력</span></div>
+                <div class="game-icon-circle bg-memory">🧠</div>
+                <div class="game-info"><span>기억력</span><p>단기 암기 훈련</p></div>
             </a>
             <a href="game5.html" class="game-card">
-                <span class="game-icon">🔢</span>
-                <div class="game-info"><span>수리판단</span></div>
+                <div class="game-icon-circle bg-math">🔢</div>
+                <div class="game-info"><span>수리판단</span><p>빠른 산술 결정</p></div>
             </a>
             <a href="game6.html" class="game-card">
-                <span class="game-icon">🐾</span>
-                <div class="game-info"><span>동물인지</span></div>
+                <div class="game-icon-circle bg-cog">🐾</div>
+                <div class="game-info"><span>동물인지</span><p>스트룹 효과 훈련</p></div>
             </a>
         </div>
     </section>
 
     <section>
-        <div class="section-title">🔍 최신 분석 리포트</div>
-        <a href="post2.html" class="post-link">
-            <span class="post-title">유튜브 보면서 게임하면 뇌가 비명 지른다?</span>
-            <span class="arrow">→</span>
-        </a>
-        <a href="post1.html" class="post-link">
-            <span class="post-title">요즘 인류의 지능이 낮아지는 이유: 역 플린 효과</span>
-            <span class="arrow">→</span>
-        </a>
-        <div style="text-align: center; margin-top: 15px;">
-            <a href="posts.html" style="color: var(--text-muted); font-size: 0.85rem; text-decoration: none;">분석실 전체보기</a>
+        <div class="section-title">🔍 두뇌 분석실</div>
+        <div class="post-list">
+            <a href="post2.html" class="post-link">
+                <div class="post-content">
+                    <span class="post-tag">Brain Health</span>
+                    <span class="post-title">유튜브 보면서 게임하면 뇌가 비명 지른다?</span>
+                </div>
+                <span class="arrow">›</span>
+            </a>
+            <a href="post1.html" class="post-link">
+                <div class="post-content">
+                    <span class="post-tag">Insight</span>
+                    <span class="post-title">요즘 인류의 지능이 낮아지는 이유: 역 플린 효과</span>
+                </div>
+                <span class="arrow">›</span>
+            </a>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="posts.html" style="color: var(--text-muted); font-size: 0.85rem; text-decoration: none; border-bottom: 1px solid #ddd;">분석글 전체보기</a>
         </div>
     </section>
 </main>
 
 <footer>
+    <div style="margin-bottom: 15px;">
+        <a href="privacy.html">개인정보처리방침</a> | 
+        <a href="terms.html">이용약관</a>
+    </div>
     &copy; 2026 SKZ Brain Lab. All rights reserved.
 </footer>
 
