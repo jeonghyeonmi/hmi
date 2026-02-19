@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>동물 인지 훈련 | SKZ Brain Lab</title>
+    <title>고난도 동물 훈련 | SKZ Brain Lab</title>
     <style>
-        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; }
+        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; --rule-color: #e74c3c; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; }
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 a { text-decoration: none; color: inherit; font-size: 1.4rem; font-weight: 800; }
         
-        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow-x: auto; white-space: nowrap; position: sticky; top: 0; z-index: 1000; }
+        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
         
         .sub-nav { display: flex; justify-content: center; gap: 10px; padding: 12px 0; background: #fff; border-bottom: 1px solid #eee; font-size: 0.7rem; }
@@ -20,22 +20,22 @@
 
         .container { width: 94%; max-width: 450px; margin: 1.5rem auto; padding: 25px; background: white; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.04); text-align: center; }
         
-        .game-guide { background: #fff5e6; border-left: 4px solid var(--accent-color); padding: 15px; font-size: 0.85rem; text-align: left; margin-bottom: 20px; line-height: 1.4; color: #6e2c00; }
+        /* 💡 미션 안내 영역: 가장 중요 */
+        .mission-box { background: #1a3a5f; color: white; padding: 15px; border-radius: 15px; font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
 
-        /* 중앙 동물 전시 영역 */
-        .display-area { background: #fdfefe; border: 2px solid #eee; border-radius: 20px; padding: 20px; margin: 20px 0; position: relative; }
-        .target-text { font-size: 1.2rem; font-weight: bold; color: #888; margin-bottom: 10px; }
-        .target-emoji { font-size: 5rem; margin: 10px 0; transition: transform 0.1s; }
+        .display-area { background: #fff; border: 3px solid #f0f0f0; border-radius: 20px; padding: 30px 20px; margin-bottom: 20px; }
+        #target-name { font-size: 2.5rem; font-weight: 900; color: #333; margin-bottom: 10px; }
+        #target-emoji { font-size: 5.5rem; }
         
-        /* 동물 선택 버튼 그리드 */
-        .animal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
-        .animal-btn { background: white; border: 2px solid #eee; border-radius: 15px; padding: 15px 5px; cursor: pointer; transition: 0.2s; }
-        .animal-btn:active { transform: scale(0.9); background: #fff5e6; }
-        .animal-btn .emoji { font-size: 2rem; display: block; margin-bottom: 5px; }
-        .animal-btn .label { font-size: 0.75rem; font-weight: bold; color: #555; }
+        .animal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .animal-btn { background: white; border: 2px solid #eee; border-radius: 18px; padding: 15px 5px; cursor: pointer; transition: 0.2s; }
+        .animal-btn:active { transform: scale(0.9); background: #eee; }
+        .animal-btn .emoji { font-size: 2.2rem; display: block; margin-bottom: 5px; }
+        .animal-btn .label { font-size: 0.8rem; font-weight: bold; color: #666; }
 
-        .btn-start { width: 100%; max-width: 250px; padding: 16px; background: var(--accent-color); color: white; border: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem; cursor: pointer; box-shadow: 0 4px 15px rgba(211, 84, 0, 0.3); }
-        #score-panel { margin-top: 20px; font-weight: bold; color: var(--primary-color); font-size: 1.1rem; }
+        .btn-start { width: 100%; max-width: 250px; padding: 18px; background: var(--accent-color); color: white; border: none; border-radius: 35px; font-weight: bold; font-size: 1.2rem; cursor: pointer; margin-top: 10px; }
+        #info-text { margin-top: 15px; font-size: 0.9rem; color: #888; line-height: 1.4; }
     </style>
 </head>
 <body>
@@ -53,44 +53,44 @@
         <a href="game3.html">[순발력]</a>
         <a href="game4.html">[기억력]</a>
         <a href="game5.html">[수리판단]</a>
-        <a href="game6.html" class="active">[동물매칭]</a>
+        <a href="game6.html" class="active">[동물인지]</a>
     </div>
 
     <main class="container">
-        <div class="game-guide">
-            <strong>🐾 훈련 규칙:</strong> 상단의 텍스트(이름)에 속지 마세요! 화면 중앙에 보이는 <strong>'진짜 동물 그림'</strong>을 아래 버튼에서 찾으세요.
+        <div id="mission-display" class="mission-box" style="display:none;">그림을 맞추세요!</div>
+        
+        <div class="display-area" id="display-zone" style="display:none;">
+            <div id="target-name">사자</div>
+            <div id="target-emoji">🐯</div>
         </div>
         
-        <div class="display-area">
-            <div id="target-name" class="target-text">READY</div>
-            <div id="target-emoji" class="target-emoji">🎮</div>
+        <div class="animal-grid" id="game-ui" style="display: none;"></div>
+        
+        <button id="startBtn" class="btn-start" onclick="startGame()">훈련 시작</button>
+        
+        <div id="info-text">
+            <strong>[고난도 규칙]</strong><br>
+            상단 미션이 <b>'그림'</b>이면 이모지를,<br>
+            <b>'글자'</b>이면 텍스트와 일치하는 동물을 고르세요!
         </div>
-        
-        <div class="animal-grid" id="game-ui" style="display: none;">
-            </div>
-        
-        <button id="startBtn" class="btn-start" onclick="startGame()">농장 문 열기 (시작)</button>
-        <div id="score-panel">맞춘 동물: 0마리</div>
+        <div id="score-panel" style="margin-top:15px; font-weight:bold; font-size:1.2rem;">Score: 0</div>
     </main>
 
     <script>
         const animals = [
-            { name: "사자", emoji: "🦁" },
-            { name: "호랑이", emoji: "🐯" },
-            { name: "판다", emoji: "🐼" },
-            { name: "토끼", emoji: "🐰" },
-            { name: "여우", emoji: "🦊" },
-            { name: "개구리", emoji: "🐸" }
+            { name: "사자", emoji: "🦁" }, { name: "호랑이", emoji: "🐯" },
+            { name: "판다", emoji: "🐼" }, { name: "토끼", emoji: "🐰" },
+            { name: "여우", emoji: "🦊" }, { name: "돼지", emoji: "🐷" }
         ];
 
-        let score = 0, isGameActive = false, correctEmoji = "";
+        let score = 0, isGameActive = false, currentMission = "", correctTarget = "";
 
-        // 버튼 미리 생성
+        // 버튼 생성
         const ui = document.getElementById('game-ui');
         animals.forEach(ani => {
             const btn = document.createElement('button');
             btn.className = 'animal-btn';
-            btn.onclick = () => checkAnswer(ani.emoji);
+            btn.onclick = () => checkAnswer(ani);
             btn.innerHTML = `<span class="emoji">${ani.emoji}</span><span class="label">${ani.name}</span>`;
             ui.appendChild(btn);
         });
@@ -99,47 +99,57 @@
             score = 0; isGameActive = true;
             document.getElementById('startBtn').style.display = 'none';
             document.getElementById('game-ui').style.display = 'grid';
-            document.getElementById('score-panel').innerText = `맞춘 동물: ${score}마리`;
+            document.getElementById('display-zone').style.display = 'block';
+            document.getElementById('mission-display').style.display = 'block';
             nextLevel();
-            
-            setTimeout(endGame, 30000); // 30초 게임
+            setTimeout(endGame, 30000); 
         }
 
         function nextLevel() {
             if(!isGameActive) return;
-            
-            const textIdx = Math.floor(Math.random() * animals.length);
-            const emojiIdx = Math.floor(Math.random() * animals.length);
-            
+
+            // 1. 미션 결정 (글자 vs 그림)
+            currentMission = Math.random() > 0.5 ? "글자" : "그림";
+            const missionEl = document.getElementById('mission-display');
+            missionEl.innerText = currentMission === "글자" ? "👉 글자를 맞추세요!" : "👉 그림을 맞추세요!";
+            missionEl.style.background = currentMission === "글자" ? "#2980b9" : "#c0392b";
+
+            // 2. 글자와 그림이 무조건 다르게 설정
+            let textIdx = Math.floor(Math.random() * animals.length);
+            let emojiIdx;
+            do {
+                emojiIdx = Math.floor(Math.random() * animals.length);
+            } while (textIdx === emojiIdx);
+
             document.getElementById('target-name').innerText = animals[textIdx].name;
             document.getElementById('target-emoji').innerText = animals[emojiIdx].emoji;
-            
-            correctEmoji = animals[emojiIdx].emoji;
+
+            // 3. 정답 설정
+            correctTarget = currentMission === "글자" ? animals[textIdx].name : animals[emojiIdx].emoji;
         }
 
         function checkAnswer(userChoice) {
             if(!isGameActive) return;
-            if(userChoice === correctEmoji) {
+            
+            const userVal = currentMission === "글자" ? userChoice.name : userChoice.emoji;
+            
+            if(userVal === correctTarget) {
                 score++;
-                document.getElementById('score-panel').innerText = `맞춘 동물: ${score}마리`;
+                document.getElementById('score-score-panel'); // 오타수정용
+                document.getElementById('score-panel').innerText = `Score: ${score}`;
                 nextLevel();
             } else {
-                // 오답 시 흔들림 효과
-                const el = document.getElementById('target-emoji');
-                el.style.transform = "translateX(10px)";
-                setTimeout(() => el.style.transform = "translateX(0)", 50);
+                // 오답 시 붉은색 깜빡임
+                document.body.style.backgroundColor = "#fadbd8";
+                setTimeout(() => document.body.style.backgroundColor = "#f4f7f9", 100);
             }
         }
 
         function endGame() {
             isGameActive = false;
-            let grade = score >= 35 ? "동물 커뮤니케이터 👑" : score >= 20 ? "척척박사 🎓" : score >= 10 ? "일반인 👤" : "동물원 길치 🗺️";
-            alert(`훈련 종료!\n등급: ${grade}\n총 ${score}마리의 동물을 찾았습니다!`);
-            
-            document.getElementById('startBtn').style.display = 'inline-block';
-            document.getElementById('game-ui').style.display = 'none';
-            document.getElementById('target-name').innerText = "RESTART";
-            document.getElementById('target-emoji').innerText = "🎮";
+            let grade = score >= 25 ? "동물의 신 ⚡" : score >= 15 ? "동물 전문가 🎓" : score >= 8 ? "일반인 👤" : "혼란의 도가니 😵‍💫";
+            alert(`훈련 종료!\n등급: ${grade}\n점수: ${score}점`);
+            location.reload();
         }
     </script>
 </body>
