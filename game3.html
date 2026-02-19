@@ -191,6 +191,11 @@
 
     history.unshift({ date: dateStr, score });
     localStorage.setItem('judgeHistory', JSON.stringify(history.slice(0, 10)));
+    // 💡 [추가] 리포트 페이지를 위한 판단력 점수 저장
+    // 50점을 만점 기준으로 보고 100점 만점으로 환산 (점수 * 2)
+    const reportScore = Math.min(100, score * 2); 
+    localStorage.setItem('game3_score', reportScore);
+            
     displayHistory();
     document.getElementById('word-display').innerText = "RESTART";
 }
