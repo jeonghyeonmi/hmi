@@ -35,16 +35,25 @@
             border-radius: 24px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.04);
             text-align: center;
-            position: relative;
+            min-height: 400px; /* 고정 높이 확보 */
         }
 
+        /* ✨ 에러 수정: 화면 전체를 덮도록 고정 배치 */
         #mission-signal {
-            position: absolute;
-            top: 20px; left: 20px; right: 20px; bottom: 20px;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
             display: none; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 2000; color: white; border-radius: 20px;
+            z-index: 9999; color: white;
+            transition: opacity 0.3s;
         }
-        .signal-text { font-size: 1.8rem; font-weight: 900; text-align: center; line-height: 1.4; }
+        .signal-text { 
+            font-size: 2.2rem; 
+            font-weight: 900; 
+            text-align: center; 
+            line-height: 1.5; 
+            word-break: keep-all;
+            padding: 20px;
+        }
 
         .display-area {
             min-height: 200px;
@@ -111,7 +120,7 @@
 
     <main class="game-container">
         <div id="mission-signal">
-            <div class="signal-text" id="signal-title">그림보고 맞추기</div>
+            <div class="signal-text" id="signal-title">준비하세요!</div>
         </div>
 
         <div class="display-area" id="play-zone" style="display: none;">
@@ -124,9 +133,10 @@
         <div id="game-guide" class="guide-box">
             <p>💡 훈련 방법</p>
             <ul>
-                <li>시작 시 <strong>[글자]</strong> 혹은 <strong>[그림]</strong> 미션이 표시됩니다.</li>
-                <li>미션에 맞는 정답 동물을 하단에서 고르세요.</li>
-                <li>40초 동안 최대한 많은 동물을 정확히 골라야 합니다.</li>
+                <li>시작 시 <strong>[글자]</strong> 혹은 <strong>[그림]</strong> 지시가 뜹니다.</li>
+                <li><strong>글자 보고 맞추기:</strong> 상단 큰 글자에 적힌 동물을 클릭!</li>
+                <li><strong>그림 보고 맞추기:</strong> 상단 큰 이모지에 해당하는 동물을 클릭!</li>
+                <li>40초 동안 인지 부조화를 극복하고 빠르게 맞춰보세요.</li>
             </ul>
         </div>
 
@@ -176,15 +186,13 @@
             
             if(currentMission === "글자") {
                 title.innerText = "이번엔...\n[글자] 보고 맞추기!";
-                signal.style.backgroundColor = "#2980b9";
+                signal.style.backgroundColor = "rgba(41, 128, 185, 0.95)"; // 투명도 추가로 고급스럽게
             } else {
                 title.innerText = "이번엔...\n[그림] 보고 맞추기!";
-                signal.style.backgroundColor = "#c0392b";
+                signal.style.backgroundColor = "rgba(192, 57, 43, 0.95)";
             }
             
             signal.style.display = 'flex';
-            document.getElementById('play-zone').style.display = 'none';
-            document.getElementById('game-ui').style.display = 'none';
             
             setTimeout(() => {
                 if(!isGameActive) return;
@@ -192,13 +200,13 @@
                 document.getElementById('play-zone').style.display = 'flex';
                 document.getElementById('game-ui').style.display = 'grid';
                 nextQuestion();
-            }, 1000);
+            }, 800); // 속도감 있게 0.8초로 조정
         }
 
         function nextQuestion() {
-            // 글자와 그림을 서로 다르게 배치하여 혼란 유도
             let textIdx = Math.floor(Math.random() * animals.length);
             let emojiIdx;
+            // 인지 부조화를 위해 일부러 글자와 이모지가 다른 동물이 나오도록 유도
             do { emojiIdx = Math.floor(Math.random() * animals.length); } while (textIdx === emojiIdx);
             
             document.getElementById('target-name').innerText = animals[textIdx].name;
@@ -216,6 +224,7 @@
                 document.getElementById('score-panel').innerText = `맞춘 마릿수: ${score}`;
                 showMission(); 
             } else {
+                // 틀렸을 때 시각적 피드백
                 document.body.style.backgroundColor = "#fadbd8";
                 setTimeout(() => document.body.style.backgroundColor = "#f4f7f9", 100);
             }
@@ -225,7 +234,6 @@
             isGameActive = false;
             if(gameTimer) clearTimeout(gameTimer);
 
-            // 💡 [데이터 저장] 리포트 페이지를 위한 인지력 점수 저장 (1마리당 4점, 최대 100점)
             const reportScore = Math.min(100, score * 4);
             localStorage.setItem('game6_score', reportScore);
             
@@ -233,10 +241,9 @@
             if (score >= 25) grade = "동물 소통 전문가 🐾";
             else if (score >= 15) grade = "동물원 원장님 🦁";
             else if (score >= 8) grade = "동물 애호가 🐶";
-            else if (score >= 3) grade = "길고양이 친구 🐱";
-            else grade = "도시 사람 🏙️";
+            else grade = "길고양이 친구 🐱";
 
-            const resultMsg = `훈련 종료!\n등급: ${grade}\n총 ${score}마리 인지 완료!\n\n지금 바로 분석 리포트를 확인하시겠습니까?`;
+            const resultMsg = `훈련 종료!\n\n등급: ${grade}\n기록: ${score}마리 인지\n\n분석 리포트에서 결과를 확인하시겠습니까?`;
             
             if (confirm(resultMsg)) {
                 location.href = 'report.html';
