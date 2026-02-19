@@ -20,17 +20,17 @@
         .status-panel { display: flex; justify-content: space-around; align-items: center; margin-bottom: 20px; padding: 10px; background: #fff; border: 1px solid #ddd; border-radius: 8px; }
         #timer { color: var(--accent-color); font-size: 1.5rem; font-weight: bold; }
 
-        /* 스도쿠 보드 스타일 */
         .sudoku-grid { 
             display: grid; 
             grid-template-columns: repeat(9, 1fr); 
             max-width: 450px; 
             margin: 20px auto; 
             border: 3px solid var(--primary-color); 
+            background: var(--primary-color);
+            gap: 1px;
         }
         .cell { 
             aspect-ratio: 1/1; 
-            border: 1px solid #ccc; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -38,10 +38,11 @@
             font-weight: bold; 
             background: white;
         }
-        /* 3x3 구역 강조 */
+        /* 3x3 구역 경계선 강조 */
         .cell:nth-child(3n) { border-right: 2px solid var(--primary-color); }
-        .cell:nth-child(9n) { border-right: 1px solid #ccc; }
-        .grid-row-border { border-bottom: 2px solid var(--primary-color); }
+        .cell:nth-child(9n) { border-right: none; }
+        .cell:nth-child(n+19):nth-child(-n+27),
+        .cell:nth-child(n+46):nth-child(-n+54) { border-bottom: 2px solid var(--primary-color); }
 
         .cell input { 
             width: 100%; height: 100%; border: none; text-align: center; 
@@ -51,7 +52,9 @@
         .cell.fixed { background: #f0f0f0; color: #333; }
         .cell input:focus { background: #e1f5fe; }
 
-        .btn-check { padding: 12px 30px; background: var(--success-color); color: white; border: none; border-radius: 25px; font-size: 1rem; cursor: pointer; margin-top: 20px; font-weight: bold; }
+        .controls { margin-top: 20px; display: flex; justify-content: center; gap: 10px; }
+        .btn-check { padding: 12px 30px; background: var(--success-color); color: white; border: none; border-radius: 25px; font-size: 1rem; cursor: pointer; font-weight: bold; }
+        .btn-new { padding: 12px 30px; background: var(--primary-color); color: white; border: none; border-radius: 25px; font-size: 1rem; cursor: pointer; font-weight: bold; }
         
         .tier-table { margin-top: 40px; border-collapse: collapse; width: 100%; max-width: 450px; margin-left: auto; margin-right: auto; font-size: 0.85rem; }
         .tier-table th, .tier-table td { border: 1px solid #ddd; padding: 8px; text-align: center; }
@@ -63,25 +66,23 @@
 <body>
     <header>
         <h1><a href="index.html">🧠 SKZ Brain Lab</a></h1>
-        <p>논리적 추론을 통해 전두엽을 활성화하세요</p>
+        <p>매번 새로운 퍼즐로 뇌의 논리 근육을 키우세요</p>
     </header>
     <nav>
         <a href="index.html">대시보드</a>
         <a href="game.html">카드매칭</a>
         <a href="game2.html">스도쿠</a>
-        <a href="post1.html">칼럼</a>
+        <a href="post1.html">리포트</a>
     </nav>
     <main class="container">
         <section class="how-to-play">
             <h3>📖 훈련 가이드: 스도쿠</h3>
             <ul>
                 <li>가로, 세로, 3x3 박스 안에 <b>1부터 9까지의 숫자</b>를 중복 없이 채우세요.</li>
-                <li>첫 숫자를 입력하거나 칸을 클릭하면 <b>타이머가 시작</b>됩니다.</li>
-                <li>완성 후 [정답 확인]을 눌러 기록을 측정하세요.</li>
+                <li>칸을 클릭하거나 숫자를 입력하면 <b>타이머가 자동 시작</b>됩니다.</li>
+                <li><b>힌트:</b> 숫자가 무작위로 섞여 생성되므로 매번 정답이 달라집니다!</li>
             </ul>
         </section>
-
-        
 
         <div class="status-panel">
             <div>⏱️ 진행 시간: <span id="timer">0.00</span>초</div>
@@ -89,16 +90,18 @@
 
         <div id="sudokuBoard" class="sudoku-grid"></div>
 
-        <button class="btn-check" onclick="checkSolution()">정답 확인 & 기록 측정</button>
-        <button onclick="resetGame()" style="background:none; border:none; color:#888; cursor:pointer; text-decoration:underline; margin-left:15px;">새 게임 시작</button>
+        <div class="controls">
+            <button class="btn-check" onclick="checkSolution()">정답 확인 & 기록 측정</button>
+            <button class="btn-new" onclick="resetGame()">새 퍼즐 생성</button>
+        </div>
 
         <h3>🏆 스도쿠 지능 등급표</h3>
         <table class="tier-table">
             <tr><th>소요 시간</th><th>등급</th><th>뇌 상태</th></tr>
             <tr style="color:#d4af37; font-weight:bold;"><td>3분 미만</td><td>S급</td><td>논리 천재</td></tr>
-            <tr><td>3분 ~ 6분</td><td>A급</td><td>상위 5% 브레인</td></tr>
-            <tr><td>6분 ~ 10분</td><td>B급</td><td>일반 성인 우수</td></tr>
-            <tr><td>10분 이상</td><td>C급</td><td>뇌 활성 가속 필요</td></tr>
+            <tr><td>3분 ~ 7분</td><td>A급</td><td>상위 5% 브레인</td></tr>
+            <tr><td>7분 ~ 12분</td><td>B급</td><td>일반인 평균 이상</td></tr>
+            <tr><td>12분 이상</td><td>C급</td><td>전두엽 자극 필요</td></tr>
         </table>
     </main>
     <footer>
@@ -108,56 +111,83 @@
     <script>
         let startTime, timerInterval;
         let gameStarted = false;
-        let solution = [];
+        let currentSolution = [];
+        let currentPuzzle = [];
 
-        // 간단한 스도쿠 생성 로직 (샘플 퍼즐)
-        const puzzle = [
-            [5, 3, 0, 0, 7, 0, 0, 0, 0],
-            [6, 0, 0, 1, 9, 5, 0, 0, 0],
-            [0, 9, 8, 0, 0, 0, 0, 6, 0],
-            [8, 0, 0, 0, 6, 0, 0, 0, 3],
-            [4, 0, 0, 8, 0, 3, 0, 0, 1],
-            [7, 0, 0, 0, 2, 0, 0, 0, 6],
-            [0, 6, 0, 0, 0, 0, 2, 8, 0],
-            [0, 0, 0, 4, 1, 9, 0, 0, 5],
-            [0, 0, 0, 0, 8, 0, 0, 7, 9]
-        ];
-        
-        const solvedPuzzle = [
-            [5, 3, 4, 6, 7, 8, 9, 1, 2],
-            [6, 7, 2, 1, 9, 5, 3, 4, 8],
-            [1, 9, 8, 3, 4, 2, 5, 6, 7],
-            [8, 5, 9, 7, 6, 1, 4, 2, 3],
-            [4, 2, 6, 8, 5, 3, 7, 9, 1],
-            [7, 1, 3, 9, 2, 4, 8, 5, 6],
-            [9, 6, 1, 5, 3, 7, 2, 8, 4],
-            [2, 8, 7, 4, 1, 9, 6, 3, 5],
-            [3, 4, 5, 2, 8, 6, 1, 7, 9]
-        ];
+        // 1. 기본 유효성 검사 (스도쿠 규칙)
+        function isValid(board, row, col, num) {
+            for (let x = 0; x < 9; x++) if (board[row][x] === num || board[x][col] === num) return false;
+            let startRow = row - row % 3, startCol = col - col % 3;
+            for (let i = 0; i < 3; i++)
+                for (let j = 0; j < 3; j++)
+                    if (board[i + startRow][j + startCol] === num) return false;
+            return true;
+        }
+
+        // 2. 백트래킹을 이용한 스도쿠 생성 및 해결
+        function solve(board) {
+            for (let row = 0; row < 9; row++) {
+                for (let col = 0; col < 9; col++) {
+                    if (board[row][col] === 0) {
+                        let nums = [1,2,3,4,5,6,7,8,9].sort(() => Math.random() - 0.5);
+                        for (let num of nums) {
+                            if (isValid(board, row, col, num)) {
+                                board[row][col] = num;
+                                if (solve(board)) return true;
+                                board[row][col] = 0;
+                            }
+                        }
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        function generateSudoku() {
+            let board = Array.from({ length: 9 }, () => Array(9).fill(0));
+            solve(board); // 풀린 판 먼저 생성
+            currentSolution = board.map(row => [...row]);
+            
+            // 난이도 조절: 숫자를 무작위로 비움 (약 40~50개 유지)
+            let puzzle = board.map(row => [...row]);
+            let attempts = 45; // 비울 칸의 수
+            while (attempts > 0) {
+                let r = Math.floor(Math.random() * 9);
+                let c = Math.floor(Math.random() * 9);
+                if (puzzle[r][c] !== 0) {
+                    puzzle[r][c] = 0;
+                    attempts--;
+                }
+            }
+            currentPuzzle = puzzle;
+        }
 
         function createBoard() {
-            const board = document.getElementById('sudokuBoard');
-            board.innerHTML = '';
+            generateSudoku();
+            const boardElement = document.getElementById('sudokuBoard');
+            boardElement.innerHTML = '';
+            
             for (let r = 0; r < 9; r++) {
                 for (let c = 0; c < 9; c++) {
                     const cell = document.createElement('div');
                     cell.classList.add('cell');
-                    if (r === 2 || r === 5) cell.classList.add('grid-row-border');
                     
-                    if (puzzle[r][c] !== 0) {
-                        cell.innerText = puzzle[r][c];
+                    if (currentPuzzle[r][c] !== 0) {
+                        cell.innerText = currentPuzzle[r][c];
                         cell.classList.add('fixed');
                     } else {
                         const input = document.createElement('input');
-                        input.type = 'text';
+                        input.type = 'tel'; // 모바일 숫자 키패드 유도
                         input.maxLength = 1;
                         input.oninput = (e) => {
                             e.target.value = e.target.value.replace(/[^1-9]/g, '');
                             startTimer();
                         };
+                        input.onfocus = startTimer;
                         cell.appendChild(input);
                     }
-                    board.appendChild(cell);
+                    boardElement.appendChild(cell);
                 }
             }
         }
@@ -174,30 +204,35 @@
         }
 
         function checkSolution() {
-            const inputs = document.querySelectorAll('.cell input');
+            const cells = document.querySelectorAll('.cell');
             let isCorrect = true;
-            let inputIdx = 0;
+            let cellIdx = 0;
 
             for (let r = 0; r < 9; r++) {
                 for (let c = 0; c < 9; c++) {
-                    if (puzzle[r][c] === 0) {
-                        if (parseInt(inputs[inputIdx].value) !== solvedPuzzle[r][c]) {
-                            isCorrect = false;
-                            break;
-                        }
-                        inputIdx++;
+                    const cell = cells[cellIdx];
+                    let val;
+                    if (cell.classList.contains('fixed')) {
+                        val = parseInt(cell.innerText);
+                    } else {
+                        val = parseInt(cell.querySelector('input').value);
                     }
+
+                    if (isNaN(val) || val !== currentSolution[r][c]) {
+                        isCorrect = false;
+                    }
+                    cellIdx++;
                 }
             }
 
             if (isCorrect) {
                 clearInterval(timerInterval);
                 const time = parseFloat(document.getElementById('timer').innerText);
-                let tier = time < 180 ? "S급" : time < 360 ? "A급" : time < 600 ? "B급" : "C급";
-                alert(`축하합니다! 정답입니다.\n최종 기록: ${time}초\n당신의 등급은 [${tier}] 입니다.`);
+                let tier = time < 180 ? "S급" : time < 420 ? "A급" : time < 720 ? "B급" : "C급";
+                alert(`🎊 정답입니다! 🎊\n기록: ${time}초\n당신의 등급은 [${tier}] 입니다.\n\n확인을 누르면 새 게임으로 돌아갑니다.`);
                 resetGame();
             } else {
-                alert("틀린 부분이 있습니다. 다시 확인해보세요!");
+                alert("아직 빈칸이 있거나 틀린 숫자가 있습니다. 다시 확인해 보세요!");
             }
         }
 
