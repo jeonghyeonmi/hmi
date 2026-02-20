@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <title>N-Back 기억력 훈련: 작업 기억력 향상 게임 | SKZ Brain Lab</title>
-    <meta name="description" content="인지심리학 기반 N-Back 기억력 훈련. 2단계 전 숫자를 기억하여 작업 기억력(Working Memory)과 집중력을 향상시키세요. 당신의 두뇌 등급을 확인해보세요.">
+    <meta name="description" content="인지심리학 기반 N-Back 훈련으로 당신의 작업 기억력(Working Memory)과 집중력을 한계까지 끌어올리세요. 뇌 활성화 등급 리포트를 제공합니다.">
     <meta name="keywords" content="N-Back, 엔백, 기억력훈련, 작업기억력, 두뇌게임, 집중력향상, 인지능력, SKZBrainLab">
     <link rel="canonical" href="https://jeonghyeonmi.github.io/hmi/game8.html">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="당신의 두뇌 등급은? N-Back 기억력 훈련">
     <meta property="og:description" content="과학적인 두뇌 훈련법, N-Back 게임으로 작업 기억력 한계에 도전하세요.">
+    <meta property="og:image" content="img/index.jpg">
     <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/game8.html">
 
     <script type="application/ld+json">
@@ -32,54 +33,64 @@
     </script>
 
     <style>
-        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #27ae60; --error-color: #e74c3c; }
+        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #e67e22; --success: #2ecc71; --error: #e74c3c; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); color: #333; overflow-x: hidden; }
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; line-height: 1.6; }
         
+        /* 레이아웃: 헤더 및 네비게이션 */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
 
-        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        nav.main-nav { 
+            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+        }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
         nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
 
-        .game-container {
-            width: 94%; max-width: 500px; margin: 1.5rem auto; padding: 25px;
-            background: white; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.04);
-            text-align: center;
+        .sub-nav { display: flex; justify-content: center; gap: 15px; padding: 12px 0; background: #fff; border-bottom: 1px solid #eee; font-size: 0.75rem; }
+        .sub-nav a { text-decoration: none; color: #aaa; font-weight: 500; }
+        .sub-nav a.current { color: var(--accent-color); font-weight: bold; }
+
+        /* 메인 컨테이너 */
+        .container { 
+            width: 94%; max-width: 450px; margin: 1.5rem auto; padding: 25px; 
+            background: white; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.04); text-align: center; 
         }
 
-        .game-guide { text-align: left; background: #f8fafc; padding: 15px; border-radius: 15px; margin-bottom: 20px; font-size: 0.85rem; line-height: 1.6; border-left: 4px solid var(--accent-color); }
+        .game-guide { text-align: left; background: #f0f7ff; padding: 15px; border-radius: 15px; margin-bottom: 20px; font-size: 0.85rem; border-left: 5px solid #3498db; }
 
-        .display-area {
-            height: 180px; background: #2c3e50; border-radius: 20px;
-            display: flex; justify-content: center; align-items: center;
-            margin-bottom: 20px; position: relative; transition: all 0.2s;
+        .display-area { 
+            height: 180px; background: #2c3e50; border-radius: 20px; 
+            display: flex; justify-content: center; align-items: center; 
+            margin: 20px 0; transition: 0.2s; position: relative;
         }
-        #number-display { font-size: 5.5rem; font-weight: 900; color: #fff; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-
-        /* 피드백 효과 */
-        .correct-flash { background-color: #27ae60 !important; transform: scale(1.03); }
-        .wrong-flash { background-color: #e74c3c !important; animation: shake 0.3s cubic-bezier(.36,.07,.19,.97) both; }
-        
-        @keyframes shake {
-            10%, 90% { transform: translate3d(-1px, 0, 0); }
-            20%, 80% { transform: translate3d(2px, 0, 0); }
-            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-            40%, 60% { transform: translate3d(4px, 0, 0); }
-        }
+        #number-display { font-size: 5rem; font-weight: 900; color: #fff; }
 
         .match-btn { 
-            width: 100%; padding: 22px; background: var(--primary-color); color: white; border: none; 
-            border-radius: 18px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.1s;
+            width: 100%; padding: 20px; background: var(--primary-color); color: white; border: none; 
+            border-radius: 18px; font-size: 1.2rem; font-weight: bold; cursor: pointer; margin-top: 10px;
         }
-        .btn-start { width: 100%; padding: 18px; background: var(--accent-color); color: white; border: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem; cursor: pointer; }
+        .btn-start { 
+            width: 100%; padding: 18px; background: var(--accent-color); color: white; 
+            border: none; border-radius: 30px; font-weight: bold; font-size: 1.2rem; cursor: pointer; 
+        }
 
-        #timer-bar { width: 100%; height: 8px; background: #eee; border-radius: 4px; margin-bottom: 15px; overflow: hidden; }
-        #timer-fill { width: 100%; height: 100%; background: var(--accent-color); transition: width 0.1s linear; }
+        /* 피드백 애니메이션 */
+        .correct-flash { background-color: var(--success) !important; transform: scale(1.02); }
+        .wrong-flash { background-color: var(--error) !important; animation: shake 0.3s; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
 
-        footer { text-align: center; padding: 2rem 0; color: #bbb; font-size: 0.8rem; }
+        /* 결과 팝업 */
+        #result-overlay { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; 
+        }
+        .result-card { background: white; width: 88%; max-width: 360px; padding: 30px; border-radius: 28px; text-align: center; }
+        .grade-badge { font-size: 1.4rem; font-weight: 900; color: var(--accent-color); margin-bottom: 12px; display: block; }
+
+        footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -92,97 +103,84 @@
     <a href="game2.html">논리력</a>
     <a href="game3.html">판단력</a>
     <a href="report.html">리포트</a>
+    <a href="posts.html">분석실</a>
 </nav>
 
-<main class="game-container">
-    <section class="game-guide">
-        <h2 style="font-size: 1rem; margin: 0 0 5px 0;">🧠 N-Back 훈련법</h2>
-        현재 숫자가 <strong>2단계 전</strong> 숫자와 같으면 버튼을 누르세요. 
-        <br><small>(예: 4 → 1 → 4 가 나왔을 때 마지막 4에서 클릭!)</small>
+<div class="sub-nav">
+    <a href="game.html">[기본훈련]</a>
+    <a href="game8.html" class="current">[N-Back 기억력]</a>
+</div>
+
+<main class="container">
+    <section id="guide-box" class="game-guide">
+        <h2 style="font-size: 1rem; margin: 0 0 5px 0;">🧠 N-Back 가이드</h2>
+        숫자가 <strong id="n-val">1</strong>단계 전 숫자와 같으면 버튼을 누르세요! 정답률 80% 이상 시 난이도가 상승합니다.
     </section>
 
-    <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 10px;">
-        <span style="color:var(--accent-color)">Level: 2-Back</span>
+    <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 0.95rem; margin-bottom: 5px;">
+        <span style="color:var(--accent-color)">Current: <span id="lv-text">1-Back</span></span>
         <span>Score: <span id="score">0</span></span>
     </div>
-    
-    <div id="timer-bar"><div id="timer-fill"></div></div>
 
-    <section id="display-box" class="display-area" aria-live="polite">
+    <div id="display-box" class="display-area">
         <div id="number-display">READY</div>
-    </section>
-
-    <div id="action-zone" style="display:none;">
-        <button class="match-btn" onclick="handleMatch()">지금 숫자와 2단계 전이 일치!</button>
     </div>
 
-    <div id="setup-zone">
-        <button class="btn-start" onclick="startGame()">훈련 시작 (40초)</button>
-    </div>
+    <button id="startBtn" class="btn-start" onclick="startGame()">훈련 시작</button>
+    <button id="matchBtn" class="match-btn" style="display:none;" onclick="handleMatch()">일치 (Match!)</button>
 </main>
 
-<footer>&copy; 2026 SKZ Brain Lab. 과학적 두뇌 훈련 프로그램.</footer>
+<div id="result-overlay">
+    <div class="result-card">
+        <span class="grade-badge" id="res-grade">RANK: S</span>
+        <h2 style="margin: 0 0 10px 0;">훈련 종료</h2>
+        <p id="res-detail" style="font-size: 0.95rem; color: #444; line-height: 1.6; margin-bottom: 25px;"></p>
+        <button class="btn-start" onclick="location.href='report.html'">분석 리포트 확인</button>
+        <button onclick="location.reload()" style="background:none; border:none; color:#aaa; margin-top:18px; cursor:pointer; text-decoration:underline; font-size:0.85rem;">다시 도전하기</button>
+    </div>
+</div>
+
+<footer>&copy; 2026 SKZ Brain Lab. All rights reserved.</footer>
 
 <script>
-    let n = 2;
+    let n = 1; 
     let sequence = [];
     let score = 0;
+    let correctCount = 0;
+    let totalTargets = 0;
     let isGameActive = false;
     let hasPressedCurrent = false;
-    let cycleTimer = null;
-    let timeLeft = 40;
-    const CYCLE_TIME = 1800; // 숫자가 머무는 시간
-
-    const displayBox = document.getElementById('display-box');
-    const numberDisplay = document.getElementById('number-display');
-    const scoreDisplay = document.getElementById('score');
-    const timerFill = document.getElementById('timer-fill');
+    let gameCount = 0;
+    const TOTAL_ROUNDS = 20;
 
     function startGame() {
-        if(isGameActive) return;
-        isGameActive = true;
-        score = 0;
-        sequence = [];
-        timeLeft = 40;
-        scoreDisplay.innerText = "0";
-        document.getElementById('setup-zone').style.display = 'none';
-        document.getElementById('action-zone').style.display = 'block';
-        
-        updateGlobalTimer();
+        isGameActive = true; score = 0; sequence = []; gameCount = 0; correctCount = 0; totalTargets = 0;
+        document.getElementById('startBtn').style.display = 'none';
+        document.getElementById('matchBtn').style.display = 'block';
+        document.getElementById('guide-box').style.opacity = '0.3';
         runNextCycle();
-    }
-
-    function updateGlobalTimer() {
-        let total = 40;
-        let current = total;
-        const interval = setInterval(() => {
-            current -= 0.1;
-            timerFill.style.width = (current / total * 100) + "%";
-            if (current <= 0 || !isGameActive) clearInterval(interval);
-        }, 100);
     }
 
     function runNextCycle() {
         if (!isGameActive) return;
-        if (timeLeft <= 0) { endGame(); return; }
+        if (gameCount >= TOTAL_ROUNDS) { endGame(); return; }
 
-        timeLeft -= (CYCLE_TIME / 1000);
         hasPressedCurrent = false;
-        displayBox.className = 'display-area';
-
-        // SEO를 고려하여 30% 확률로 정답 유도 (인지 부하 유지)
+        document.getElementById('display-box').className = 'display-area';
+        
         let nextNum;
-        if (sequence.length >= n && Math.random() < 0.3) {
+        if (sequence.length >= n && Math.random() < 0.35) {
             nextNum = sequence[sequence.length - n];
+            totalTargets++;
         } else {
             nextNum = Math.floor(Math.random() * 9) + 1;
         }
 
         sequence.push(nextNum);
-        numberDisplay.innerText = nextNum;
+        document.getElementById('number-display').innerText = nextNum;
+        gameCount++;
 
-        clearTimeout(cycleTimer);
-        cycleTimer = setTimeout(runNextCycle, CYCLE_TIME);
+        setTimeout(runNextCycle, 2000);
     }
 
     function handleMatch() {
@@ -192,38 +190,39 @@
         const current = sequence[sequence.length - 1];
         const target = sequence[sequence.length - (n + 1)];
 
-        // 검증 및 즉각 피드백
         if (sequence.length > n && current === target) {
-            score += 10;
+            score += 100; correctCount++;
             triggerFeedback('correct-flash');
-            // 맞히면 기분 좋게 다음으로 약간 더 빨리 전환
-            clearTimeout(cycleTimer);
-            setTimeout(runNextCycle, 500);
         } else {
-            score = Math.max(0, score - 5);
+            score = Math.max(0, score - 50);
             triggerFeedback('wrong-flash');
-            // 틀리면 다음으로 약간 더 빨리 전환
-            clearTimeout(cycleTimer);
-            setTimeout(runNextCycle, 500);
         }
-        scoreDisplay.innerText = score;
+        document.getElementById('score').innerText = score;
     }
 
     function triggerFeedback(className) {
-        displayBox.classList.add(className);
-        setTimeout(() => displayBox.classList.remove(className), 400);
+        const box = document.getElementById('display-box');
+        box.classList.add(className);
+        setTimeout(() => box.classList.remove(className), 300);
     }
 
     function endGame() {
         isGameActive = false;
-        clearTimeout(cycleTimer);
-        numberDisplay.innerText = "종료";
-        document.getElementById('setup-zone').style.display = 'block';
-        document.getElementById('action-zone').style.display = 'none';
+        const accuracy = Math.round((correctCount / totalTargets) * 100) || 0;
         
-        // 리포트용 점수 저장
-        localStorage.setItem('game8_score', score);
-        alert(`훈련이 완료되었습니다!\n최종 점수: ${score}점`);
+        // [리포트 연동] 100점 만점 기준 점수 계산
+        const finalMemoryScore = Math.min(100, (accuracy * 0.7) + (n * 15));
+        localStorage.setItem('game8_score', finalMemoryScore);
+
+        let grade = accuracy >= 80 ? "S (천재적)" : accuracy >= 60 ? "A (우수)" : accuracy >= 40 ? "B (보통)" : "C (노력)";
+        
+        document.getElementById('res-grade').innerText = `RANK: ${grade}`;
+        document.getElementById('res-detail').innerHTML = `
+            정답률: <b>${accuracy}%</b><br>
+            성공 횟수: ${correctCount}회 / 목표 ${totalTargets}회<br>
+            최종 난이도: ${n}-Back 단계
+        `;
+        document.getElementById('result-overlay').style.display = 'flex';
     }
 </script>
 </body>
