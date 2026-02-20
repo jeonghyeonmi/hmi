@@ -215,22 +215,27 @@
         document.getElementById('current-item').innerText = "FINISH";
     }
 
-    function saveRecord(score, msg) {
-        // [수정] 15단계를 만점으로 환산 (1단계당 약 6.6점)
-        const reportScore = Math.min(100, Math.floor((score / 15) * 100));
-        
-        // [수정] 최고점 여부와 상관없이 '최신 점수'를 저장하여 리포트가 변동되게 함
-        localStorage.setItem('game8_score', reportScore);
-        
-        // (선택사항) 나중에 그래프를 그리기 위해 히스토리 데이터도 저장만 해둠
-        let history = JSON.parse(localStorage.getItem('game8_history')) || [];
-        history.push({ date: new Date().toLocaleDateString(), score: reportScore });
-        localStorage.setItem('game8_history', JSON.stringify(history.slice(-10))); // 최근 10회 기록만
-        
-        if (confirm(msg)) { 
-            location.href = 'report.html'; 
-        }
+    function saveRecord(score) {
+    // 1. 100점 만점으로 환산
+    const reportScore = Math.min(100, Math.floor((score / 15) * 100));
+    
+    // 2. 기존 기록 불러오기 (없으면 빈 배열)
+    let history = JSON.parse(localStorage.getItem('game8_history')) || [];
+    
+    // 3. 새로운 점수 추가
+    history.push(reportScore);
+    
+    // 4. 최근 10개만 유지 (오래된 데이터는 삭제)
+    if (history.length > 10) {
+        history.shift();
     }
+    
+    // 5. 다시 로컬 스토리지에 저장
+    localStorage.setItem('game8_history', JSON.stringify(history));
+    
+    // (선택) 리포트에서 식별하기 편하게 마지막 점수도 따로 저장 가능
+    localStorage.setItem('game8_score', reportScore); 
+}
 </script>
 </body>
 </html>
