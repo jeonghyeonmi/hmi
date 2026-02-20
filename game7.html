@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>오목 수 읽기 훈련 | SKZ Brain Lab</title>
+    <style>
+        :root { 
+            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
+            --text-main: #2c3e50; --white: #ffffff; --board-color: #edc9af;
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; overflow-x: hidden; }
+        
+        /* 헤더 & 네비게이션 (posts.html 디자인 통일) */
+        header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
+        header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
+        header h1 a { text-decoration: none; color: inherit; }
+        nav.main-nav { 
+            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+        }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+        nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
+
+        .game-container { width: 94%; max-width: 500px; margin: 1.5rem auto; text-align: center; }
+        .status-bar { 
+            background: var(--white); padding: 15px; border-radius: 15px; margin-bottom: 15px;
+            display: flex; justify-content: space-between; align-items: center; font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* 캔버스 모바일 최적화 */
+        #canvas-wrapper { 
+            width: 100%; aspect-ratio: 1 / 1; background: var(--board-color); 
+            border-radius: 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            position: relative; touch-action: none; /* 브라우저 기본 스크롤 방지 */
+        }
+        canvas { width: 100%; height: 100%; display: block; }
+
+        .btn-reset {
+            margin-top: 20px; background: var(--primary-color); color: white; border: none;
+            padding: 12px 30px; border-radius: 50px; font-weight: bold; cursor: pointer;
+        }
+        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<header><h1><a href="index.html">SKZ 두뇌 훈련소</a></h1></header>
+<nav class="main-nav">
+    <a href="index.html">홈</a>
+    <a href="game.html">집중력</a>
+    <a href="game2.html">논리력</a>
+    <a href="game3.html">판단력</a>
+    <a href="report.html">리포트</a>
+    <a href="posts.html">분석실</a>
+</nav>
+
+<main class="game-container">
+    <div class="status-bar">
+        <span id="turnDisplay">현재 차례: 흑돌 ●</span>
+        <button onclick="resetGame()" style="font-size: 0.8rem; background: none; border: 1px solid #ccc; padding: 4px 8px; border-radius: 5px;">무르기</button>
+    </div>
+
+    <div id="canvas-wrapper">
+        <canvas id="omokCanvas"></canvas>
+    </div>
+
+    <button class="btn-reset" onclick="location.reload()">게임 초기화</button>
+    
+    <div style="margin-top: 20px; color: var(--text-muted); font-size: 0.85rem;">
+        <p>※ 상대방과 번갈아 가며 돌을 놓으세요. <br>다섯 개의 돌을 먼저 이으면 승리합니다.</p>
+    </div>
+</main>
+
+<footer><p>&copy; 2026 SKZ Brain Lab. All rights reserved.</p></footer>
+
+<script>
+    const canvas = document.getElementById('omokCanvas');
+    const ctx = canvas.getContext('2d');
+    const turnDisplay = document.getElementById('turnDisplay');
+    
+    const boardSize = 15; // 15x15 판
+    let cellSize;
+    let board = Array.from(Array(boardSize), () => Array(boardSize).fill(0));
+    let turn = 1; // 1: 흑, 2: 백
+    let gameOver = false;
+
+    // 모바일 해상도 대응을 위한 캔버스 크기 설정
+    function initCanvas() {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.width * dpr;
+        ctx.scale(dpr, dpr);
+        cellSize = rect.width / boardSize;
+        drawBoard();
+    }
+
+    function drawBoard() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = "#333";
+        ctx.lineWidth = 1;
+
+        for (let i = 0; i < boardSize; i++) {
+            // 가로줄
+            ctx.beginPath();
+            ctx.moveTo(cellSize/2, cellSize/2 + i*cellSize);
+            ctx.lineTo(canvas.width/devicePixelRatio - cellSize/2, cellSize/2 + i*cellSize);
+            ctx.stroke();
+            // 세로줄
+            ctx.beginPath();
+            ctx.moveTo(cellSize/2 + i*cellSize, cellSize/2);
+            ctx.lineTo(cellSize/2 + i*cellSize, canvas.width/devicePixelRatio - cellSize/2);
+            ctx.stroke();
+        }
+        
+        // 놓인 돌 다시 그리기
+        for(let y=0; y<boardSize; y++) {
+            for(let x=0; x<boardSize; x++) {
+                if(board[y][x] !== 0) drawStone(x, y, board[y][x]);
+            }
+        }
+    }
+
+    function drawStone(x, y, player) {
+        ctx.beginPath();
+        ctx.arc(cellSize/2 + x*cellSize, cellSize/2 + y*cellSize, cellSize/2 - 4, 0, Math.PI * 2);
+        ctx.fillStyle = player === 1 ? "#000" : "#fff";
+        ctx.fill();
+        if(player === 2) { // 백돌 테두리
+            ctx.strokeStyle = "#ccc";
+            ctx.stroke();
+        }
+    }
+
+    // 터치/클릭 보정 로직
+    canvas.addEventListener('pointerdown', (e) => {
+        if(gameOver) return;
+        const rect = canvas.getBoundingClientRect();
+        const x = Math.round((e.clientX - rect.left - cellSize/2) / cellSize);
+        const y = Math.round((e.clientY - rect.top - cellSize/2) / cellSize);
+
+        if (x >= 0 && x < boardSize && y >= 0 && y < boardSize && board[y][x] === 0) {
+            board[y][x] = turn;
+            drawStone(x, y, turn);
+            if (checkWin(x, y, turn)) {
+                gameOver = true;
+                setTimeout(() => alert((turn === 1 ? "흑돌" : "백돌") + " 승리!"), 100);
+            } else {
+                turn = turn === 1 ? 2 : 1;
+                turnDisplay.innerText = turn === 1 ? "현재 차례: 흑돌 ●" : "현재 차례: 백돌 ○";
+            }
+        }
+    });
+
+    function checkWin(x, y, player) {
+        const directions = [[1,0], [0,1], [1,1], [1,-1]];
+        for (let [dx, dy] of directions) {
+            let count = 1;
+            [[dx, dy], [-dx, -dy]].forEach(([sx, sy]) => {
+                for (let i = 1; i < 5; i++) {
+                    let nx = x + sx*i, ny = y + sy*i;
+                    if (nx >= 0 && nx < boardSize && ny >= 0 && ny < boardSize && board[ny][nx] === player) count++;
+                    else break;
+                }
+            });
+            if (count >= 5) return true;
+        }
+        return false;
+    }
+
+    window.addEventListener('resize', initCanvas);
+    initCanvas();
+</script>
+
+</body>
+</html>
