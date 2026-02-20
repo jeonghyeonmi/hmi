@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>기억력 훈련: 타일 위치 기억하기 | SKZ Brain Lab</title>
 
-<meta name="description" content="잠시 나타났다 사라지는 타일의 위치를 기억하고 맞추며 당신의 단기 기억력을 한계까지 시험해보세요.">
-<meta name="keywords" content="기억력훈련, 두뇌게임, 기억력테스트, 인지능력, 뇌활성화, SKZBrainLab">
+    <meta name="description" content="잠시 나타났다 사라지는 타일의 위치를 기억하고 맞추며 당신의 단기 기억력을 한계까지 시험해보세요.">
+    <meta name="keywords" content="기억력훈련, 두뇌게임, 기억력테스트, 인지능력, 뇌활성화, SKZBrainLab">
 
-<meta property="og:title" content="당신은 '전설의 코끼리'급 기억력인가요? - SKZ 기억력 훈련">
-<meta property="og:description" content="매일 5분, 사라지는 타일을 맞추며 뇌의 단기 기억 용량을 키워보세요.">
-<meta property="og:image" content="img/index.jpg"> <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/game4.html">
+    <meta property="og:title" content="당신은 '전설의 코끼리'급 기억력인가요? - SKZ 기억력 훈련">
+    <meta property="og:description" content="매일 5분, 사라지는 타일을 맞추며 뇌의 단기 기억 용량을 키워보세요.">
+    <meta property="og:image" content="img/index.jpg"> <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/game4.html">
     <style>
         :root { 
             --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #e67e22; 
@@ -111,7 +111,7 @@
         <a href="game3.html">[순발력]</a>
         <a href="game4.html" class="current">[기억력]</a>
         <a href="game5.html">[수리판단]</a>
-        <a href="game6.html">[동물매칭]</a>
+        <a href="game6.html">[동물인지]</a>
     </div>
 
     <main class="container">
@@ -228,17 +228,26 @@
         }
 
         function saveRecord(score, msg) {
+            // --- [업데이트: 최근 10회 기록 평균 저장 로직] ---
+            const reportScore = Math.min(100, score * 10); // Lv.10 기준 100점 환산
+            
+            // 1. 최근 10회 기록 배열 관리 (report.html 연동용)
+            let scoreHistory = JSON.parse(localStorage.getItem('game4_history')) || [];
+            scoreHistory.push(reportScore);
+            if (scoreHistory.length > 10) scoreHistory.shift();
+            localStorage.setItem('game4_history', JSON.stringify(scoreHistory));
+
+            // 2. 단일 최신 점수 저장 (기존 호환성용)
+            localStorage.setItem('game4_score', reportScore);
+
+            // 3. 내부 로그용 memHistory 저장
             const now = new Date();
             const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
             let history = JSON.parse(localStorage.getItem('memHistory')) || [];
-            
             history.unshift({ date: dateStr, score: score });
             localStorage.setItem('memHistory', JSON.stringify(history.slice(0, 10)));
+            // ----------------------------------------------
 
-            // 리포트 데이터 연동 (Lv.10 기준 100점)
-            const reportScore = Math.min(100, score * 10);
-            localStorage.setItem('game4_score', reportScore);
-            
             displayHistory();
 
             if (confirm(msg)) {
@@ -267,6 +276,7 @@
         function clearHistory() { 
             if(confirm("모든 기록을 초기화할까요?")) { 
                 localStorage.removeItem('memHistory'); 
+                localStorage.removeItem('game4_history'); 
                 location.reload(); 
             } 
         }
