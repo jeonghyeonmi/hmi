@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>N-Back 기억력 훈련 | SKZ Brain Lab</title>
+    <style>
+        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #27ae60; --error-color: #e74c3c; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { margin: 0; font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); color: #333; }
+        
+        /* 메인 헤더 */
+        header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
+        header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
+        header h1 a { text-decoration: none; color: inherit; }
+
+        /* 메인 네비게이션 */
+        nav.main-nav { 
+            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+            overflow-x: auto; white-space: nowrap;
+        }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; flex-shrink: 0; }
+        nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
+
+        /* 서브 네비게이션 (집중력 게임 리스트) */
+        .sub-nav { display: flex; justify-content: center; gap: 15px; padding: 12px 0; background: #fff; border-bottom: 1px solid #eee; font-size: 0.75rem; }
+        .sub-nav a { text-decoration: none; color: #aaa; font-weight: 500; }
+        .sub-nav a.current { color: var(--accent-color); font-weight: bold; }
+
+        .game-container {
+            width: 94%; max-width: 500px; margin: 1.5rem auto; padding: 25px;
+            background: white; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+            text-align: center;
+        }
+
+        .info-bar { display: flex; justify-content: space-between; margin-bottom: 20px; font-weight: bold; font-size: 0.9rem; color: #666; }
+        #n-level-display { color: var(--accent-color); font-size: 1.1rem; }
+
+        .display-area {
+            height: 200px; background: #2c3e50; border-radius: 20px;
+            display: flex; justify-content: center; align-items: center;
+            margin-bottom: 30px; position: relative; overflow: hidden;
+        }
+        #number-display { font-size: 5rem; font-weight: 900; color: #fff; transition: transform 0.1s; }
+
+        .game-btns { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        .match-btn { 
+            padding: 22px; background: var(--primary-color); color: white; border: none; 
+            border-radius: 18px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .match-btn:active { transform: scale(0.95); opacity: 0.9; }
+
+        .btn-start { 
+            width: 100%; padding: 18px; background: var(--accent-color); color: white; 
+            border: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .ranking-box { margin-top: 30px; padding-top: 20px; border-top: 2px dashed #eee; text-align: left; }
+        .ranking-title { font-size: 1rem; font-weight: bold; color: var(--primary-color); margin-bottom: 12px; }
+        
+        #current-grade { font-size: 1.3rem; font-weight: bold; margin-bottom: 5px; }
+        #grade-info { font-size: 0.85rem; color: #888; }
+
+        footer { text-align: center; padding: 2rem 0; color: #bbb; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <header><h1><a href="index.html">SKZ 두뇌 훈련소</a></h1></header>
+    
+    <nav class="main-nav">
+        <a href="index.html">홈</a>
+        <a href="game.html" class="active">집중력</a>
+        <a href="game2.html">논리력</a>
+        <a href="game3.html">판단력</a>
+        <a href="report.html">리포트</a>
+        <a href="posts.html">분석실</a>
+    </nav>
+
+    <div class="sub-nav">
+        <a href="game.html">[기초훈련]</a>
+        <a href="game8.html" class="current">[N-Back기억]</a>
+    </div>
+
+    <main class="game-container">
+        <div class="info-bar">
+            <div id="n-level-display">Level: 1-Back</div>
+            <div>Score: <span id="score">0</span></div>
+        </div>
+
+        <div class="display-area">
+            <div id="number-display">?</div>
+            <div id="feedback-layer" style="position:absolute; width:100%; height:100%; pointer-events:none; transition: 0.3s;"></div>
+        </div>
+
+        <div id="action-zone" style="display:none;">
+            <button class="match-btn" onclick="handleMatch()">방금 숫자와 같음!</button>
+            <p style="font-size:0.8rem; color:#aaa; margin-top:12px;">일치할 때만 빠르게 누르세요!</p>
+        </div>
+
+        <div class="start-overlay" id="setup-zone">
+            <div style="margin-bottom:25px; font-size:0.95rem; color:#555; line-height:1.6;">
+                <b>[훈련 방법]</b><br>
+                숫자가 순서대로 나타납니다.<br>
+                <b>N번째 전</b>에 나온 숫자와 지금 숫자가<br>
+                같다면 버튼을 누르세요!
+            </div>
+            <button class="btn-start" onclick="startGame()">훈련 시작하기</button>
+        </div>
+
+        <div class="ranking-box">
+            <div class="ranking-title">🏅 나의 집중력 등급</div>
+            <div id="current-grade" style="color:#ccc;">측정 전</div>
+            <div id="grade-info">연속 성공하여 레벨을 높여보세요!</div>
+        </div>
+    </main>
+
+    <footer>&copy; 2026 SKZ Brain Lab. All rights reserved.</footer>
+
+    <script>
+        let n = 1; 
+        let sequence = [];
+        let score = 0;
+        let isGameActive = false;
+        let gameInterval = null;
+        let hasAnswered = false;
+        let gameTimeLimit = 60; // 60초 게임
+
+        const numView = document.getElementById('number-display');
+        const scoreView = document.getElementById('score');
+        const levelView = document.getElementById('n-level-display');
+        const gradeView = document.getElementById('current-grade');
+        const infoView = document.getElementById('grade-info');
+
+        const grades = [
+            { lv: 1, name: "금붕어 기억력 🐟", color: "#95a5a6" },
+            { lv: 2, name: "평범한 지구인 👨‍🚀", color: "#3498db" },
+            { lv: 3, name: "비상한 두뇌 🦊", color: "#f1c40f" },
+            { lv: 4, name: "기억력 천재 🐘", color: "#9b59b6" },
+            { lv: 5, name: "초인류 AI 🤖", color: "#e74c3c" }
+        ];
+
+        function loadBestRecord() {
+            const bestLv = localStorage.getItem('nback_best_lv') || 0;
+            if(bestLv > 0) {
+                const myGrade = grades.find(g => g.lv == bestLv) || grades[grades.length-1];
+                gradeView.innerText = myGrade.name;
+                gradeView.style.color = myGrade.color;
+                infoView.innerText = `최고 도달 레벨: ${bestLv}-Back`;
+            }
+        }
+        loadBestRecord();
+
+        function startGame() {
+            isGameActive = true;
+            score = 0; n = 1; sequence = [];
+            scoreView.innerText = "0";
+            levelView.innerText = `Level: ${n}-Back`;
+            document.getElementById('setup-zone').style.display = 'none';
+            document.getElementById('action-zone').style.display = 'block';
+            nextStep();
+            
+            // 60초 후 종료
+            setTimeout(() => { if(isGameActive) endGame(); }, gameTimeLimit * 1000);
+        }
+
+        function nextStep() {
+            if(!isGameActive) return;
+
+            // 놓친 정답 체크
+            if(sequence.length >= n + 1 && !hasAnswered) {
+                if(sequence[sequence.length-1] === sequence[sequence.length-(n+1)]) {
+                    score = Math.max(0, score - 1);
+                }
+            }
+
+            hasAnswered = false;
+            const nextNum = Math.floor(Math.random() * 9) + 1;
+            sequence.push(nextNum);
+            
+            numView.innerText = nextNum;
+            numView.style.transform = "scale(1.2)";
+            setTimeout(() => { numView.style.transform = "scale(1)"; }, 100);
+
+            // 레벨업 (10점당 1단계)
+            if(score >= n * 10 && n < 5) {
+                n++;
+                levelView.innerText = `Level: ${n}-Back`;
+                showToast(`축하합니다! ${n}-Back 레벨업!`);
+            }
+
+            gameInterval = setTimeout(nextStep, 2000);
+        }
+
+        function handleMatch() {
+            if(!isGameActive || hasAnswered) return;
+            hasAnswered = true;
+
+            const current = sequence[sequence.length - 1];
+            const target = sequence[sequence.length - (n + 1)];
+
+            if(sequence.length > n && current === target) {
+                score += 3;
+                triggerFeedback(true);
+            } else {
+                score = Math.max(0, score - 2);
+                triggerFeedback(false);
+            }
+            scoreView.innerText = score;
+        }
+
+        function triggerFeedback(isCorrect) {
+            const layer = document.getElementById('feedback-layer');
+            layer.style.backgroundColor = isCorrect ? "rgba(39, 174, 96, 0.4)" : "rgba(231, 76, 60, 0.4)";
+            setTimeout(() => { layer.style.backgroundColor = 'transparent'; }, 250);
+        }
+
+        function showToast(msg) {
+            const t = document.createElement('div');
+            t.style = "position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:rgba(0,0,0,0.85); color:white; padding:15px 30px; border-radius:50px; z-index:2000; font-weight:bold; animation: fadeIn 0.3s;";
+            t.innerText = msg;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 1500);
+        }
+
+        function endGame() {
+            isGameActive = false;
+            clearTimeout(gameInterval);
+            
+            const lastBest = localStorage.getItem('nback_best_lv') || 0;
+            if(n > lastBest) localStorage.setItem('nback_best_lv', n);
+            localStorage.setItem('game8_score', score); // 리포트용 점수 저장
+
+            alert(`훈련 종료!\n최종 점수: ${score}점\n달성 레벨: ${n}-Back`);
+            location.reload();
+        }
+    </script>
+</body>
+</html>
