@@ -99,6 +99,7 @@
             <thead><tr><th>회차</th><th>정보</th><th>기록</th></tr></thead>
             <tbody id="rankingBody"></tbody>
         </table>
+        <button onclick="clearHistory()" style="margin-top:20px; background:none; border:none; color:#ccc; font-size:0.75rem; text-decoration:underline; cursor:pointer;">기록 초기화</button>
     </section>
 </main>
 
@@ -154,7 +155,7 @@
                     input.oninput = function() {
                         if(!gameStarted) startTimer();
                         if(this.value.length > 1) this.value = this.value.slice(0,1);
-                        checkAllFilledAuto(); // 자동 체크 호출
+                        checkAllFilledAuto(); 
                     };
                     cell.appendChild(input);
                 }
@@ -176,7 +177,6 @@
         const inputs = document.querySelectorAll('.cell input');
         const allFilled = Array.from(inputs).every(el => el.value !== "");
         if (allFilled) {
-            // 마지막 숫자 입력을 시각적으로 확인하기 위해 100ms 지연 후 체크
             setTimeout(() => { finishGame(true); }, 100);
         }
     }
@@ -226,16 +226,33 @@
         // 정답 시 로직
         clearInterval(timerInterval);
         const time = document.getElementById('timer').innerText;
-        
-        // 논리력 점수 산출 및 저장 (report.html 연계)
+        saveRecord(time);
+    }
+
+    function saveRecord(time) {
+        // --- [업데이트: 최근 10회 기록 평균 저장 로직] ---
+        // 레벨 가중치 반영 점수 산출
         let logicScore = Math.max(60, 100 - (parseFloat(time) / (currentLevel * 0.5)));
-        localStorage.setItem('game2_score', Math.round(logicScore));
-        
+        const finalScore = Math.round(logicScore);
+
+        // 1. 최근 10회 기록 배열 관리
+        let scoreHistory = JSON.parse(localStorage.getItem('game2_history')) || [];
+        scoreHistory.push(finalScore);
+        if (scoreHistory.length > 10) scoreHistory.shift();
+        localStorage.setItem('game2_history', JSON.stringify(scoreHistory));
+
+        // 2. 단일 점수 저장 (호환성)
+        localStorage.setItem('game2_score', finalScore);
+
+        // 3. 내부 로그용 sudokuHistory 저장
         let history = JSON.parse(localStorage.getItem('sudokuHistory')) || [];
         history.unshift({ info: `Lv.${currentLevel}`, time: time + 's' });
-        localStorage.setItem('sudokuHistory', JSON.stringify(history.slice(0, 5)));
+        localStorage.setItem('sudokuHistory', JSON.stringify(history.slice(0, 10)));
+        // ----------------------------------------------
 
-        if(confirm(`🎉 정답입니다! (자동 감지)\n기록: ${time}초\n\n분석 리포트를 확인하시겠습니까?`)) {
+        displayHistory();
+
+        if(confirm(`🎉 정답입니다!\n기록: ${time}초\n\n분석 리포트를 확인하시겠습니까?`)) {
             location.href = 'report.html';
         } else {
             initGame();
@@ -248,9 +265,17 @@
         if(history.length > 0) {
             const times = history.map(h => parseFloat(h.time));
             document.getElementById('best-record').innerText = `⭐ 나의 최고 기록: ${Math.min(...times).toFixed(2)}초`;
-            body.innerHTML = history.map((h, i) => `<tr><td>${i+1}</td><td>${h.info}</td><td>${h.time}</td></tr>`).join('');
+            body.innerHTML = history.map((h, i) => `<tr><td>${history.length-i}회</td><td>${h.info}</td><td>${h.time}</td></tr>`).join('');
         } else {
             body.innerHTML = '<tr><td colspan="3">기록이 없습니다.</td></tr>';
+        }
+    }
+
+    function clearHistory() {
+        if(confirm("모든 논리력 기록을 초기화할까요?")) {
+            localStorage.removeItem('sudokuHistory');
+            localStorage.removeItem('game2_history');
+            location.reload();
         }
     }
 
