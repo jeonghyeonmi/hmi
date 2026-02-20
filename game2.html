@@ -3,36 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>논리력 훈련: AI 오목 대결 | SKZ Brain Lab</title>
-
-    <meta name="description" content="AI를 상대로 당신의 수 읽기 능력을 증명하세요. 3x3 금수 규칙이 적용된 정통 오목 훈련으로 논리적 사고력을 극대화합니다.">
-    <meta name="keywords" content="논리력훈련, 오목게임, AI오목, 두뇌게임, 수읽기, 뇌과학, SKZBrainLab">
     
-    <meta property="og:title" content="AI를 이길 수 있을까요? - SKZ 오목 수 읽기">
-    <meta property="og:description" content="단순한 게임이 아닙니다. 5수를 앞서가는 AI를 상대로 당신의 논리력을 테스트하세요.">
-    <meta property="og:image" content="img/index.jpg"> 
-    <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/game2.html">
+    <title>논리력 훈련: 단계별 미니 스도쿠 | SKZ Brain Lab</title>
+    <meta name="description" content="3x3부터 9x9까지 단계별 스도쿠와 AI 오목을 통해 논리적 사고력을 키우세요. 실시간 기록 측정 및 두뇌 분석 리포트를 제공합니다.">
+    <meta name="keywords" content="스도쿠, 오목, 논리력훈련, 두뇌게임, SKZBrainLab, 인지능력향상">
+    <link rel="canonical" href="https://jeonghyeonmi.github.io/hmi/game2.html">
 
     <style>
-        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #3498db; --board-color: #edc9af; }
+        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #3498db; --border-dark: #222; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; }
         
-        /* 헤더/네비게이션 (game3와 동일) */
+        /* 메인 헤더 */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
+
+        /* 메인 네비게이션 */
         nav.main-nav { 
             background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow-x: auto; white-space: nowrap; 
-            scrollbar-width: none; position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+            overflow-x: auto; white-space: nowrap;
         }
-        nav.main-nav::-webkit-scrollbar { display: none; }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; flex-shrink: 0; }
         nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
 
-        /* 🎮 서브 게임 네비게이션 (game2만의 서브메뉴) */
-        .sub-nav { display: flex; justify-content: center; gap: 12px; padding: 12px 0; background: #fff; border-bottom: 1px solid #eee; font-size: 0.75rem; }
+        /* 서브 네비게이션 (논리력 게임 리스트) */
+        .sub-nav { display: flex; justify-content: center; gap: 15px; padding: 12px 0; background: #fff; border-bottom: 1px solid #eee; font-size: 0.75rem; }
         .sub-nav a { text-decoration: none; color: #aaa; font-weight: 500; }
         .sub-nav a.current { color: var(--accent-color); font-weight: bold; }
 
@@ -41,33 +38,30 @@
             background: white; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; 
         }
 
-        .game-guide { 
-            background: #eef7ff; border-radius: 12px; padding: 15px; font-size: 0.85rem; 
-            line-height: 1.6; color: #444; margin-bottom: 20px; text-align: left; border-left: 4px solid var(--accent-color); 
-        }
-        .game-guide strong { color: var(--accent-color); display: block; margin-bottom: 4px; }
-        
-        .status-box { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-weight: bold; font-size: 1rem; }
-        
-        /* 오목판 모바일 최적화 */
-        #canvas-wrapper { 
-            width: 100%; aspect-ratio: 1 / 1; background: var(--board-color); 
-            border-radius: 12px; box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
-            position: relative; touch-action: none; overflow: hidden;
-        }
-        canvas { width: 100%; height: 100%; display: block; }
-        
-        #msg-overlay { color: #e74c3c; font-size: 0.85rem; margin-top: 8px; height: 1.2rem; font-weight: bold; }
+        /* 레벨 선택기 */
+        .level-indicator { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+        .level-badge { padding: 8px 14px; background: #f1f3f5; border-radius: 20px; font-weight: bold; font-size: 0.8rem; color: #888; cursor: pointer; }
+        .level-badge.active { background: var(--accent-color); color: white; box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3); }
 
-        .btn-undo { 
-            padding: 8px 16px; background: white; border: 1.5px solid #ddd; border-radius: 8px;
-            font-size: 0.85rem; cursor: pointer; color: #666; font-weight: bold;
-        }
+        .game-guide { background: #f0f7ff; border-radius: 12px; padding: 15px; font-size: 0.85rem; line-height: 1.6; color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--accent-color); }
+        #timer { font-size: 2.2rem; font-weight: 800; color: var(--primary-color); margin-bottom: 15px; display: block; }
 
-        .btn-reset { width: 100%; max-width: 280px; padding: 16px; background: var(--primary-color); color: white; border: none; border-radius: 30px; font-weight: bold; font-size: 1rem; margin-top: 20px; cursor: pointer; }
-
-        /* 하단 기록 섹션 */
+        /* 스도쿠 그리드 */
+        .sudoku-grid { display: grid; margin: 15px auto; background: var(--border-dark); border: 2px solid var(--border-dark); gap: 1px; width: fit-content; border-radius: 4px; overflow: hidden; }
+        .cell { background: white; display: flex; align-items: center; justify-content: center; aspect-ratio: 1/1; }
+        .cell input { width: 100%; height: 100%; border: none; text-align: center; font-weight: 800; color: var(--accent-color); outline: none; background: transparent; padding: 0; appearance: none; }
+        .cell.fixed { background: #f8f9fa; font-weight: bold; color: #2c3e50; }
+        
+        /* 그리드 크기 대응 */
+        .grid-3 .cell, .grid-3 input { width: 80px; height: 80px; font-size: 2rem; }
+        .grid-4 .cell, .grid-4 input { width: 65px; height: 65px; font-size: 1.8rem; }
+        .grid-5 .cell, .grid-5 input { width: 55px; height: 55px; font-size: 1.5rem; }
+        .grid-9 .cell, .grid-9 input { width: min(40px, 9.5vw); height: min(40px, 9.5vw); font-size: 1.1rem; }
+        
+        .btn-check { width: 100%; max-width: 280px; padding: 16px; background: #2ecc71; color: white; border: none; border-radius: 30px; font-weight: bold; font-size: 1rem; margin-top: 20px; cursor: pointer; }
+        
         .ranking-container { margin-top: 35px; border-top: 2px dashed #eee; padding-top: 25px; }
+        .ranking-title { font-size: 1.1rem; font-weight: bold; color: var(--primary-color); margin-bottom: 15px; }
         .rank-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
         .rank-table th { padding: 10px; color: #888; border-bottom: 1px solid #eee; }
         .rank-table td { padding: 12px 5px; border-bottom: 1px solid #f9f9f9; }
@@ -76,259 +70,99 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1><a href="index.html">SKZ 두뇌 훈련소</a></h1>
-    </header>
 
-    <nav class="main-nav">
-        <a href="index.html">홈</a>
-        <a href="game.html">집중력</a>
-        <a href="game2.html" class="active">논리력</a>
-        <a href="game3.html">판단력</a>
-        <a href="report.html">리포트</a>
-        <a href="posts.html">분석실</a>
-    </nav>
+<header><h1><a href="index.html">SKZ 두뇌 훈련소</a></h1></header>
 
-    <div class="sub-nav">
-        <a href="game2.html">[미니스도쿠]</a>
-        <a href="game7.html" class="current">[AI 오목]</a>
+<nav class="main-nav">
+    <a href="index.html">홈</a>
+    <a href="game.html">집중력</a>
+    <a href="game2.html" class="active">논리력</a>
+    <a href="game3.html">판단력</a>
+    <a href="report.html">리포트</a>
+    <a href="posts.html">분석실</a>
+</nav>
+
+<nav class="sub-nav">
+    <a href="game2.html" class="current">[미니스도쿠]</a>
+    <a href="game7.html">[AI 오목]</a>
+</nav>
+
+<main class="container">
+    <div class="level-indicator">
+        <div id="lv1" class="level-badge active" onclick="changeLevel(1)">입문</div>
+        <div id="lv2" class="level-badge" onclick="changeLevel(2)">초급</div>
+        <div id="lv3" class="level-badge" onclick="changeLevel(3)">중급</div>
+        <div id="lv4" class="level-badge" onclick="changeLevel(4)">마스터</div>
     </div>
 
-    <main class="container">
-        <div class="game-guide">
-            <strong>📝 논리력 훈련 규칙</strong>
-            상대(AI)보다 먼저 5개의 돌을 이으세요. <br>
-            ※ 흑돌(사용자)은 <b>3x3 금수 규칙</b>이 적용됩니다.
-        </div>
+    <article class="game-guide">가로, 세로 숫자가 중복되지 않게 채우세요. (0.01초 측정 중)</article>
+    <span id="timer">0.00</span>
+    
+    <div id="sudokuBoard" class="sudoku-grid"></div>
+    
+    <button class="btn-check" onclick="finishGame()">정답 확인 및 기록 저장</button>
+    
+    <section class="ranking-container">
+        <h2 class="ranking-title">📊 나의 논리력 일지</h2>
+        <div id="best-record" style="font-size:0.95rem; color:var(--accent-color); font-weight:bold; margin-bottom:12px;">최고 기록: -</div>
+        <table class="rank-table">
+            <thead><tr><th>회차</th><th>정보</th><th>기록</th></tr></thead>
+            <tbody id="rankingBody"></tbody>
+        </table>
+        <button onclick="clearHistory()" style="margin-top:20px; background:none; border:none; color:#ccc; font-size:0.75rem; text-decoration:underline; cursor:pointer;">기록 초기화</button>
+    </section>
+</main>
+
+<footer>&copy; 2026 SKZ Brain Lab. All rights reserved.</footer>
+
+<script>
+    let currentLevel = 1, startTime, timerInterval, gameStarted = false;
+    const levelSettings = { 1: { size: 3, holes: 2 }, 2: { size: 4, holes: 5 }, 3: { size: 5, holes: 10 }, 4: { size: 9, holes: 30 } };
+
+    function initGame() {
+        const board = document.getElementById('sudokuBoard'); const config = levelSettings[currentLevel];
+        gameStarted = false; clearInterval(timerInterval); document.getElementById('timer').innerText = '0.00';
+        board.className = `sudoku-grid grid-${config.size}`; board.style.gridTemplateColumns = `repeat(${config.size}, 1fr)`; board.innerHTML = '';
         
-        <div class="status-box">
-            <span id="turn-display">차례: 흑돌 ●</span>
-            <button class="btn-undo" onclick="undo()">한 수 무르기</button>
-        </div>
+        let solution = Array.from({length: config.size}, (_, i) => 
+            Array.from({length: config.size}, (_, j) => ((i + j) % config.size) + 1)
+        );
+        solution.sort(() => Math.random() - 0.5);
 
-        <div id="canvas-wrapper">
-            <canvas id="omokCanvas"></canvas>
-        </div>
-        <div id="msg-overlay"></div>
-
-        <button class="btn-reset" onclick="resetGame()">게임 초기화</button>
-
-        <div class="ranking-container">
-            <div style="font-weight:bold; margin-bottom:15px; color:var(--primary-color);">📊 오목 전적 기록</div>
-            <table class="rank-table">
-                <thead><tr><th>회차</th><th>결과</th><th>날짜</th></tr></thead>
-                <tbody id="historyBody"></tbody>
-            </table>
-        </div>
-    </main>
-
-    <footer>
-        &copy; 2026 SKZ Brain Lab. All rights reserved.
-    </footer>
-
-    <script>
-        const canvas = document.getElementById('omokCanvas');
-        const ctx = canvas.getContext('2d');
-        const turnDisplay = document.getElementById('turn-display');
-        const msgOverlay = document.getElementById('msg-overlay');
-        
-        const boardSize = 15;
-        let cellSize;
-        let board = Array.from(Array(boardSize), () => Array(boardSize).fill(0));
-        let moveHistory = [];
-        let gameOver = false;
-
-        function initCanvas() {
-            const dpr = window.devicePixelRatio || 1;
-            const rect = canvas.getBoundingClientRect();
-            canvas.width = rect.width * dpr;
-            canvas.height = rect.width * dpr;
-            ctx.scale(dpr, dpr);
-            cellSize = rect.width / boardSize;
-            drawBoard();
+        let puzzle = solution.map(row => [...row]);
+        let count = 0;
+        while(count < config.holes) {
+            let r = Math.floor(Math.random()*config.size), c = Math.floor(Math.random()*config.size);
+            if(puzzle[r][c] !== 0) { puzzle[r][c] = 0; count++; }
         }
 
-        function drawBoard() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.strokeStyle = "#444";
-            ctx.lineWidth = 0.5;
-            for (let i = 0; i < boardSize; i++) {
-                ctx.beginPath();
-                ctx.moveTo(cellSize/2, cellSize/2 + i*cellSize);
-                ctx.lineTo(canvas.width/devicePixelRatio - cellSize/2, cellSize/2 + i*cellSize);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(cellSize/2 + i*cellSize, cellSize/2);
-                ctx.lineTo(cellSize/2 + i*cellSize, canvas.width/devicePixelRatio - cellSize/2);
-                ctx.stroke();
-            }
-            board.forEach((row, y) => row.forEach((val, x) => {
-                if(val !== 0) drawStone(x, y, val);
-            }));
-        }
-
-        function drawStone(x, y, player) {
-            ctx.beginPath();
-            ctx.arc(cellSize/2 + x*cellSize, cellSize/2 + y*cellSize, cellSize/2 - 4, 0, Math.PI * 2);
-            ctx.fillStyle = player === 1 ? "#000" : "#fff";
-            ctx.fill();
-            if(player === 2) { ctx.strokeStyle = "#ccc"; ctx.stroke(); }
-            
-            // 마지막 수 표시
-            if(moveHistory.length > 0) {
-                const last = moveHistory[moveHistory.length-1];
-                if(last.x === x && last.y === y) {
-                    ctx.beginPath();
-                    ctx.arc(cellSize/2 + x*cellSize, cellSize/2 + y*cellSize, 3, 0, Math.PI * 2);
-                    ctx.fillStyle = player === 1 ? "#fff" : "#000";
-                    ctx.fill();
-                }
-            }
-        }
-
-        // 33 금수 로직
-        function isDoubleThree(x, y, player) {
-            if (player !== 1) return false;
-            let count3 = 0;
-            const directions = [[1,0], [0,1], [1,1], [1,-1]];
-            board[y][x] = player;
-            for (let [dx, dy] of directions) {
-                if (isOpenThree(x, y, dx, dy, player)) count3++;
-            }
-            board[y][x] = 0;
-            return count3 >= 2;
-        }
-
-        function isOpenThree(x, y, dx, dy, player) {
-            let count = 1, openEnds = 0;
-            [[dx, dy], [-dx, -dy]].forEach(([sx, sy]) => {
-                let space = false;
-                for (let i = 1; i <= 4; i++) {
-                    let nx = x + sx*i, ny = y + sy*i;
-                    if (nx<0||nx>=boardSize||ny<0||ny>=boardSize) break;
-                    if (board[ny][nx] === player) { if(!space) count++; else break; }
-                    else if (board[ny][nx] === 0) { openEnds++; space = true; break; }
-                    else break;
-                }
-            });
-            return count === 3 && openEnds === 2;
-        }
-
-        function checkWin(x, y, player) {
-            const directions = [[1,0], [0,1], [1,1], [1,-1]];
-            for (let [dx, dy] of directions) {
-                let count = 1;
-                [[dx, dy], [-dx, -dy]].forEach(([sx, sy]) => {
-                    for (let i = 1; i < 5; i++) {
-                        let nx = x + sx*i, ny = y + sy*i;
-                        if (nx >= 0 && nx < boardSize && ny >= 0 && ny < boardSize && board[ny][nx] === player) count++;
-                        else break;
-                    }
-                });
-                if (count >= 5) return true;
-            }
-            return false;
-        }
-
-        function aiMove() {
-            if(gameOver) return;
-            let bestScore = -1, move = {x: 7, y: 7};
-            for(let y=0; y<boardSize; y++) {
-                for(let x=0; x<boardSize; x++) {
-                    if(board[y][x] === 0) {
-                        let score = evaluate(x, y);
-                        if(score > bestScore) { bestScore = score; move = {x, y}; }
-                    }
-                }
-            }
-            placeStone(move.x, move.y, 2);
-        }
-
-        function evaluate(x, y) {
-            let s = 0;
-            [[1,0], [0,1], [1,1], [1,-1]].forEach(([dx, dy]) => {
-                s += getScore(x, y, dx, dy, 2); // AI 공격
-                s += getScore(x, y, dx, dy, 1) * 1.1; // 사용자 방어
-            });
-            return s;
-        }
-
-        function getScore(x, y, dx, dy, p) {
-            let c = 0, b = 0;
-            [[dx, dy], [-dx, -dy]].forEach(([sx, sy]) => {
-                for(let i=1; i<5; i++) {
-                    let nx=x+sx*i, ny=y+sy*i;
-                    if(nx>=0&&nx<boardSize&&ny>=0&&ny<boardSize) {
-                        if(board[ny][nx]===p) c++; else if(board[ny][nx]!==0) { b++; break; } else break;
-                    } else { b++; break; }
-                }
-            });
-            if(c>=4) return 10000;
-            if(c===3) return b===0 ? 5000 : 500;
-            return c*10;
-        }
-
-        function placeStone(x, y, p) {
-            board[y][x] = p;
-            moveHistory.push({x, y, p});
-            drawBoard();
-            if(checkWin(x, y, p)) {
-                gameOver = true;
-                const winMsg = p === 1 ? "사용자 승리!" : "AI 승리!";
-                turnDisplay.innerText = winMsg;
-                saveRecord(p === 1 ? "승리" : "패배");
-                setTimeout(() => alert(winMsg), 100);
+        puzzle.forEach((val) => {
+            const cell = document.createElement('div'); cell.classList.add('cell');
+            if (val !== 0) {
+                cell.innerText = val; cell.classList.add('fixed');
             } else {
-                turnDisplay.innerText = p === 1 ? "AI가 생각 중..." : "차례: 흑돌 ●";
-                if(p === 1) setTimeout(aiMove, 600);
+                const input = document.createElement('input'); 
+                input.type = 'number'; input.inputMode = "numeric";
+                input.oninput = () => { if(!gameStarted) startTimer(); };
+                cell.appendChild(input);
             }
-        }
-
-        canvas.addEventListener('pointerdown', (e) => {
-            if(gameOver || turnDisplay.innerText.includes("AI")) return;
-            const rect = canvas.getBoundingClientRect();
-            const x = Math.round((e.clientX - rect.left - cellSize/2) / cellSize);
-            const y = Math.round((e.clientY - rect.top - cellSize/2) / cellSize);
-
-            if (x >= 0 && x < boardSize && y >= 0 && y < boardSize && board[y][x] === 0) {
-                if(isDoubleThree(x, y, 1)) {
-                    msgOverlay.innerText = "⚠️ 3x3 금수 위치입니다!";
-                    setTimeout(() => msgOverlay.innerText = "", 2000);
-                    return;
-                }
-                placeStone(x, y, 1);
-            }
+            board.appendChild(cell);
         });
-
-        function undo() {
-            if(gameOver || moveHistory.length < 2) return;
-            const m1 = moveHistory.pop(); board[m1.y][m1.x] = 0;
-            const m2 = moveHistory.pop(); board[m2.y][m2.x] = 0;
-            drawBoard();
-            turnDisplay.innerText = "차례: 흑돌 ●";
-        }
-
-        function saveRecord(result) {
-            let history = JSON.parse(localStorage.getItem('omokHistory')) || [];
-            const now = new Date();
-            history.unshift({ result, date: `${now.getMonth()+1}/${now.getDate()}` });
-            localStorage.setItem('omokHistory', JSON.stringify(history.slice(0, 10)));
-            // 리포트 점수 반영 (승리 시 논리력 점수 상승)
-            if(result === "승리") localStorage.setItem('game2_score', 95);
-            displayHistory();
-        }
-
-        function displayHistory() {
-            const body = document.getElementById('historyBody');
-            const history = JSON.parse(localStorage.getItem('omokHistory')) || [];
-            body.innerHTML = history.length ? history.map((h, i) => `<tr><td>${history.length-i}회</td><td>${h.result}</td><td>${h.date}</td></tr>`).join('') : '<tr><td colspan="3">기록이 없습니다.</td></tr>';
-        }
-
-        function resetGame() { location.reload(); }
-
-        window.addEventListener('resize', initCanvas);
-        initCanvas();
         displayHistory();
-    </script>
-</body>
-</html>
+    }
+
+    function startTimer() { 
+        gameStarted = true; startTime = new Date(); 
+        timerInterval = setInterval(() => { document.getElementById('timer').innerText = ((new Date() - startTime) / 1000).toFixed(2); }, 10); 
+    }
+
+    function finishGame() {
+        const size = levelSettings[currentLevel].size;
+        const cells = document.querySelectorAll('.cell');
+        let boardData = [];
+        for(let i=0; i<size; i++) {
+            let row = [];
+            for(let j=0; j<size; j++) {
+                const cell = cells[i * size + j];
+                const val = cell.classList.contains('fixed') ? cell.innerText : cell.querySelector('input').value;
+                if(!val) { alert("모든 칸을 채
