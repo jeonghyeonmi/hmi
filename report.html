@@ -148,19 +148,17 @@
         cognition: localStorage.getItem('game6_score')    // 인지력
     };
 
-    // 2. 영역별 최종 점수 산출 (해당 영역의 게임 중 가장 높은 점수를 채택)
-    const scores = {
-        // 집중력: 기본과 시장에 가면 중 최고점
-        focus: Math.max(parseInt(rawScores.focus_base) || 0, parseInt(rawScores.focus_market) || 0),
-        
-        // 논리력: 기본과 오목 중 최고점
-        logic: Math.max(parseInt(rawScores.logic_base) || 0, parseInt(rawScores.logic_omok) || 0),
-        
-        speed: parseInt(rawScores.speed) || 0,
-        memory: parseInt(rawScores.memory) || 0,
-        math: parseInt(rawScores.math) || 0,
-        cognition: parseInt(rawScores.cognition) || 0
-    };
+    // 2. 영역별 최종 점수 산출 (최근 점수 반영)
+const scores = {
+    // Math.max를 제거하고 최근 저장된 값을 그대로 사용합니다.
+    focus: parseInt(rawScores.focus_market) || parseInt(rawScores.focus_base) || 0,
+    logic: parseInt(rawScores.logic_omok) || parseInt(rawScores.logic_base) || 0,
+    
+    speed: parseInt(rawScores.speed) || 0,
+    memory: parseInt(rawScores.memory) || 0,
+    math: parseInt(rawScores.math) || 0,
+    cognition: parseInt(rawScores.cognition) || 0
+};
 
     // 3. 차트 생성 (Chart.js)
     const ctx = document.getElementById('abilityChart').getContext('2d');
