@@ -1,135 +1,38 @@
-<main class="container">
-    <div class="game-guide">
-        <strong>🛒 시장에 가면... (AI 대결 버전)</strong>
-        1. AI가 물건을 하나 제시합니다.<br>
-        2. 앞선 물건들을 순서대로 누른 뒤, <b>마지막에 내가 추가할 물건 하나를 더 선택</b>하세요.<br>
-        3. 순서가 길어질수록 당신의 집중력 점수가 올라갑니다!
-    </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <div id="status-msg">준비되면 시작 버튼을 누르세요!</div>
-    
-    <div id="display-box">
-        <div id="current-item" style="font-size: 2.2rem; font-weight: 900; color: var(--accent-color);">READY</div>
-    </div>
-    
-    <button id="startBtn" class="btn-start" onclick="startGame()">훈련 시작</button>
-    
-    <div id="game-ui" style="display: none;">
-        <div class="item-grid" id="item-grid"></div>
-    </div>
+    <title>집중력 훈련: 시장에 가면 (AI 대결) | SKZ Brain Lab</title>
+    <meta name="description" content="AI와 함께하는 '시장에 가면' 게임으로 당신의 단기 기억력과 집중력을 테스트하세요. 단계가 올라갈수록 두뇌 회전 속도가 빨라집니다.">
+    <meta name="keywords" content="시장에가면, 기억력게임, 집중력훈련, 두뇌게임, AI대결, 실버인지훈련, SKZBrainLab">
+    <link rel="canonical" href="https://jeonghyeonmi.github.io/hmi/game8.html">
 
-    </main>
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="당신은 몇 단계까지 기억할 수 있나요? - 시장에 가면">
+    <meta property="og:description" content="AI가 추가하는 물건을 순서대로 맞혀보세요. 당신의 집중력 점수를 리포트로 확인할 수 있습니다.">
+    <meta property="og:image" content="img/index.jpg"> <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/game8.html">
 
-<script>
-    const itemList = ["🍎 사과", "🍌 바나나", "🍇 포도", "🥕 당근", "🍞 빵", "🥚 계란", "🥛 우유", "🐟 생선", "🧀 치즈"];
-    let memoryChain = [], userStep = 0, isAITurn = false, isUserAdding = false;
-
-    function startGame() {
-        memoryChain = [];
-        document.getElementById('startBtn').style.display = 'none';
-        document.getElementById('game-ui').style.display = 'block';
-        createGrid();
-        aiTurn();
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "시장에 가면 집중력 훈련",
+      "operatingSystem": "Web",
+      "applicationCategory": "GameApplication",
+      "genre": "Memory Game",
+      "description": "사용자와 AI가 번갈아가며 물건을 추가하고 순서를 기억하는 집중력 강화 게임입니다.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
+      }
     }
+    </script>
 
-    function createGrid() {
-        const grid = document.getElementById('item-grid');
-        grid.innerHTML = '';
-        itemList.forEach(item => {
-            const btn = document.createElement('button');
-            btn.className = 'item-btn';
-            btn.innerText = item;
-            btn.onclick = () => handleInput(item);
-            grid.appendChild(btn);
-        });
-    }
-
-    async function aiTurn() {
-        isAITurn = true; 
-        isUserAdding = false;
-        userStep = 0;
-        document.getElementById('status-msg').innerText = "AI가 물건을 하나 추가했습니다. 기억하세요!";
-        
-        // AI가 물건 추가
-        const newItem = itemList[Math.floor(Math.random() * itemList.length)];
-        memoryChain.push(newItem);
-
-        // 전체 목록 보여주기
-        let speed = Math.max(400, 1000 - (memoryChain.length * 50));
-        for (let item of memoryChain) {
-            document.getElementById('current-item').innerText = item;
-            await new Promise(r => setTimeout(r, speed));
-            document.getElementById('current-item').innerText = "";
-            await new Promise(r => setTimeout(r, 200));
+    <style>
+        /* 기존 CSS 스타일 유지 */
+        :root { 
+            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
+            --text-main: #2c3e50; --white: #ffffff;
         }
-        userTurn();
-    }
-
-    function userTurn() {
-        isAITurn = false;
-        document.getElementById('status-msg').innerText = "순서대로 복기하세요!";
-        document.getElementById('current-item').innerText = "???";
-    }
-
-    function handleInput(selectedItem) {
-        if (isAITurn) return;
-
-        document.getElementById('current-item').innerText = selectedItem;
-
-        // 1. 기존 목록 복기 단계
-        if (!isUserAdding) {
-            if (selectedItem === memoryChain[userStep]) {
-                userStep++;
-                if (userStep === memoryChain.length) {
-                    // 복기 완료 -> 이제 사용자가 하나 추가할 차례
-                    isUserAdding = true;
-                    document.getElementById('status-msg').innerText = "잘하셨어요! 추가할 물건을 하나 고르세요.";
-                    document.getElementById('current-item').innerText = "+ ?";
-                }
-            } else {
-                endGame();
-            }
-        } 
-        // 2. 사용자가 물건 추가 단계
-        else {
-            memoryChain.push(selectedItem);
-            document.getElementById('status-msg').innerText = "성공! AI 차례입니다.";
-            isUserAdding = false;
-            setTimeout(aiTurn, 1000);
-        }
-    }
-
-    function endGame() {
-        const finalScore = memoryChain.length - 1;
-        // 등급 계산
-        let grade = finalScore >= 12 ? "기억의 신 🏆" : finalScore >= 7 ? "명석한 두뇌 🧠" : "예열 필요 🔥";
-        const msg = `훈련 종료!\n등급: ${grade}\n최종 기록: ${finalScore}단계\n\n지금 바로 분석 리포트를 확인하시겠습니까?`;
-        
-        saveRecord(finalScore, msg);
-        
-        document.getElementById('startBtn').style.display = 'inline-block';
-        document.getElementById('startBtn').innerText = '다시 도전하기';
-        document.getElementById('game-ui').style.display = 'none';
-        document.getElementById('status-msg').innerText = '훈련 결과';
-        document.getElementById('current-item').innerText = "FINISH";
-    }
-
-    function saveRecord(score, msg) {
-        const now = new Date();
-        const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
-        
-        // 히스토리 저장
-        let history = JSON.parse(localStorage.getItem('marketHistory')) || [];
-        history.unshift({ date: dateStr, score: score });
-        localStorage.setItem('marketHistory', JSON.stringify(history.slice(0, 10)));
-
-        // [중요] report.html 연동 데이터
-        // Lv.15를 100점으로 환산
-        const reportScore = Math.min(100, Math.floor((score / 15) * 100));
-        localStorage.setItem('game8_score', reportScore);
-        
-        displayHistory();
-        if (confirm(msg)) { location.href = 'report.html'; }
-    }
-    // displayHistory, clearHistory 함수는 동일함
-</script>
+        /* ... (이하 스타일 동일) ... */
