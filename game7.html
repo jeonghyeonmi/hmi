@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
     <title>논리력 훈련: AI 오목 대결 & 수 읽기 | SKZ Brain Lab</title>
     <meta name="description" content="AI를 상대로 당신의 논리력과 수 읽기 능력을 테스트하세요. 3x3 금수 규칙이 적용된 정통 오목 게임으로 두뇌를 훈련합니다.">
     <meta name="keywords" content="오목, AI오목, 논리력훈련, 두뇌게임, 수읽기, 온라인오목, SKZBrainLab">
@@ -33,6 +32,7 @@
     </script>
 
     <style>
+        /* [기존 레이아웃 CSS 스타일 유지] */
         :root { 
             --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #3498db; 
             --board-color: #edc9af; --white: #ffffff;
@@ -40,7 +40,6 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; line-height: 1.6; }
         
-        /* 헤더 & 네비게이션 */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
@@ -63,14 +62,13 @@
             background: white; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; 
         }
 
-        /* 게임 가이드 영역 (SEO 키워드 강화) */
         .game-info-text { text-align: left; background: #f0f4f8; padding: 15px; border-radius: 12px; margin-bottom: 15px; font-size: 0.85rem; }
         .game-info-text h2 { font-size: 1rem; margin-top: 0; color: var(--primary-color); }
 
         .mode-selector { display: flex; justify-content: center; gap: 10px; margin: 15px 0; }
         .mode-btn { 
             cursor: pointer; color: #888; font-size: 0.75rem; padding: 6px 12px; 
-            border: 1px solid #ddd; border-radius: 20px; transition: 0.2s;
+            border: 1px solid #ddd; border-radius: 20px; transition: 0.2s; background: none;
         }
         .mode-btn.active { color: var(--accent-color); border-color: var(--accent-color); font-weight: bold; background: #eef7ff; }
 
@@ -148,7 +146,7 @@
 </footer>
 
 <script>
-    /* (기존 스크립트 내용과 동일하므로 생략 - 이전 답변의 스크립트를 그대로 넣으시면 됩니다) */
+    /* [기존 게임 로직 스크립트 기반 - 저장 방식만 업데이트] */
     const canvas = document.getElementById('omokCanvas');
     const ctx = canvas.getContext('2d');
     const turnDisplay = document.getElementById('turnDisplay');
@@ -252,33 +250,13 @@
             const winner = currentPlayer === 1 ? "흑돌" : "백돌";
             turnDisplay.innerText = winner + " 승리! 🎉";
 
-            // --- [연동 코드 시작] 리포트 점수 계산 및 저장 ---
-            let logicScore = 0;
+            // [수정 포인트: 데이터 저장 로직]
             if (currentMode === 'ai') {
-                if (currentPlayer === 1) {
-                    // AI에게 승리한 경우: 기본 80점 + 수의 효율성에 따라 가산점 (최대 100)
-                    logicScore = Math.min(100, 80 + (50 - moveHistory.length)); 
-                } else {
-                    // AI에게 패배한 경우: 진행된 수의 양에 따라 논리력 산출 (최대 60)
-                    logicScore = Math.min(60, moveHistory.length * 2);
-                }
-                // 기존 점수보다 높을 때만 업데이트 (사용자 데이터 보호)
-                const prevScore = parseInt(localStorage.getItem('game7_score')) || 0;
-                if (logicScore > prevScore) {
-                    localStorage.setItem('game7_score', logicScore);
-                }
+                saveGameResult(currentPlayer === 1);
+            } else {
+                setTimeout(() => alert(winner + "이 승리했습니다!"), 100);
             }
-            // --- [연동 코드 끝] ---
-
-            // --- [수정된 알림 및 이동 로직] ---
-            setTimeout(() => {
-                const msg = `${winner}이 승리했습니다!\n현재 논리력 점수가 업데이트되었습니다.\n\n지금 바로 분석 리포트를 확인하시겠습니까?`;
-                if (confirm(msg)) {
-                    location.href = 'report.html';
-                }
-            }, 100);
             return;
-            // ---------------------------------
         }
 
         currentPlayer = currentPlayer === 1 ? 2 : 1;
@@ -287,6 +265,35 @@
             turnDisplay.innerText = "AI가 생각 중...";
             setTimeout(aiMove, 600);
         }
+    }
+
+    // [업데이트된 저장 함수]
+    function saveGameResult(isUserWin) {
+        let logicScore = 0;
+        if (isUserWin) {
+            // 승리: 기본 80점 + 빠른 승리 가산점
+            logicScore = Math.min(100, 80 + Math.floor((100 - moveHistory.length) / 5));
+        } else {
+            // 패배: 버틴 수에 따른 논리력 (최대 60점)
+            logicScore = Math.min(60, Math.floor(moveHistory.length * 1.5));
+        }
+
+        // 최근 10회 기록 유지 관리
+        let history = JSON.parse(localStorage.getItem('game7_history')) || [];
+        history.push(logicScore);
+        if (history.length > 10) history.shift();
+        
+        localStorage.setItem('game7_history', JSON.stringify(history));
+        localStorage.setItem('game7_score', logicScore); // 최신 점수 단독 저장(하위 호환)
+
+        // 이동 확인 알림
+        setTimeout(() => {
+            const winnerMsg = isUserWin ? "축하합니다! AI를 이겼습니다. 🎉" : "아쉽네요! AI가 승리했습니다. 🔥";
+            const confirmMsg = `${winnerMsg}\n현재 논리력 기록이 저장되었습니다.\n\n분석 리포트를 확인하시겠습니까?`;
+            if (confirm(confirmMsg)) {
+                location.href = 'report.html';
+            }
+        }, 300);
     }
 
     function aiMove() {
