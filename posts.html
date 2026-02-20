@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>브레인 분석실: 뇌 과학 전문 칼럼 | SKZ Brain Lab</title>
 
-<meta name="description" content="디지털 치매, 역 플린 효과, 멀티태스킹의 함정부터 최신 독심술 AI까지. SKZ Brain Lab이 제안하는 과학적인 뇌 건강 습관과 최신 뇌 과학 리포트를 확인하세요.">
-<meta name="keywords" content="뇌과학, 두뇌건강, 인지능력향상, 역플린효과, 독심술AI, SKZBrainLab, 브레인분석실">
+    <meta name="description" content="뇌 가성비, 독심술 AI, 수면의 경제학까지. SKZ Brain Lab이 제안하는 과학적인 뇌 건강 습관과 최신 리포트를 확인하세요.">
+    <meta name="keywords" content="뇌과학, 두뇌건강, 인지능력향상, 도파민디톡스, 뇌가성비, SKZBrainLab, 브레인분석실">
 
-<meta property="og:title" content="SKZ 브레인 분석실 - 당신의 뇌를 위한 전문 가이드">
-<meta property="og:description" content="똑똑해지는 습관은 무엇일까요? 훈련사들이 전하는 흥미로운 뇌 과학 이야기와 분석 리포트.">
-<meta property="og:image" content="img/index.jpg"> <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/posts.html">
+    <meta property="og:title" content="SKZ 브레인 분석실 - 당신의 뇌를 위한 전문 가이드">
+    <meta property="og:description" content="똑똑해지는 습관은 무엇일까요? 훈련사들이 전하는 흥미로운 뇌 과학 이야기.">
+    <meta property="og:image" content="img/index.jpg"> 
+    <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/posts.html">
     <style>
         :root { 
             --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
@@ -27,7 +28,6 @@
         header { background: var(--primary-color); color: white; padding: 1rem 1rem; text-align: center; }
         header h1 { margin: 0; }
         header h1 a { text-decoration: none; color: inherit; font-size: 1.4rem; font-weight: 800; }
-        header p { margin: 5px 0 0; font-size: 0.85rem; opacity: 0.8; }
 
         nav.main-nav { 
             background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
@@ -38,9 +38,23 @@
 
         .container { width: 92%; max-width: 650px; margin: 2rem auto; }
         
-        .list-header { margin-bottom: 2.5rem; text-align: center; }
+        .list-header { margin-bottom: 1.5rem; text-align: center; }
         .list-header h2 { font-size: 1.6rem; color: var(--primary-color); margin-bottom: 0.6rem; font-weight: 800; }
         .list-header p { color: var(--text-muted); font-size: 0.95rem; margin: 0; word-break: keep-all; }
+
+        /* 카테고리 칩 (모바일 접근성 향상) */
+        .category-filter {
+            display: flex; gap: 8px; overflow-x: auto; padding: 10px 0 20px;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE 10+ */
+        }
+        .category-filter::-webkit-scrollbar { display: none; /* Chrome, Safari */ }
+        .chip {
+            flex: 0 0 auto; padding: 8px 16px; background: white; border-radius: 50px;
+            font-size: 0.85rem; font-weight: 600; color: var(--text-muted);
+            border: 1px solid #e2e8f0; cursor: pointer;
+        }
+        .chip.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
 
         /* 포스트 카드 스타일 */
         .post-card {
@@ -55,7 +69,7 @@
         @media (min-width: 768px) {
             .post-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.08); border-color: var(--accent-color); }
         }
-        .post-card:active { transform: scale(0.97); background: #fafafa; }
+        .post-card:active { transform: scale(0.98); background: #fafafa; }
         
         .tag-row { display: flex; justify-content: space-between; align-items: center; }
         .tag {
@@ -66,6 +80,7 @@
         .tag.orange { background: #fff7ed; color: #c2410c; }
         .tag.green { background: #f0fdf4; color: #166534; }
         .tag.purple { background: #f5f3ff; color: #7c3aed; }
+        .tag.red { background: #fef2f2; color: #dc2626; }
 
         .post-card h3 { 
             margin: 0; font-size: 1.25rem; line-height: 1.4; color: var(--primary-color); 
@@ -114,6 +129,27 @@
             <p>최신 뇌 과학 리포트와 효율적인 훈련 가이드</p>
         </div>
 
+        <div class="category-filter">
+            <div class="chip active">전체</div>
+            <div class="chip">최신이슈</div>
+            <div class="chip">두뇌건강</div>
+            <div class="chip">훈련팁</div>
+            <div class="chip">인사이트</div>
+        </div>
+
+        <a href="post5.html" class="post-card">
+            <div class="tag-row">
+                <span class="tag red">EFFICIENCY #05</span>
+                <span style="font-size: 1.1rem;">⚡</span>
+            </div>
+            <h3>뇌에도 '에코 모드'가 있다? 효율 꽝인 뇌 깨우는 법</h3>
+            <p>분명 깨어있는데 멍한 기분, 지능 문제가 아닙니다. 도파민 과부하를 끄고 뇌 가성비를 되찾는 과학적인 방법을 알아보세요.</p>
+            <div class="post-meta">
+                <span>By SKZ Lab 훈련사</span>
+                <span class="read-time">⏱️ 3분 분량</span>
+            </div>
+        </a>
+
         <a href="post4.html" class="post-card">
             <div class="tag-row">
                 <span class="tag purple">ISSUE #04</span>
@@ -152,7 +188,6 @@
                 <span class="read-time">⏱️ 4분 분량</span>
             </div>
         </a>
-        
 
         <a href="post1.html" class="post-card">
             <div class="tag-row">
