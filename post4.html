@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI가 내 마음을 읽는다? 영화가 현실이 된 '독심술 AI' | SKZ Brain Lab</title>
+
+    <meta name="description" content="뇌 신호를 분석해 이미지를 재구성하는 최신 뇌과학 기술을 소개합니다. 집중력에 따라 달라지는 뇌 신호의 화질과 인지 능력의 상관관계.">
+    <meta name="keywords" content="뇌과학, AI, 독심술AI, fMRI, 스테이블디퓨전, 집중력훈련, 뇌신호, 오사카대학">
+    
+    <meta property="og:title" content="AI가 내 상상을 그림으로 그린다? 현실이 된 독심술 AI">
+    <meta property="og:description" content="내 머릿속 이미지를 복사해서 붙여넣기 하는 세상, 어디까지 왔을까요?">
+    <meta property="og:image" content="img/post4.jpg"> 
+    <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/post4.html">
+    
+    <style>
+        :root { 
+            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
+            --text-main: #2c3e50; --text-content: #34495e; --text-muted: #7f8c8d;
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            font-family: 'Pretendard', -apple-system, sans-serif; 
+            background-color: var(--bg-color); margin: 0; color: var(--text-main);
+            line-height: 1.7; letter-spacing: -0.02em;
+        }
+        
+        #progress-bar {
+            position: fixed; top: 0; left: 0; width: 0%; height: 4px;
+            background: var(--accent-color); z-index: 2000; transition: width 0.1s;
+        }
+
+        header { background: var(--primary-color); color: white; padding: 1rem 1rem; text-align: center; }
+        header h1 a { text-decoration: none; color: inherit; font-size: 1.4rem; font-weight: 800; }
+
+        nav.main-nav { 
+            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+        }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+        nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
+
+        .container { width: 94%; max-width: 700px; margin: 2rem auto; }
+        
+        .article-card { 
+            background: white; padding: 40px 25px; border-radius: 28px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03); 
+        }
+
+        .tag { 
+            display: inline-block; padding: 4px 12px; border-radius: 6px;
+            font-size: 0.75rem; font-weight: bold; margin-bottom: 20px;
+            background: #e0f2fe; color: #0369a1;
+        }
+
+        .article-card h2 { 
+            font-size: 1.8rem; line-height: 1.4; margin: 0 0 20px 0; 
+            word-break: keep-all; color: var(--text-main); font-weight: 800;
+        }
+        mark { background: linear-gradient(120deg, #fff176 0%, #fff176 100%); padding: 0 3px; border-radius: 4px; color: inherit; }
+
+        .post-meta { 
+            font-size: 0.85rem; color: var(--text-muted); margin-bottom: 35px; 
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid #f8f9fa; padding-bottom: 15px; 
+        }
+
+        .intro { 
+            font-size: 1.1rem; color: var(--text-content); border-left: 4px solid #d35400; 
+            padding-left: 1.2rem; margin: 2rem 0; font-style: italic; line-height: 1.8; opacity: 0.9;
+        }
+
+        .content h3 { 
+            font-size: 1.3rem; color: var(--primary-color); margin-top: 2.5rem; margin-bottom: 1rem; 
+            font-weight: 700;
+        }
+
+        .highlight-box {
+            background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px;
+            border-radius: 16px; margin: 25px 0; font-size: 0.95rem;
+        }
+        
+        .source-box {
+            margin-top: 30px; font-size: 0.8rem; color: #94a3b8; border-top: 1px dashed #e2e8f0; padding-top: 15px;
+        }
+
+        .article-footer { margin-top: 50px; display: flex; gap: 10px; }
+        .btn { 
+            flex: 1; padding: 16px; border-radius: 14px; font-weight: bold; font-size: 0.9rem; 
+            text-decoration: none; text-align: center; transition: 0.2s; 
+        }
+        .btn-list { background: #f1f3f5; color: #495057; }
+        .btn-game { background: var(--primary-color); color: white; }
+
+        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; }
+
+        @media (max-width: 480px) {
+            .article-card { padding: 30px 20px; }
+            h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div id="progress-bar"></div>
+
+    <header>
+        <h1><a href="index.html">🧠 SKZ 두뇌 훈련소 🎮</a></h1>
+    </header>
+
+    <nav class="main-nav">
+        <a href="index.html">홈</a>
+        <a href="game.html">집중력</a>
+        <a href="game2.html">논리력</a>
+        <a href="game3.html">판단력</a>
+        <a href="report.html">리포트</a>
+        <a href="posts.html" class="active">분석실</a>
+    </nav>
+
+    <main class="container">
+        <article class="article-card">
+            <span class="tag">뇌과학 이슈 #04</span>
+            <h2>AI가 내 마음을 읽는다? 영화가 현실이 된 <mark>'독심술 AI'</mark></h2>
+            
+            <div class="post-meta">
+                <span>By SKZ Lab 훈련사</span>
+                <span>2026. 02. 20</span>
+            </div>
+
+            <div class="intro">
+                "머릿속으로 상상만 했는데 AI가 그 그림을 그대로 그려낸다면? 영화 속 이야기가 아닙니다. 지금 실제로 일어나고 있는 일이죠."
+            </div>
+
+            <div class="content">
+                <p><img src="img/post4.jpg" alt="AI와 뇌의 연결" style="width: 100%; border-radius: 16px; margin: 20px 0;"></p>
+                
+                <h3>1. "당신이 본 그 사진, 똑같이 그려드릴게요"</h3>
+                <p>최근 일본 오사카 대학교 연구팀이 아주 흥미로운 실험을 했습니다. 사람이 사진을 보고 있을 때 뇌에서 발생하는 신호(fMRI)를 분석해서, AI에게 <strong>"이 사람이 지금 뭘 보고 있는지 재현해봐!"</strong>라고 시킨 것이죠.</p>
+                <p>결과는 놀라웠습니다. 피험자가 보고 있던 기차, 시계탑, 설산의 이미지를 AI가 거의 비슷하게 복원해냈거든요. 뇌파만으로 머릿속 이미지를 복사해서 화면에 붙여넣기 한 셈입니다.</p>
+
+                <h3>2. 생각의 '해상도'는 집중력에 달렸다?</h3>
+                <p>재미있는 점은 사람마다 AI가 그려주는 그림의 퀄리티가 다르다는 것이었습니다. 연구에 따르면, 해당 사물에 <strong>더 또렷하게 집중해서 본 사람</strong>일수록 AI가 그려내는 그림도 선명했습니다.</p>
+                <p>반대로 잡념이 많거나 집중력이 흐트러지면 AI도 갈팡질팡하며 뿌연 그림을 내놓았습니다. 결국 우리 뇌가 얼마나 정보를 선명하게 처리하느냐에 따라 머릿속 데이터의 '화질'이 결정되는 것이죠.</p>
+
+                <h3>3. 미래를 준비하는 '선명한 뇌' 만들기</h3>
+                <p>물론 지금은 거대한 정밀 장비가 필요하지만, 머지않은 미래에는 말 한마디 없이 생각만으로 이미지나 감정을 주고받는 시대가 올지도 모릅니다. 정말 신기하면서도 "내 비밀 상상이 들통나면 어쩌지?" 하는 재미있는 상상을 하게 만들죠.</p>
+                <p>점점 똑똑해지는 AI 시대, 우리 뇌도 그 트렌드에 맞춰 짱짱하게 깨워두는 건 어떨까요? </p>
+                
+                <div class="highlight-box">
+                    <strong>💡 훈련사 코멘트:</strong> AI가 내 생각을 더 잘 읽어낼(?) 수 있을 만큼, 뇌 신호를 명확하게 키워보세요. 멍했던 뇌가 번쩍 깨어나는 기분을 느끼실 수 있습니다!
+                </div>
+
+                <div class="source-box">
+                    <strong>출처 및 근거:</strong><br>
+                    - Takagi, Y., & Nishimoto, S. (2023). High-resolution image reconstruction with latent diffusion models from human brain activity. CVPR.<br>
+                    - Osaka University Project Page: <a href="https://sites.google.com/view/stablediffusion-with-brain/" target="_blank" style="color:inherit;">https://sites.google.com/view/stablediffusion-with-brain/</a>
+                </div>
+            </div>
+
+            <div class="article-footer">
+                <a href="posts.html" class="btn btn-list">목록으로</a>
+                <a href="game2.html" class="btn btn-game">논리력 강화하기</a>
+            </div>
+        </article>
+    </main>
+
+    <footer>&copy; 2026 SKZ Brain Lab. 모든 칼럼은 과학적 근거를 바탕으로 작성됩니다.</footer>
+
+    <script>
+        window.onscroll = function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            const progressBar = document.getElementById("progress-bar");
+            if (progressBar) progressBar.style.width = scrolled + "%";
+        };
+    </script>
+</body>
+</html>
