@@ -25,23 +25,32 @@
             background-color: var(--bg-color); margin: 0; color: var(--text-main); line-height: 1.6;
         }
         
-        /* 헤더 및 메인 네비게이션 */
+        /* 헤더/네비게이션 */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
+       
 
+        /* 네비게이션 가로 스크롤 최적화 */
         nav.main-nav { 
-            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+            background: white; 
+            padding: 0.8rem; 
+            display: flex; 
+            justify-content: center; 
+            gap: 1.2rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+            overflow-x: auto; 
+            white-space: nowrap; 
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+        nav.main-nav::-webkit-scrollbar { display: none; }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; flex-shrink: 0; }
         nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
-
-        /* 서브 네비게이션 (집중력 하위 메뉴) */
         .sub-nav { display: flex; justify-content: center; gap: 15px; padding: 12px 0; background: #fff; border-bottom: 1px solid #eee; font-size: 0.75rem; }
         .sub-nav a { text-decoration: none; color: #aaa; font-weight: 500; }
         .sub-nav a.current { color: var(--accent-color); font-weight: bold; }
-
         .container { 
             width: 94%; max-width: 500px; margin: 1.5rem auto; padding: 25px; 
             background: white; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.04); text-align: center; 
