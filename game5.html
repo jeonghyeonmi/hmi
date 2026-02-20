@@ -100,7 +100,7 @@
         <a href="game3.html">[순발력]</a>
         <a href="game4.html">[기억력]</a>
         <a href="game5.html" class="current">[수리판단]</a>
-        <a href="game6.html">[동물매칭]</a>
+        <a href="game6.html">[동물인지]</a>
     </div>
 
     <main class="container">
@@ -234,15 +234,25 @@
             isGameActive = false;
             if (timerInterval) clearInterval(timerInterval);
 
-            // 데이터 저장 (리포트용 100점 환산)
-            let mathReportScore = Math.min(100, score * 2);
+            // --- [업데이트: 최근 10회 기록 평균 저장 로직] ---
+            const mathReportScore = Math.min(100, score * 2); // 100점 환산
+            
+            // 1. 최근 10회 기록 배열 관리 (report.html 연동용)
+            let scoreHistory = JSON.parse(localStorage.getItem('game5_history')) || [];
+            scoreHistory.push(mathReportScore);
+            if (scoreHistory.length > 10) scoreHistory.shift();
+            localStorage.setItem('game5_history', JSON.stringify(scoreHistory));
+            
+            // 2. 단일 최신 점수 저장 (기존 호환성)
             localStorage.setItem('game5_score', mathReportScore);
             
+            // 3. 내부 로그용 mathHistory 저장
             const now = new Date();
             const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
             let history = JSON.parse(localStorage.getItem('mathHistory')) || [];
             history.unshift({ date: dateStr, score: score, lv: level });
             localStorage.setItem('mathHistory', JSON.stringify(history.slice(0, 10)));
+            // ----------------------------------------------
 
             let grade = score >= 50 ? "인간 계산기 ⚡" : 
                         score >= 30 ? "암산 천재 🧠" : 
@@ -285,6 +295,7 @@
         function clearHistory() { 
             if(confirm("모든 수리 판단 기록을 초기화할까요?")) { 
                 localStorage.removeItem('mathHistory'); 
+                localStorage.removeItem('game5_history'); 
                 location.reload(); 
             } 
         }
