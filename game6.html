@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>동물 인지 훈련: 인지 갈등 극복하기 | SKZ Brain Lab</title>
 
-<meta name="description" content="글자를 볼 것인가, 그림을 볼 것인가! 시시각각 변하는 미션에 맞춰 동물을 선택하며 당신의 뇌 억제 제어 능력을 향상시키세요.">
-<meta name="keywords" content="동물인지, 인지훈련, 스트룹효과, 집중력게임, 뇌활성화, SKZBrainLab">
+    <meta name="description" content="글자를 볼 것인가, 그림을 볼 것인가! 시시각각 변하는 미션에 맞춰 동물을 선택하며 당신의 뇌 억제 제어 능력을 향상시키세요.">
+    <meta name="keywords" content="동물인지, 인지훈련, 스트룹효과, 집중력게임, 뇌활성화, SKZBrainLab">
 
-<meta property="og:title" content="당신은 '동물 전문가'인가요? - SKZ 동물 인지 훈련">
-<meta property="og:description" content="글자와 그림 사이의 혼란을 이겨내고 최고 기록에 도전하세요! 40초간의 치열한 두뇌 싸움.">
-<meta property="og:image" content="img/index.jpg"> <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/game6.html">
+    <meta property="og:title" content="당신은 '동물 전문가'인가요? - SKZ 동물 인지 훈련">
+    <meta property="og:description" content="글자와 그림 사이의 혼란을 이겨내고 최고 기록에 도전하세요! 40초간의 치열한 두뇌 싸움.">
+    <meta property="og:image" content="img/index.jpg"> 
+    <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/game6.html">
+
     <style>
         :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -20,13 +22,11 @@
             background-color: var(--bg-color); color: #333; line-height: 1.6;
         }
         
-         /* 헤더/네비게이션 */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
         header p { margin: 5px 0 0; font-size: 0.85rem; opacity: 0.8; }
 
-        /* 네비게이션 공통 스타일 */
         nav.main-nav { 
             background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
@@ -37,7 +37,6 @@
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; flex-shrink: 0; }
         nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
 
-        /* 서브 네비게이션 */
         .sub-nav { display: flex; justify-content: center; gap: 15px; padding: 12px 0; background: #fff; border-bottom: 1px solid #eee; font-size: 0.75rem; }
         .sub-nav a { text-decoration: none; color: #aaa; font-weight: 500; }
         .sub-nav a.current { color: var(--accent-color); font-weight: bold; }
@@ -48,7 +47,6 @@
             text-align: center; position: relative;
         }
 
-        /* 미션 알림 오버레이 */
         #mission-signal {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: none; flex-direction: column; justify-content: center; align-items: center;
@@ -84,7 +82,6 @@
         
         #score-panel { font-weight: bold; padding: 15px 0; font-size: 1.1rem; color: var(--primary-color); }
 
-        /* 랭킹 섹션 */
         .ranking-box { margin-top: 30px; padding-top: 20px; border-top: 2px dashed #eee; text-align: left; }
         .ranking-title { font-size: 1rem; font-weight: bold; color: var(--primary-color); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
         .ranking-list { list-style: none; padding: 0; margin: 0; }
@@ -203,7 +200,6 @@
         function nextQuestion() {
             let textIdx = Math.floor(Math.random() * animals.length);
             let emojiIdx;
-            // 인지 갈등을 유도하기 위해 이름과 그림이 다른 동물이 나오도록 설정
             do { emojiIdx = Math.floor(Math.random() * animals.length); } while (textIdx === emojiIdx);
             
             document.getElementById('target-name').innerText = animals[textIdx].name;
@@ -218,11 +214,9 @@
             if(userVal === correctTarget) {
                 score++;
                 document.getElementById('score-panel').innerText = `맞춘 마릿수: ${score}`;
-                // 3문제마다 미션(글자/그림) 전환 시도
                 if(score % 3 === 0) showMission();
                 else nextQuestion();
             } else {
-                // 오답 시 화면 깜빡임
                 document.body.style.backgroundColor = "#fadbd8";
                 setTimeout(() => document.body.style.backgroundColor = "#f4f7f9", 100);
             }
@@ -232,9 +226,21 @@
             isGameActive = false;
             if(gameTimer) clearTimeout(gameTimer);
 
-            // 점수 저장 (리포트용 100점 환산)
-            localStorage.setItem('game6_score', Math.min(100, score * 4));
+            // --- [업데이트: 최근 10회 기록 평균 저장 로직] ---
+            const finalScore = Math.min(100, score * 4); // 100점 환산
+            
+            // 1. 최근 10회 기록 관리 (report.html 연동용)
+            let history = JSON.parse(localStorage.getItem('game6_history')) || [];
+            history.push(finalScore);
+            if (history.length > 10) history.shift(); // 최근 10개 유지
+            localStorage.setItem('game6_history', JSON.stringify(history));
+            
+            // 2. 단일 점수 저장 (기존 호환성 유지)
+            localStorage.setItem('game6_score', finalScore);
+            
+            // 3. 랭킹 저장
             saveRanking(score);
+            // ----------------------------------------------
             
             const grade = score >= 25 ? "동물 전문가 🐆" : score >= 15 ? "인지력 우등생 🦊" : "천천히 알아가는 중 🐢";
             const resultMsg = `훈련 종료!\n등급: ${grade}\n총 ${score}마리를 인지했습니다.\n\n분석 리포트를 확인하시겠습니까?`;
@@ -275,6 +281,7 @@
         function clearRankings() {
             if(confirm("기록을 모두 삭제할까요?")) {
                 localStorage.removeItem('game6_rankings');
+                localStorage.removeItem('game6_history'); // 히스토리도 함께 초기화
                 location.reload();
             }
         }
