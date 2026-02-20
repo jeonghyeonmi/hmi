@@ -1,106 +1,4 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>브레인 분석실: 뇌 과학 전문 칼럼 | SKZ Brain Lab</title>
-
-    <meta name="description" content="뇌 과학 전문 리포트. 스마트폰 중독, 역 플린 효과 등 깊이 있는 두뇌 건강 정보를 확인하세요.">
-    <style>
-        :root { 
-            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
-            --text-main: #2c3e50; --text-content: #34495e; --text-muted: #7f8c8d;
-        }
-        body { font-family: 'Pretendard', -apple-system, sans-serif; background-color: var(--bg-color); margin: 0; color: var(--text-main); line-height: 1.6; }
-        header { background: var(--primary-color); color: white; padding: 1rem 1rem; text-align: center; }
-        header h1 a { text-decoration: none; color: inherit; font-size: 1.4rem; font-weight: 800; }
-        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
-        nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
-        
-        .container { width: 92%; max-width: 650px; margin: 1.5rem auto; }
-        .list-header { margin-bottom: 1.5rem; text-align: center; }
-        .list-header h2 { font-size: 1.6rem; color: var(--primary-color); margin-bottom: 0.4rem; font-weight: 800; }
-        .list-header p { margin: 0; font-size: 0.95rem; color: var(--text-muted); }
-
-        /* 포스트 카드 디자인 수정 */
-        .post-card {
-            background: white; border-radius: 20px; padding: 22px; margin-bottom: 1rem;
-            display: none; 
-            flex-direction: column; 
-            gap: 8px; /* 내부 요소들 사이 간격 대폭 축소 */
-            text-decoration: none; color: inherit;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: all 0.2s ease;
-            border: 1px solid rgba(0,0,0,0.03);
-        }
-        .post-card.visible { display: flex; animation: fadeIn 0.4s ease forwards; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 카드 내부 텍스트 세부 조정 */
-        .post-card h3 { 
-            margin: 2px 0; /* 제목 위아래 여백 제거 */
-            font-size: 1.15rem; 
-            line-height: 1.4; 
-            font-weight: 800; 
-            color: var(--primary-color); 
-            word-break: keep-all;
-        }
-        .post-card p { 
-            margin: 0; /* 본문 여백 제거 */
-            font-size: 0.9rem; 
-            color: var(--text-content); 
-            line-height: 1.5;
-            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; /* 두 줄 제한 */
-        }
-
-        .tag-row { font-size: 0.8rem; display: flex; align-items: center; gap: 5px; }
-        .tag { padding: 3px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 800; }
-        
-        /* 태그 컬러 */
-        .tag.blue { background: #eef2ff; color: #4338ca; }
-        .tag.orange { background: #fff7ed; color: #c2410c; }
-        .tag.green { background: #f0fdf4; color: #166534; }
-        .tag.purple { background: #f5f3ff; color: #7c3aed; }
-        .tag.red { background: #fef2f2; color: #dc2626; }
-        
-        .post-meta { 
-            font-size: 0.75rem; color: var(--text-muted); 
-            display: flex; align-items: center; 
-            margin-top: 4px; border-top: 1px solid #f8f9fa; padding-top: 12px; 
-        }
-
-        .load-more-container { text-align: center; margin: 2rem 0; }
-        #loadMoreBtn {
-            background: white; color: var(--primary-color); border: 1.5px solid var(--primary-color);
-            padding: 10px 30px; border-radius: 50px; font-weight: bold; cursor: pointer;
-            transition: 0.2s; font-size: 0.9rem;
-        }
-        #loadMoreBtn:hover { background: var(--primary-color); color: white; }
-        #loadMoreBtn.hidden { display: none; }
-
-        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; border-top: 1px solid #eee; margin-top: 30px; }
-        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
-    </style>
-</head>
-<body>
-    <header>
-        <h1><a href="index.html">🧠 SKZ 두뇌 훈련소 🎮</a></h1>
-    </header>
-
-    <nav class="main-nav">
-        <a href="index.html">홈</a>
-        <a href="game.html">집중력</a>
-        <a href="game2.html">논리력</a>
-        <a href="game3.html">판단력</a>
-        <a href="report.html">리포트</a>
-        <a href="posts.html" class="active">분석실</a>
-    </nav>
-
-    <main class="container">
+<main class="container">
         <div class="list-header">
             <h2>브레인 분석실</h2>
             <p>최신 뇌 과학 리포트와 훈련 가이드</p>
@@ -108,35 +6,35 @@
 
         <div id="post-container">
             <a href="post5.html" class="post-card">
-                <div class="tag-row"><span class="tag red">EFFICIENCY #05</span>⚡</div>
+                <div class="tag-row"><span class="tag red">뇌 가성비 #05</span>⚡</div>
                 <h3>뇌에도 '에코 모드'가 있다? 효율 꽝인 뇌 깨우는 법</h3>
                 <p>도파민 과부하를 끄고 뇌 가성비를 되찾는 과학적인 방법을 알아보세요.</p>
                 <div class="post-meta"><span>By SKZ Lab 훈련사</span><span style="margin-left:auto">⏱️ 3분</span></div>
             </a>
 
             <a href="post4.html" class="post-card">
-                <div class="tag-row"><span class="tag purple">ISSUE #04</span>🔮</div>
+                <div class="tag-row"><span class="tag purple">뇌과학 이슈 #04</span>🔮</div>
                 <h3>AI가 내 마음을 읽는다? 영화가 현실이 된 '독심술 AI'</h3>
                 <p>뇌 신호를 이미지로 복원하는 최신 기술과 상상력의 중요성.</p>
                 <div class="post-meta"><span>By SKZ Lab 훈련사</span><span style="margin-left:auto">⏱️ 3분</span></div>
             </a>
 
             <a href="post3.html" class="post-card">
-                <div class="tag-row"><span class="tag green">HEALTH #03</span>💤</div>
+                <div class="tag-row"><span class="tag green">분석 리포트 #03</span>💤</div>
                 <h3>잠이 부족한 뇌는 술 취한 뇌와 같다? 수면의 경제학</h3>
                 <p>수면 부족이 전두엽 기능에 미치는 치명적인 영향 분석.</p>
                 <div class="post-meta"><span>By SKZ Lab 훈련사</span><span style="margin-left:auto">⏱️ 4분</span></div>
             </a>
 
             <a href="post2.html" class="post-card">
-                <div class="tag-row"><span class="tag orange">ANALYSIS #02</span>📺</div>
+                <div class="tag-row"><span class="tag orange">BRAIN REPORT #02</span>📺</div>
                 <h3>유튜브 보면서 게임하는 당신, 뇌는 비명을 지르고 있다?</h3>
                 <p>멀티태스킹의 함정과 스위칭 비용을 줄이는 몰입 기술.</p>
                 <div class="post-meta"><span>By SKZ Lab 훈련사</span><span style="margin-left:auto">⏱️ 4분</span></div>
             </a>
 
             <a href="post1.html" class="post-card">
-                <div class="tag-row"><span class="tag blue">INSIGHT #01</span>📖</div>
+                <div class="tag-row"><span class="tag blue">두뇌 통찰 #01</span>📖</div>
                 <h3>요즘 우리의 지능이 낮아지고 있을까요? '역 플린 효과'</h3>
                 <p>전 세계적인 IQ 하락 현상과 디지털 세대의 인지 구조 변화.</p>
                 <div class="post-meta"><span>By SKZ Lab 훈련사</span><span style="margin-left:auto">⏱️ 3분</span></div>
@@ -147,32 +45,3 @@
             <button id="loadMoreBtn">칼럼 더보기</button>
         </div>
     </main>
-
-    <footer>
-        <div style="margin-bottom: 10px;">
-            <a href="privacy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
-        </div>
-        &copy; 2026 SKZ Brain Lab.
-    </footer>
-
-    <script>
-        const postsPerPage = 3;
-        let currentIndex = 0;
-        const posts = document.querySelectorAll('.post-card');
-        const loadMoreBtn = document.getElementById('loadMoreBtn');
-
-        function showNextPosts() {
-            const nextIndex = currentIndex + postsPerPage;
-            for (let i = currentIndex; i < nextIndex && i < posts.length; i++) {
-                posts[i].classList.add('visible');
-            }
-            currentIndex = nextIndex;
-            if (currentIndex >= posts.length) {
-                loadMoreBtn.classList.add('hidden');
-            }
-        }
-        showNextPosts();
-        loadMoreBtn.addEventListener('click', showNextPosts);
-    </script>
-</body>
-</html>
