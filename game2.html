@@ -1,248 +1,99 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>논리력 훈련: 단계별 미니 스도쿠 | SKZ Brain Lab</title>
-    <style>
-        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #3498db; --border-dark: #222; }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; }
+// ... (상단 HTML/CSS는 동일)
+
+// [수정된 input 생성 부분]
+puzzle.forEach((val) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    if(val !== 0) {
+        cell.classList.add('fixed');
+        cell.innerText = val;
+    } else {
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.inputMode = 'numeric';
         
-        header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
-        header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
-        header h1 a { text-decoration: none; color: inherit; }
+        // 입력 시마다 실행되는 로직
+        input.oninput = function() {
+            if(!gameStarted) startTimer();
+            if(this.value.length > 1) this.value = this.value.slice(0,1);
+            
+            // 실시간 체크: 모든 input이 채워졌는지 확인
+            checkAllFilledAndVerify();
+        };
+        cell.appendChild(input);
+    }
+    board.appendChild(cell);
+});
 
-        nav.main-nav { 
-            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
-        }
-        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
-        nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
-
-        .sub-nav { display: flex; justify-content: center; gap: 15px; padding: 12px 0; background: #fff; border-bottom: 1px solid #eee; font-size: 0.75rem; }
-        .sub-nav a { text-decoration: none; color: #aaa; font-weight: 500; }
-        .sub-nav a.current { color: var(--accent-color); font-weight: bold; }
-
-        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 20px; background: white; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
-
-        /* 레벨 버튼 스타일 수정 */
-        .level-indicator { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-        .level-badge { padding: 8px 14px; background: #f1f3f5; border-radius: 20px; font-weight: bold; font-size: 0.8rem; color: #888; cursor: pointer; border: none; }
-        .level-badge.active { background: var(--accent-color); color: white; box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3); }
-
-        .game-guide { background: #f0f7ff; border-radius: 12px; padding: 15px; font-size: 0.85rem; line-height: 1.6; color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--accent-color); }
-        #timer { font-size: 2.2rem; font-weight: 800; color: var(--primary-color); margin-bottom: 15px; display: block; }
-
-        /* 스도쿠 보드 핵심 스타일 */
-        .sudoku-grid { 
-            display: grid; margin: 15px auto; background: var(--border-dark); 
-            border: 2px solid var(--border-dark); gap: 1px; width: fit-content; 
-            border-radius: 4px; overflow: hidden; 
-        }
-        .cell { background: white; display: flex; align-items: center; justify-content: center; aspect-ratio: 1/1; overflow: hidden; }
-        .cell input { 
-            width: 100%; height: 100%; border: none; text-align: center; 
-            font-weight: 800; color: var(--accent-color); outline: none; 
-            background: transparent; padding: 0; font-size: 1.5rem;
-        }
-        .cell.fixed { background: #f8f9fa; font-weight: 800; color: #2c3e50; font-size: 1.5rem; }
-        
-        /* 크기 유동적 조절 */
-        .grid-3 .cell { width: 80px; height: 80px; }
-        .grid-4 .cell { width: 65px; height: 65px; }
-        .grid-5 .cell { width: 55px; height: 55px; }
-        .grid-9 .cell { width: min(38px, 9vw); height: min(38px, 9vw); }
-        .grid-9 .cell.fixed, .grid-9 input { font-size: 1.1rem !important; }
-
-        .btn-check { width: 100%; max-width: 280px; padding: 16px; background: #2ecc71; color: white; border: none; border-radius: 30px; font-weight: bold; font-size: 1rem; margin-top: 20px; cursor: pointer; }
-        
-        .ranking-container { margin-top: 35px; border-top: 2px dashed #eee; padding-top: 25px; }
-        .rank-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 10px; }
-        .rank-table th, .rank-table td { padding: 10px; border-bottom: 1px solid #f0f0f0; }
-
-        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; }
-    </style>
-</head>
-<body>
-
-<header><h1><a href="index.html">SKZ 두뇌 훈련소</a></h1></header>
-
-<nav class="main-nav">
-    <a href="index.html">홈</a>
-    <a href="game.html">집중력</a>
-    <a href="game2.html" class="active">논리력</a>
-    <a href="game3.html">판단력</a>
-    <a href="report.html">리포트</a>
-</nav>
-
-<nav class="sub-nav">
-    <a href="game2.html" class="current">[미니스도쿠]</a>
-    <a href="game7.html">[AI 오목]</a>
-</nav>
-
-<main class="container">
-    <div class="level-indicator">
-        <button id="lv1" class="level-badge active" onclick="changeLevel(1)">입문</button>
-        <button id="lv2" class="level-badge" onclick="changeLevel(2)">초급</button>
-        <button id="lv3" class="level-badge" onclick="changeLevel(3)">중급</button>
-        <button id="lv4" class="level-badge" onclick="changeLevel(4)">마스터</button>
-    </div>
-
-    <div class="game-guide">빈칸을 클릭해 숫자를 입력하세요! (기록 측정 중)</div>
-    <span id="timer">0.00</span>
+// [새로 추가된 자동 체크 함수]
+function checkAllFilledAndVerify() {
+    const inputs = document.querySelectorAll('.cell input');
+    // 모든 input에 값이 있는지 확인
+    const allFilled = Array.from(inputs).every(el => el.value !== "");
     
-    <div id="sudokuBoard" class="sudoku-grid"></div>
+    if (allFilled) {
+        // 모든 칸이 채워졌다면 0.1초 뒤에 정답 확인 실행 (숫자가 써지는걸 보여주기 위함)
+        setTimeout(() => {
+            finishGame(true); // 자동 실행임을 알리는 파라미터
+        }, 100);
+    }
+}
+
+// [수정된 finishGame 함수]
+function finishGame(isAuto = false) {
+    const size = config[currentLevel].size;
+    const cells = document.querySelectorAll('.cell');
+    let userData = [];
     
-    <button class="btn-check" onclick="finishGame()">정답 확인 및 기록 저장</button>
-    
-    <section class="ranking-container">
-        <strong>📊 나의 논리력 일지</strong>
-        <div id="best-record" style="font-size:0.9rem; color:var(--accent-color); margin: 10px 0;">최고 기록: -</div>
-        <table class="rank-table">
-            <thead><tr><th>회차</th><th>정보</th><th>기록</th></tr></thead>
-            <tbody id="rankingBody"></tbody>
-        </table>
-    </section>
-</main>
-
-<footer>&copy; 2026 SKZ Brain Lab.</footer>
-
-<script>
-    let currentLevel = 1, startTime, timerInterval, gameStarted = false;
-    const config = { 1: {size: 3, holes: 2}, 2: {size: 4, holes: 5}, 3: {size: 5, holes: 10}, 4: {size: 9, holes: 35} };
-    let currentSolution = [];
-
-    function initGame() {
-        const board = document.getElementById('sudokuBoard');
-        const settings = config[currentLevel];
-        gameStarted = false;
-        clearInterval(timerInterval);
-        document.getElementById('timer').innerText = '0.00';
-        
-        board.className = `sudoku-grid grid-${settings.size}`;
-        board.style.gridTemplateColumns = `repeat(${settings.size}, 1fr)`;
-        board.innerHTML = '';
-
-        // 1. 유효한 스도쿠 판 생성 (기본 셔플 로직)
-        const size = settings.size;
-        currentSolution = [];
-        for(let i=0; i<size; i++) {
-            let row = [];
-            for(let j=0; j<size; j++) row.push(((i + j) % size) + 1);
-            currentSolution.push(row);
-        }
-        // 행 셔플
-        currentSolution.sort(() => Math.random() - 0.5);
-
-        // 2. 문제 생성 (빈칸 뚫기)
-        let puzzle = currentSolution.map(row => [...row]);
-        let holesPlaced = 0;
-        while(holesPlaced < settings.holes) {
-            let r = Math.floor(Math.random() * size);
-            let c = Math.floor(Math.random() * size);
-            if(puzzle[r][c] !== 0) {
-                puzzle[r][c] = 0;
-                holesPlaced++;
+    // 데이터 수집
+    for(let i=0; i<size; i++) {
+        let row = [];
+        for(let j=0; j<size; j++) {
+            const cell = cells[i * size + j];
+            const val = cell.classList.contains('fixed') ? cell.innerText : cell.querySelector('input').value;
+            
+            // 수동 버튼 클릭 시에만 "모든 칸 채우기" 경고창 표시
+            if(!val) { 
+                if(!isAuto) alert("모든 칸을 채워주세요!"); 
+                return; 
             }
+            row.push(parseInt(val));
         }
-
-        // 3. 화면 그리기
-        puzzle.forEach((row, r) => {
-            row.forEach((val, c) => {
-                const cell = document.createElement('div');
-                cell.className = 'cell';
-                if(val !== 0) {
-                    cell.classList.add('fixed');
-                    cell.innerText = val;
-                } else {
-                    const input = document.createElement('input');
-                    input.type = 'number';
-                    input.inputMode = 'numeric';
-                    input.oninput = function() {
-                        if(!gameStarted) startTimer();
-                        if(this.value.length > 1) this.value = this.value.slice(0,1);
-                    };
-                    cell.appendChild(input);
-                }
-                board.appendChild(cell);
-            });
-        });
-        displayHistory();
+        userData.push(row);
     }
 
-    function startTimer() {
-        gameStarted = true;
-        startTime = new Date();
-        timerInterval = setInterval(() => {
-            document.getElementById('timer').innerText = ((new Date() - startTime) / 1000).toFixed(2);
-        }, 10);
+    // 검증 로직 (중복 체크)
+    for(let i=0; i<size; i++) {
+        let rowSet = new Set(), colSet = new Set();
+        for(let j=0; j<size; j++) {
+            if(rowSet.has(userData[i][j]) || userData[i][j] < 1 || userData[i][j] > size) {
+                if(!isAuto) alert("가로 줄에 중복이 있습니다!");
+                return;
+            }
+            rowSet.add(userData[i][j]);
+            if(colSet.has(userData[j][i])) {
+                if(!isAuto) alert("세로 줄에 중복이 있습니다!");
+                return;
+            }
+            colSet.add(userData[j][i]);
+        }
     }
 
-    function changeLevel(lv) {
-        currentLevel = lv;
-        document.querySelectorAll('.level-badge').forEach((btn, i) => {
-            btn.classList.toggle('active', (i + 1) === lv);
-        });
+    // 여기까지 오면 정답!
+    clearInterval(timerInterval);
+    const time = document.getElementById('timer').innerText;
+    
+    // 리포트 연동용 점수 계산
+    let logicScore = Math.max(50, 100 - (parseFloat(time) / currentLevel));
+    localStorage.setItem('game2_score', Math.round(logicScore));
+    
+    let history = JSON.parse(localStorage.getItem('sudokuHistory')) || [];
+    history.unshift({ info: `Lv.${currentLevel}`, time: time + 's' });
+    localStorage.setItem('sudokuHistory', JSON.stringify(history.slice(0, 5)));
+
+    if(confirm(`🎉 완벽합니다! (자동 체크)\n기록: ${time}초\n분석 리포트를 확인하시겠습니까?`)) {
+        location.href = 'report.html';
+    } else {
         initGame();
     }
-
-    function finishGame() {
-        const size = config[currentLevel].size;
-        const cells = document.querySelectorAll('.cell');
-        let userData = [];
-        
-        // 데이터 수집
-        for(let i=0; i<size; i++) {
-            let row = [];
-            for(let j=0; j<size; j++) {
-                const cell = cells[i * size + j];
-                const val = cell.classList.contains('fixed') ? cell.innerText : cell.querySelector('input').value;
-                if(!val) { alert("모든 칸을 채워주세요!"); return; }
-                row.push(parseInt(val));
-            }
-            userData.push(row);
-        }
-
-        // 검증 (중복 체크)
-        for(let i=0; i<size; i++) {
-            let rowSet = new Set(), colSet = new Set();
-            for(let j=0; j<size; j++) {
-                if(rowSet.has(userData[i][j]) || userData[i][j] < 1 || userData[i][j] > size) {
-                    alert("가로 줄에 오류가 있습니다!"); return;
-                }
-                rowSet.add(userData[i][j]);
-                if(colSet.has(userData[j][i])) {
-                    alert("세로 줄에 오류가 있습니다!"); return;
-                }
-                colSet.add(userData[j][i]);
-            }
-        }
-
-        // 성공 처리
-        clearInterval(timerInterval);
-        const time = document.getElementById('timer').innerText;
-        localStorage.setItem('game2_score', 80 + (currentLevel * 5)); // 리포트용 점수
-        
-        let history = JSON.parse(localStorage.getItem('sudokuHistory')) || [];
-        history.unshift({ info: `Lv.${currentLevel}`, time: time + 's' });
-        localStorage.setItem('sudokuHistory', JSON.stringify(history.slice(0, 5)));
-
-        if(confirm(`🎉 성공! 기록: ${time}초\n리포트 페이지로 이동할까요?`)) {
-            location.href = 'report.html';
-        } else {
-            initGame();
-        }
-    }
-
-    function displayHistory() {
-        const body = document.getElementById('rankingBody');
-        const history = JSON.parse(localStorage.getItem('sudokuHistory')) || [];
-        body.innerHTML = history.map((h, i) => `<tr><td>${i+1}</td><td>${h.info}</td><td>${h.time}</td></tr>`).join('');
-    }
-
-    // 초기 실행
-    initGame();
-</script>
-</body>
-</html>
+}
