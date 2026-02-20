@@ -95,7 +95,7 @@
         <a href="game3.html" class="current">[순발력]</a>
         <a href="game4.html">[기억력]</a>
         <a href="game5.html">[수리판단]</a>
-        <a href="game6.html">[동물매칭]</a>
+        <a href="game6.html">[동물인지]</a>
     </div>
 
     <main class="container">
@@ -181,7 +181,6 @@
                 score++;
                 document.getElementById('current-score').innerText = score;
             }
-            // 스트룹 테스트의 정석대로 정오답 상관없이 다음 문제로 빠르게 전환
             nextQuestion();
         }
 
@@ -196,18 +195,32 @@
             else if (score >= 10) grade = "평범한 일반인 👤";
             else grade = "뇌가 졸고 있음 🥱";
 
+            saveRecord(score, grade);
+        }
+
+        function saveRecord(score, grade) {
             const now = new Date();
             const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
-            let history = JSON.parse(localStorage.getItem('judgeHistory')) || [];
-            let best = history.length > 0 ? Math.max(...history.map(h => h.score)) : 0;
+            
+            // --- [업데이트: 최근 10회 기록 평균 저장 로직] ---
+            const reportScore = Math.min(100, score * 2.5); // 40개 기준 100점 환산
+            
+            // 1. 최근 10회 기록 배열 관리
+            let scoreHistory = JSON.parse(localStorage.getItem('game3_history')) || [];
+            scoreHistory.push(reportScore);
+            if (scoreHistory.length > 10) scoreHistory.shift();
+            localStorage.setItem('game3_history', JSON.stringify(scoreHistory));
 
-            // 기록 저장
-            const reportScore = Math.min(100, score * 2.5); // 40개 이상일 때 100점 만점 기준
+            // 2. 단일 최신 점수 저장
             localStorage.setItem('game3_score', reportScore);
 
+            // 3. 내부 로그용 judgeHistory 저장
+            let history = JSON.parse(localStorage.getItem('judgeHistory')) || [];
+            let best = history.length > 0 ? Math.max(...history.map(h => h.score)) : 0;
             history.unshift({ date: dateStr, score });
             localStorage.setItem('judgeHistory', JSON.stringify(history.slice(0, 10)));
-            
+            // ----------------------------------------------
+
             let resultMsg = score > best && best > 0 
                 ? `🎉 최고 기록 경신!\n등급: ${grade}\n기록: ${score}개\n\n` 
                 : `훈련 종료!\n등급: ${grade}\n기록: ${score}개\n\n`;
@@ -235,6 +248,7 @@
         function clearHistory() {
             if(confirm("모든 판단력 기록을 지울까요?")) {
                 localStorage.removeItem('judgeHistory');
+                localStorage.removeItem('game3_history');
                 location.reload();
             }
         }
