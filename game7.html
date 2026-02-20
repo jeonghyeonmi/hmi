@@ -3,92 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI 오목 훈련 | SKZ Brain Lab</title>
+    <title>논리력 훈련: AI 오목 & 2인 대결 | SKZ Brain Lab</title>
     <style>
         :root { 
-            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
-            --text-main: #2c3e50; --white: #ffffff; --board-color: #edc9af;
+            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #3498db; 
+            --board-color: #edc9af; --white: #ffffff;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; overflow-x: hidden; }
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; }
         
+        /* 헤더 & 메인 네비게이션 (통일) */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
+        
         nav.main-nav { 
             background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow-x: auto; white-space: nowrap; 
+            position: sticky; top: 0; z-index: 1000;
         }
-        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; flex-shrink: 0; }
         nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
 
-        .game-container { width: 94%; max-width: 500px; margin: 1.5rem auto; text-align: center; }
-        .status-bar { 
-            background: var(--white); padding: 15px; border-radius: 15px; margin-bottom: 15px;
-            display: flex; justify-content: space-between; align-items: center; font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        /* 🎮 서브 네비게이션 (모드 선택) */
+        .sub-nav { display: flex; justify-content: center; gap: 12px; padding: 12px 0; background: #fff; border-bottom: 1px solid #eee; font-size: 0.75rem; }
+        .sub-nav div { cursor: pointer; color: #aaa; font-weight: 500; padding: 5px 10px; }
+        .sub-nav div.current { color: var(--accent-color); font-weight: bold; border: 1px solid var(--accent-color); border-radius: 15px; }
+
+        .container { 
+            width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 20px; 
+            background: white; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; 
+        }
+
+        .status-box { 
+            background: #f8fafc; padding: 12px; border-radius: 12px; margin-bottom: 15px;
+            display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 0.9rem;
         }
 
         #canvas-wrapper { 
             width: 100%; aspect-ratio: 1 / 1; background: var(--board-color); 
-            border-radius: 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border-radius: 10px; box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
             position: relative; touch-action: none;
         }
         canvas { width: 100%; height: 100%; display: block; }
+        
+        #msg-area { color: #e74c3c; font-size: 0.8rem; height: 1.2rem; margin-top: 10px; font-weight: bold; }
 
         .controls { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
-        .btn {
-            border: none; padding: 12px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.2s;
-        }
+        .btn { border: none; padding: 12px 20px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.2s; flex: 1; }
         .btn-reset { background: var(--primary-color); color: white; }
-        .btn-undo { background: #e2e8f0; color: var(--text-main); }
-        .btn:active { transform: scale(0.95); }
+        .btn-undo { background: #e2e8f0; color: #444; }
 
-        #msg { color: #e74c3c; font-size: 0.8rem; position: absolute; bottom: -25px; width: 100%; left: 0; }
-        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; }
+        footer { text-align: center; padding: 2rem 0; color: #bbb; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
 <header><h1><a href="index.html">SKZ 두뇌 훈련소</a></h1></header>
+
 <nav class="main-nav">
     <a href="index.html">홈</a>
-    <a href="game.html">집중력</a>
-    <a href="game2.html">논리력</a>
+    <a href="game.html">집집중력</a>
+    <a href="game2.html" class="active">논리력</a>
     <a href="game3.html">판단력</a>
     <a href="report.html">리포트</a>
     <a href="posts.html">분석실</a>
 </nav>
 
-<main class="game-container">
-    <div class="status-bar">
-        <span id="turnDisplay">당신의 차례 (흑돌)</span>
-        <button onclick="undo()" style="font-size: 0.8rem; background: #f8fafc; border: 1px solid #cbd5e1; padding: 5px 12px; border-radius: 8px; cursor: pointer;">무르기</button>
+<div class="sub-nav">
+    <div id="mode-ai" class="current" onclick="changeMode('ai')">[혼자연습: AI]</div>
+    <div id="mode-p2p" onclick="changeMode('p2p')">[함께하기: 2인]</div>
+</div>
+
+<main class="container">
+    <div class="status-box">
+        <span id="turnDisplay">차례: 흑돌 ●</span>
+        <span id="gameModeText" style="font-size: 0.7rem; color: #888;">AI 대결 모드</span>
     </div>
 
     <div id="canvas-wrapper">
         <canvas id="omokCanvas"></canvas>
-        <div id="msg"></div>
     </div>
+    <div id="msg-area"></div>
 
     <div class="controls">
-        <button class="btn btn-reset" onclick="location.reload()">새 게임</button>
+        <button class="btn btn-undo" onclick="undo()">한 수 무르기</button>
+        <button class="btn btn-reset" onclick="resetGame()">새 게임</button>
     </div>
 </main>
 
-<footer><p>&copy; 2026 SKZ Brain Lab. All rights reserved.</p></footer>
+<footer>&copy; 2026 SKZ Brain Lab. All rights reserved.</footer>
 
 <script>
     const canvas = document.getElementById('omokCanvas');
     const ctx = canvas.getContext('2d');
     const turnDisplay = document.getElementById('turnDisplay');
-    const msgArea = document.getElementById('msg');
+    const msgArea = document.getElementById('msg-area');
     
     const boardSize = 15;
     let cellSize;
     let board = Array.from(Array(boardSize), () => Array(boardSize).fill(0));
-    let moveHistory = []; // 무르기를 위한 수 기록 저장소
+    let moveHistory = [];
     let gameOver = false;
+    let currentMode = 'ai'; // 'ai' 또는 'p2p'
+    let currentPlayer = 1; // 1:흑, 2:백
 
     function initCanvas() {
         const dpr = window.devicePixelRatio || 1;
@@ -102,8 +120,8 @@
 
     function drawBoard() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.strokeStyle = "#333";
-        ctx.lineWidth = 1;
+        ctx.strokeStyle = "#444";
+        ctx.lineWidth = 0.5;
         for (let i = 0; i < boardSize; i++) {
             ctx.beginPath();
             ctx.moveTo(cellSize/2, cellSize/2 + i*cellSize);
@@ -114,11 +132,9 @@
             ctx.lineTo(cellSize/2 + i*cellSize, canvas.width/devicePixelRatio - cellSize/2);
             ctx.stroke();
         }
-        for(let y=0; y<boardSize; y++) {
-            for(let x=0; x<boardSize; x++) {
-                if(board[y][x] !== 0) drawStone(x, y, board[y][x]);
-            }
-        }
+        board.forEach((row, y) => row.forEach((val, x) => {
+            if(val !== 0) drawStone(x, y, val);
+        }));
     }
 
     function drawStone(x, y, player) {
@@ -126,11 +142,8 @@
         ctx.arc(cellSize/2 + x*cellSize, cellSize/2 + y*cellSize, cellSize/2 - 4, 0, Math.PI * 2);
         ctx.fillStyle = player === 1 ? "#000" : "#fff";
         ctx.fill();
-        if(player === 2) {
-            ctx.strokeStyle = "#ccc";
-            ctx.stroke();
-        }
-        // 마지막 수 표시 (힌트)
+        if(player === 2) { ctx.strokeStyle = "#ccc"; ctx.stroke(); }
+        
         if (moveHistory.length > 0) {
             const last = moveHistory[moveHistory.length - 1];
             if (last.x === x && last.y === y) {
@@ -142,70 +155,68 @@
         }
     }
 
-    // 무르기 기능 구현
-    function undo() {
-        if (gameOver || moveHistory.length < 2 || turnDisplay.innerText.includes("AI")) return;
-        
-        // AI의 마지막 수와 사용자의 마지막 수를 배열에서 제거
-        const aiLastMove = moveHistory.pop();
-        const userLastMove = moveHistory.pop();
-        
-        board[aiLastMove.y][aiLastMove.x] = 0;
-        board[userLastMove.y][userLastMove.x] = 0;
-        
+    function changeMode(mode) {
+        currentMode = mode;
+        document.getElementById('mode-ai').classList.toggle('current', mode === 'ai');
+        document.getElementById('mode-p2p').classList.toggle('current', mode === 'p2p');
+        document.getElementById('gameModeText').innerText = mode === 'ai' ? "AI 대결 모드" : "2인 대결 모드";
+        resetGame();
+    }
+
+    function resetGame() {
+        board = Array.from(Array(boardSize), () => Array(boardSize).fill(0));
+        moveHistory = [];
+        gameOver = false;
+        currentPlayer = 1;
+        turnDisplay.innerText = "차례: 흑돌 ●";
+        msgArea.innerText = "";
         drawBoard();
-        turnDisplay.innerText = "당신의 차례 (흑돌)";
-        msgArea.innerText = "무르기가 완료되었습니다.";
-        setTimeout(() => { msgArea.innerText = ""; }, 1500);
     }
 
-    function isDoubleThree(x, y, player) {
-        if (player !== 1) return false;
-        let openThrees = 0;
-        const directions = [[1,0], [0,1], [1,1], [1,-1]];
-        board[y][x] = player;
-        for (let [dx, dy] of directions) {
-            if (isOpenThree(x, y, dx, dy, player)) openThrees++;
-        }
-        board[y][x] = 0;
-        return openThrees >= 2;
-    }
+    canvas.addEventListener('pointerdown', (e) => {
+        if(gameOver || (currentMode === 'ai' && currentPlayer === 2)) return;
+        
+        const rect = canvas.getBoundingClientRect();
+        const x = Math.round((e.clientX - rect.left - cellSize/2) / cellSize);
+        const y = Math.round((e.clientY - rect.top - cellSize/2) / cellSize);
 
-    function isOpenThree(x, y, dx, dy, player) {
-        let count = 1; let openEnds = 0;
-        [[dx, dy], [-dx, -dy]].forEach(([sx, sy]) => {
-            let spaceFound = false;
-            for (let i = 1; i <= 4; i++) {
-                let nx = x + sx * i, ny = y + sy * i;
-                if (nx < 0 || nx >= boardSize || ny < 0 || ny >= boardSize) break;
-                if (board[ny][nx] === player) { if (!spaceFound) count++; else break; }
-                else if (board[ny][nx] === 0) { openEnds++; spaceFound = true; break; }
-                else break;
+        if (x >= 0 && x < boardSize && y >= 0 && y < boardSize && board[y][x] === 0) {
+            // 33 금수는 AI 모드 흑돌에게만 적용 (정석 규칙)
+            if (currentMode === 'ai' && currentPlayer === 1 && isDoubleThree(x, y, 1)) {
+                msgArea.innerText = "⚠️ 3x3 금수 위치입니다!";
+                return;
             }
-        });
-        return count === 3 && openEnds === 2;
-    }
-
-    function checkWin(x, y, player) {
-        const directions = [[1,0], [0,1], [1,1], [1,-1]];
-        for (let [dx, dy] of directions) {
-            let count = 1;
-            [[dx, dy], [-dx, -dy]].forEach(([sx, sy]) => {
-                for (let i = 1; i < 5; i++) {
-                    let nx = x + sx*i, ny = y + sy*i;
-                    if (nx >= 0 && nx < boardSize && ny >= 0 && ny < boardSize && board[ny][nx] === player) count++;
-                    else break;
-                }
-            });
-            if (count >= 5) return true;
+            makeMove(x, y);
         }
-        return false;
+    });
+
+    function makeMove(x, y) {
+        board[y][x] = currentPlayer;
+        moveHistory.push({x, y, p: currentPlayer});
+        msgArea.innerText = "";
+        drawBoard();
+
+        if (checkWin(x, y, currentPlayer)) {
+            gameOver = true;
+            const winner = currentPlayer === 1 ? "흑돌" : "백돌";
+            turnDisplay.innerText = winner + " 승리! 🎉";
+            setTimeout(() => alert(winner + "이 승리했습니다!"), 100);
+            return;
+        }
+
+        currentPlayer = currentPlayer === 1 ? 2 : 1;
+        turnDisplay.innerText = `차례: ${currentPlayer === 1 ? "흑돌 ●" : "백돌 ○"}`;
+
+        if (currentMode === 'ai' && currentPlayer === 2) {
+            turnDisplay.innerText = "AI가 생각 중...";
+            setTimeout(aiMove, 600);
+        }
     }
 
+    // AI 로직 (간단한 가중치 분석)
     function aiMove() {
         if(gameOver) return;
-        let bestScore = -1;
-        let move = {x: 7, y: 7};
+        let bestScore = -1, move = {x: 7, y: 7};
         for(let y=0; y<boardSize; y++) {
             for(let x=0; x<boardSize; x++) {
                 if(board[y][x] === 0) {
@@ -214,35 +225,25 @@
                 }
             }
         }
-        board[move.y][move.x] = 2;
-        moveHistory.push({x: move.x, y: move.y, player: 2}); // AI 기록 저장
-        drawBoard();
-        if(checkWin(move.x, move.y, 2)) {
-            gameOver = true;
-            turnDisplay.innerText = "AI 승리!";
-            setTimeout(() => alert("AI가 승리했습니다!"), 100);
-        } else {
-            turnDisplay.innerText = "당신의 차례 (흑돌)";
-        }
+        makeMove(move.x, move.y);
     }
 
     function evaluateMove(x, y) {
-        let totalScore = 0;
-        const directions = [[1,0], [0,1], [1,1], [1,-1]];
-        for(let [dx, dy] of directions) {
-            totalScore += getLineScore(x, y, dx, dy, 2);
-            totalScore += getLineScore(x, y, dx, dy, 1) * 1.1;
-        }
-        return totalScore;
+        let total = 0;
+        [[1,0], [0,1], [1,1], [1,-1]].forEach(([dx, dy]) => {
+            total += getLineScore(x, y, dx, dy, 2); // AI 공격 가중치
+            total += getLineScore(x, y, dx, dy, 1) * 1.1; // 방어 가중치
+        });
+        return total;
     }
 
-    function getLineScore(x, y, dx, dy, player) {
-        let count = 0; let block = 0;
+    function getLineScore(x, y, dx, dy, p) {
+        let count = 0, block = 0;
         [[dx, dy], [-dx, -dy]].forEach(([sx, sy]) => {
             for (let i = 1; i < 5; i++) {
                 let nx = x + sx*i, ny = y + sy*i;
-                if (nx >= 0 && nx < boardSize && ny >= 0 && ny < boardSize) {
-                    if (board[ny][nx] === player) count++;
+                if (nx>=0 && nx<boardSize && ny>=0 && ny<boardSize) {
+                    if (board[ny][nx] === p) count++;
                     else if (board[ny][nx] !== 0) { block++; break; }
                     else break;
                 } else { block++; break; }
@@ -253,31 +254,66 @@
         return count * 10;
     }
 
-    canvas.addEventListener('pointerdown', (e) => {
-        if(gameOver || turnDisplay.innerText.includes("AI")) return;
-        const rect = canvas.getBoundingClientRect();
-        const x = Math.round((e.clientX - rect.left - cellSize/2) / cellSize);
-        const y = Math.round((e.clientY - rect.top - cellSize/2) / cellSize);
-
-        if (x >= 0 && x < boardSize && y >= 0 && y < boardSize && board[y][x] === 0) {
-            if (isDoubleThree(x, y, 1)) {
-                msgArea.innerText = "3x3 금수 위치입니다!";
-                setTimeout(() => { msgArea.innerText = ""; }, 2000);
-                return;
-            }
-            board[y][x] = 1;
-            moveHistory.push({x, y, player: 1}); // 사용자 기록 저장
-            drawBoard();
-            if (checkWin(x, y, 1)) {
-                gameOver = true;
-                turnDisplay.innerText = "당신의 승리!";
-                setTimeout(() => alert("승리하셨습니다!"), 100);
-            } else {
-                turnDisplay.innerText = "AI가 생각 중...";
-                setTimeout(aiMove, 600);
-            }
+    function checkWin(x, y, p) {
+        const directions = [[1,0], [0,1], [1,1], [1,-1]];
+        for (let [dx, dy] of directions) {
+            let count = 1;
+            [[dx, dy], [-dx, -dy]].forEach(([sx, sy]) => {
+                for (let i = 1; i < 5; i++) {
+                    let nx = x + sx*i, ny = y + sy*i;
+                    if (nx>=0 && nx<boardSize && ny>=0 && ny<boardSize && board[ny][nx] === p) count++;
+                    else break;
+                }
+            });
+            if (count >= 5) return true;
         }
-    });
+        return false;
+    }
+
+    function undo() {
+        if (gameOver || moveHistory.length === 0) return;
+        if (currentMode === 'ai') {
+            if (moveHistory.length < 2) return;
+            moveHistory.pop(); // AI꺼 삭제
+            const m = moveHistory.pop(); // 내꺼 삭제
+            board[m.y][m.x] = 0; board[moveHistory[moveHistory.length]?moveHistory[moveHistory.length].y:0][0]=0; // 실제 보드 초기화 필요
+            // 전체 보드 재구성 (안전함)
+            reconstructBoard();
+        } else {
+            const m = moveHistory.pop();
+            board[m.y][m.x] = 0;
+            currentPlayer = currentPlayer === 1 ? 2 : 1;
+        }
+        turnDisplay.innerText = `차례: ${currentPlayer === 1 ? "흑돌 ●" : "백돌 ○"}`;
+        drawBoard();
+    }
+
+    function reconstructBoard() {
+        board = Array.from(Array(boardSize), () => Array(boardSize).fill(0));
+        moveHistory.forEach(m => board[m.y][m.x] = m.p);
+        currentPlayer = 1;
+    }
+
+    function isDoubleThree(x, y, p) {
+        let open3 = 0;
+        board[y][x] = p;
+        [[1,0], [0,1], [1,1], [1,-1]].forEach(([dx, dy]) => {
+            let count = 1, openEnds = 0;
+            [[dx, dy], [-dx, -dy]].forEach(([sx, sy]) => {
+                let space = false;
+                for (let i = 1; i <= 4; i++) {
+                    let nx = x + sx*i, ny = y + sy*i;
+                    if (nx<0||nx>=boardSize||ny<0||ny>=boardSize) break;
+                    if (board[ny][nx] === p) { if(!space) count++; else break; }
+                    else if (board[ny][nx] === 0) { openEnds++; space = true; break; }
+                    else break;
+                }
+            });
+            if(count === 3 && openEnds === 2) open3++;
+        });
+        board[y][x] = 0;
+        return open3 >= 2;
+    }
 
     window.addEventListener('resize', initCanvas);
     initCanvas();
