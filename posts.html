@@ -5,89 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>브레인 분석실: 뇌 과학 전문 칼럼 | SKZ Brain Lab</title>
 
-    <meta name="description" content="뇌 가성비, 독심술 AI, 수면의 경제학까지. SKZ Brain Lab이 제안하는 과학적인 뇌 건강 습관과 최신 리포트를 확인하세요.">
-    <meta name="keywords" content="뇌과학, 두뇌건강, 인지능력향상, 도파민디톡스, 뇌가성비, SKZBrainLab, 브레인분석실">
-
+    <meta name="description" content="뇌 과학 전문 리포트. 스마트폰 중독, 역 플린 효과 등 깊이 있는 두뇌 건강 정보를 확인하세요.">
     <style>
+        /* 기존 스타일 유지 */
         :root { 
             --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
             --text-main: #2c3e50; --text-content: #34495e; --text-muted: #7f8c8d;
         }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            font-family: 'Pretendard', -apple-system, sans-serif; 
-            background-color: var(--bg-color); margin: 0; color: var(--text-main);
-            line-height: 1.6;
-        }
-        
+        body { font-family: 'Pretendard', -apple-system, sans-serif; background-color: var(--bg-color); margin: 0; color: var(--text-main); line-height: 1.6; }
         header { background: var(--primary-color); color: white; padding: 1rem 1rem; text-align: center; }
-        header h1 { margin: 0; }
         header h1 a { text-decoration: none; color: inherit; font-size: 1.4rem; font-weight: 800; }
-
-        nav.main-nav { 
-            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
-        }
+        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
         nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
-
         .container { width: 92%; max-width: 650px; margin: 2rem auto; }
-        
-        .list-header { margin-bottom: 1.5rem; text-align: center; }
+        .list-header { margin-bottom: 2.5rem; text-align: center; }
         .list-header h2 { font-size: 1.6rem; color: var(--primary-color); margin-bottom: 0.6rem; font-weight: 800; }
-        .list-header p { color: var(--text-muted); font-size: 0.95rem; margin: 0; word-break: keep-all; }
 
-        /* 카테고리 칩 스캔형 */
-        .category-filter {
-            display: flex; gap: 8px; overflow-x: auto; padding: 10px 0 20px;
-            scrollbar-width: none; -ms-overflow-style: none;
-        }
-        .category-filter::-webkit-scrollbar { display: none; }
-        
-        .chip {
-            flex: 0 0 auto; padding: 8px 16px; background: white; border-radius: 50px;
-            font-size: 0.85rem; font-weight: 600; color: var(--text-muted);
-            border: 1px solid #e2e8f0; cursor: pointer; transition: 0.2s;
-        }
-        .chip.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
-
-        /* 포스트 카드 */
+        /* 포스트 카드 기본 상태 */
         .post-card {
             background: white; border-radius: 24px; padding: 28px; margin-bottom: 1.2rem;
-            display: flex; flex-direction: column; gap: 14px;
-            text-decoration: none; color: inherit;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-            transition: all 0.3s ease;
+            display: none; /* 기본적으로 숨김 (JS로 제어) */
+            flex-direction: column; gap: 14px; text-decoration: none; color: inherit;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03); transition: all 0.25s ease;
             border: 1px solid rgba(0,0,0,0.02);
         }
-        
-        /* 필터링 애니메이션용 */
-        .post-card.hidden { display: none; }
+        .post-card.visible { display: flex; animation: fadeIn 0.5s ease forwards; }
 
-        .tag-row { display: flex; justify-content: space-between; align-items: center; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 더보기 버튼 스타일 */
+        .load-more-container { text-align: center; margin-top: 3rem; }
+        #loadMoreBtn {
+            background: white; color: var(--primary-color); border: 1px solid var(--primary-color);
+            padding: 12px 40px; border-radius: 50px; font-weight: bold; cursor: pointer;
+            transition: 0.3s; font-size: 0.95rem;
+        }
+        #loadMoreBtn:hover { background: var(--primary-color); color: white; }
+        #loadMoreBtn.hidden { display: none; }
+
+        /* 태그 컬러들 */
         .tag { padding: 5px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 800; }
-        
         .tag.blue { background: #eef2ff; color: #4338ca; }
         .tag.orange { background: #fff7ed; color: #c2410c; }
         .tag.green { background: #f0fdf4; color: #166534; }
         .tag.purple { background: #f5f3ff; color: #7c3aed; }
         .tag.red { background: #fef2f2; color: #dc2626; }
-
-        .post-card h3 { margin: 0; font-size: 1.25rem; color: var(--primary-color); font-weight: 700; }
-        .post-card p { margin: 0; font-size: 0.95rem; color: var(--text-content); opacity: 0.85; }
         
-        .post-meta { 
-            font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; 
-            margin-top: 5px; padding-top: 15px; border-top: 1px solid #f8f9fa;
-        }
-        .read-time { margin-left: auto; }
-
+        .post-meta { font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; border-top: 1px solid #f8f9fa; padding-top: 15px; }
         footer { text-align: center; padding: 4rem 0; color: #bbb; font-size: 0.8rem; border-top: 1px solid #eee; margin-top: 50px; }
-
-        @media (max-width: 480px) {
-            .post-card { padding: 22px; }
-        }
+        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
     </style>
 </head>
 <body>
@@ -110,112 +80,81 @@
             <p>최신 뇌 과학 리포트와 효율적인 훈련 가이드</p>
         </div>
 
-        <div class="category-filter">
-            <div class="chip active" data-filter="all">전체</div>
-            <div class="chip" data-filter="red">효율성</div>
-            <div class="chip" data-filter="purple">최신이슈</div>
-            <div class="chip" data-filter="green">두뇌건강</div>
-            <div class="chip" data-filter="orange">훈련팁</div>
-            <div class="chip" data-filter="blue">인사이트</div>
-        </div>
-
-        <div id="post-list">
-            <a href="post5.html" class="post-card" data-category="red">
-                <div class="tag-row">
-                    <span class="tag red">EFFICIENCY #05</span>
-                    <span style="font-size: 1.1rem;">⚡</span>
-                </div>
+        <div id="post-container">
+            <a href="post5.html" class="post-card">
+                <div class="tag-row"><span class="tag red">EFFICIENCY #05</span>⚡</div>
                 <h3>뇌에도 '에코 모드'가 있다? 효율 꽝인 뇌 깨우는 법</h3>
                 <p>도파민 과부하를 끄고 뇌 가성비를 되찾는 과학적인 방법을 알아보세요.</p>
-                <div class="post-meta">
-                    <span>By SKZ Lab 훈련사</span>
-                    <span class="read-time">⏱️ 3분 분량</span>
-                </div>
+                <div class="post-meta"><span>By SKZ Lab 훈련사</span><span style="margin-left:auto">⏱️ 3분</span></div>
             </a>
 
-            <a href="post4.html" class="post-card" data-category="purple">
-                <div class="tag-row">
-                    <span class="tag purple">ISSUE #04</span>
-                    <span style="font-size: 1.1rem;">🔮</span>
-                </div>
+            <a href="post4.html" class="post-card">
+                <div class="tag-row"><span class="tag purple">ISSUE #04</span>🔮</div>
                 <h3>AI가 내 마음을 읽는다? 영화가 현실이 된 '독심술 AI'</h3>
                 <p>뇌 신호를 이미지로 복원하는 최신 기술과 상상력의 중요성.</p>
-                <div class="post-meta">
-                    <span>By SKZ Lab 훈련사</span>
-                    <span class="read-time">⏱️ 3분 분량</span>
-                </div>
+                <div class="post-meta"><span>By SKZ Lab 훈련사</span><span style="margin-left:auto">⏱️ 3분</span></div>
             </a>
 
-            <a href="post3.html" class="post-card" data-category="green">
-                <div class="tag-row">
-                    <span class="tag green">HEALTH #03</span>
-                    <span style="font-size: 1.1rem;">💤</span>
-                </div>
+            <a href="post3.html" class="post-card">
+                <div class="tag-row"><span class="tag green">HEALTH #03</span>💤</div>
                 <h3>잠이 부족한 뇌는 술 취한 뇌와 같다? 수면의 경제학</h3>
                 <p>수면 부족이 전두엽 기능에 미치는 치명적인 영향 분석.</p>
-                <div class="post-meta">
-                    <span>By SKZ Lab 훈련사</span>
-                    <span class="read-time">⏱️ 4분 분량</span>
-                </div>
+                <div class="post-meta"><span>By SKZ Lab 훈련사</span><span style="margin-left:auto">⏱️ 4분</span></div>
             </a>
 
-            <a href="post2.html" class="post-card" data-category="orange">
-                <div class="tag-row">
-                    <span class="tag orange">ANALYSIS #02</span>
-                    <span style="font-size: 1.1rem;">📺</span>
-                </div>
+            <a href="post2.html" class="post-card">
+                <div class="tag-row"><span class="tag orange">ANALYSIS #02</span>📺</div>
                 <h3>유튜브 보면서 게임하는 당신, 뇌는 비명을 지르고 있다?</h3>
                 <p>멀티태스킹의 함정과 스위칭 비용을 줄이는 몰입 기술.</p>
-                <div class="post-meta">
-                    <span>By SKZ Lab 훈련사</span>
-                    <span class="read-time">⏱️ 4분 분량</span>
-                </div>
+                <div class="post-meta"><span>By SKZ Lab 훈련사</span><span style="margin-left:auto">⏱️ 4분</span></div>
             </a>
 
-            <a href="post1.html" class="post-card" data-category="blue">
-                <div class="tag-row">
-                    <span class="tag blue">INSIGHT #01</span>
-                    <span style="font-size: 1.1rem;">📖</span>
-                </div>
+            <a href="post1.html" class="post-card">
+                <div class="tag-row"><span class="tag blue">INSIGHT #01</span>📖</div>
                 <h3>요즘 우리의 지능이 낮아지고 있을까요? '역 플린 효과'</h3>
                 <p>전 세계적인 IQ 하락 현상과 디지털 세대의 인지 구조 변화.</p>
-                <div class="post-meta">
-                    <span>By SKZ Lab 훈련사</span>
-                    <span class="read-time">⏱️ 3분 분량</span>
-                </div>
+                <div class="post-meta"><span>By SKZ Lab 훈련사</span><span style="margin-left:auto">⏱️ 3분</span></div>
             </a>
+        </div>
+
+        <div class="load-more-container">
+            <button id="loadMoreBtn">칼럼 더보기</button>
         </div>
     </main>
 
     <footer>
+        <div style="margin-bottom: 10px;">
+            <a href="privacy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
+        </div>
         &copy; 2026 SKZ Brain Lab. 모든 칼럼은 연구 결과를 바탕으로 작성되었습니다.
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const chips = document.querySelectorAll('.chip');
-            const posts = document.querySelectorAll('.post-card');
+        const postsPerPage = 3; // 한 번에 보여줄 글 개수
+        let currentIndex = 0;
+        const posts = document.querySelectorAll('.post-card');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
 
-            chips.forEach(chip => {
-                chip.addEventListener('click', () => {
-                    // 1. 칩 활성화 스타일 변경
-                    chips.forEach(c => c.classList.remove('active'));
-                    chip.classList.add('active');
+        function showNextPosts() {
+            const nextIndex = currentIndex + postsPerPage;
+            
+            for (let i = currentIndex; i < nextIndex && i < posts.length; i++) {
+                posts[i].classList.add('visible');
+            }
+            
+            currentIndex = nextIndex;
 
-                    // 2. 필터링 로직
-                    const filter = chip.getAttribute('data-filter');
-                    
-                    posts.forEach(post => {
-                        const category = post.getAttribute('data-category');
-                        if (filter === 'all' || filter === category) {
-                            post.classList.remove('hidden');
-                        } else {
-                            post.classList.add('hidden');
-                        }
-                    });
-                });
-            });
-        });
+            // 모든 포스트를 다 보여줬으면 버튼 숨기기
+            if (currentIndex >= posts.length) {
+                loadMoreBtn.classList.add('hidden');
+            }
+        }
+
+        // 초기 로드
+        showNextPosts();
+
+        // 버튼 클릭 이벤트
+        loadMoreBtn.addEventListener('click', showNextPosts);
     </script>
 </body>
 </html>
