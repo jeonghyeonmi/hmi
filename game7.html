@@ -246,13 +246,36 @@
         moveHistory.push({x, y, p: currentPlayer});
         msgArea.innerText = "";
         drawBoard();
+
         if (checkWin(x, y, currentPlayer)) {
             gameOver = true;
             const winner = currentPlayer === 1 ? "흑돌" : "백돌";
             turnDisplay.innerText = winner + " 승리! 🎉";
-            setTimeout(() => alert(winner + "이 승리했습니다!"), 100);
+
+            // --- [연동 코드 시작] 리포트 점수 계산 및 저장 ---
+            let logicScore = 0;
+            if (currentMode === 'ai') {
+                if (currentPlayer === 1) {
+                    // AI에게 승리한 경우: 기본 80점 + 수의 효율성에 따라 가산점 (최대 100)
+                    logicScore = Math.min(100, 80 + (50 - moveHistory.length)); 
+                } else {
+                    // AI에게 패배한 경우: 진행된 수의 양에 따라 논리력 산출 (최대 60)
+                    logicScore = Math.min(60, moveHistory.length * 2);
+                }
+                // 기존 점수보다 높을 때만 업데이트 (사용자 데이터 보호)
+                const prevScore = parseInt(localStorage.getItem('game7_score')) || 0;
+                if (logicScore > prevScore) {
+                    localStorage.setItem('game7_score', logicScore);
+                }
+            }
+            // --- [연동 코드 끝] ---
+
+            setTimeout(() => {
+                alert(winner + "이 승리했습니다! 리포트에서 논리력을 확인하세요.");
+            }, 100);
             return;
         }
+
         currentPlayer = currentPlayer === 1 ? 2 : 1;
         turnDisplay.innerText = `차례: ${currentPlayer === 1 ? "흑돌 ●" : "백돌 ○"}`;
         if (currentMode === 'ai' && currentPlayer === 2) {
