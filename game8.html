@@ -216,14 +216,16 @@
     }
 
     function saveRecord(score, msg) {
-        // 환산 점수: 15단계를 만점으로 계산 (score가 1이면 약 6점)
+        // [수정] 15단계를 만점으로 환산 (1단계당 약 6.6점)
         const reportScore = Math.min(100, Math.floor((score / 15) * 100));
         
-        // 집중력 점수(game8_score) 업데이트
-        const prevBest = parseInt(localStorage.getItem('game8_score')) || 0;
-        if (reportScore > prevBest) {
-            localStorage.setItem('game8_score', reportScore);
-        }
+        // [수정] 최고점 여부와 상관없이 '최신 점수'를 저장하여 리포트가 변동되게 함
+        localStorage.setItem('game8_score', reportScore);
+        
+        // (선택사항) 나중에 그래프를 그리기 위해 히스토리 데이터도 저장만 해둠
+        let history = JSON.parse(localStorage.getItem('game8_history')) || [];
+        history.push({ date: new Date().toLocaleDateString(), score: reportScore });
+        localStorage.setItem('game8_history', JSON.stringify(history.slice(-10))); // 최근 10회 기록만
         
         if (confirm(msg)) { 
             location.href = 'report.html'; 
