@@ -5,33 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <title>시장에 가면: AI 연쇄 기억력 훈련 | SKZ Brain Lab</title>
-    <meta name="description" content="AI와 함께하는 기억력 대결! '시장에 가면' 게임으로 당신의 단기 기억력과 작업 기억력을 향상시키세요. 단계별 뇌 활성화 리포트 제공.">
-    <meta name="keywords" content="시장에가면, 기억력게임, 두뇌훈련, 단기기억력, 작업기억력, SKZBrainLab, 인지훈련">
+    <meta name="description" content="AI와 함께하는 기억력 대결! '시장에 가면' 게임으로 당신의 집중력과 작업 기억력을 향상시키세요.">
+    <meta name="keywords" content="시장에가면, 기억력게임, 집중력훈련, 두뇌게임, SKZBrainLab">
     <link rel="canonical" href="https://jeonghyeonmi.github.io/hmi/game8.html">
 
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="뇌가 젊어지는 기억력 대결 - 시장에 가면">
-    <meta property="og:description" content="AI가 추가하는 물건들을 순서대로 기억할 수 있나요? 당신의 암기 한계에 도전하세요!">
+    <meta property="og:title" content="시장에 가면 - AI를 이겨보세요!">
+    <meta property="og:description" content="순서대로 물건을 기억하며 집중력의 한계에 도전하세요.">
     <meta property="og:image" content="img/index.jpg">
     <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/game8.html">
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "시장에 가면 기억력 훈련",
-      "operatingSystem": "Web",
-      "applicationCategory": "EducationalApplication",
-      "description": "AI와 번갈아가며 물건을 추가하고 순서를 기억하는 인지 능력 향상 게임입니다."
-    }
-    </script>
-
     <style>
-        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #e67e22; --success: #2ecc71; --error: #e74c3c; }
+        :root { 
+            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #e67e22; 
+            --text-main: #2c3e50; --text-content: #34495e;
+        }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; line-height: 1.6; }
+        body { 
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif; 
+            background-color: var(--bg-color); margin: 0; color: var(--text-main); line-height: 1.6;
+        }
         
-        /* 레이아웃 공통 스타일 */
+        /* 헤더 및 메인 네비게이션 */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
@@ -43,18 +37,23 @@
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
         nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
 
+        /* 서브 네비게이션 (집중력 하위 메뉴) */
         .sub-nav { display: flex; justify-content: center; gap: 15px; padding: 12px 0; background: #fff; border-bottom: 1px solid #eee; font-size: 0.75rem; }
         .sub-nav a { text-decoration: none; color: #aaa; font-weight: 500; }
         .sub-nav a.current { color: var(--accent-color); font-weight: bold; }
 
-        /* 컨테이너 및 게임 UI */
         .container { 
-            width: 94%; max-width: 450px; margin: 1.5rem auto; padding: 25px; 
+            width: 94%; max-width: 500px; margin: 1.5rem auto; padding: 25px; 
             background: white; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.04); text-align: center; 
         }
 
-        .game-guide { text-align: left; background: #fdf2e9; padding: 15px; border-radius: 15px; margin-bottom: 20px; font-size: 0.85rem; border-left: 5px solid var(--accent-color); }
-
+        .game-guide { 
+            background: #fdf2e9; border-radius: 12px; padding: 15px; font-size: 0.85rem; 
+            line-height: 1.5; color: #444; margin-bottom: 20px; text-align: left; border-left: 4px solid var(--accent-color); 
+        }
+        
+        #status-msg { font-size: 1.1rem; font-weight: 800; color: var(--primary-color); margin-bottom: 20px; min-height: 1.6rem; }
+        
         #display-box { 
             min-height: 140px; background: #fcfcfc; border: 2px dashed #ddd; border-radius: 20px; 
             display: flex; flex-direction: column; justify-content: center; align-items: center; 
@@ -64,180 +63,183 @@
         .item-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
         .item-btn { 
             padding: 15px 5px; border-radius: 12px; border: 1px solid #eee; background: white; 
-            font-weight: bold; font-size: 0.9rem; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            font-weight: bold; font-size: 0.9rem; cursor: pointer; transition: 0.2s;
         }
         .item-btn:active { transform: scale(0.95); background: #f0f0f0; }
 
         .btn-start { 
-            width: 100%; padding: 18px; background: var(--accent-color); color: white; 
-            border: none; border-radius: 30px; font-weight: bold; font-size: 1.2rem; cursor: pointer; 
+            width: 100%; max-width: 280px; padding: 16px; background: var(--accent-color); 
+            color: white; border: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem;
+            margin-top: 10px; cursor: pointer; box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
         }
-
-        /* 결과 팝업 */
-        #result-overlay { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; 
-        }
-        .result-card { background: white; width: 88%; max-width: 360px; padding: 30px; border-radius: 28px; text-align: center; }
-
-        footer { text-align: center; padding: 2rem 0; color: #bbb; font-size: 0.8rem; }
+        
+        .ranking-container { margin-top: 35px; border-top: 2px dashed #eee; padding-top: 25px; }
+        .ranking-title { font-size: 1.1rem; font-weight: bold; color: var(--primary-color); margin-bottom: 15px; }
+        .rank-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .rank-table th { padding: 10px; color: #888; border-bottom: 1px solid #eee; }
+        .rank-table td { padding: 12px 5px; border-bottom: 1px solid #f9f9f9; color: var(--text-content); }
+        
+        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; }
     </style>
 </head>
 <body>
+    <header><h1><a href="index.html">SKZ 두뇌 훈련소</a></h1></header>
+    
+    <nav class="main-nav">
+        <a href="index.html">홈</a>
+        <a href="game.html" class="active">집중력</a>
+        <a href="game2.html">논리력</a>
+        <a href="game3.html">판단력</a>
+        <a href="report.html">리포트</a>
+        <a href="posts.html">분석실</a>
+    </nav>
 
-<header><h1><a href="index.html">SKZ 두뇌 훈련소</a></h1></header>
-
-<nav class="main-nav">
-    <a href="index.html">홈</a>
-    <a href="game.html">집중력</a>
-    <a href="game2.html">논리력</a>
-    <a href="game3.html">판단력</a>
-    <a href="report.html">리포트</a>
-    <a href="posts.html">분석실</a>
-</nav>
-
-<div class="sub-nav">
-    <a href="game.html">[메모리 게임]</a>
-    <a href="game8.html" class="current">[시장에 가면]</a>
-</div>
-
-<main class="container">
-    <section id="guide-box" class="game-guide">
-        <h2 style="font-size: 1rem; margin: 0 0 5px 0;">🛒 시장에 가면...</h2>
-        AI가 추가하는 물건들을 <b>순서대로 모두 클릭</b>한 뒤, 본인이 추가할 새 물건을 고르세요!
-    </section>
-
-    <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 0.95rem;">
-        <span style="color:var(--primary-color)">기억 목록: <span id="chain-count" style="color:var(--accent-color)">0</span>개</span>
-        <span id="turn-indicator">대기 중</span>
+    <div class="sub-nav">
+        <a href="game.html">[기본훈련]</a>
+        <a href="game8.html" class="current">[시장에 가면]</a>
     </div>
 
-    <div id="display-box">
-        <div id="status-msg" style="font-size: 0.85rem; color: #999; margin-bottom: 10px;">훈련을 시작하세요</div>
-        <div id="current-item" style="font-size: 2.5rem; font-weight: 900; color: var(--primary-color);">READY</div>
-    </div>
-
-    <button id="startBtn" class="btn-start" onclick="startGame()">훈련 시작</button>
-
-    <div id="game-ui" style="display: none;">
-        <div class="item-grid" id="item-grid">
-            </div>
-    </div>
-</main>
-
-<div id="result-overlay">
-    <div class="result-card">
-        <span id="res-grade" style="font-size: 1.4rem; font-weight: 900; color: var(--accent-color); display: block; margin-bottom: 10px;">RANK: -</span>
-        <h2 style="margin: 0 0 10px 0;">훈련 완료</h2>
-        <p id="res-detail" style="font-size: 0.95rem; color: #444; line-height: 1.6; margin-bottom: 25px;"></p>
-        <button class="btn-start" onclick="location.href='report.html'">분석 리포트 확인</button>
-        <button onclick="location.reload()" style="background:none; border:none; color:#aaa; margin-top:15px; cursor:pointer; text-decoration:underline;">다시 도전</button>
-    </div>
-</div>
-
-<footer>&copy; 2026 SKZ Brain Lab. All rights reserved.</footer>
-
-<script>
-    const itemList = ["🍎 사과", "🍌 바나나", "🍇 포도", "🥕 당근", "🍞 빵", "🥚 계란", "🥛 우유", "🐟 생선", "🧀 치즈", "🍄 버섯", "🌽 옥수수", "🥔 감자"];
-    let memoryChain = [];
-    let userStep = 0;
-    let isAITurn = false;
-
-    const statusMsg = document.getElementById('status-msg');
-    const currentItem = document.getElementById('current-item');
-    const turnIndicator = document.getElementById('turn-indicator');
-    const chainCount = document.getElementById('chain-count');
-
-    function startGame() {
-        memoryChain = [];
-        document.getElementById('startBtn').style.display = 'none';
-        document.getElementById('game-ui').style.display = 'block';
-        createGrid();
-        aiTurn();
-    }
-
-    function createGrid() {
-        const grid = document.getElementById('item-grid');
-        grid.innerHTML = '';
-        itemList.forEach(item => {
-            const btn = document.createElement('button');
-            btn.className = 'item-btn';
-            btn.innerText = item;
-            btn.onclick = () => handleInput(item);
-            grid.appendChild(btn);
-        });
-    }
-
-    async function aiTurn() {
-        isAITurn = true;
-        userStep = 0;
-        turnIndicator.innerText = "🤖 AI의 턴";
-        turnIndicator.style.color = varColor('--error');
-        statusMsg.innerText = "AI가 물건을 추가하고 있습니다...";
-
-        // AI가 랜덤 물건 하나 추가
-        const newItem = itemList[Math.floor(Math.random() * itemList.length)];
-        memoryChain.push(newItem);
-        chainCount.innerText = memoryChain.length;
-
-        // 전체 목록 보여주기 (난이도 조정: 목록이 길어질수록 보여주는 속도 조절)
-        let displaySpeed = Math.max(400, 1000 - (memoryChain.length * 50));
-
-        for (let item of memoryChain) {
-            currentItem.innerText = item;
-            currentItem.style.transform = "scale(1.1)";
-            await new Promise(r => setTimeout(r, displaySpeed));
-            currentItem.innerText = "";
-            currentItem.style.transform = "scale(1)";
-            await new Promise(r => setTimeout(r, 200));
-        }
-
-        userTurn();
-    }
-
-    function userTurn() {
-        isAITurn = false;
-        turnIndicator.innerText = "👤 당신의 턴";
-        turnIndicator.style.color = varColor('--success');
-        statusMsg.innerText = "순서대로 물건을 클릭하세요!";
-        currentItem.innerText = "???";
-    }
-
-    function handleInput(selectedItem) {
-        if (isAITurn) return;
-
-        // 클릭 피드백
-        currentItem.innerText = selectedItem;
-
-        if (selectedItem === memoryChain[userStep]) {
-            userStep++;
-            // 모든 목록을 순서대로 다 맞춤
-            if (userStep === memoryChain.length) {
-                statusMsg.innerText = "정답입니다! 다음 단계로..";
-                setTimeout(aiTurn, 1000);
-            }
-        } else {
-            // 틀림
-            endGame();
-        }
-    }
-
-    function endGame() {
-        const score = (memoryChain.length - 1);
-        // [리포트 연동] 10개 이상 기억 시 100점 만점 기준 환산
-        const reportScore = Math.min(100, score * 10);
-        localStorage.setItem('game8_score', reportScore);
-
-        let grade = score >= 10 ? "기억력의 신 ⚡" : score >= 7 ? "천재적인 두뇌 🧠" : score >= 4 ? "우수한 기억력 👍" : "두뇌 훈련 필요 🔥";
+    <main class="container">
+        <div class="game-guide">
+            <strong>🛒 시장에 가면...</strong>
+            AI가 추가하는 물건들을 <b>순서대로 모두 클릭</b>하세요. 마지막에 본인이 추가할 새 물건까지 맞추면 다음 단계로 넘어갑니다!
+        </div>
         
-        document.getElementById('res-grade').innerText = grade;
-        document.getElementById('res-detail').innerHTML = `최종 암기 단계: <b>${score}단계</b><br>데이터가 분석 리포트에 전송되었습니다.`;
-        document.getElementById('result-overlay').style.display = 'flex';
-    }
+        <div id="status-msg">도전할 준비 되셨나요?</div>
+        
+        <div id="display-box">
+            <div id="current-item" style="font-size: 2.2rem; font-weight: 900; color: var(--accent-color);">READY</div>
+        </div>
+        
+        <button id="startBtn" class="btn-start" onclick="startGame()">훈련 시작</button>
+        
+        <div id="game-ui" style="display: none;">
+            <div class="item-grid" id="item-grid"></div>
+        </div>
 
-    function varColor(name) {
-        return getComputedStyle(document.documentElement).getPropertyValue(name);
-    }
-</script>
+        <div class="ranking-container">
+            <div class="ranking-title">📊 나의 시장 기록</div>
+            <div id="best-record" style="font-size:0.95rem; color:var(--accent-color); font-weight:bold; margin-bottom:12px;">최고 기록: -</div>
+            <table class="rank-table">
+                <thead><tr><th>회차</th><th>날짜</th><th>결과</th></tr></thead>
+                <tbody id="rankingBody"></tbody>
+            </table>
+            <button onclick="clearHistory()" style="margin-top:20px; background:none; border:none; color:#ccc; font-size:0.75rem; text-decoration:underline; cursor:pointer;">기록 초기화</button>
+        </div>
+    </main>
+
+    <footer>&copy; 2026 SKZ Brain Lab. All rights reserved.</footer>
+
+    <script>
+        const itemList = ["🍎 사과", "🍌 바나나", "🍇 포도", "🥕 당근", "🍞 빵", "🥚 계란", "🥛 우유", "🐟 생선", "🧀 치즈"];
+        let memoryChain = [], userStep = 0, isAITurn = false;
+
+        function startGame() {
+            memoryChain = [];
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('game-ui').style.display = 'block';
+            createGrid();
+            aiTurn();
+        }
+
+        function createGrid() {
+            const grid = document.getElementById('item-grid');
+            grid.innerHTML = '';
+            itemList.forEach(item => {
+                const btn = document.createElement('button');
+                btn.className = 'item-btn';
+                btn.innerText = item;
+                btn.onclick = () => handleInput(item);
+                grid.appendChild(btn);
+            });
+        }
+
+        async function aiTurn() {
+            isAITurn = true; userStep = 0;
+            document.getElementById('status-msg').innerText = "AI가 물건을 추가하고 있습니다...";
+            
+            const newItem = itemList[Math.floor(Math.random() * itemList.length)];
+            memoryChain.push(newItem);
+
+            let speed = Math.max(400, 1000 - (memoryChain.length * 50));
+            for (let item of memoryChain) {
+                document.getElementById('current-item').innerText = item;
+                await new Promise(r => setTimeout(r, speed));
+                document.getElementById('current-item').innerText = "";
+                await new Promise(r => setTimeout(r, 200));
+            }
+            userTurn();
+        }
+
+        function userTurn() {
+            isAITurn = false;
+            document.getElementById('status-msg').innerText = "순서대로 클릭하세요!";
+            document.getElementById('current-item').innerText = "???";
+        }
+
+        function handleInput(selectedItem) {
+            if (isAITurn) return;
+            document.getElementById('current-item').innerText = selectedItem;
+            if (selectedItem === memoryChain[userStep]) {
+                userStep++;
+                if (userStep === memoryChain.length) {
+                    setTimeout(aiTurn, 800);
+                }
+            } else {
+                endGame();
+            }
+        }
+
+        function endGame() {
+            const finalScore = memoryChain.length - 1;
+            let grade = finalScore >= 10 ? "기억의 신 🏆" : finalScore >= 6 ? "명석한 두뇌 🧠" : "예열 필요 🔥";
+            const msg = `훈련 종료!\n등급: ${grade}\n최종 기록: ${finalScore}단계\n\n지금 바로 분석 리포트를 확인하시겠습니까?`;
+            
+            saveRecord(finalScore, msg);
+            
+            document.getElementById('startBtn').style.display = 'inline-block';
+            document.getElementById('startBtn').innerText = '다시 도전하기';
+            document.getElementById('game-ui').style.display = 'none';
+            document.getElementById('status-msg').innerText = '훈련 결과';
+            document.getElementById('current-item').innerText = "FINISH";
+        }
+
+        function saveRecord(score, msg) {
+            const now = new Date();
+            const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
+            let history = JSON.parse(localStorage.getItem('marketHistory')) || [];
+            history.unshift({ date: dateStr, score: score });
+            localStorage.setItem('marketHistory', JSON.stringify(history.slice(0, 10)));
+
+            // report.html 연동: 집중력 지수로 저장
+            const reportScore = Math.min(100, score * 10);
+            localStorage.setItem('game8_score', reportScore);
+            
+            displayHistory();
+            if (confirm(msg)) { location.href = 'report.html'; }
+        }
+
+        function displayHistory() {
+            const body = document.getElementById('rankingBody');
+            const history = JSON.parse(localStorage.getItem('marketHistory')) || [];
+            if(history.length > 0) {
+                const best = Math.max(...history.map(h => h.score));
+                document.getElementById('best-record').innerText = `⭐ 나의 최고 기록: ${best}단계`;
+                body.innerHTML = history.map((h, i) => `
+                    <tr><td>${history.length - i}회차</td><td>${h.date}</td><td style="font-weight:bold; color:var(--accent-color);">${h.score}단계</td></tr>
+                `).join('');
+            } else {
+                body.innerHTML = '<tr><td colspan="3">기록이 없습니다.</td></tr>';
+            }
+        }
+
+        function clearHistory() {
+            if(confirm("기록을 초기화할까요?")) {
+                localStorage.removeItem('marketHistory');
+                location.reload();
+            }
+        }
+        displayHistory();
+    </script>
 </body>
 </html>
