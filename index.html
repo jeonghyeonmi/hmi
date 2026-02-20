@@ -26,7 +26,6 @@
             line-height: 1.6;
         }
         
-         /* 헤더/네비게이션 */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
@@ -38,61 +37,62 @@
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
         nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
 
-        .container { width: 92%; max-width: 600px; margin: 1.5rem auto; overflow: hidden; }
+        .container { width: 92%; max-width: 600px; margin: 1.5rem auto; }
 
-        /* 🎮 게임 그리드 섹션 */
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; }
         .section-title { font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; gap: 8px; color: var(--primary-color); }
         
+        /* 🎮 게임 그리드 섹션 */
         .game-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 3rem;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 3rem;
         }
-        .game-card {
-            background: var(--white); border-radius: 20px; padding: 18px 10px;
-            text-align: center; text-decoration: none; color: inherit;
+        .game-group {
+            background: var(--white); border-radius: 24px; padding: 15px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.02);
-            transition: transform 0.2s; display: flex; flex-direction: column; align-items: center; gap: 8px;
+            display: flex; flex-direction: column; gap: 10px;
         }
-        .game-card:active { transform: scale(0.96); }
-        .game-icon-circle { width: 50px; height: 50px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; }
+        .group-label { font-size: 0.75rem; font-weight: 800; color: var(--text-muted); padding-left: 5px; }
+
+        .game-item {
+            display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit;
+            padding: 10px; border-radius: 16px; transition: background 0.2s;
+        }
+        .game-item:active { background: #f8fafc; transform: scale(0.98); }
         
-        /* 카테고리별 배경 */
+        .game-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+        
         .bg-focus { background: #eef2ff; } .bg-logic { background: #fff1f2; }
         .bg-speed { background: #fff7ed; } .bg-memory { background: #f0fdf4; }
         .bg-math { background: #f5f3ff; } .bg-cog { background: #ecfeff; }
 
-        .game-info span { font-weight: 700; font-size: 0.95rem; }
-        .game-info p { margin: 2px 0 0; font-size: 0.75rem; color: var(--text-muted); }
+        .game-text span { display: block; font-weight: 700; font-size: 0.9rem; line-height: 1.2; }
+        .game-text small { font-size: 0.7rem; color: var(--text-muted); }
 
-        /* 🔍 분석실 가로 스크롤 카드 섹션 */
+        .new-badge { background: var(--accent-color); color: white; font-size: 0.6rem; padding: 1px 5px; border-radius: 4px; margin-left: 4px; vertical-align: middle; }
+
+        /* 🔍 분석실 가로 스크롤 카드 */
         .post-scroll-container {
             display: flex; gap: 12px; overflow-x: auto; 
             padding: 5px 2px 20px; margin: 0 -4%; padding-left: 4%;
-            scroll-snap-type: x mandatory; /* 모바일 자석 스크롤 효과 */
-            scrollbar-width: none;
+            scroll-snap-type: x mandatory; scrollbar-width: none;
         }
         .post-scroll-container::-webkit-scrollbar { display: none; }
 
         .post-card-mini {
-            flex: 0 0 75%; /* 모바일에서 다음 카드가 살짝 보이도록 */
-            max-width: 240px; background: white; border-radius: 20px; padding: 18px;
+            flex: 0 0 75%; max-width: 240px; background: white; border-radius: 20px; padding: 18px;
             display: flex; flex-direction: column; justify-content: space-between;
             text-decoration: none; color: inherit; scroll-snap-align: start;
             box-shadow: 0 8px 15px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.01);
         }
         .post-card-mini .tag { font-size: 0.65rem; font-weight: 800; color: var(--accent-color); margin-bottom: 6px; display: block; }
-        .post-card-mini h3 { 
-            margin: 0; font-size: 0.95rem; line-height: 1.4; font-weight: 700; color: var(--primary-color);
-            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-        }
+        .post-card-mini h3 { margin: 0; font-size: 0.95rem; line-height: 1.4; font-weight: 700; color: var(--primary-color); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .post-card-mini .meta { margin-top: 12px; font-size: 0.7rem; color: var(--text-muted); display: flex; justify-content: space-between; }
 
         footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.75rem; border-top: 1px solid #eee; margin-top: 20px; }
         footer a { color: #aaa; text-decoration: none; margin: 0 5px; }
 
-        /* 데스크탑 최적화 */
         @media (min-width: 600px) {
-            .game-grid { grid-template-columns: repeat(3, 1fr); }
+            .game-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
             .post-scroll-container { display: grid; grid-template-columns: repeat(3, 1fr); overflow-x: visible; margin: 0; padding-left: 0; }
             .post-card-mini { flex: none; max-width: none; }
         }
@@ -116,34 +116,50 @@
 <main class="container">
     <section>
         <div class="section-header">
-            <div class="section-title">🎮 오늘의 두뇌 게임</div>
+            <div class="section-title">🎮 카테고리별 훈련</div>
             <a href="report.html" style="font-size: 0.8rem; color: var(--accent-color); font-weight: bold; text-decoration: none;">분석 리포트 ›</a>
         </div>
+
         <div class="game-grid">
-            <a href="game.html" class="game-card">
-                <div class="game-icon-circle bg-focus">🎯</div>
-                <div class="game-info"><span>집중력</span><p>시각 추적</p></div>
-            </a>
-            <a href="game2.html" class="game-card">
-                <div class="game-icon-circle bg-logic">🧩</div>
-                <div class="game-info"><span>논리력</span><p>패턴 매칭</p></div>
-            </a>
-            <a href="game3.html" class="game-card">
-                <div class="game-icon-circle bg-speed">⚡</div>
-                <div class="game-info"><span>판단력</span><p>반응 제어</p></div>
-            </a>
-            <a href="game4.html" class="game-card">
-                <div class="game-icon-circle bg-memory">🧠</div>
-                <div class="game-info"><span>기억력</span><p>순서 암기</p></div>
-            </a>
-            <a href="game5.html" class="game-card">
-                <div class="game-icon-circle bg-math">🔢</div>
-                <div class="game-info"><span>수리력</span><p>빠른 산술</p></div>
-            </a>
-            <a href="game6.html" class="game-card">
-                <div class="game-icon-circle bg-cog">🐾</div>
-                <div class="game-info"><span>인지력</span><p>언어 간섭</p></div>
-            </a>
+            <div class="game-group">
+                <div class="group-label">FOCUS 집중력</div>
+                <a href="game.html" class="game-item">
+                    <div class="game-icon bg-focus">🎯</div>
+                    <div class="game-text"><span>메모리 게임</span><small>카드 짝 맞추기</small></div>
+                </a>
+                <a href="game8.html" class="game-item">
+                    <div class="game-icon bg-focus">🛒</div>
+                    <div class="game-text"><span>시장에 가면<span class="new-badge">NEW</span></span><small>연상 집중 훈련</small></div>
+                </a>
+            </div>
+
+            <div class="game-group">
+                <div class="group-label">LOGIC 논리력</div>
+                <a href="game2.html" class="game-item">
+                    <div class="game-icon bg-logic">🧩</div>
+                    <div class="game-text"><span>스도쿠</span><small>패턴 매칭</small></div>
+                </a>
+                <a href="game7.html" class="game-item">
+                    <div class="game-icon bg-logic">⚪</div>
+                    <div class="game-text"><span>오목 훈련<span class="new-badge">NEW</span></span><small>수 읽기 전략</small></div>
+                </a>
+            </div>
+
+            <div class="game-group">
+                <div class="group-label">SPEED 판단력</div>
+                <a href="game3.html" class="game-item">
+                    <div class="game-icon bg-speed">⚡</div>
+                    <div class="game-text"><span>색상 판단</span><small>스트룹 효과 훈련</small></div>
+                </a>
+            </div>
+
+            <div class="game-group">
+                <div class="group-label">TOTAL 인지능력</div>
+                <a href="game4.html" class="game-item">
+                    <div class="game-icon bg-memory">🧠</div>
+                    <div class="game-text"><span>기억력</span><small>순서 암기</small></div>
+                </a>
+            </div>
         </div>
     </section>
 
