@@ -40,7 +40,9 @@
         nav.main-nav::-webkit-scrollbar { display: none; }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; flex-shrink: 0; }
         nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
-
+        .sub-nav { display: flex; justify-content: center; gap: 15px; padding: 12px 0; background: #fff; border-bottom: 1px solid #eee; font-size: 0.75rem; }
+        .sub-nav a { text-decoration: none; color: #aaa; font-weight: 500; }
+        .sub-nav a.current { color: var(--accent-color); font-weight: bold; }
         .container { 
             width: 95%; 
             max-width: 500px; 
