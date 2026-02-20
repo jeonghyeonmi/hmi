@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>요즘 인류의 지능이 낮아지는 이유: 역 플린 효과 | SKZ Brain Lab</title>
+    <title>충격 실태! 부모보다 지능이 낮은 첫 세대의 등장 | SKZ Brain Lab</title>
 
     <meta name="description" content="전 세계적으로 보고되는 IQ 하락 현상, '역 플린 효과'의 원인을 분석합니다. 디지털 환경이 인간의 인지 구조에 미치는 영향과 뇌 과학적 통찰을 확인하세요.">
     <meta name="keywords" content="역플린효과, IQ하락, 지능지수, 뇌과학, 디지털치매, 인지능력">
     
     <meta property="og:title" content="우리의 지능은 정말 낮아지고 있을까? - 역 플린 효과">
     <meta property="og:description" content="디지털 세대의 뇌 구조 변화와 지능 저하 논란의 진실을 파헤칩니다.">
-    <meta property="og:image" content="img/post1.jpg"> <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/post1.html">
+    <meta property="og:image" content="img/post1.jpg"> 
+    <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/post1.html">
+
     <style>
         :root { 
             --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
@@ -21,7 +23,7 @@
         body { 
             font-family: 'Pretendard', -apple-system, sans-serif; 
             background-color: var(--bg-color); margin: 0; color: var(--text-main);
-            line-height: 1.7; letter-spacing: -0.02em;
+            line-height: 1.8; letter-spacing: -0.02em;
         }
         
         /* 읽기 진행바 */
@@ -33,20 +35,18 @@
         header { background: var(--primary-color); color: white; padding: 1rem 1rem; text-align: center; }
         header h1 { margin: 0; }
         header h1 a { text-decoration: none; color: inherit; font-size: 1.4rem; font-weight: 800; }
-        header p { margin: 5px 0 0; font-size: 0.85rem; opacity: 0.8; }
 
         nav.main-nav { 
             background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
-            overflow-x: auto; white-space: nowrap;
         }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
         nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
 
-        .container { width: 94%; max-width: 700px; margin: 2rem auto; }
+        .container { width: 94%; max-width: 750px; margin: 2rem auto; }
         
         .article-card { 
-            background: white; padding: 40px 25px; border-radius: 28px; 
+            background: white; padding: 50px 30px; border-radius: 28px; 
             box-shadow: 0 10px 40px rgba(0,0,0,0.03); 
         }
 
@@ -56,52 +56,44 @@
         }
 
         .article-card h2 { 
-            font-size: clamp(1.5rem, 6vw, 2.1rem); line-height: 1.35; margin: 0 0 25px 0; 
+            font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1.35; margin: 0 0 30px 0; 
             word-break: keep-all; color: var(--primary-color); font-weight: 800;
         }
 
-        .meta-info { 
-            font-size: 0.85rem; color: var(--text-muted); margin-bottom: 40px; 
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid #f0f0f0; padding-bottom: 20px; 
-        }
-
-        /* 본문 스타일 */
-        .content { font-size: 1.05rem; color: var(--text-content); }
+        /* 본문 콘텐츠 스타일 */
+        .content { font-size: 1.1rem; color: var(--text-content); }
         .content p { margin-bottom: 1.8rem; text-align: justify; }
-        .content strong { color: var(--primary-color); }
-        
         .content h3 { 
-            font-size: 1.4rem; color: var(--primary-color); margin-top: 3rem; margin-bottom: 1.2rem; 
-            display: flex; align-items: center; gap: 10px;
+            font-size: 1.5rem; color: var(--primary-color); margin-top: 3.5rem; margin-bottom: 1.2rem; 
+            display: flex; align-items: center; gap: 10px; font-weight: 800;
         }
-        .content h3::before { content: ''; width: 4px; height: 1.2rem; background: var(--accent-color); border-radius: 2px; }
+        .content h3::before { content: ''; width: 4px; height: 1.3rem; background: var(--accent-color); border-radius: 2px; }
 
-        .highlight-box { 
-            background: #f8fafc; border: 1px solid #e2e8f0; padding: 25px; 
-            margin: 40px 0; border-radius: 20px; font-style: italic;
-            position: relative;
+        .emphasis { color: #e11d48; font-weight: 700; background: linear-gradient(to top, #ffe4e6 35%, transparent 35%); }
+        
+        .quote-box { 
+            background: #fff7ed; border-left: 6px solid #f97316; padding: 25px; 
+            margin: 40px 0; border-radius: 0 20px 20px 0; font-style: italic;
         }
-        .highlight-box::after { content: '“'; position: absolute; top: 10px; left: 15px; font-size: 3rem; color: #e2e8f0; font-family: serif; }
 
-        /* 하단 액션 버튼 */
-        .article-footer {
-            margin-top: 60px; display: flex; gap: 12px; justify-content: center;
+        /* 푸터 액션 영역 */
+        .cta-box {
+            background: #f1f5f9; padding: 35px; border-radius: 24px; margin-top: 60px;
+            text-align: center; border: 1px dashed #cbd5e1;
         }
-        .btn {
-            padding: 14px 24px; border-radius: 14px; font-weight: bold; font-size: 0.95rem;
-            text-decoration: none; transition: 0.2s; border: none; cursor: pointer;
+        .btn-game {
+            display: inline-block; background: var(--primary-color); color: white; 
+            padding: 16px 32px; border-radius: 14px; text-decoration: none; 
+            font-weight: bold; margin-top: 20px; transition: 0.3s;
         }
-        .btn-list { background: #f1f3f5; color: #495057; }
-        .btn-next { background: var(--primary-color); color: white; flex-grow: 1; text-align: center; max-width: 300px; }
-        .btn:active { transform: scale(0.98); opacity: 0.9; }
+        .btn-game:hover { background: var(--accent-color); transform: translateY(-2px); }
 
         /* 참고자료 */
         .references { 
             margin-top: 60px; padding: 25px; background: #fafafa; border-radius: 16px;
-            font-size: 0.8rem; color: var(--text-muted); 
+            font-size: 0.85rem; color: var(--text-muted); border: 1px solid #eee;
         }
-        .references h4 { margin: 0 0 15px 0; color: var(--text-main); font-size: 0.9rem; }
+        .references h4 { margin: 0 0 15px 0; color: var(--text-main); }
         .references ul { list-style: none; padding: 0; margin: 0; }
         .references li { margin-bottom: 10px; line-height: 1.6; padding-left: 15px; position: relative; }
         .references li::before { content: '•'; position: absolute; left: 0; color: #ccc; }
@@ -112,8 +104,6 @@
         @media (max-width: 480px) {
             .article-card { padding: 35px 20px; border-radius: 0; }
             .container { width: 100%; margin: 0; }
-            .article-footer { flex-direction: column-reverse; }
-            .btn-next { max-width: none; }
         }
     </style>
 </head>
@@ -135,43 +125,47 @@
 
     <main class="container">
         <article class="article-card">
-            <span class="category-tag">INSIGHT</span>
-            <h2>요즘 우리의 지능이 정말 낮아지고 있을까요? '역 플린 효과' 알아보기</h2>
+            <span class="category-tag">⚠️ 긴급 리포트</span>
+            <h2>충격 실태! 인류 역사상 처음으로 <br><span class="emphasis">부모보다 IQ가 낮은 아이들</span>이 나타났다?</h2>
             
-            <div class="meta-info">
-                <span>By SKZ Lab 훈련사</span>
-            </div>
-
             <div class="content">
-                <p><img src="img/post1.jpg" alt="뇌 퇴화 분석 이미지" style="width: 100%; margin: 20px 0;"></p>
-                <p>안녕하세요! 오늘은 우리가 함께 고민해볼 만한 흥미로운 주제를 가져왔습니다. 지난 100년 동안 인류는 풍족한 영양과 교육 덕분에 IQ가 꾸준히 상승해 왔지만, 최근 그 추세가 꺾였다는 <strong>'역 플린 효과(Reverse Flynn Effect)'</strong>에 대한 이야기입니다.</p>
+                <p>지금 우리 아이들이 이전 세대보다 지능이 낮다는 사실, 믿어지시나요? 지난 100년간 인류는 더 나은 영양과 교육을 통해 세대를 거듭할수록 똑똑해져 왔습니다. 하지만 최근 전 세계 뇌과학계를 발칵 뒤집어놓은 리포트들이 쏟아지고 있습니다. <span class="emphasis">인류 역사상 처음으로 '자녀 세대의 지능이 부모 세대보다 낮아지는 역전 현상'</span>이 실제로 벌어지고 있기 때문입니다.</p>
 
-                <div class="highlight-box">
-                    <p style="margin:0; position:relative; z-index:1;">"노르웨이의 연구 분석에 따르면, 1970년대 중반 이후 태생부터 IQ 점수가 낮아지고 있습니다. 이는 단순한 우연일까요?"</p>
+                
+
+                <div class="quote-box">
+                    "노르웨이 프리슈 경제연구소의 분석에 따르면, 1975년생 이후 태어난 남성들의 IQ는 세대가 바뀔 때마다 평균 7점씩 하락하고 있습니다. 이는 단순한 우연이 아니라 인류 지능의 '변곡점'에 도달했음을 의미합니다."
                 </div>
 
-                <h3>1. 지능 지수가 낮아지는 현상</h3>
-                <p>연구자들이 70만 명 이상의 데이터를 분석한 결과, 전 세계적으로 수십 년간 지속되던 IQ 상승세가 멈추고 오히려 하락세로 돌아섰음이 확인되었습니다. 특히 수리 능력과 어휘력 부분에서 두드러진 변화가 나타나고 있습니다.</p>
-
-                <h3>2. 왜 이런 일이 생기는 걸까요?</h3>
-                <p>가장 강력한 원인 중 하나는 <strong>'디지털 환경으로의 변화'</strong>입니다. 스마트폰의 숏폼 영상과 파편화된 정보 소비는 우리 뇌의 전두엽 기능을 약화시키고, 긴 글을 읽거나 복잡한 문제를 인내심 있게 해결하는 능력을 방해합니다.</p>
-
-                <h3>3. 해결책은 능동적인 훈련</h3>
-                <p>쓰지 않는 근육이 퇴화하듯, 우리 뇌도 자극이 없으면 인지 기능이 저하됩니다. SKZ Brain Lab이 제공하는 <strong>집중력, 논리력, 판단력 게임</strong>들은 단순히 시간을 때우는 것이 아니라, 현대 사회에서 소외되기 쉬운 뇌 부위를 자극하는 '디지털 헬스' 도구입니다.</p>
+                <h3>1. 도대체 왜 이런 일이 벌어지고 있을까?</h3>
+                <p>가장 큰 원인으로 지목되는 것은 역시 우리의 일상을 점령한 **'디지털 환경'**입니다. 과거의 아이들이 종이책을 넘기며 상상의 나래를 펼치고 복잡한 수수께끼를 풀 때 전두엽이 활발하게 발달했다면, 지금의 아이들은 15초 내외의 숏폼 영상과 즉각적인 반응에 길들여져 있습니다.</p>
                 
-                <p>오늘부터라도 짧은 게임 한 판으로 여러분의 소중한 인지 근육을 깨워보는 건 어떨까요?</p>
-            </div>
+                <p>뇌과학자들은 이를 '인지적 게으름'이라고 부릅니다. 궁금한 게 생기면 깊이 고민하는 대신 검색창을 켜고, 복잡한 계산은 계산기에 맡기죠. 우리 뇌는 쓰지 않으면 퇴화하는 근육과 같습니다. 외부 기기가 뇌의 역할을 대신해주면서, 우리 뇌는 스스로 생각하고 논리적인 회로를 구축할 기회를 잃어버린 셈입니다.</p>
 
-            <div class="article-footer">
-                <a href="posts.html" class="btn btn-list">목록으로</a>
-                <a href="game6.html" class="btn btn-game">🎯 추천 훈련 시작하기</a>
+                <h3>2. 지능이 낮아지는 것, 왜 지금 당장 위험할까?</h3>
+                <p>지능 지수가 몇 점 낮아지는 게 뭐가 그렇게 큰 문제냐고 물으실 수도 있습니다. 하지만 진짜 위험은 숫자가 아니라 **'사고의 깊이'**에 있습니다. 지능의 하락은 곧 문해력의 저하와 직결됩니다. 긴 글의 맥락을 파악하지 못하고, 정보의 진위 여부를 가려내지 못하며, 복잡한 사회 문제를 해결할 인내심이 부족해지는 것이죠.</p>
+                
+                <p>특히 인공지능(AI)이 인간의 일자리를 대체하는 미래 사회에서, 단순한 정보 수용자가 아닌 '고차원적 사고'를 할 수 있는 능력은 생존과 직결됩니다. 뇌가 퇴화한다는 것은 단순히 공부를 못하게 되는 것이 아니라, 미래 사회에서 도태될 위험이 커진다는 무거운 경고입니다.</p>
+
+                <h3>3. 이 위기를 탈출하기 위한 방법</h3>
+                <p>다행인 점은 우리 뇌가 죽을 때까지 변화하는 '가소성'을 가졌다는 것입니다. 해결책은 명확합니다. 뇌에게 다시 **'건강한 자극'**을 주는 것이죠. 스마트폰의 수동적인 자극에서 벗어나, 뇌가 스스로 논리적 결론을 도출하도록 만드는 능동적인 훈련이 필요합니다.</p>
+
+                <p>책을 읽고, 전략적인 문제를 풀고, 끊임없이 뇌를 자극하세요. 불편함이 느껴질 때 우리 뇌의 신경 세포는 비로소 다시 연결되기 시작합니다. 아이들에게는 스마트폰 대신 생각할 거리를, 어른들에게는 무뎌진 뇌를 깨울 자극을 주어야 할 때입니다.</p>
+
+                <div class="cta-box">
+                    <h4 style="margin-top: 0; color: var(--primary-color);">💡 지금 내 뇌는 안녕한가요?</h4>
+                    <p style="margin-bottom: 0;">방금 읽으신 '지능의 하락'이 혹시 나의 이야기처럼 느껴지시나요? 퇴화하고 있는 뇌 회로를 다시 깨우는 가장 쉽고 즐거운 방법을 제안합니다.</p>
+                    <a href="game.html" class="btn-game">🎯 뇌 회로 활성화 훈련 시작하기</a>
+                </div>
             </div>
 
             <section class="references">
-                <h4>📚 참고 자료</h4>
+                <h4>📚 데이터 출처 및 참고 문헌</h4>
                 <ul>
-                    <li>Bratsberg, B., & Rogeberg, O. (2018). Flynn effect and its reversal are environmentally caused. PNAS.</li>
-                    <li>니콜라스 카 (2010). '생각하지 않는 사람들'. 청림출판.</li>
+                    <li><strong>Bratsberg, B., & Rogeberg, O. (2018).</strong> "Flynn effect and its reversal are environmentally caused." <em>PNAS</em>.</li>
+                    <li><strong>World Economic Forum (2018).</strong> "IQ scores are falling in some developed countries. Here’s why."</li>
+                    <li><strong>Manfred Spitzer (2012).</strong> <em>Digital Dementia</em>. 디지털 치매 연구 리포트.</li>
+                    <li><strong>Nicholas Carr (2010).</strong> <em>The Shallows</em>. (생각하지 않는 사람들).</li>
                 </ul>
             </section>
         </article>
@@ -179,14 +173,12 @@
 
     <footer>
         <div style="margin-bottom: 10px;">
-            <a href="privacy.html">개인정보처리방침</a> | 
-            <a href="terms.html">이용약관</a>
+            <a href="privacy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
         </div>
-        &copy; 2026 SKZ Brain Lab. 모든 칼럼은 연구 결과를 바탕으로 작성되었습니다.
+        &copy; 2026 SKZ Brain Lab. 모든 칼럼은 연구 데이터를 바탕으로 작성되었습니다.
     </footer>
 
     <script>
-        // 읽기 진행바 로직
         window.onscroll = function() {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
