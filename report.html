@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>브레인 분석 리포트 | SKZ Brain Lab</title>
 
-<meta name="description" content="집중력, 논리력, 순발력 등 6대 인지 영역 분석 완료! SKZ Brain Lab이 진단한 나의 브레인 타입과 종합 점수를 확인하세요.">
-<meta name="keywords" content="두뇌분석, 인지리포트, 뇌유형검사, 브레인테스트, SKZBrainLab, 자기계발">
+    <meta name="description" content="집중력, 논리력, 순발력 등 6대 인지 영역 분석 완료! SKZ Brain Lab이 진단한 나의 브레인 타입과 종합 점수를 확인하세요.">
+    <meta name="keywords" content="두뇌분석, 인지리포트, 뇌유형검사, 브레인테스트, SKZBrainLab, 자기계발">
 
-<meta property="og:title" content="당신은 어떤 '뇌'를 가졌나요? - SKZ 종합 리포트">
-<meta property="og:description" content="냉철한 수학자? 몰입하는 장인? 지금 바로 6대 인지 영역 레이더 차트를 확인하고 결과를 공유해보세요!">
-<meta property="og:image" content="img/index.jpg">
-<meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/report.html">
+    <meta property="og:title" content="당신은 어떤 '뇌'를 가졌나요? - SKZ 종합 리포트">
+    <meta property="og:description" content="냉철한 수학자? 몰입하는 장인? 지금 바로 6대 인지 영역 레이더 차트를 확인하고 결과를 공유해보세요!">
+    <meta property="og:image" content="img/index.jpg">
+    <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/report.html">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root { 
@@ -23,86 +23,80 @@
         body { 
             font-family: 'Pretendard', -apple-system, sans-serif; 
             background: var(--bg-color); margin: 0; color: var(--text-main); 
-            line-height: 1.6;
+            line-height: 1.5;
         }
         
-        header { background: var(--primary-color); color: white; padding: 1rem 1rem; text-align: center; }
-        header h1 { margin: 0; }
-        header h1 a { text-decoration: none; color: inherit; font-size: 1.4rem; font-weight: 800; }
-        header p { margin: 5px 0 0; font-size: 0.85rem; opacity: 0.8; }
+        header { background: var(--primary-color); color: white; padding: 0.8rem; text-align: center; }
+        header h1 a { text-decoration: none; color: inherit; font-size: 1.2rem; font-weight: 800; }
 
         nav.main-nav { 
-            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
+            background: white; padding: 0.6rem; display: flex; justify-content: center; gap: 1rem; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
         }
-        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.85rem; }
         nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
 
-        .container { width: 94%; max-width: 600px; margin: 2rem auto; }
+        .container { width: 94%; max-width: 600px; margin: 1rem auto; }
         
         .report-card { 
-            background: white; border-radius: 30px; padding: 40px 25px; 
-            box-shadow: 0 15px 50px rgba(0,0,0,0.05); text-align: center; 
+            background: white; border-radius: 24px; padding: 25px 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; 
             position: relative; overflow: hidden;
         }
         
-        /* 상단 장식 요소 */
         .report-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 8px;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px;
             background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
         }
         
-        .user-type { font-size: 1rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 500; }
-        .type-name { font-size: 2.2rem; font-weight: 900; color: var(--primary-color); margin-bottom: 30px; letter-spacing: -0.05em; }
+        .user-type { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 500; }
+        .type-name { font-size: 1.8rem; font-weight: 900; color: var(--primary-color); margin-bottom: 15px; letter-spacing: -0.05em; }
         .type-name mark { background: transparent; color: var(--accent-color); position: relative; }
-        .type-name mark::after {
-            content: ''; position: absolute; bottom: 5px; left: 0; width: 100%; height: 8px;
-            background: rgba(211, 84, 0, 0.1); z-index: -1;
-        }
 
         .chart-wrapper { 
-            position: relative; margin: 0 auto 40px; 
-            background: #fff; border-radius: 50%; padding: 10px;
+            position: relative; margin: 0 auto 15px; 
+            max-width: 320px; background: #fff;
         }
 
-        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 35px; }
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
         .stat-item { 
-            background: #f8fafc; padding: 18px 15px; border-radius: 20px; 
+            background: #f8fafc; padding: 12px 10px; border-radius: 15px; 
             text-align: center; border: 1px solid #f1f5f9;
         }
-        .stat-label { font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 5px; }
-        .stat-value { font-size: 1.15rem; font-weight: 800; color: var(--primary-color); }
+        .stat-label { font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 2px; }
+        .stat-value { font-size: 1.05rem; font-weight: 800; color: var(--primary-color); }
 
         .description-box {
-            background: #fff9f5; border-radius: 20px; padding: 25px;
-            color: var(--text-content); font-size: 0.98rem; line-height: 1.7;
-            margin-bottom: 40px; border: 1px solid #ffedd5; word-break: keep-all;
+            background: #fff9f5; border-radius: 16px; padding: 18px;
+            color: var(--text-content); font-size: 0.92rem; line-height: 1.6;
+            margin-bottom: 25px; border: 1px solid #ffedd5; word-break: keep-all; text-align: left;
         }
 
-        .action-buttons { display: flex; flex-direction: column; gap: 12px; }
+        .action-buttons { display: flex; flex-direction: column; gap: 10px; }
         .btn {
-            display: block; padding: 18px; border-radius: 16px; 
-            text-decoration: none; font-weight: 800; font-size: 1rem; 
+            display: block; padding: 15px; border-radius: 12px; 
+            text-decoration: none; font-weight: 800; font-size: 0.95rem; 
             transition: 0.2s; border: none; cursor: pointer;
         }
-        .btn-retry { background: var(--primary-color); color: white; box-shadow: 0 4px 15px rgba(26, 58, 95, 0.2); }
-        .btn-retry:active { transform: scale(0.98); }
+        .btn-retry { background: var(--primary-color); color: white; }
         
-        .btn-reset { background: transparent; color: #94a3b8; font-size: 0.85rem; padding: 10px; margin-top: 20px; text-decoration: underline; }
+        .btn-reset { background: transparent; color: #94a3b8; font-size: 0.8rem; padding: 5px; margin-top: 10px; text-decoration: underline; }
 
-        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; }
+        footer { text-align: center; padding: 2rem 0; color: #bbb; font-size: 0.75rem; }
 
         @media (max-width: 480px) {
-            .report-card { padding: 40px 20px; }
-            .type-name { font-size: 1.8rem; }
-            .stat-grid { grid-template-columns: 1fr; }
+            .container { margin: 0.5rem auto; }
+            .report-card { padding: 20px 15px; border-radius: 20px; }
+            .type-name { font-size: 1.6rem; margin-bottom: 10px; }
+            .chart-wrapper { max-width: 280px; }
+            .stat-grid { gap: 8px; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1><a href="index.html">🧠 SKZ 두뇌 훈련소 🎮</a></h1>
+    <h1><a href="index.html">🧠 SKZ 두뇌 훈련소</a></h1>
 </header>
 
 <nav class="main-nav">
@@ -131,16 +125,16 @@
 
         <div class="action-buttons">
             <a href="index.html" class="btn btn-retry">다른 훈련 계속하기</a>
-            <button onclick="shareResult()" class="btn" style="background:#e2e8f0; color:#475569;">📊 결과 이미지로 저장하기</button>
+            <button onclick="shareResult()" class="btn" style="background:#f1f5f9; color:#475569;">📊 결과 이미지로 저장</button>
             <button class="btn-reset" onclick="resetData()">모든 훈련 기록 초기화</button>
         </div>
     </main>
 </div>
 
-<footer>&copy; 2026 SKZ Brain Lab. 종합 인지 능력 분석</footer>
+<footer>&copy; 2026 SKZ Brain Lab</footer>
 
 <script>
-    // 1. 데이터 불러오기 (로컬 스토리지)
+    // [기존 JS 로직 유지하되 화면 업데이트 부분만 미세 조정]
     const rawScores = {
         focus: localStorage.getItem('game1_score'),
         logic: localStorage.getItem('game2_score'),
@@ -159,84 +153,67 @@
         cognition: parseInt(rawScores.cognition) || 0
     };
 
-    // 2. 레이더 차트 (Chart.js 커스텀)
     const ctx = document.getElementById('abilityChart').getContext('2d');
     new Chart(ctx, {
         type: 'radar',
         data: {
             labels: ['집중력', '논리력', '순발력', '기억력', '수리력', '인지력'],
             datasets: [{
-                label: '내 능력치',
                 data: [scores.focus, scores.logic, scores.speed, scores.memory, scores.math, scores.cognition],
-                backgroundColor: 'rgba(211, 84, 0, 0.15)',
+                backgroundColor: 'rgba(211, 84, 0, 0.1)',
                 borderColor: 'rgba(211, 84, 0, 1)',
-                borderWidth: 3,
-                pointBackgroundColor: 'rgba(211, 84, 0, 1)',
-                pointBorderColor: '#fff',
-                pointHoverRadius: 5,
-                pointRadius: 4
+                borderWidth: 2,
+                pointRadius: 3,
+                pointBackgroundColor: 'rgba(211, 84, 0, 1)'
             }]
         },
         options: {
-            responsive: true,
-            maintainAspectRatio: true,
             scales: {
                 r: {
-                    angleLines: { color: '#e2e8f0' },
-                    grid: { color: '#f1f5f9' },
                     suggestedMin: 0,
                     suggestedMax: 100,
-                    ticks: { display: false, stepSize: 20 },
-                    pointLabels: {
-                        font: { size: 13, weight: 'bold', family: 'Pretendard' },
-                        color: '#64748b'
-                    }
+                    ticks: { display: false, stepSize: 25 },
+                    pointLabels: { font: { size: 11, weight: '700' } }
                 }
             },
-            plugins: {
-                legend: { display: false }
-            }
+            plugins: { legend: { display: false } }
         }
     });
 
-    // 3. 타입 진단 및 화면 표시 로직
-    const brainTypeElem = document.getElementById('brain-type');
-    const descElem = document.getElementById('type-desc');
     const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
     const avgScore = Math.floor(totalScore / 6);
+    const brainTypeElem = document.getElementById('brain-type');
+    const descElem = document.getElementById('type-desc');
 
     if (totalScore === 0) {
         brainTypeElem.innerHTML = "새내기 <mark>훈련사</mark>";
-        descElem.innerText = "아직 훈련 데이터가 부족합니다. 각 영역별 게임을 플레이하시면 정밀한 브레인 분석 리포트가 생성됩니다!";
+        descElem.innerText = "아직 훈련 데이터가 부족합니다. 게임을 플레이하시면 정밀 리포트가 생성됩니다!";
     } else {
         const maxVal = Math.max(...Object.values(scores));
         const bestAbility = Object.keys(scores).find(key => scores[key] === maxVal);
-
         let typeName = "";
         let description = "";
 
         if(bestAbility === 'math') {
             typeName = "냉철한 <mark>수학자</mark>";
-            description = "당신은 숫자의 질서 속에서 안정감을 느끼는 타입입니다. 복잡한 데이터 속에서 정답을 빠르게 도출하는 수리적 직관이 매우 발달해 있습니다.";
+            description = "숫자의 질서 속에서 정답을 빠르게 도출하는 수리적 직관이 매우 발달해 있습니다.";
         } else if(bestAbility === 'speed' || bestAbility === 'cognition') {
             typeName = "날렵한 <mark>치타</mark>";
-            description = "상황을 판단하고 반응하는 속도가 남다릅니다. 변화하는 환경에 즉각적으로 대응하는 인지 유연성이 당신의 가장 큰 무기입니다.";
+            description = "상황을 판단하고 반응하는 속도가 남다릅니다. 인지 유연성이 당신의 가장 큰 무기입니다.";
         } else if(bestAbility === 'memory') {
             typeName = "기록하는 <mark>현자</mark>";
-            description = "한 번 본 정보를 놓치지 않는 정교한 기억 메커니즘을 가졌습니다. 경험을 지식으로 변환하여 활용하는 능력이 뛰어납니다.";
+            description = "한 번 본 정보를 놓치지 않는 정교한 기억 메커니즘을 가졌습니다.";
         } else if(bestAbility === 'focus') {
             typeName = "몰입하는 <mark>장인</mark>";
-            description = "주변의 소음을 차단하고 목표에만 에너지를 쏟아붓는 놀라운 집중력을 보유하고 계시군요. 딥 워크(Deep Work)에 최적화된 뇌입니다.";
+            description = "주변의 소음을 차단하고 목표에만 에너지를 쏟아붓는 놀라운 집중력을 보유하고 계십니다.";
         } else {
             typeName = "균형 잡힌 <mark>전략가</mark>";
-            description = "모든 인지 영역이 고르게 발달했습니다. 어느 한쪽에 치우치지 않고 상황을 다각도로 분석하여 최선의 결과를 만들어내는 능력이 탁월합니다.";
+            description = "모든 인지 영역이 고르게 발달했습니다. 다각도로 분석하는 능력이 탁월합니다.";
         }
-
         brainTypeElem.innerHTML = typeName;
         descElem.innerText = description;
     }
 
-    // 4. 통계 요약 삽입
     document.getElementById('stat-summary').innerHTML = `
         <div class="stat-item">
             <span class="stat-label">종합 평균 점수</span>
@@ -248,25 +225,13 @@
         </div>
     `;
 
-    function getMaxAbility() {
-        return Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
-    }
-
+    function getMaxAbility() { return Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b); }
     function getAbilityName(key) {
         const names = { focus:'집중력', logic:'논리력', speed:'순발력', memory:'기억력', math:'수리력', cognition:'인지력' };
         return names[key];
     }
-
-    function resetData() {
-        if(confirm("모든 훈련 데이터와 기록이 삭제됩니다. 정말 초기화하시겠습니까?")) {
-            localStorage.clear();
-            location.reload();
-        }
-    }
-
-    function shareResult() {
-        alert("현재 웹 버전에서는 브라우저 캡처 기능을 이용해 주세요! (기기별 스크린샷 캡처)");
-    }
+    function resetData() { if(confirm("모든 기록이 삭제됩니다. 정말 초기화하시겠습니까?")) { localStorage.clear(); location.reload(); } }
+    function shareResult() { alert("기기의 스크린샷 캡처 기능을 이용해 주세요!"); }
 </script>
 </body>
 </html>
