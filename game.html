@@ -21,7 +21,7 @@
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
-       
+        
 
         /* 네비게이션 가로 스크롤 최적화 */
         nav.main-nav { 
@@ -82,7 +82,7 @@
         
         #timer { font-size: 2.5rem; font-weight: 800; color: var(--primary-color); margin: 10px 0; display: block; font-variant-numeric: tabular-nums; }
         
-        /* 카드 그리드 배치 수정 */
+        /* 카드 그리드 배치 */
         .game-board { 
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
@@ -143,7 +143,7 @@
         <a href="report.html">리포트</a>
         <a href="posts.html">분석실</a>
     </nav>
-    <nav class="sub-nav" aria-label="집중력 게임 메뉴">
+    <nav class="sub-nav">
         <a href="game.html" class="current">[메모리 게임]</a>
         <a href="game8.html">[시장에 가면]</a>
     </nav>
@@ -174,13 +174,13 @@
         </div>
     </main>
 
-   <footer>
-    <div style="margin-bottom: 10px;">
-        <a href="privacy.html" style="color: #aaa; text-decoration: none; margin: 0 10px;">개인정보처리방침</a> | 
-        <a href="terms.html" style="color: #aaa; text-decoration: none; margin: 0 10px;">이용약관</a>
-    </div>
-    &copy; 2026 SKZ Brain Lab. All rights reserved.
-</footer>
+    <footer>
+        <div style="margin-bottom: 10px;">
+            <a href="privacy.html">개인정보처리방침</a> | 
+            <a href="terms.html">이용약관</a>
+        </div>
+        &copy; 2026 SKZ Brain Lab. All rights reserved.
+    </footer>
 
     <script>
         const emojis = ['🍎', '🍌', '🍓', '🍊', '🍇', '🍉', '🥝', '🥑'];
@@ -239,18 +239,31 @@
         function endGame() {
             clearInterval(timerInterval);
             const time = parseFloat(document.getElementById('timer').innerText);
+            saveRecord(time);
+        }
+
+        function saveRecord(time) {
             const now = new Date();
-            const dateStr = `${now.getMonth()+1}/${now.getDate()} ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+            const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
             
-            let history = JSON.parse(localStorage.getItem('memoryHistory')) || [];
-            let best = history.length > 0 ? Math.min(...history.map(h => h.time)) : 999;
-            
-            // 점수 변환 저장 (100점 만점 기준 보정)
+            // --- [업데이트: 최근 10회 기록 평균 저장 로직] ---
             const reportScore = Math.max(0, Math.min(100, Math.floor(120 - (time * 2)))); 
+            
+            // 1. 최근 10회 기록 배열 관리 (리포트 차트용)
+            let scoreHistory = JSON.parse(localStorage.getItem('game1_history')) || [];
+            scoreHistory.push(reportScore);
+            if (scoreHistory.length > 10) scoreHistory.shift();
+            localStorage.setItem('game1_history', JSON.stringify(scoreHistory));
+
+            // 2. 단일 최신 점수 저장
             localStorage.setItem('game1_score', reportScore);
 
+            // 3. 내부 로그용 memoryHistory 저장
+            let history = JSON.parse(localStorage.getItem('memoryHistory')) || [];
+            let best = history.length > 0 ? Math.min(...history.map(h => h.time)) : 999;
             history.unshift({ date: dateStr, time: time });
             localStorage.setItem('memoryHistory', JSON.stringify(history.slice(0, 10)));
+            // ----------------------------------------------
 
             let msg = time < best ? `🎉 최고 기록 경신! : ${time}초\n` : `훈련 완료! 기록: ${time}초\n`;
             
@@ -274,8 +287,9 @@
         }
         
         function clearHistory() { 
-            if(confirm("모든 기록을 지울까요?")) { 
+            if(confirm("모든 집중력 기록을 지울까요?")) { 
                 localStorage.removeItem('memoryHistory'); 
+                localStorage.removeItem('game1_history');
                 location.reload(); 
             } 
         }
