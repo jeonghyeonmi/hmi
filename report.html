@@ -133,7 +133,7 @@
 <footer>&copy; 2026 SKZ Brain Lab</footer>
 
 <script>
-    // 1. 최근 10회 평균 점수 계산 함수
+    // 1. 최근 10회 평균 점수 계산 함수 (연동 강화)
     function getAverageScore(gameKeys) {
         let allScores = [];
         
@@ -145,31 +145,31 @@
             } else {
                 // 히스토리가 없으면 기존 단일 점수라도 확인
                 const singleScore = parseInt(localStorage.getItem(key + '_score'));
-                if (!isNaN(singleScore)) allScores.push(singleScore);
+                if (!isNaN(singleScore) && singleScore > 0) allScores.push(singleScore);
             }
         });
 
         if (allScores.length === 0) return 0;
         
-        // 최근 10개만 추출 (여러 게임 합산일 경우 대비)
+        // 해당 게임의 모든 기록 중 최근 10개만 추출
         const recentScores = allScores.slice(-10);
         const sum = recentScores.reduce((a, b) => a + b, 0);
         return Math.floor(sum / recentScores.length);
     }
 
-    // 2. 각 영역별 평균 점수 산출
+    // 2. 각 영역별 평균 점수 산출 (현재 활성화된 모든 게임 매핑)
     const scores = {
-        focus: getAverageScore(['game1', 'game8']),  // 집중력 (기본, 시장)
-        logic: getAverageScore(['game2', 'game7']),  // 논리력 (기본, 오목)
-        speed: getAverageScore(['game3']),           // 순발력
+        focus: getAverageScore(['game1', 'game8']),  // 집중력 (메모리, 시장)
+        logic: getAverageScore(['game2', 'game7']),  // 논리력 (스도쿠, 오목)
+        speed: getAverageScore(['game3']),           // 순발력 (색상판단)
         memory: getAverageScore(['game4']),          // 기억력
         math: getAverageScore(['game5']),            // 수리력
-        cognition: getAverageScore(['game6'])        // 인지력
+        cognition: getAverageScore(['game6'])         // 인지력
     };
 
-    // 3. 차트 생성 (Chart.js)
+    // 3. 차트 생성
     const ctx = document.getElementById('abilityChart').getContext('2d');
-    new Chart(ctx, {
+    const abilityChart = new Chart(ctx, {
         type: 'radar',
         data: {
             labels: ['집중력', '논리력', '순발력', '기억력', '수리력', '인지력'],
@@ -201,57 +201,69 @@
     const brainTypeElem = document.getElementById('brain-type');
     const descElem = document.getElementById('type-desc');
 
-    if (totalScore === 0) {
-        brainTypeElem.innerHTML = "새내기 <mark>훈련사</mark>";
-        descElem.innerText = "아직 훈련 데이터가 부족합니다. 게임을 플레이하시면 정밀 리포트가 생성됩니다!";
-    } else {
-        const maxVal = Math.max(...Object.values(scores));
-        const bestAbility = Object.keys(scores).find(key => scores[key] === maxVal);
-        let typeName = "";
-        let description = "";
-
-        if(bestAbility === 'math') {
-            typeName = "냉철한 <mark>수학자</mark>";
-            description = "숫자의 질서 속에서 정답을 빠르게 도출하는 수리적 직관이 매우 발달해 있습니다.";
-        } else if(bestAbility === 'speed' || bestAbility === 'cognition') {
-            typeName = "날렵한 <mark>치타</mark>";
-            description = "상황을 판단하고 반응하는 속도가 남다릅니다. 인지 유연성이 당신의 가장 큰 무기입니다.";
-        } else if(bestAbility === 'memory') {
-            typeName = "기록하는 <mark>현자</mark>";
-            description = "한 번 본 정보를 놓치지 않는 정교한 기억 메커니즘을 가졌습니다.";
-        } else if(bestAbility === 'focus') {
-            typeName = "몰입하는 <mark>장인</mark>";
-            description = "주변의 소음을 차단하고 목표에만 에너지를 쏟아붓는 놀라운 집중력을 보유하고 계십니다.";
-        } else if(bestAbility === 'logic') {
-            typeName = "치밀한 <mark>전략가</mark>";
-            description = "논리적 인과관계를 파악하고 최선의 수를 찾아내는 능력이 탁월합니다.";
+    function updateUI() {
+        if (totalScore === 0) {
+            brainTypeElem.innerHTML = "새내기 <mark>훈련사</mark>";
+            descElem.innerText = "아직 분석할 데이터가 부족합니다. 집중력, 논리력, 판단력 게임을 플레이하시면 정밀 리포트가 생성됩니다!";
         } else {
-            typeName = "균형 잡힌 <mark>전략가</mark>";
-            description = "모든 인지 영역이 고르게 발달했습니다. 다각도로 분석하는 능력이 탁월합니다.";
-        }
-        brainTypeElem.innerHTML = typeName;
-        descElem.innerText = description;
-    }
+            const maxVal = Math.max(...Object.values(scores));
+            const bestAbility = Object.keys(scores).find(key => scores[key] === maxVal);
+            let typeName = "";
+            let description = "";
 
-    // 통계 요약 업데이트
-    document.getElementById('stat-summary').innerHTML = `
-        <div class="stat-item">
-            <span class="stat-label">종합 평균 점수</span>
-            <span class="stat-value">${avgScore}점</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-label">가장 강한 영역</span>
-            <span class="stat-value">${totalScore === 0 ? '-' : getAbilityName(getMaxAbility())}</span>
-        </div>
-    `;
+            if(bestAbility === 'math') {
+                typeName = "냉철한 <mark>수학자</mark>";
+                description = "숫자의 질서 속에서 정답을 빠르게 도출하는 수리적 직관이 매우 발달해 있습니다.";
+            } else if(bestAbility === 'speed' || bestAbility === 'cognition') {
+                typeName = "날렵한 <mark>치타</mark>";
+                description = "상황을 판단하고 반응하는 속도가 남다릅니다. 인지 유연성이 당신의 가장 큰 무기입니다.";
+            } else if(bestAbility === 'memory') {
+                typeName = "기록하는 <mark>현자</mark>";
+                description = "한 번 본 정보를 놓치지 않는 정교한 기억 메커니즘을 가졌습니다.";
+            } else if(bestAbility === 'focus') {
+                typeName = "몰입하는 <mark>장인</mark>";
+                description = "주변의 소음을 차단하고 목표에만 에너지를 쏟아붓는 놀라운 집중력을 보유하고 계십니다.";
+            } else if(bestAbility === 'logic') {
+                typeName = "치밀한 <mark>전략가</mark>";
+                description = "논리적 인과관계를 파악하고 최선의 수를 찾아내는 능력이 탁월합니다.";
+            } else {
+                typeName = "균형 잡힌 <mark>전략가</mark>";
+                description = "모든 인지 영역이 고르게 발달했습니다. 다각도로 분석하는 능력이 탁월합니다.";
+            }
+            brainTypeElem.innerHTML = typeName;
+            descElem.innerText = description;
+        }
+
+        document.getElementById('stat-summary').innerHTML = `
+            <div class="stat-item">
+                <span class="stat-label">종합 평균 점수</span>
+                <span class="stat-value">${avgScore}점</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">가장 강한 영역</span>
+                <span class="stat-value">${totalScore === 0 ? '-' : getAbilityName(getMaxAbility())}</span>
+            </div>
+        `;
+    }
 
     function getMaxAbility() { return Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b); }
     function getAbilityName(key) {
         const names = { focus:'집중력', logic:'논리력', speed:'순발력', memory:'기억력', math:'수리력', cognition:'인지력' };
         return names[key];
     }
-    function resetData() { if(confirm("모든 기록이 삭제됩니다. 정말 초기화하시겠습니까?")) { localStorage.clear(); location.reload(); } }
-    function shareResult() { alert("기기의 스크린샷 캡처 기능을 이용해 주세요!"); }
+    
+    function resetData() { 
+        if(confirm("모든 훈련 기록과 리포트가 초기화됩니다. 정말 삭제하시겠습니까?")) { 
+            localStorage.clear(); 
+            location.reload(); 
+        } 
+    }
+    
+    function shareResult() { 
+        alert("기기의 '스크린샷 캡처' 기능을 이용해 분석 결과를 저장해 주세요!"); 
+    }
+
+    updateUI();
 </script>
 </body>
 </html>
