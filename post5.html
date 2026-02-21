@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
     <title>뇌에도 '에코 모드'가 있다? 효율 꽝인 뇌 깨우는 법 | SKZ Brain Lab</title>
 
-    <meta name="description" content="도파민 과부하로 인한 뇌 효율 저하의 원인과 해결책을 알아봅니다. 뇌의 디폴트 모드 네트워크와 가성비 높은 두뇌 관리법.">
-    <meta name="keywords" content="뇌과학, 도파민디톡스, 뇌효율, 디폴트모드네트워크, 두뇌가성비, 집중력훈련, 뇌가소성">
+    <meta name="description" content="도파민 과부하로 인한 뇌 효율 저하의 원인과 해결책을 알아봅니다. 디폴트 모드 네트워크와 가성비 높은 두뇌 관리법으로 브레인 포그를 탈출하세요.">
+    <meta name="keywords" content="뇌과학, 도파민디톡스, 뇌효율, 디폴트모드네트워크, 두뇌가성비, 집중력훈련, 뇌가소성, SKZ Brain Lab">
+    <meta name="author" content="SKZ Brain Lab">
     
+    <link rel="canonical" href="https://www.skztools.com/post5.html">
+
+    <meta property="og:type" content="article">
     <meta property="og:title" content="뇌에도 '에코 모드'가 있다? 효율 꽝인 뇌 깨우는 법">
-    <meta property="og:description" content="분명 깨어있는데 멍한 기분, 지능 문제가 아닙니다. 도파민 수용체를 회복하고 뇌 연비를 높여보세요.">
-    <meta property="og:image" content="img/post5.jpg"> 
-    <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/post5.html">
+    <meta property="og:description" content="분명 깨어있는데 멍한 기분, 지능 문제가 아닙니다. 뇌 연비를 높이는 방법을 확인해보세요.">
+    <meta property="og:image" content="https://www.skztools.com/img/post5.jpg">
+    <meta property="og:url" content="https://www.skztools.com/post5.html">
 
     <style>
         :root { 
-            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
+            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #e74c3c; 
             --text-main: #2c3e50; --text-content: #34495e; --text-muted: #7f8c8d;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -28,10 +33,9 @@
         
         #progress-bar {
             position: fixed; top: 0; left: 0; width: 0%; height: 4px;
-            background: #e74c3c; z-index: 2000; transition: width 0.1s;
+            background: var(--accent-color); z-index: 2000; transition: width 0.1s;
         }
 
-         /* 헤더/네비게이션 */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
@@ -41,73 +45,81 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
         }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
-        nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
+        nav.main-nav a.active { color: #d35400; }
 
-        .container { width: 94%; max-width: 750px; margin: 2rem auto; }
+        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; }
         
         .article-card { 
-            background: white; padding: 50px 30px; border-radius: 28px; 
+            background: white; padding: 40px 25px; border-radius: 28px; 
             box-shadow: 0 10px 40px rgba(0,0,0,0.03); 
         }
 
-        .tag { 
-            display: inline-block; padding: 5px 14px; background: #fee2e2; color: #b91c1c; 
-            border-radius: 8px; font-size: 0.75rem; font-weight: 800; margin-bottom: 20px; 
+        .meta-info { margin-bottom: 15px; }
+        .category-tag { 
+            display: inline-block; padding: 4px 12px; background: #fee2e2; color: #b91c1c; 
+            border-radius: 6px; font-size: 0.75rem; font-weight: 800;
         }
+        .post-date { font-size: 0.75rem; color: #bbb; margin-left: 10px; }
 
-        .article-card h2 { 
-            font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1.35; margin: 0 0 30px 0; 
+        .article-card h1 { 
+            font-size: 1.7rem; line-height: 1.4; margin: 0 0 25px 0; 
             word-break: keep-all; color: var(--primary-color); font-weight: 800;
         }
 
-        .content { font-size: 1.1rem; color: var(--text-content); }
-        .content p { margin-bottom: 1.8rem; text-align: justify; }
-        .content h3 { 
-            font-size: 1.5rem; color: var(--primary-color); margin-top: 3.5rem; margin-bottom: 1.2rem; 
-            display: flex; align-items: center; gap: 10px; font-weight: 800;
+        .content { font-size: 1rem; color: var(--text-content); }
+        .content img { border-radius: 18px; margin-bottom: 20px; width: 100%; height: auto; }
+        .content p { margin-bottom: 1.6rem; text-align: justify; }
+        
+        .content h2 { 
+            font-size: 1.4rem; color: var(--primary-color); margin-top: 3rem; margin-bottom: 1.2rem; 
+            font-weight: 800; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;
         }
-        .content h3::before { content: ''; width: 4px; height: 1.3rem; background: #e74c3c; border-radius: 2px; }
+        
+        .status-check {
+            background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px;
+            border-radius: 20px; margin: 25px 0;
+        }
+        .status-check strong { color: var(--accent-color); display: block; margin-bottom: 10px; }
+        .status-check ul { padding-left: 18px; margin: 0; }
+        .status-check li { margin-bottom: 6px; font-size: 0.9rem; color: var(--text-content); }
 
         mark { background: linear-gradient(120deg, #fff176 0%, #fff176 100%); padding: 0 3px; border-radius: 4px; color: inherit; }
         .emphasis { color: #b91c1c; font-weight: 700; background: linear-gradient(to top, #fee2e2 35%, transparent 35%); }
-        
-        .quote-box { 
-            background: #fff5f5; border-left: 6px solid #e74c3c; padding: 25px; 
-            margin: 40px 0; border-radius: 0 20px 20px 0; font-style: italic;
-        }
 
-        .status-check {
-            background: #f8fafc; border: 1px solid #e2e8f0; padding: 25px;
-            border-radius: 20px; margin: 30px 0;
+        .btn-list {
+            display: block; text-align: center; margin: 40px auto 20px;
+            padding: 12px 20px; background: #f1f5f9; color: var(--text-main);
+            text-decoration: none; border-radius: 12px; font-size: 0.9rem; font-weight: 600;
+            transition: 0.3s; border: 1px solid #e2e8f0;
         }
-        .status-check ul { padding-left: 20px; margin: 15px 0 0 0; }
-        .status-check li { margin-bottom: 8px; font-size: 0.95rem; }
+        .btn-list:hover { background: #e2e8f0; }
 
         .cta-box {
-            background: #f8fafc; padding: 35px; border-radius: 24px; margin-top: 60px;
-            text-align: center; border: 1px solid #e2e8f0;
+            background: #f8fafc; padding: 30px 20px; border-radius: 24px; margin-top: 30px;
+            text-align: center; border: 1px dashed #cbd5e1;
         }
         .btn-game {
             display: inline-block; background: var(--primary-color); color: white; 
-            padding: 16px 32px; border-radius: 14px; text-decoration: none; 
-            font-weight: bold; margin-top: 20px; transition: 0.3s;
+            padding: 16px 30px; border-radius: 30px; text-decoration: none; 
+            font-weight: bold; margin-top: 20px; transition: 0.3s; box-shadow: 0 4px 12px rgba(26, 58, 95, 0.2);
         }
-        .btn-game:hover { background: #e74c3c; transform: translateY(-2px); }
+        .btn-game:hover { background: var(--accent-color); transform: translateY(-2px); }
 
         .references { 
-            margin-top: 60px; padding: 25px; background: #fafafa; border-radius: 16px;
-            font-size: 0.85rem; color: var(--text-muted); border: 1px solid #eee;
+            margin-top: 50px; padding: 20px; background: #fafafa; border-radius: 18px;
+            font-size: 0.8rem; color: var(--text-muted); border: 1px solid #eee;
         }
-        .references h4 { margin: 0 0 15px 0; color: var(--text-main); }
+        .references h4 { margin: 0 0 12px 0; color: var(--text-main); font-size: 0.9rem; }
         .references ul { list-style: none; padding: 0; margin: 0; }
-        .references li { margin-bottom: 10px; line-height: 1.6; padding-left: 15px; position: relative; }
+        .references li { margin-bottom: 8px; line-height: 1.5; padding-left: 15px; position: relative; }
         .references li::before { content: '•'; position: absolute; left: 0; color: #ccc; }
 
-        footer { text-align: center; padding: 4rem 0; color: #bbb; font-size: 0.8rem; border-top: 1px solid #eee; margin-top: 50px; }
+        footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; margin-top: 3rem; }
+        footer a { color: #bbb; text-decoration: none; margin: 0 5px; }
 
         @media (max-width: 480px) {
-            .article-card { padding: 35px 20px; border-radius: 0; }
-            .container { width: 100%; margin: 0; }
+            .article-card { padding: 30px 20px; }
+            .container { width: 95%; margin: 1rem auto; }
         }
     </style>
 </head>
@@ -119,53 +131,55 @@
     </header>
 
     <nav class="main-nav">
-        <a href="index.html">홈</a>
-        <a href="game.html">집중력</a>
-        <a href="game2.html">논리력</a>
-        <a href="game3.html">판단력</a>
-        <a href="report.html">리포트</a>
-        <a href="posts.html" class="active">분석실</a>
+        <a href="index.html" class="active">브레인 분석실</a>
+        <a href="dash.html">두뇌 훈련센터</a>
+        <a href="report.html">나의 두뇌점수</a>
     </nav>
 
     <main class="container">
         <article class="article-card">
-            <span class="tag">뇌 가성비 #05</span>
-            <h2>뇌에도 '에코 모드'가 있다? <br><mark>효율 꽝인 뇌를 깨우는</mark> 강력한 스위치⚡</h2>
+            <div class="meta-info">
+                <span class="category-tag">뇌 가성비 #05</span>
+                <time class="post-date" datetime="2026-02-21">2026. 02. 21</time>
+            </div>
+            
+            <h1>뇌에도 '에코 모드'가 있다? <br><mark>효율 꽝인 뇌를 깨우는</mark> 강력한 스위치⚡</h1>
             
             <div class="content">
-                <p>충분히 잤는데도 머릿속에 안개가 낀 것처럼 멍한 '브레인 포그(Brain Fog)'를 느껴본 적 있으신가요? 이는 지능의 문제가 아닙니다. 당신의 뇌가 에너지를 아끼기 위해 <span class="emphasis">'저효율 에코 모드'</span>로 강제 진입했기 때문입니다. 왜 이런 현상이 발생하는지, 어떻게 다시 고성능 모드로 전환할 수 있는지 알아보겠습니다.</p>
+                <p>충분히 잤는데도 머릿속에 안개가 낀 것처럼 멍한 '브레인 포그'를 느껴본 적 있으신가요? 이는 당신의 뇌가 에너지를 아끼기 위해 <span class="emphasis">'저효율 에코 모드'</span>로 진입했기 때문일 수 있습니다.</p>
 
-                <p><img src="img/post5.jpg" alt="도파민 회로와 뇌의 활성도" style="width: 100%; margin: 20px 0; border-radius: 15px;"></p>
-                
+                <img src="img/post5.jpg" alt="뇌의 활성도 저하 상태 시각화" loading="lazy">
 
                 <div class="status-check">
-                    <strong>⚠️ 혹시 당신의 뇌도 '에코 모드'인가요?</strong>
+                    <strong>⚠️ 내 뇌도 '에코 모드'일까? 체크리스트</strong>
                     <ul>
-                        <li>글자가 눈에 들어오지만 내용은 머리에 남지 않는다.</li>
-                        <li>방금 하려던 일이 무엇인지 순식간에 잊어버린다.</li>
-                        <li>숏폼 영상은 몇 시간씩 봐도 책은 5분도 집중하기 어렵다.</li>
+                        <li>글자가 읽히지만 내용은 머리에 남지 않는다.</li>
+                        <li>방금 하려던 일을 순간적으로 잊어버린다.</li>
+                        <li>숏폼 영상은 잘 보지만 책은 5분도 힘들다.</li>
                         <li>사소한 결정도 내리기 힘들고 의욕이 없다.</li>
                     </ul>
                 </div>
 
-                <h3>1. 뇌 연비 하락의 주범: 도파민 수용체 파업</h3>
-                <p>숏폼 영상, 무한 스크롤, 즉각적인 알림은 뇌에 '도파민 폭탄'을 투여합니다. 우리 뇌는 스스로를 보호하기 위해 도파민을 받아들이는 통로인 <span class="emphasis">'수용체'의 숫자를 줄여버립니다.</span> 이를 뇌과학에서는 '하향 조절(Down-regulation)'이라고 부릅니다.</p>
+                <h2>1. 뇌 연비 하락의 주범: 도파민 수용체 파업</h2>
+                <p>숏폼 영상과 즉각적인 알림은 뇌에 '도파민 폭탄'을 투여합니다. 뇌는 스스로를 보호하기 위해 도파민 통로인 <span class="emphasis">'수용체'의 숫자를 줄여버립니다.</span></p>
                 
-                <p>수용체가 줄어든 뇌는 일상의 소소한 성취나 학습 자극에는 반응하지 않는 '에코 모드' 상태가 됩니다. 엔진에 때가 잔뜩 껴서 아무리 가속 페달을 밟아도 나가지 않는 자동차처럼, 뇌의 인지 연비가 최악으로 떨어진 상태인 것이죠.</p>
+                <p>수용체가 줄어든 뇌는 일상의 소소한 자극에는 반응하지 않는 '에코 모드'가 됩니다. 엔진에 때가 잔뜩 껴서 아무리 가속 페달을 밟아도 나가지 않는 자동차처럼, 인지 연비가 최악으로 떨어진 상태입니다.</p>
 
-                <h3>2. 디폴트 모드 네트워크(DMN): 뇌의 자동 정리 시간</h3>
-                <p>진짜 휴식은 스마트폰을 볼 때가 아니라, 아무것도 하지 않을 때 일어납니다. 우리가 멍하게 있을 때 뇌의 <span class="emphasis">'디폴트 모드 네트워크(DMN)'</span>가 활성화됩니다.  이 네트워크는 낮 동안 수집한 파편화된 정보들을 연결하고, 불필요한 데이터를 삭제하며 '뇌의 하드디스크'를 정리합니다.</p>
+                <h2>2. 디폴트 모드 네트워크(DMN): 뇌의 자동 정리</h2>
+                <p>진짜 휴식은 스마트폰을 볼 때가 아니라, 아무것도 하지 않을 때 일어납니다. 우리가 멍하게 있을 때 뇌의 <span class="emphasis">'디폴트 모드 네트워크(DMN)'</span>가 활성화되어 정보를 연결하고 불필요한 데이터를 삭제합니다.</p>
                 
-                <p>스마트폰을 손에서 놓지 못하는 습관은 이 소중한 정리 시간을 빼앗는 행위입니다. 정리되지 않은 데이터가 뇌에 가득 찰수록 인지 과부하가 걸리고, 결국 뇌는 최소한의 전력으로만 가동되는 에코 모드를 선택하게 됩니다.</p>
+                <p>스마트폰을 놓지 못하는 습관은 이 소중한 정리 시간을 빼앗습니다. 정리되지 않은 데이터가 쌓일수록 뇌는 최소 전력으로만 가동되는 에코 모드를 선택하게 됩니다.</p>
 
-                <h3>3. 해결책: 의도적인 '몰입'의 스위치를 켜라</h3>
-                <p>에코 모드에서 탈출하는 가장 빠른 방법은 <mark>의도적인 몰입 훈련</mark>입니다. 뇌의 가소성을 이용해 무뎌진 수용체를 다시 깨우는 것이죠. 단순히 복잡한 공부를 하라는 것이 아닙니다. 아주 짧은 시간이라도 '내가 스스로 선택하고 판단하는' 능동적인 자극이 필요합니다.</p>
+                <h2>3. 해결책: 의도적인 '몰입'의 스위치</h2>
+                <p>에코 모드에서 탈출하는 가장 빠른 방법은 <mark>의도적인 몰입 훈련</mark>입니다. 단순히 공부를 하는 것이 아니라, '내가 스스로 선택하고 판단하는' 능능적인 자극이 필요합니다.</p>
 
-                <p>하루 10분, 뇌를 자극하는 게임이나 명상은 뇌의 안개를 걷어내는 가장 강력한 스위치가 됩니다. 수동적인 정보 수용자가 아닌, 능동적인 '문제 해결자'로 뇌를 전환할 때 당신의 뇌 연비는 다시 최고치로 상승합니다.</p>
+                <p>하루 10분, 뇌를 자극하는 게임이나 명상은 뇌의 안개를 걷어내는 강력한 스위치가 됩니다. 능동적인 '문제 해결자'로 전환할 때 당신의 뇌 연비는 다시 최고치로 상승합니다.</p>
+
+                <a href="index.html" class="btn-list">← 분석실 칼럼 목록보기</a>
 
                 <div class="cta-box">
-                    <h4 style="margin-top: 0; color: var(--primary-color);">⚡ 지금 바로 '고성능 모드'로 전환하세요</h4>
-                    <p style="margin-bottom: 0;">멍한 상태를 방치하면 뇌의 노화가 빨라집니다. 지금 바로 판단력 테스트를 통해 잠든 당신의 전두엽을 깨워보세요.</p>
+                    <h2 style="font-size: 1.2rem; margin: 0; border: none;">⚡ 지금 바로 '고성능 모드'로 전환하세요</h2>
+                    <p style="margin: 10px 0 0; font-size: 0.9rem;">멍한 상태를 방치하면 뇌의 노화가 빨라집니다. 판단력 테스트로 잠든 전두엽을 깨워보세요.</p>
                     <a href="game3.html" class="btn-game">⚖️ 판단력 스위치 켜기 (훈련 시작)</a>
                 </div>
             </div>
@@ -173,23 +187,19 @@
             <section class="references">
                 <h4>📚 데이터 출처 및 참고 문헌</h4>
                 <ul>
-                    <li><strong>Volkow, N. D., et al. (2011).</strong> "Dopamine in drug abuse and addiction: from mechanism to therapy." <em>Molecular Psychiatry</em>.</li>
+                    <li><strong>Volkow, N. D., et al. (2011).</strong> "Dopamine in drug abuse." <em>Molecular Psychiatry</em>.</li>
                     <li><strong>Raichle, M. E. (2015).</strong> "The brain's default mode network." <em>Annual Review of Neuroscience</em>.</li>
-                    <li><strong>Lustig, R. H. (2017).</strong> <em>The Hacking of the American Mind</em>. 도파민과 뇌 보상 회로의 불균형 분석.</li>
-                    <li><strong>Buckner, R. L., et al. (2008).</strong> "The brain's default network: Anatomy, function, and relevance to disease." <em>Annals of the New York Academy of Sciences</em>.</li>
+                    <li><strong>Lustig, R. H. (2017).</strong> <em>The Hacking of the American Mind</em>.</li>
                 </ul>
             </section>
-
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="posts.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">목록으로 돌아가기</a>
-            </div>
         </article>
     </main>
 
     <footer>
         <div style="margin-bottom: 10px;">
-            &copy; 2026 SKZ Brain Lab. 과학적 근거를 바탕으로 당신의 두뇌 가성비를 연구합니다.
+            <a href="privacy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
         </div>
+        &copy; 2026 SKZ Brain Lab. All rights reserved. 과학적 근거를 바탕으로 당신의 두뇌 가성비를 연구합니다.
     </footer>
 
     <script>
