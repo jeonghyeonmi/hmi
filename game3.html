@@ -3,110 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>판단력 훈련: 색상 간섭 스트룹 테스트 | SKZ Brain Lab</title>
+    <title>쾌속 판단 훈련: 스트룹 테스트 | SKZ Brain Lab</title>
 
-    <meta name="description" content="글자의 의미와 실제 색상 사이의 혼란을 이겨내세요! 30초 스트룹 테스트를 통해 당신의 판단 속도와 뇌의 억제 능력을 측정합니다.">
-    <meta name="keywords" content="판단력훈련, 스트룹테스트, 순발력게임, 두뇌게임, 인지억제력, 뇌과학, SKZBrainLab">
-    
-    <meta property="og:title" content="당신은 '신인류의 뇌'인가요? - SKZ 판단력 테스트">
-    <meta property="og:description" content="글자의 유혹을 뿌리치고 실제 색상을 맞추는 고도의 인지 훈련에 도전하세요.">
-    <meta property="og:image" content="img/index.jpg"> <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/game3.html">
+    <link rel="canonical" href="https://www.skztools.com/game3.html">
+    <meta name="description" content="글자의 유혹을 뿌리치고 실제 색상을 맞추는 고도의 인지 훈련. 30초 스트룹 테스트로 당신의 판단 속도를 측정하세요.">
+
     <style>
-        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #9b59b6; }
+        :root { 
+            --primary-color: #1a3a5f; 
+            --bg-color: #f4f7f9; 
+            --focus-color: #047857; 
+            --logic-color: #b91c1c; 
+            --speed-color: #d35400; /* 판단력 카테고리: Orange */
+            --accent-color: var(--speed-color);
+        }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; }
         
-         /* 헤더/네비게이션 */
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; line-height: 1.6; }
+        
+        /* [1단] 메인 헤더 */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
-        header p { margin: 5px 0 0; font-size: 0.85rem; opacity: 0.8; }
 
-        /* 네비게이션 가로 스크롤 최적화 */
+        /* [1단] 메인 네비게이션 */
         nav.main-nav { 
             background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow-x: auto; white-space: nowrap; 
-            -webkit-overflow-scrolling: touch; scrollbar-width: none; position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
         }
-        nav.main-nav::-webkit-scrollbar { display: none; }
-        @media (max-width: 480px) { nav.main-nav { justify-content: flex-start; padding-left: 1.2rem; padding-right: 1.2rem; } }
-        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; flex-shrink: 0; }
-        nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
 
-        /* 🎮 서브 게임 네비게이션 */
-        .sub-nav { display: flex; justify-content: center; gap: 12px; padding: 12px 0; background: #fff; border-bottom: 1px solid #eee; font-size: 0.75rem; }
-        .sub-nav a { text-decoration: none; color: #aaa; font-weight: 500; }
-        .sub-nav a.current { color: var(--accent-color); font-weight: bold; }
+        /* [2단] 카테고리 탭 */
+        .category-tabs { 
+            display: flex; background: #fff; border-bottom: 1px solid #eee; justify-content: center; 
+        }
+        .category-tabs a { 
+            min-width: 100px; max-width: 200px; flex: 1; text-align: center; 
+            padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; transition: 0.3s; 
+        }
+        .category-tabs a.active { color: var(--speed-color); border-bottom: 3px solid var(--speed-color); }
 
+        /* [3단] 게임 서브 메뉴 */
+        .game-sub-nav { 
+            display: flex; gap: 10px; padding: 15px; justify-content: center; 
+            background: #f8f9fa; overflow-x: auto; white-space: nowrap; scrollbar-width: none;
+        }
+        .game-sub-nav::-webkit-scrollbar { display: none; }
+        .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; }
+        .game-sub-nav a.active { background: var(--speed-color); color: white; border-color: var(--speed-color); }
+
+        @media (max-width: 600px) {
+            .category-tabs a { min-width: auto; font-size: 0.85rem; }
+            .game-sub-nav { justify-content: flex-start; }
+        }
+
+        /* 게임 본문 컨테이너 */
         .container { 
             width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 20px; 
-            background: white; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; 
+            background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; 
         }
 
         .game-guide { 
-            background: #f5f0ff; border-radius: 12px; padding: 15px; font-size: 0.85rem; 
-            line-height: 1.6; color: #444; margin-bottom: 20px; text-align: left; border-left: 4px solid var(--accent-color); 
+            background: #fff9f5; border-radius: 15px; padding: 15px; font-size: 0.85rem; 
+            color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--speed-color); 
         }
-        .game-guide strong { color: #8e44ad; display: block; margin-bottom: 4px; }
-        
+
         .score-box { display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold; color: var(--primary-color); font-size: 1.1rem; padding: 0 10px; }
         
         #word-display { 
-            font-size: 3.5rem; font-weight: 900; margin: 30px 0; height: 120px; 
+            font-size: 3.5rem; font-weight: 900; margin: 25px 0; height: 120px; 
             display: flex; align-items: center; justify-content: center; cursor: pointer; 
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.05); background: #fcfcfc; border-radius: 15px;
-            transition: all 0.2s;
+            background: #fcfcfc; border-radius: 15px; border: 1px solid #f0f0f0; transition: all 0.2s;
         }
-        #word-display:active { transform: scale(0.98); background: #f1f1f1; }
+        #word-display:active { transform: scale(0.98); }
         
         .button-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .color-btn { 
             padding: 22px 10px; border: none; border-radius: 16px; color: white; 
-            font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: transform 0.1s, opacity 0.2s;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.1s;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         .color-btn:active { transform: scale(0.95); opacity: 0.9; }
-        
-        .ranking-container { margin-top: 35px; border-top: 2px dashed #eee; padding-top: 25px; }
-        .ranking-title { font-size: 1.1rem; font-weight: bold; color: var(--primary-color); margin-bottom: 15px; }
-        .rank-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+
+        /* [하단] 전체 연결 허브 */
+        .brain-hub { margin-top: 30px; padding: 20px; background: #f1f5f9; border-radius: 24px; text-align: left; }
+        .hub-title { font-size: 0.9rem; font-weight: 800; margin-bottom: 15px; color: var(--primary-color); }
+        .hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .hub-item { background: white; padding: 12px 5px; border-radius: 15px; text-align: center; text-decoration: none; border: 1px solid #e2e8f0; transition: 0.2s; }
+        .hub-item:active { transform: scale(0.95); }
+        .hub-item span { display: block; font-size: 1.1rem; margin-bottom: 4px; }
+        .hub-item label { font-size: 0.65rem; font-weight: bold; color: #666; cursor: pointer; }
+
+        .ranking-container { margin-top: 30px; border-top: 2px dashed #eee; padding-top: 25px; }
+        .rank-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 10px; }
         .rank-table th { padding: 10px; color: #888; border-bottom: 1px solid #eee; }
         .rank-table td { padding: 12px 5px; border-bottom: 1px solid #f9f9f9; }
 
-        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; line-height: 1.8; }
+        footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; }
         footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
     </style>
 </head>
 <body>
     <header>
-        <h1><a href="index.html">SKZ 두뇌 훈련소</a></h1>
+        <h1><a href="/">SKZ 두뇌 훈련소</a></h1>
     </header>
 
     <nav class="main-nav">
-        <a href="index.html">홈</a>
-        <a href="game.html">집중력</a>
-        <a href="game2.html">논리력</a>
-        <a href="game3.html" class="active">판단력</a>
-        <a href="report.html">리포트</a>
-        <a href="posts.html">분석실</a>
+        <a href="/">브레인 분석실</a>
+        <a href="dash.html" style="color:var(--speed-color)">두뇌 훈련센터</a>
+        <a href="report.html">나의 두뇌점수</a>
     </nav>
 
-    <div class="sub-nav">
-        <a href="game3.html" class="current">[순발력]</a>
-        <a href="game4.html">[기억력]</a>
-        <a href="game5.html">[수리판단]</a>
-        <a href="game6.html">[동물인지]</a>
-    </div>
+    <nav class="category-tabs">
+        <a href="game.html">정밀 집중</a>
+        <a href="game2.html">전략 논리</a>
+        <a href="game3.html" class="active">쾌속 판단</a>
+    </nav>
+
+    <nav class="game-sub-nav">
+        <a href="game3.html" class="active">🚥 순발력</a>
+        <a href="game4.html">📍 기억력</a>
+        <a href="game5.html">🔢 수리 판단</a>
+        <a href="game6.html">🦁 동물 인지</a>
+    </nav>
 
     <main class="container">
         <div class="game-guide">
-            <strong>📝 훈련 규칙</strong>
-            표시된 글자의 의미가 아니라, 글자가 가진 <strong>'실제 색상'</strong> 버튼을 누르세요! 30초 동안 진행됩니다.
+            <strong>🧠 쾌속 판단 훈련</strong><br>
+            글자의 의미가 아닌, 글자가 가진 <strong>'실제 색상'</strong> 버튼을 누르세요! 30초간 진행됩니다.
         </div>
         
         <div class="score-box">
             <span>남은 시간: <span id="time-left" style="color:#e74c3c">30</span>s</span>
-            <span>성공: <span id="current-score" style="color:var(--accent-color)">0</span></span>
+            <span>성공: <span id="current-score" style="color:var(--speed-color)">0</span></span>
         </div>
         
         <div id="word-display" onclick="startGame()">START</div>
@@ -117,12 +146,20 @@
             <button class="color-btn" style="background:#2ecc71" onclick="checkAnswer('#2ecc71')">초록</button>
             <button class="color-btn" style="background:#f1c40f" onclick="checkAnswer('#f1c40f')">노랑</button>
         </div>
+
+        <section class="brain-hub">
+            <div class="hub-title">다른 두뇌 영역 강화하기</div>
+            <div class="hub-grid">
+                <a href="game.html" class="hub-item"><span>🎯</span><label>집중력</label></a>
+                <a href="game2.html" class="hub-item"><span>🧩</span><label>논리력</label></a>
+                <a href="dash.html" class="hub-item"><span>🏠</span><label>훈련센터</label></a>
+            </div>
+        </section>
         
         <div class="ranking-container">
-            <div class="ranking-title">📊 나의 판단력 일지</div>
-            <div id="best-record" style="font-size:0.95rem; color:var(--accent-color); font-weight:bold; margin-bottom:12px;">최고 점수: -</div>
+            <div id="best-record" style="font-size:0.95rem; color:var(--speed-color); font-weight:bold; margin-bottom:12px;">최고 점수: -</div>
             <table class="rank-table">
-                <thead><tr><th>회차</th><th>날짜</th><th>개수</th></tr></thead>
+                <thead><tr><th>회차</th><th>날짜</th><th>기록</th></tr></thead>
                 <tbody id="rankingBody"></tbody>
             </table>
             <button onclick="clearHistory()" style="margin-top:20px; background:none; border:none; color:#ccc; font-size:0.75rem; text-decoration:underline; cursor:pointer;">기록 초기화</button>
@@ -131,8 +168,7 @@
 
     <footer>
         <div style="margin-bottom: 10px;">
-            <a href="privacy.html">개인정보처리방침</a> | 
-            <a href="terms.html">이용약관</a>
+            <a href="privacy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
         </div>
         &copy; 2026 SKZ Brain Lab. All rights reserved.
     </footer>
@@ -173,10 +209,7 @@
         }
 
         function checkAnswer(selectedColor) {
-            if(!gameActive) {
-                startGame();
-                return;
-            }
+            if(!gameActive) { startGame(); return; }
             if(selectedColor === targetColorCode) {
                 score++;
                 document.getElementById('current-score').innerText = score;
@@ -187,45 +220,25 @@
         function endGame() {
             gameActive = false;
             clearInterval(timerInterval);
-
-            let grade = "";
-            if (score >= 40) grade = "신인류의 뇌 👽";
-            else if (score >= 30) grade = "판단력 만렙 ⚡";
-            else if (score >= 20) grade = "명석한 두뇌 🧠";
-            else if (score >= 10) grade = "평범한 일반인 👤";
-            else grade = "뇌가 졸고 있음 🥱";
-
-            saveRecord(score, grade);
+            saveRecord(score);
         }
 
-        function saveRecord(score, grade) {
+        function saveRecord(score) {
             const now = new Date();
             const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
-            
-            // --- [업데이트: 최근 10회 기록 평균 저장 로직] ---
             const reportScore = Math.min(100, score * 2.5); // 40개 기준 100점 환산
             
-            // 1. 최근 10회 기록 배열 관리
+            // 데이터 저장
             let scoreHistory = JSON.parse(localStorage.getItem('game3_history')) || [];
             scoreHistory.push(reportScore);
-            if (scoreHistory.length > 10) scoreHistory.shift();
-            localStorage.setItem('game3_history', JSON.stringify(scoreHistory));
-
-            // 2. 단일 최신 점수 저장
+            localStorage.setItem('game3_history', JSON.stringify(scoreHistory.slice(-10)));
             localStorage.setItem('game3_score', reportScore);
 
-            // 3. 내부 로그용 judgeHistory 저장
             let history = JSON.parse(localStorage.getItem('judgeHistory')) || [];
-            let best = history.length > 0 ? Math.max(...history.map(h => h.score)) : 0;
-            history.unshift({ date: dateStr, score });
+            history.unshift({ date: dateStr, score: score });
             localStorage.setItem('judgeHistory', JSON.stringify(history.slice(0, 10)));
-            // ----------------------------------------------
 
-            let resultMsg = score > best && best > 0 
-                ? `🎉 최고 기록 경신!\n등급: ${grade}\n기록: ${score}개\n\n` 
-                : `훈련 종료!\n등급: ${grade}\n기록: ${score}개\n\n`;
-
-            if (confirm(resultMsg + "지금 바로 분석 리포트를 확인하시겠습니까?")) {
+            if (confirm(`훈련 종료!\n기록: ${score}개\n\n분석 리포트를 확인하시겠습니까?`)) {
                 location.href = 'report.html';
             } else {
                 displayHistory();
@@ -246,7 +259,7 @@
         }
 
         function clearHistory() {
-            if(confirm("모든 판단력 기록을 지울까요?")) {
+            if(confirm("기록을 초기화할까요?")) {
                 localStorage.removeItem('judgeHistory');
                 localStorage.removeItem('game3_history');
                 location.reload();
