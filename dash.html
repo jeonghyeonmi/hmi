@@ -8,10 +8,6 @@
     <link rel="canonical" href="https://www.skztools.com/dash.html">
     <meta name="description" content="8가지 전문 뇌 과학 게임으로 인지 능력을 강화하세요. 집중력, 논리력, 판단력 훈련을 제공합니다.">
     
-    <meta property="og:title" content="SKZ Brain Lab - 8종 두뇌 훈련 코스">
-    <meta property="og:description" content="매일 5분, 과학적인 게임으로 두뇌 컨디션을 관리하세요.">
-    <meta property="og:url" content="https://www.skztools.com/dash.html">
-
     <style>
         :root { 
             --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
@@ -41,7 +37,7 @@
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
         nav.main-nav a.active { color: var(--accent-color); }
 
-        /* [2단] 카테고리 탭 (훈련센터 메인용) */
+        /* [2단] 카테고리 탭 */
         .category-tabs { 
             display: flex; background: #fff; border-bottom: 1px solid #eee; justify-content: center;
         }
@@ -52,7 +48,7 @@
         }
         .category-tabs a.active { color: var(--primary-color); border-bottom: 3px solid var(--primary-color); }
 
-        /* [3단] 게임 서브 메뉴 (가로 스크롤) */
+        /* [3단] 게임 서브 메뉴 */
         .game-sub-nav { 
             display: flex; gap: 10px; padding: 15px; justify-content: center; 
             background: #f8f9fa; overflow-x: auto; white-space: nowrap;
@@ -63,14 +59,12 @@
             border-radius: 20px; font-size: 0.75rem; text-decoration: none; 
             color: #666; white-space: nowrap; transition: 0.2s;
         }
-        .game-sub-nav a:active { background: #eee; }
 
         .container { width: 92%; max-width: 600px; margin: 1.5rem auto; }
 
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding: 0 5px; }
         .section-title { font-size: 1.2rem; font-weight: 800; color: var(--primary-color); display: flex; align-items: center; gap: 8px; }
         
-        /* 🎮 게임 그리드 섹션 */
         .game-grid { display: flex; flex-direction: column; gap: 24px; margin-bottom: 3rem; }
         
         .game-group {
@@ -100,17 +94,16 @@
             justify-content: center; font-size: 1.6rem; margin-bottom: 10px;
         }
         
-        /* 카테고리별 컬러 테마 */
+        /* 배경색 설정 */
         .bg-focus { background: #e0f2f1; color: var(--focus-color); } 
         .bg-logic { background: #fee2e2; color: var(--logic-color); } 
         .bg-speed { background: #fff7ed; color: var(--speed-color); } 
         .bg-math { background: #f3e8ff; color: #7e22ce; }  
-        .bg-cog { background: #dcfce7; color: #15803d; }   
 
         .game-text span { display: block; font-weight: 800; font-size: 0.9rem; color: var(--primary-color); }
         .game-text small { font-size: 0.7rem; color: var(--text-muted); display: block; margin-top: 2px; }
 
-        /* 🔍 분석실 가로 스크롤 카드 */
+        /* 가로 스크롤 분석실 카드 */
         .post-scroll-container {
             display: flex; gap: 12px; overflow-x: auto; 
             padding: 5px 2px 20px; margin: 0 -4%; padding-left: 4%;
@@ -153,15 +146,15 @@
 
 <nav class="game-sub-nav">
     <a href="game.html">🎯 메모리</a>
+    <a href="game4.html">📍 기억력</a>
+    <a href="game8.html">🛒 시장에 가면</a>
     <a href="game2.html">🧩 스도쿠</a>
     <a href="game3.html">⚡ 순발력</a>
-    <a href="game7.html">⚪ AI 오목</a>
-    <a href="game5.html">🔢 암산</a>
 </nav>
 
 <main class="container">
     <section class="game-grid">
-        <div class="game-group" id="focus-area">
+        <div class="game-group">
             <div class="group-header">
                 <span class="group-label" style="color:var(--focus-color)">🎯 FOCUS 집중력</span>
                 <span class="group-desc">한 곳에 몰입하는 힘</span>
@@ -170,13 +163,17 @@
                 <div class="game-icon bg-focus">🃏</div>
                 <div class="game-text"><span>메모리 게임</span><small>카드 짝 맞추기</small></div>
             </a>
-            <a href="game8.html" class="game-item">
+            <a href="game4.html" class="game-item">
+                <div class="game-icon bg-focus">📍</div>
+                <div class="game-text"><span>위치 기억력</span><small>순서 암기 훈련</small></div>
+            </a>
+            <a href="game8.html" class="game-item" style="grid-column: span 2;">
                 <div class="game-icon bg-focus">🛒</div>
                 <div class="game-text"><span>시장에 가면</span><small>연상 집중 훈련</small></div>
             </a>
         </div>
 
-        <div class="game-group" id="logic-area">
+        <div class="game-group">
             <div class="group-header">
                 <span class="group-label" style="color:var(--logic-color)">🧩 LOGIC 논리력</span>
                 <span class="group-desc">복잡한 문제 해결 능력</span>
@@ -191,51 +188,27 @@
             </a>
         </div>
 
-        <div class="game-group" id="speed-area">
+        <div class="game-group">
             <div class="group-header">
                 <span class="group-label" style="color:var(--speed-color)">⚡ COGNITIVE 판단력</span>
                 <span class="group-desc">빠르고 정확한 인지 조절</span>
             </div>
             <a href="game3.html" class="game-item">
                 <div class="game-icon bg-speed">🚥</div>
-                <div class="game-text"><span>순발력</span><small>색상 판단 훈련</small></div>
-            </a>
-            <a href="game4.html" class="game-item">
-                <div class="game-icon bg-cog">📍</div>
-                <div class="game-text"><span>기억력</span><small>위치 순서 암기</small></div>
+                <div class="game-text"><span>순발력 판단</span><small>색상 판단 훈련</small></div>
             </a>
             <a href="game5.html" class="game-item">
                 <div class="game-icon bg-math">🔢</div>
-                <div class="game-text"><span>수리 판단</span><small>빠른 암산 능력</small></div>
+                <div class="game-text"><span>수리 암산</span><small>빠른 계산 능력</small></div>
             </a>
-            <a href="game6.html" class="game-item">
-                <div class="game-icon bg-cog">🦁</div>
+            <a href="game6.html" class="game-item" style="grid-column: span 2;">
+                <div class="game-icon bg-speed">🦁</div>
                 <div class="game-text"><span>동물 인지</span><small>형태 분류 판단</small></div>
             </a>
         </div>
     </section>
 
-    <section>
-        <div class="section-header">
-            <div class="section-title">🔍 최신 두뇌 분석실</div>
-            <a href="/" style="font-size: 0.8rem; color: var(--text-muted); text-decoration: none;">전체보기 ›</a>
-        </div>
-        <div class="post-scroll-container">
-            <a href="post5.html" class="post-card-mini">
-                <span class="tag">Efficiency</span>
-                <h3>뇌에도 '에코 모드'가 있다? 효율 꽝인 뇌 깨우는 법</h3>
-            </a>
-            <a href="post4.html" class="post-card-mini">
-                <span class="tag">Issue</span>
-                <h3>AI가 내 마음을 읽는다? 영화가 현실이 된 '독심술 AI'</h3>
-            </a>
-            <a href="post3.html" class="post-card-mini">
-                <span class="tag">Health</span>
-                <h3>잠 부족한 뇌는 '만취 상태'와 같다? 수면의 경제학</h3>
-            </a>
-        </div>
-    </section>
-</main>
+    </main>
 
 <footer>
     <div style="margin-bottom: 10px;">
