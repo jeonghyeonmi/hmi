@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
     <title>정밀 집중 훈련: 시장에 가면 (AI) | SKZ Brain Lab</title>
+
     <link rel="canonical" href="https://www.skztools.com/game8.html">
+    <meta name="description" content="AI와 함께하는 연쇄 암기 게임으로 당신의 단기 기억력과 집중력 한계에 도전하세요.">
 
     <style>
         :root { 
@@ -13,7 +14,7 @@
             --bg-color: #f4f7f9; 
             --focus-color: #d35400; /* 집중력 카테고리 고유색: Orange */
             --accent-color: var(--focus-color);
-            --text-main: #2c3e50; --white: #ffffff;
+            --text-main: #2c3e50;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Pretendard', sans-serif; background: var(--bg-color); margin: 0; color: var(--text-main); line-height: 1.6; }
@@ -44,8 +45,8 @@
             background: #f8f9fa; overflow-x: auto; white-space: nowrap; scrollbar-width: none;
         }
         .game-sub-nav::-webkit-scrollbar { display: none; }
-        .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; }
-        .game-sub-nav a.active { background: var(--focus-color); color: white; border-color: var(--focus-color); }
+        .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; font-weight: 500; }
+        .game-sub-nav a.active { background: var(--focus-color); color: white; border-color: var(--focus-color); font-weight: bold; }
 
         .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 25px; background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
 
@@ -54,60 +55,45 @@
             color: #444; margin-bottom: 20px; text-align: left; border-left: 4px solid var(--focus-color); 
         }
 
-        /* 고정 디스플레이 박스 */
+        /* 디스플레이 박스 */
         #display-box { 
-            background: #fdfcfb; 
-            height: 160px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border-radius: 24px; 
-            margin-bottom: 20px; 
-            border: 2px solid #ffedd5; 
-            transition: 0.3s;
+            background: #fdfcfb; height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border-radius: 24px; margin-bottom: 20px; border: 2px solid #ffedd5; transition: 0.3s;
         }
-        
-        #current-item {
-            font-size: 2.8rem; 
-            font-weight: 900; 
-            color: var(--focus-color);
-            margin-bottom: 5px;
-        }
+        #current-item { font-size: 2.5rem; font-weight: 900; color: var(--focus-color); margin-bottom: 5px; min-height: 3.5rem; }
+        #turn-indicator { font-size: 0.8rem; padding: 4px 12px; border-radius: 20px; font-weight: bold; background: #eee; color: #888; text-transform: uppercase; }
 
-        #turn-indicator {
-            font-size: 0.8rem;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-weight: bold;
-            background: #eee;
-            color: #888;
-        }
-
-        #status-msg { font-size: 0.95rem; font-weight: bold; color: #2c3e50; margin-bottom: 15px; min-height: 1.5rem; }
+        #status-msg { font-size: 1rem; font-weight: bold; color: #2c3e50; margin-bottom: 15px; min-height: 1.5rem; }
         
-        .item-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+        /* 아이템 그리드 */
+        .item-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
         .item-btn { 
-            background: #fdfdfd; border: 1px solid #eee; padding: 18px 5px; border-radius: 18px; 
-            font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.2s;
+            background: #fff; border: 1px solid #eee; padding: 15px 5px; border-radius: 16px; 
+            font-size: 0.95rem; font-weight: bold; cursor: pointer; transition: 0.2s;
             box-shadow: 0 3px 0 #eee;
         }
         .item-btn:active { transform: translateY(3px); box-shadow: none; background: #fff9f5; }
 
         .btn-start { 
-            width: 100%; padding: 18px; background: var(--primary-color); color: white; 
-            border: none; border-radius: 15px; font-size: 1.1rem; font-weight: 800; cursor: pointer; 
-            box-shadow: 0 5px 15px rgba(26, 58, 95, 0.2);
+            width: 100%; max-width: 250px; padding: 18px; background: var(--focus-color); color: white; 
+            border: none; border-radius: 30px; font-size: 1.1rem; font-weight: 800; cursor: pointer; 
+            box-shadow: 0 5px 15px rgba(211, 84, 0, 0.2); transition: 0.3s;
         }
+        .btn-start:hover { transform: scale(1.02); }
+
+        /* 히스토리 섹션 */
+        .ranking-container { margin-top: 30px; border-top: 2px dashed #eee; padding-top: 25px; }
+        .rank-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 10px; }
+        .rank-table th { padding: 10px; color: #888; border-bottom: 1px solid #eee; }
+        .rank-table td { padding: 12px 5px; border-bottom: 1px solid #f9f9f9; }
+        #best-record { font-size: 0.95rem; color: var(--focus-color); font-weight: bold; margin-bottom: 12px; }
 
         footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1><a href="/">SKZ 두뇌 훈련소</a></h1>
-</header>
+<header><h1><a href="/">SKZ 두뇌 훈련소</a></h1></header>
 
 <nav class="main-nav">
     <a href="/">브레인 분석실</a>
@@ -122,27 +108,37 @@
 </nav>
 
 <nav class="game-sub-nav">
-    <a href="game.html">🧩 메모리 카드</a>
+    <a href="game.html">🎯 메모리 게임</a>
+    <a href="game4.html">📍 기억력</a>
     <a href="game8.html" class="active">🛒 시장에 가면</a>
 </nav>
 
 <main class="container">
     <div class="game-guide">
         <strong>🧠 시장에 가면... (연쇄 암기)</strong><br>
-        AI와 번갈아 가며 물건을 추가합니다. 앞선 물건들을 <strong>순서대로</strong> 모두 맞힌 뒤, 마지막에 본인만의 물건을 추가해야 성공합니다.
+        AI와 번갈아 가며 물건을 추가합니다. 앞선 물건들을 <strong>순서대로</strong> 모두 맞힌 뒤, 본인만의 물건을 추가하세요!
     </div>
     
-    <div id="status-msg">단기 기억의 한계에 도전하세요!</div>
+    <div id="status-msg">당신의 기억력은 몇 단계인가요?</div>
     
     <div id="display-box">
-        <div id="turn-indicator">WAITING</div>
-        <div id="current-item">READY</div>
+        <div id="turn-indicator">READY</div>
+        <div id="current-item">🛒 시작!</div>
     </div>
     
     <button id="startBtn" class="btn-start" onclick="startGame()">훈련 시작하기</button>
     
     <div id="game-ui" style="display: none;">
         <div class="item-grid" id="item-grid"></div>
+    </div>
+
+    <div class="ranking-container">
+        <div id="best-record">최고 기록: - 단계</div>
+        <table class="rank-table">
+            <thead><tr><th>회차</th><th>날짜</th><th>기록</th></tr></thead>
+            <tbody id="rankingBody"></tbody>
+        </table>
+        <button onclick="clearHistory()" style="margin-top:20px; background:none; border:none; color:#ccc; font-size:0.75rem; text-decoration:underline; cursor:pointer;">기록 초기화</button>
     </div>
 </main>
 
@@ -156,6 +152,7 @@
         memoryChain = [];
         document.getElementById('startBtn').style.display = 'none';
         document.getElementById('game-ui').style.display = 'block';
+        document.querySelector('.ranking-container').style.display = 'none';
         createGrid();
         aiTurn();
     }
@@ -177,16 +174,15 @@
         isUserAdding = false;
         userStep = 0;
         
-        updateUI("AI TURN", "AI가 물건을 추가 중입니다...", "#eee", "#888");
+        updateUI("AI TURN", "AI가 물건을 추가하고 있습니다...", "#f8f9fa", "#888");
         
         const newItem = itemList[Math.floor(Math.random() * itemList.length)];
         memoryChain.push(newItem);
 
-        // 단계가 올라갈수록 속도가 조금씩 빨라짐
-        let speed = Math.max(400, 1000 - (memoryChain.length * 40));
+        let speed = Math.max(500, 1100 - (memoryChain.length * 50));
         
         for (let item of memoryChain) {
-            await new Promise(r => setTimeout(r, speed));
+            await new Promise(r => setTimeout(r, 400));
             document.getElementById('current-item').innerText = item;
             await new Promise(r => setTimeout(r, speed));
             document.getElementById('current-item').innerText = ""; 
@@ -197,7 +193,7 @@
 
     function userTurn() {
         isAITurn = false;
-        updateUI("USER TURN", "순서대로 물건을 선택하세요!", "#fff9f5", var(--focus-color));
+        updateUI("USER TURN", "순서대로 물건을 선택하세요!", "#fff9f5", "var(--focus-color)");
         document.getElementById('current-item').innerText = "???";
     }
 
@@ -210,7 +206,7 @@
                 userStep++;
                 if (userStep === memoryChain.length) {
                     isUserAdding = true;
-                    document.getElementById('status-msg').innerText = "성공! 이제 새 물건을 추가하세요.";
+                    document.getElementById('status-msg').innerText = "성공! 이제 새 물건을 하나 추가하세요.";
                     document.getElementById('turn-indicator').innerText = "ADD ITEM";
                     document.getElementById('current-item').innerText = "+ ?";
                 }
@@ -218,9 +214,8 @@
                 endGame();
             }
         } else {
-            // 사용자가 새 물건 추가 성공
             memoryChain.push(selectedItem);
-            document.getElementById('status-msg').innerText = "성공! AI에게 넘깁니다.";
+            document.getElementById('status-msg').innerText = "성공! AI에게 차례를 넘깁니다.";
             isUserAdding = false;
             setTimeout(aiTurn, 800);
         }
@@ -236,34 +231,49 @@
 
     function endGame() {
         const finalScore = Math.max(0, memoryChain.length - 1);
-        let grade = finalScore >= 10 ? "기억의 달인 🏆" : finalScore >= 6 ? "우수한 집중력 🧠" : "집중력 예열 필요 🔥";
+        const reportScore = Math.min(100, Math.floor((finalScore / 12) * 100));
         
-        const msg = `[훈련 종료]\n당신은 ${finalScore}단계까지 기억했습니다!\n등급: ${grade}\n\n결과를 저장하고 분석 리포트를 확인하시겠습니까?`;
-        
-        saveRecord(finalScore, msg);
-        
-        document.getElementById('startBtn').style.display = 'inline-block';
-        document.getElementById('startBtn').innerText = '다시 도전하기';
-        document.getElementById('game-ui').style.display = 'none';
-        document.getElementById('current-item').innerText = "FINISH";
-        updateUI("OVER", "결과 저장됨", "#f8fafc", "#e74c3c");
+        // 데이터 저장 (game4와 구조 동일화)
+        localStorage.setItem('game8_score', reportScore);
+        let scoreHistory = JSON.parse(localStorage.getItem('game8_history')) || [];
+        scoreHistory.push(reportScore);
+        localStorage.setItem('game8_history', JSON.stringify(scoreHistory.slice(-10)));
+
+        // 내부 랭킹용 저장
+        const now = new Date();
+        const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
+        let history = JSON.parse(localStorage.getItem('marketHistory')) || [];
+        history.unshift({ date: dateStr, score: finalScore });
+        localStorage.setItem('marketHistory', JSON.stringify(history.slice(0, 10)));
+
+        if (confirm(`훈련 종료! [${finalScore}단계 기억성공]\n집중력 분석 리포트를 확인하시겠습니까?`)) {
+            location.href = 'report.html';
+        } else {
+            location.reload();
+        }
     }
 
-    function saveRecord(score, msg) {
-        // 집중력 점수 산출 로직: 12단계를 100점으로 환산
-        const reportScore = Math.min(100, Math.floor((score / 12) * 100));
-        
-        let history = JSON.parse(localStorage.getItem('game8_history')) || [];
-        history.push(reportScore);
-        localStorage.setItem('game8_history', JSON.stringify(history.slice(-10)));
-        localStorage.setItem('game8_score', reportScore); 
-
-        setTimeout(() => {
-            if (confirm(msg)) {
-                location.href = 'report.html';
-            }
-        }, 300);
+    function displayHistory() {
+        const body = document.getElementById('rankingBody');
+        const history = JSON.parse(localStorage.getItem('marketHistory')) || [];
+        if(history.length > 0) {
+            const best = Math.max(...history.map(h => h.score));
+            document.getElementById('best-record').innerText = `⭐ 나의 최고 기록: ${best}단계`;
+            body.innerHTML = history.map((h, i) => `<tr><td>${history.length-i}회</td><td>${h.date}</td><td>${h.score}단계</td></tr>`).join('');
+        } else {
+            body.innerHTML = '<tr><td colspan="3">훈련 기록이 없습니다.</td></tr>';
+        }
     }
+
+    function clearHistory() { 
+        if(confirm("기억 기록을 모두 초기화할까요?")) { 
+            localStorage.removeItem('marketHistory'); 
+            localStorage.removeItem('game8_history'); 
+            location.reload(); 
+        } 
+    }
+
+    displayHistory();
 </script>
 </body>
 </html>
