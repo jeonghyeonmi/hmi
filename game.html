@@ -5,152 +5,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>집중력 훈련: 카드 짝 맞추기 | SKZ Brain Lab</title>
 
-    <meta name="description" content="같은 모양의 카드 짝을 맞추며 당신의 단기 기억력과 집중력을 테스트하세요. 25초 미만에 도전하고 두뇌 점수를 높여보세요!">
-    <meta name="keywords" content="집중력훈련, 기억력게임, 카드맞추기, 두뇌게임, 인지능력테스트, SKZBrainLab">
+    <link rel="canonical" href="https://www.skztools.com/game.html">
+    <meta name="description" content="카드 짝을 맞추며 단기 기억력과 집중력을 테스트하세요. 25초 미만에 도전하고 두뇌 점수를 높여보세요!">
     
-    <meta property="og:title" content="당신의 집중력 점수는? - SKZ 집중력 훈련">
-    <meta property="og:description" content="카드 짝 맞추기 게임으로 오늘 내 뇌의 컨디션을 확인해보세요.">
-    <meta property="og:image" content="img/index.jpg"> <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/game.html">
+    <meta property="og:title" content="SKZ 집중력 훈련 - 카드 짝 맞추기">
+    <meta property="og:description" content="오늘 내 뇌의 컨디션은 몇 점? 지금 바로 테스트해보세요.">
+    <meta property="og:url" content="https://www.skztools.com/game.html">
+
     <style>
-        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #e67e22; }
+        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
-        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; }
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; line-height: 1.6; }
         
-        /* 헤더/네비게이션 */
+        /* 헤더 & 네비게이션 최적화 */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
-        
 
-        /* 네비게이션 가로 스크롤 최적화 */
         nav.main-nav { 
-            background: white; 
-            padding: 0.8rem; 
-            display: flex; 
-            justify-content: center; 
-            gap: 1.2rem; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
-            overflow-x: auto; 
-            white-space: nowrap; 
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
         }
-        nav.main-nav::-webkit-scrollbar { display: none; }
-        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; flex-shrink: 0; }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
         nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
-        .sub-nav { display: flex; justify-content: center; gap: 15px; padding: 12px 0; background: #fff; border-bottom: 1px solid #eee; font-size: 0.75rem; }
-        .sub-nav a { text-decoration: none; color: #aaa; font-weight: 500; }
-        .sub-nav a.current { color: var(--accent-color); font-weight: bold; }
+
+        /* 서브 네비게이션 (동일 카테고리 내 이동) */
+        .sub-nav { 
+            display: flex; justify-content: center; gap: 10px; padding: 12px; 
+            background: #fff; border-bottom: 1px solid #eee; overflow-x: auto;
+        }
+        .sub-nav a { 
+            text-decoration: none; color: #7f8c8d; font-size: 0.8rem; padding: 6px 12px; 
+            border-radius: 20px; background: #f8f9fa; border: 1px solid #eee; white-space: nowrap;
+        }
+        .sub-nav a.current { background: var(--accent-color); color: white; border-color: var(--accent-color); }
+
         .container { 
-            width: 95%; 
-            max-width: 500px; 
-            margin: 1.5rem auto; 
-            padding: 20px; 
-            background: white; 
-            border-radius: 24px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
-            text-align: center; 
+            width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 20px; 
+            background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; 
         }
 
         .game-guide { 
-            background: #fff8f0; 
-            border-radius: 12px; 
-            padding: 15px; 
-            font-size: 0.85rem; 
-            line-height: 1.6; 
-            color: #444; 
-            margin-bottom: 15px; 
-            text-align: left; 
-            border-left: 4px solid var(--accent-color); 
+            background: #fff8f0; border-radius: 15px; padding: 15px; font-size: 0.85rem; 
+            color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--accent-color); 
         }
-        .game-guide strong { color: #d35400; display: block; margin-bottom: 4px; }
-
+        
         .grade-info { 
-            background: #f8f9fa; 
-            border-radius: 12px; 
-            padding: 12px; 
-            margin-bottom: 20px; 
-            font-size: 0.75rem; 
-            color: #777; 
-            display: flex; 
-            justify-content: space-around; 
-            border: 1px solid #eee;
+            background: #f8f9fa; border-radius: 12px; padding: 12px; margin-bottom: 20px; 
+            font-size: 0.75rem; color: #777; display: flex; justify-content: space-around;
         }
         .grade-star { color: #f1c40f; font-weight: bold; }
         
-        #timer { font-size: 2.5rem; font-weight: 800; color: var(--primary-color); margin: 10px 0; display: block; font-variant-numeric: tabular-nums; }
+        #timer { font-size: 2.8rem; font-weight: 800; color: var(--primary-color); margin: 10px 0; display: block; font-variant-numeric: tabular-nums; }
         
-        /* 카드 그리드 배치 */
-        .game-board { 
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 10px; 
-            margin: 20px auto; 
-        }
-        
+        /* 카드 그리드 */
+        .game-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px auto; }
         .card { 
-            aspect-ratio: 1/1; 
-            background: var(--primary-color); 
-            border-radius: 12px; 
-            cursor: pointer; 
-            position: relative; 
-            transform-style: preserve-3d; 
-            transition: transform 0.4s; 
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            aspect-ratio: 1/1; background: var(--primary-color); border-radius: 12px; 
+            cursor: pointer; position: relative; transform-style: preserve-3d; transition: transform 0.4s; 
         }
         .card.flipped { transform: rotateY(180deg); }
         .card-front, .card-back { 
-            position: absolute; 
-            width: 100%; 
-            height: 100%; 
-            backface-visibility: hidden; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 2rem; 
-            border-radius: 12px; 
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden; 
+            display: flex; align-items: center; justify-content: center; font-size: 2rem; border-radius: 12px; 
         }
         .card-back { background: #fff; border: 2px solid var(--primary-color); transform: rotateY(180deg); }
         
         /* 기록 영역 */
         .ranking-container { margin-top: 30px; border-top: 2px dashed #eee; padding-top: 25px; }
-        .ranking-title { font-size: 1.1rem; font-weight: bold; color: var(--primary-color); margin-bottom: 15px; }
-        .rank-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .rank-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 10px; }
         .rank-table th { padding: 10px; color: #888; border-bottom: 1px solid #eee; }
         .rank-table td { padding: 12px 5px; border-bottom: 1px solid #f9f9f9; }
 
-        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; line-height: 1.8; }
+        /* 푸터 이동 버튼 */
+        .next-game-box { margin: 20px 0; padding: 15px; background: #eef2ff; border-radius: 20px; }
+        .next-game-btn { 
+            display: inline-block; padding: 10px 20px; background: var(--primary-color); 
+            color: white; text-decoration: none; border-radius: 12px; font-weight: bold; font-size: 0.9rem;
+        }
+
+        footer { text-align: center; padding: 2rem 0; color: #bbb; font-size: 0.75rem; }
         footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
 
         @media (max-width: 400px) {
             .card-back { font-size: 1.5rem; }
-            .game-board { gap: 6px; }
+            .game-board { gap: 8px; }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1><a href="index.html">SKZ 두뇌 훈련소</a></h1>
+        <h1><a href="/">SKZ 두뇌 훈련소</a></h1>
     </header>
 
     <nav class="main-nav">
-        <a href="index.html">홈</a>
-        <a href="game.html" class="active">집중력</a>
-        <a href="game2.html">논리력</a>
-        <a href="game3.html">판단력</a>
+        <a href="/">분석실</a>
+        <a href="dash.html" class="active">훈련센터</a>
         <a href="report.html">리포트</a>
-        <a href="posts.html">분석실</a>
     </nav>
+
     <nav class="sub-nav">
-        <a href="game.html" class="current">[메모리 게임]</a>
-        <a href="game8.html">[시장에 가면]</a>
+        <a href="game.html" class="current">🎯 메모리 게임</a>
+        <a href="game8.html">🛒 시장에 가면</a>
     </nav>
+
     <main class="container">
         <div class="game-guide">
-            <strong>📝 훈련 규칙</strong>
-            같은 모양의 카드 짝을 모두 찾으세요. 카드를 뒤집는 순간부터 타이머가 작동하며, 결과는 일지에 저장됩니다.
+            <strong>📝 집중력 훈련</strong>
+            같은 모양의 카드 짝을 모두 찾으세요. 뒤집는 순간부터 기록이 측정됩니다.
         </div>
         
         <div class="grade-info">
@@ -160,11 +123,14 @@
         </div>
 
         <span id="timer">0.00</span>
-        
         <div id="gameBoard" class="game-board"></div>
+
+        <div class="next-game-box">
+            <p style="font-size: 0.85rem; margin-bottom: 10px; font-weight: bold;">다음 추천 훈련</p>
+            <a href="game8.html" class="next-game-btn">시장에 가면 (집중력) 하러가기 ▶</a>
+        </div>
         
         <div class="ranking-container">
-            <div class="ranking-title">📊 나의 집중력 일지</div>
             <div id="best-record" style="font-size:0.95rem; color:var(--accent-color); font-weight:bold; margin-bottom:12px;">최고 기록: -</div>
             <table class="rank-table">
                 <thead><tr><th>회차</th><th>날짜</th><th>기록</th></tr></thead>
@@ -176,8 +142,7 @@
 
     <footer>
         <div style="margin-bottom: 10px;">
-            <a href="privacy.html">개인정보처리방침</a> | 
-            <a href="terms.html">이용약관</a>
+            <a href="privacy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
         </div>
         &copy; 2026 SKZ Brain Lab. All rights reserved.
     </footer>
@@ -245,29 +210,19 @@
         function saveRecord(time) {
             const now = new Date();
             const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
-            
-            // --- [업데이트: 최근 10회 기록 평균 저장 로직] ---
             const reportScore = Math.max(0, Math.min(100, Math.floor(120 - (time * 2)))); 
             
-            // 1. 최근 10회 기록 배열 관리 (리포트 차트용)
             let scoreHistory = JSON.parse(localStorage.getItem('game1_history')) || [];
             scoreHistory.push(reportScore);
             if (scoreHistory.length > 10) scoreHistory.shift();
             localStorage.setItem('game1_history', JSON.stringify(scoreHistory));
-
-            // 2. 단일 최신 점수 저장
             localStorage.setItem('game1_score', reportScore);
 
-            // 3. 내부 로그용 memoryHistory 저장
             let history = JSON.parse(localStorage.getItem('memoryHistory')) || [];
-            let best = history.length > 0 ? Math.min(...history.map(h => h.time)) : 999;
             history.unshift({ date: dateStr, time: time });
             localStorage.setItem('memoryHistory', JSON.stringify(history.slice(0, 10)));
-            // ----------------------------------------------
 
-            let msg = time < best ? `🎉 최고 기록 경신! : ${time}초\n` : `훈련 완료! 기록: ${time}초\n`;
-            
-            if (confirm(msg + "지금 바로 분석 리포트를 확인하시겠습니까?")) {
+            if (confirm("훈련 완료! 분석 리포트를 확인하시겠습니까?")) {
                 location.href = 'report.html';
             } else {
                 initGame();
@@ -287,7 +242,7 @@
         }
         
         function clearHistory() { 
-            if(confirm("모든 집중력 기록을 지울까요?")) { 
+            if(confirm("모든 기록을 초기화할까요?")) { 
                 localStorage.removeItem('memoryHistory'); 
                 localStorage.removeItem('game1_history');
                 location.reload(); 
