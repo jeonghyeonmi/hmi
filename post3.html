@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
     <title>잠 부족한 뇌는 만취 상태와 같다? 수면의 경제학 | SKZ Brain Lab</title>
 
-    <meta name="description" content="수면 부족이 전두엽 기능에 미치는 치명적인 영향과 뇌의 노폐물을 청소하는 '글림파틱 시스템'의 중요성을 설명합니다. 최상의 뇌 컨디션을 위한 수면 가이드.">
-    <meta name="keywords" content="수면부족, 뇌노폐물, 글림파틱시스템, 멜라토닌, 인지능력회복, 수면습관, 뇌과학">
+    <meta name="description" content="수면 부족이 전두엽 기능에 미치는 치명적인 영향과 뇌의 노폐물을 청소하는 '글림파틱 시스템'의 중요성을 설명합니다. 최상의 뇌 컨디션을 위한 수면 가이드를 확인하세요.">
+    <meta name="keywords" content="수면부족, 뇌노폐물, 글림파틱시스템, 멜라토닌, 인지능력회복, 수면습관, 뇌과학, SKZ Brain Lab">
+    <meta name="author" content="SKZ Brain Lab">
     
+    <link rel="canonical" href="https://www.skztools.com/post3.html">
+
+    <meta property="og:type" content="article">
     <meta property="og:title" content="수면 부족이 뇌에 미치는 영향: 만취 상태와 동일한 인지 능력?">
-    <meta property="og:description" content="잠을 줄이는 것이 왜 뇌 도서관에 쓰레기를 방치하는 것과 같은지 확인해보세요.">
-    <meta property="og:image" content="img/post3.jpg"> 
-    <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/post3.html">
+    <meta property="og:description" content="잠을 줄이는 것은 뇌 도서관에 쓰레기를 방치하는 것과 같습니다. 수면의 과학을 알아보세요.">
+    <meta property="og:image" content="https://www.skztools.com/img/post3.jpg">
+    <meta property="og:url" content="https://www.skztools.com/post3.html">
 
     <style>
         :root { 
-            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
+            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #3498db; 
             --text-main: #2c3e50; --text-content: #34495e; --text-muted: #7f8c8d;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -28,10 +33,9 @@
         
         #progress-bar {
             position: fixed; top: 0; left: 0; width: 0%; height: 4px;
-            background: #3498db; z-index: 2000; transition: width 0.1s;
+            background: var(--accent-color); z-index: 2000; transition: width 0.1s;
         }
 
-         /* 헤더/네비게이션 */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
@@ -41,67 +45,83 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
         }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
-        nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
+        nav.main-nav a.active { color: var(--accent-color); }
 
-        .container { width: 94%; max-width: 750px; margin: 2rem auto; }
+        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; }
         
         .article-card { 
-            background: white; padding: 50px 30px; border-radius: 28px; 
+            background: white; padding: 40px 25px; border-radius: 28px; 
             box-shadow: 0 10px 40px rgba(0,0,0,0.03); 
         }
 
-        .tag { 
-            display: inline-block; padding: 5px 14px; background: #e0f2fe; color: #0369a1; 
-            border-radius: 8px; font-size: 0.75rem; font-weight: 800; margin-bottom: 20px; 
+        .meta-info { margin-bottom: 15px; }
+        .category-tag { 
+            display: inline-block; padding: 4px 12px; background: #e0f2fe; color: #0369a1; 
+            border-radius: 6px; font-size: 0.75rem; font-weight: 800;
         }
+        .post-date { font-size: 0.75rem; color: #bbb; margin-left: 10px; }
 
-        .article-card h2 { 
-            font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1.35; margin: 0 0 30px 0; 
+        .article-card h1 { 
+            font-size: 1.7rem; line-height: 1.4; margin: 0 0 25px 0; 
             word-break: keep-all; color: var(--primary-color); font-weight: 800;
         }
 
-        .content { font-size: 1.1rem; color: var(--text-content); }
-        .content p { margin-bottom: 1.8rem; text-align: justify; }
-        .content h3 { 
-            font-size: 1.5rem; color: var(--primary-color); margin-top: 3.5rem; margin-bottom: 1.2rem; 
-            display: flex; align-items: center; gap: 10px; font-weight: 800;
+        .content { font-size: 1rem; color: var(--text-content); }
+        .content img { border-radius: 18px; margin-bottom: 20px; width: 100%; height: auto; }
+        .content p { margin-bottom: 1.6rem; text-align: justify; }
+        
+        .content h2 { 
+            font-size: 1.4rem; color: var(--primary-color); margin-top: 3rem; margin-bottom: 1.2rem; 
+            font-weight: 800; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;
         }
-        .content h3::before { content: ''; width: 4px; height: 1.3rem; background: #3498db; border-radius: 2px; }
+        .content h3 { 
+            font-size: 1.2rem; color: var(--primary-color); margin-top: 2rem; margin-bottom: 1rem; 
+            display: flex; align-items: center; gap: 8px; font-weight: 800;
+        }
+        .content h3::before { content: ''; width: 4px; height: 1.1rem; background: var(--accent-color); border-radius: 2px; }
 
         mark { background: linear-gradient(120deg, #fff176 0%, #fff176 100%); padding: 0 3px; border-radius: 4px; color: inherit; }
         .emphasis { color: #0369a1; font-weight: 700; background: linear-gradient(to top, #e0f2fe 35%, transparent 35%); }
         
         .quote-box { 
-            background: #f0f9ff; border-left: 6px solid #3498db; padding: 25px; 
-            margin: 40px 0; border-radius: 0 20px 20px 0; font-style: italic;
+            background: #f0f9ff; border-left: 5px solid #3498db; padding: 20px; 
+            margin: 30px 0; border-radius: 0 18px 18px 0; font-style: italic; font-size: 0.95rem;
         }
 
+        .btn-list {
+            display: block; text-align: center; margin: 40px auto 20px;
+            padding: 12px 20px; background: #f1f5f9; color: var(--text-main);
+            text-decoration: none; border-radius: 12px; font-size: 0.9rem; font-weight: 600;
+            transition: 0.3s; border: 1px solid #e2e8f0;
+        }
+        .btn-list:hover { background: #e2e8f0; }
+
         .cta-box {
-            background: #f8fafc; padding: 35px; border-radius: 24px; margin-top: 60px;
-            text-align: center; border: 1px solid #e2e8f0;
+            background: #f8fafc; padding: 30px 20px; border-radius: 24px; margin-top: 30px;
+            text-align: center; border: 1px dashed #cbd5e1;
         }
         .btn-game {
             display: inline-block; background: var(--primary-color); color: white; 
-            padding: 16px 32px; border-radius: 14px; text-decoration: none; 
-            font-weight: bold; margin-top: 20px; transition: 0.3s;
+            padding: 16px 30px; border-radius: 30px; text-decoration: none; 
+            font-weight: bold; margin-top: 20px; transition: 0.3s; box-shadow: 0 4px 12px rgba(26, 58, 95, 0.2);
         }
-        .btn-game:hover { background: #3498db; transform: translateY(-2px); }
+        .btn-game:hover { background: var(--accent-color); transform: translateY(-2px); }
 
         .references { 
-            margin-top: 60px; padding: 25px; background: #fafafa; border-radius: 16px;
-            font-size: 0.85rem; color: var(--text-muted); border: 1px solid #eee;
+            margin-top: 50px; padding: 20px; background: #fafafa; border-radius: 18px;
+            font-size: 0.8rem; color: var(--text-muted); border: 1px solid #eee;
         }
-        .references h4 { margin: 0 0 15px 0; color: var(--text-main); }
+        .references h4 { margin: 0 0 12px 0; color: var(--text-main); font-size: 0.9rem; }
         .references ul { list-style: none; padding: 0; margin: 0; }
-        .references li { margin-bottom: 10px; line-height: 1.6; padding-left: 15px; position: relative; }
+        .references li { margin-bottom: 8px; line-height: 1.5; padding-left: 15px; position: relative; }
         .references li::before { content: '•'; position: absolute; left: 0; color: #ccc; }
 
-        footer { text-align: center; padding: 4rem 0; color: #bbb; font-size: 0.8rem; border-top: 1px solid #eee; margin-top: 50px; }
-        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
+        footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; margin-top: 3rem; }
+        footer a { color: #bbb; text-decoration: none; margin: 0 5px; }
 
         @media (max-width: 480px) {
-            .article-card { padding: 35px 20px; border-radius: 0; }
-            .container { width: 100%; margin: 0; }
+            .article-card { padding: 30px 20px; }
+            .container { width: 95%; margin: 1rem auto; }
         }
     </style>
 </head>
@@ -113,46 +133,51 @@
     </header>
 
     <nav class="main-nav">
-        <a href="index.html">홈</a>
-        <a href="game.html">집중력</a>
-        <a href="game2.html">논리력</a>
-        <a href="game3.html">판단력</a>
-        <a href="report.html">리포트</a>
-        <a href="posts.html" class="active">분석실</a>
+        <a href="index.html" class="active">브레인 분석실</a>
+        <a href="dash.html">두뇌 훈련센터</a>
+        <a href="report.html">나의 두뇌점수</a>
     </nav>
 
     <main class="container">
         <article class="article-card">
-            <span class="tag">분석 리포트 #03</span>
-            <h2>잠이 부족한 뇌는 <mark>술 취한 뇌와 같다?</mark><br>성과를 깎아먹는 '수면의 경제학'</h2>
+            <div class="meta-info">
+                <span class="category-tag">분석 리포트 #03</span>
+                <time class="post-date" datetime="2026-02-20">2026. 02. 20</time>
+            </div>
+            
+            <h1>잠이 부족한 뇌는 <mark>술 취한 뇌와 같다?</mark><br>성과를 깎아먹는 '수면의 경제학'</h1>
             
             <div class="content">
-                <p>"밤새워 공부하면 더 많이 외울 수 있을 것 같죠?" 하지만 뇌과학은 전혀 다른 이야기를 합니다. 우리가 잠을 줄여가며 얻은 시간은 사실 뇌의 효율성을 담보로 빌려온 '고리대금'과 같습니다. 빌린 시간만큼 인지 능력은 파산 상태에 가까워지기 때문입니다.</p>
+                <p>"밤새워 공부하면 더 많이 외울 수 있을 것 같죠?" 하지만 뇌과학은 전혀 다른 이야기를 합니다. 우리가 잠을 줄여가며 얻은 시간은 사실 뇌의 효율성을 담보로 빌려온 '고리대금'과 같습니다.</p>
 
-                <p><img src="img/post3.jpg" alt="수면이 부족하여 피곤해하는 모습" style="width: 100%; margin: 20px 0; border-radius: 15px;"></p>
+                <img src="img/post3.jpg" alt="수면 부족으로 인해 인지 능력이 저하된 상태" loading="lazy">
 
                 <div class="quote-box">
-                    "24시간 동안 잠을 자지 않은 상태의 뇌는 혈중알코올농도 0.1%인 상태와 유사한 인지 수행 능력을 보입니다. 이는 법적으로 '면허 취소'에 해당하는 만취 상태로 업무를 처리하는 것과 다를 바 없습니다."
+                    "24시간 동안 잠을 자지 않은 상태의 뇌는 혈중알코올농도 0.1%인 상태와 유사한 인지 수행 능력을 보입니다. 이는 법적으로 '면허 취소'에 해당하는 만취 상태와 다를 바 없습니다."
                 </div>
 
-                <h3>1. 뇌의 쓰레기 청소차, 글림파틱 시스템</h3>
-                <p>우리가 활동하는 동안 뇌세포 사이에는 '베타-아밀로이드'와 같은 대사 노폐물이 쌓입니다. 이 노폐물은 치매의 원인 물질로도 잘 알려져 있죠. 신기한 점은 우리 몸의 림프계와 달리 뇌는 잠을 잘 때만 가동되는 특별한 청소 시스템을 가지고 있다는 것입니다. 이를 <span class="emphasis">'글림파틱 시스템(Glymphatic System)'</span>이라 부릅니다.</p>
+                <h2>1. 뇌의 쓰레기 청소차, 글림파틱 시스템</h2>
+                <p>우리가 활동하는 동안 뇌세포 사이에는 '베타-아밀로이드'와 같은 대사 노폐물이 쌓입니다. 신기한 점은 우리 뇌가 잠을 잘 때만 가동되는 특별한 청소 시스템을 가지고 있다는 것입니다. 이를 <span class="emphasis">'글림파틱 시스템(Glymphatic System)'</span>이라 부릅니다.</p>
+
                 
-                <p>우리가 깊은 잠에 빠지면 뇌세포는 약 60% 정도 수축하며 공간을 만듭니다. 그 사이로 뇌척수액이 흐르며 낮 동안 쌓인 '독성 단백질'들을 깨끗이 씻어내죠. 잠을 줄인다는 것은 청소업체 직원을 해고하고 도서관에 쓰레기를 쌓아두는 것과 같습니다. 쓰레기가 가득 찬 도서관에서 원하는 책(정보)을 찾기란 불가능에 가깝습니다.</p>
-
-                <h3>2. 판단력의 실종: 전두엽의 기능 마비</h3>
-                <p>수면 부족이 가장 먼저 타격을 입히는 곳은 인간을 인간답게 만드는 '전두엽'입니다. 전두엽은 논리적 사고, 판단, 감정 조절을 담당합니다. 잠이 부족하면 전두엽의 혈류량이 급격히 감소하며, 우리는 평소라면 하지 않았을 실수를 저지르거나 감정적인 대응을 하게 됩니다.</p>
                 
-                <p>특히 <span class="emphasis">'판단 지연'</span> 현상이 심각해집니다. 위험을 감지하고 반응하는 속도가 늦어지며, 복잡한 상황에서 최선의 선택을 내리는 능력이 상실됩니다. 야근 후 내린 중요한 결정이 다음 날 아침 후회로 돌아오는 이유는 당신의 전두엽이 잠들어 있었기 때문입니다.</p>
+                <p>우리가 깊은 잠에 빠지면 뇌세포는 수축하며 공간을 만듭니다. 그 사이로 뇌척수액이 흐르며 '독성 단백질'들을 깨끗이 씻어내죠. 잠을 줄인다는 것은 도서관에 쓰레기를 방치하는 것과 같습니다. 쓰레기가 가득 찬 도서관에서 정보를 찾기란 불가능에 가깝습니다.</p>
 
-                <h3>3. 해결책: '전략적 휴식'이 지능을 높인다</h3>
-                <p>최고의 인지 컨디션을 유지하려면 단순히 '많이' 자는 것보다 '제대로' 자는 것이 중요합니다. 잠들기 30분 전 스마트폰 사용을 자제하여 멜라토닌 분비를 돕고, 실내 온도를 약간 서늘하게 유지하는 것만으로도 수면의 질은 비약적으로 상승합니다.</p>
+                <h2>2. 판단력의 실종: 전두엽의 기능 마비</h2>
+                <p>수면 부족이 가장 먼저 타격을 입히는 곳은 인간을 인간답게 만드는 '전두엽'입니다. 잠이 부족하면 전두엽의 혈류량이 감소하며, 우리는 평소라면 하지 않았을 실수를 저지르거나 감정적인 대응을 하게 됩니다.</p>
+                
+                <p>특히 <span class="emphasis">'판단 지연'</span> 현상이 심각해집니다. 위험을 감지하고 반응하는 속도가 늦어지며, 복잡한 상황에서 최선의 선택을 내리는 능력이 상실됩니다. 야근 후 내린 중요한 결정이 다음 날 아침 후회로 돌아오는 이유입니다.</p>
 
-                <p>만약 오늘 유독 머리가 무겁고 집중이 안 된다면, 억지로 책상을 지키기보다 **15~20분의 짧은 낮잠(Power Nap)**을 권장합니다. 짧은 휴식은 뇌의 캐시 메모리를 비워주고 전두엽의 판단력을 신속하게 복구하는 가장 강력한 도구입니다.</p>
+                <h3>3. 해결책: '전략적 휴식'의 힘</h3>
+                <p>최고의 컨디션을 유지하려면 단순히 '많이' 자는 것보다 '제대로' 자는 것이 중요합니다. 잠들기 30분 전 스마트폰 사용을 자제하고 멜라토닌 분비를 돕는 것만으로도 수면의 질은 비약적으로 상승합니다.</p>
+
+                <p>만약 집중이 안 된다면 억지로 버티기보다 **15~20분의 짧은 낮잠(Power Nap)**을 권장합니다. 짧은 휴식은 뇌의 캐시 메모리를 비워주고 판단력을 신속하게 복구하는 강력한 도구입니다.</p>
+
+                <a href="index.html" class="btn-list">← 분석실 칼럼 목록보기</a>
 
                 <div class="cta-box">
-                    <h4 style="margin-top: 0; color: var(--primary-color);">💡 지금 내 판단력 수치는?</h4>
-                    <p style="margin-bottom: 0;">뇌에 노폐물이 쌓여 판단력이 흐려지지는 않았나요? 지금 바로 간단한 테스트를 통해 당신의 반응 속도와 판단 정확도를 확인해보세요.</p>
+                    <h2 style="font-size: 1.2rem; margin: 0; border: none;">💡 지금 내 판단력 수치는?</h2>
+                    <p style="margin: 10px 0 0; font-size: 0.9rem;">뇌에 노폐물이 쌓여 판단력이 흐려지지는 않았나요? 지금 바로 테스트를 통해 당신의 반응 속도를 확인해보세요.</p>
                     <a href="game3.html" class="btn-game">⚖️ 판단력 컨디션 체크하기</a>
                 </div>
             </div>
@@ -160,16 +185,11 @@
             <section class="references">
                 <h4>📚 데이터 출처 및 참고 문헌</h4>
                 <ul>
-                    <li><strong>Walker, M. (2017).</strong> <em>Why We Sleep</em>. 수면이 뇌와 신경계에 미치는 영향에 관한 종합 보고서.</li>
-                    <li><strong>Xie, L., et al. (2013).</strong> "Sleep drives metabolite clearance from the adult brain." <em>Science</em>. (글림파틱 시스템 최초 발견 연구)</li>
-                    <li><strong>Dawson, D., & Reid, K. (1997).</strong> "Fatigue, alcohol and performance impairment." <em>Nature</em>. (수면 부족과 음주 상태 비교 연구)</li>
-                    <li><strong>Harvard Medical School.</strong> "Sleep, Learning, and Memory." 건강한 수면과 기억 저장 기제 분석.</li>
+                    <li><strong>Walker, M. (2017).</strong> <em>Why We Sleep</em>. 수면과 신경계 보고서.</li>
+                    <li><strong>Xie, L., et al. (2013).</strong> "Sleep drives metabolite clearance." <em>Science</em>.</li>
+                    <li><strong>Dawson, D., & Reid, K. (1997).</strong> "Fatigue, alcohol and performance." <em>Nature</em>.</li>
                 </ul>
             </section>
-
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="posts.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">목록으로 돌아가기</a>
-            </div>
         </article>
     </main>
 
@@ -177,7 +197,7 @@
         <div style="margin-bottom: 10px;">
             <a href="privacy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
         </div>
-        &copy; 2026 SKZ Brain Lab. 과학적 근거를 바탕으로 한 인지 훈련 콘텐츠를 제공합니다.
+        &copy; 2026 SKZ Brain Lab. All rights reserved. 과학적 근거를 바탕으로 한 인지 훈련 콘텐츠를 제공합니다.
     </footer>
 
     <script>
