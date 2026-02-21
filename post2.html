@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
     <title>유튜브 보며 게임하기, 뇌 효율을 망치는 지름길? | SKZ Brain Lab</title>
 
-    <meta name="description" content="멀티태스킹이 가져오는 '가짜 효율성'의 함정을 소개합니다. 뇌의 스위칭 비용(Switching Cost)을 이해하고 몰입의 즐거움을 회복하는 방법을 알아보세요.">
-    <meta name="keywords" content="멀티태스킹, 뇌효율, 스위칭비용, 몰입, 집중력향상, 뇌과학, 스마트폰중독">
+    <meta name="description" content="멀티태스킹이 가져오는 '가짜 효율성'의 함정을 소개합니다. 뇌의 스위칭 비용(Switching Cost)을 이해하고 집중력을 회복하는 방법을 알아보세요.">
+    <meta name="keywords" content="멀티태스킹, 뇌효율, 스위칭비용, 몰입, 집중력향상, 뇌과학, 스마트폰중독, SKZ Brain Lab">
+    <meta name="author" content="SKZ Brain Lab">
     
+    <link rel="canonical" href="https://www.skztools.com/post2.html">
+
+    <meta property="og:type" content="article">
     <meta property="og:title" content="당신의 뇌는 지금 비명을 지르고 있다? 멀티태스킹의 진실">
     <meta property="og:description" content="동시에 여러 일을 하는 것이 왜 뇌를 지치게 만드는지 과학적으로 분석합니다.">
-    <meta property="og:image" content="img/post2.jpg"> 
-    <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/post2.html">
+    <meta property="og:image" content="https://www.skztools.com/img/post2.jpg">
+    <meta property="og:url" content="https://www.skztools.com/post2.html">
 
     <style>
         :root { 
@@ -31,7 +36,6 @@
             background: var(--accent-color); z-index: 2000; transition: width 0.1s;
         }
 
-         /* 헤더/네비게이션 */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
@@ -41,66 +45,82 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
         }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
-        nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
+        nav.main-nav a.active { color: var(--accent-color); }
 
-        .container { width: 94%; max-width: 750px; margin: 2rem auto; }
+        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; }
         
         .article-card { 
-            background: white; padding: 50px 30px; border-radius: 28px; 
+            background: white; padding: 40px 25px; border-radius: 28px; 
             box-shadow: 0 10px 40px rgba(0,0,0,0.03); 
         }
 
+        .meta-info { margin-bottom: 15px; }
         .category-tag { 
-            display: inline-block; padding: 5px 14px; background: #fff7ed; color: #c2410c; 
-            border-radius: 8px; font-size: 0.75rem; font-weight: 800; margin-bottom: 20px; 
+            display: inline-block; padding: 4px 12px; background: #fff7ed; color: #c2410c; 
+            border-radius: 6px; font-size: 0.75rem; font-weight: 800;
         }
+        .post-date { font-size: 0.75rem; color: #bbb; margin-left: 10px; }
 
-        .article-card h2 { 
-            font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1.35; margin: 0 0 30px 0; 
+        .article-card h1 { 
+            font-size: 1.7rem; line-height: 1.4; margin: 0 0 25px 0; 
             word-break: keep-all; color: var(--primary-color); font-weight: 800;
         }
 
-        .content { font-size: 1.1rem; color: var(--text-content); }
-        .content p { margin-bottom: 1.8rem; text-align: justify; }
-        .content h3 { 
-            font-size: 1.5rem; color: var(--primary-color); margin-top: 3.5rem; margin-bottom: 1.2rem; 
-            display: flex; align-items: center; gap: 10px; font-weight: 800;
+        .content { font-size: 1rem; color: var(--text-content); }
+        .content img { border-radius: 18px; margin-bottom: 20px; width: 100%; height: auto; }
+        .content p { margin-bottom: 1.6rem; text-align: justify; }
+        
+        .content h2 { 
+            font-size: 1.4rem; color: var(--primary-color); margin-top: 3rem; margin-bottom: 1.2rem; 
+            font-weight: 800; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;
         }
-        .content h3::before { content: ''; width: 4px; height: 1.3rem; background: var(--accent-color); border-radius: 2px; }
+        .content h3 { 
+            font-size: 1.2rem; color: var(--primary-color); margin-top: 2rem; margin-bottom: 1rem; 
+            display: flex; align-items: center; gap: 8px; font-weight: 800;
+        }
+        .content h3::before { content: ''; width: 4px; height: 1.1rem; background: var(--accent-color); border-radius: 2px; }
 
         .emphasis { color: #c2410c; font-weight: 700; background: linear-gradient(to top, #ffedd5 35%, transparent 35%); }
         
         .quote-box { 
-            background: #fef2f2; border-left: 6px solid #ef4444; padding: 25px; 
-            margin: 40px 0; border-radius: 0 20px 20px 0; font-style: italic;
+            background: #fef2f2; border-left: 5px solid #ef4444; padding: 20px; 
+            margin: 30px 0; border-radius: 0 18px 18px 0; font-style: italic; font-size: 0.95rem;
         }
 
+        .btn-list {
+            display: block; text-align: center; margin: 40px auto 20px;
+            padding: 12px 20px; background: #f1f5f9; color: var(--text-main);
+            text-decoration: none; border-radius: 12px; font-size: 0.9rem; font-weight: 600;
+            transition: 0.3s; border: 1px solid #e2e8f0;
+        }
+        .btn-list:hover { background: #e2e8f0; }
+
         .cta-box {
-            background: #f1f5f9; padding: 35px; border-radius: 24px; margin-top: 60px;
+            background: #f8fafc; padding: 30px 20px; border-radius: 24px; margin-top: 30px;
             text-align: center; border: 1px dashed #cbd5e1;
         }
         .btn-game {
             display: inline-block; background: var(--accent-color); color: white; 
-            padding: 16px 32px; border-radius: 14px; text-decoration: none; 
-            font-weight: bold; margin-top: 20px; transition: 0.3s;
+            padding: 16px 30px; border-radius: 30px; text-decoration: none; 
+            font-weight: bold; margin-top: 20px; transition: 0.3s; box-shadow: 0 4px 12px rgba(211, 84, 0, 0.2);
         }
         .btn-game:hover { background: #9a3412; transform: translateY(-2px); }
 
         .references { 
-            margin-top: 60px; padding: 25px; background: #fafafa; border-radius: 16px;
-            font-size: 0.85rem; color: var(--text-muted); border: 1px solid #eee;
+            margin-top: 50px; padding: 20px; background: #fafafa; border-radius: 18px;
+            font-size: 0.8rem; color: var(--text-muted); border: 1px solid #eee;
         }
-        .references h4 { margin: 0 0 15px 0; color: var(--text-main); }
+        .references h4 { margin: 0 0 12px 0; color: var(--text-main); font-size: 0.9rem; }
         .references ul { list-style: none; padding: 0; margin: 0; }
-        .references li { margin-bottom: 10px; line-height: 1.6; padding-left: 15px; position: relative; }
+        .references li { margin-bottom: 8px; line-height: 1.5; padding-left: 15px; position: relative; }
         .references li::before { content: '•'; position: absolute; left: 0; color: #ccc; }
 
-        footer { text-align: center; padding: 4rem 0; color: #bbb; font-size: 0.8rem; border-top: 1px solid #eee; margin-top: 50px; }
-        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
+        footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; margin-top: 3rem; }
+        footer a { color: #bbb; text-decoration: none; margin: 0 5px; }
 
         @media (max-width: 480px) {
-            .article-card { padding: 35px 20px; border-radius: 0; }
-            .container { width: 100%; margin: 0; }
+            .article-card { padding: 30px 20px; }
+            .container { width: 95%; margin: 1rem auto; }
         }
     </style>
 </head>
@@ -112,46 +132,49 @@
     </header>
 
     <nav class="main-nav">
-        <a href="index.html">홈</a>
-        <a href="game.html">집중력</a>
-        <a href="game2.html">논리력</a>
-        <a href="game3.html">판단력</a>
-        <a href="report.html">리포트</a>
-        <a href="posts.html" class="active">분석실</a>
+        <a href="index.html" class="active">브레인 분석실</a>
+        <a href="dash.html">두뇌 훈련센터</a>
+        <a href="report.html">나의 두뇌점수</a>
     </nav>
 
     <main class="container">
         <article class="article-card">
-            <span class="category-tag">BRAIN REPORT #02</span>
-            <h2>유튜브 보면서 게임하는 당신,<br><span class="emphasis">뇌는 지금 '비명'을 지르고 있다?</span></h2>
+            <div class="meta-info">
+                <span class="category-tag">BRAIN REPORT #02</span>
+                <time class="post-date" datetime="2026-02-20">2026. 02. 20</time>
+            </div>
+            
+            <h1>유튜브 보면서 게임하는 당신, <br><span class="emphasis">뇌는 지금 '비명'을 지르고 있다?</span></h1>
             
             <div class="content">
-                <p>혹시 지금 이 글을 읽으면서도 화면 한구석에 유튜브를 틀어놓으셨나요? 혹은 메신저 알림이 올 때마다 즉각적으로 창을 옮겨 다니고 계신가요? 현대인들에게 '멀티태스킹'은 일상이자 효율성의 상징처럼 여겨집니다. 하지만 뇌과학의 관점에서 볼 때, 멀티태스킹은 <span class="emphasis">효율의 극대화가 아니라 '뇌의 자살 행위'</span>에 가깝습니다.</p>
+                <p>혹시 지금 이 글을 읽으면서도 화면 한구석에 유튜브를 틀어놓으셨나요? 현대인들에게 '멀티태스킹'은 효율성의 상징처럼 여겨지지만, 뇌과학의 관점에서 이는 <span class="emphasis">효율의 극대화가 아니라 '뇌의 자살 행위'</span>에 가깝습니다.</p>
 
-                <p><img src="img/post2.jpg" alt="멀티태스킹하는 현대인의 모습" style="width: 100%; margin: 20px 0; border-radius: 15px;"></p>
+                
+
+                <img src="img/post2.jpg" alt="멀티태스킹으로 과부하가 걸린 현대인의 인지 상태" loading="lazy">
 
                 <div class="quote-box">
-                    "런던 대학교의 연구 결과, 멀티태스킹을 지속하는 사람의 IQ는 일시적으로 15점 가량 하락합니다. 이는 밤을 꼬박 새웠을 때나 마리화나를 흡입했을 때보다 더 심각한 인지 저하 상태입니다."
+                    "런던 대학교의 연구 결과, 멀티태스킹을 지속하는 사람의 IQ는 일시적으로 15점 가량 하락합니다. 이는 밤을 꼬박 새웠을 때보다 더 심각한 인지 저하 상태입니다."
                 </div>
 
-                <h3>1. 왜 멀티태스킹은 '가짜 효율'일까?</h3>
-                <p>우리의 뇌는 사실 '동시 처리'가 불가능한 구조입니다. 컴퓨터의 듀얼 코어처럼 작동하는 것이 아니라, 아주 빠른 속도로 **'주의력 채널'을 전환**할 뿐이죠. 유튜브를 보다가 게임 화면으로 시선을 옮기는 순간, 우리 뇌는 이전 작업의 맥락을 끊고 새로운 작업의 데이터를 로딩해야 합니다.</p>
+                <h2>1. 왜 멀티태스킹은 '가짜 효율'일까?</h2>
+                <p>우리의 뇌는 사실 '동시 처리'가 불가능한 구조입니다. 컴퓨터의 듀얼 코어처럼 작동하는 것이 아니라, 아주 빠른 속도로 **'주의력 채널'을 전환**할 뿐이죠.</p>
                 
-                <p>심리학에서는 이를 <span class="emphasis">'스위칭 비용(Switching Cost)'</span>이라고 부릅니다. 이 채널 전환이 반복될 때마다 뇌는 막대한 에너지를 소모하며, 작업 속도는 최대 40%까지 느려집니다. 겉으로는 바쁘고 생산적으로 보이지만, 실제로는 어떤 일도 제대로 끝내지 못하는 '인지적 과부하' 상태에 빠지는 것입니다.</p>
+                <p>심리학에서는 이를 <span class="emphasis">'스위칭 비용(Switching Cost)'</span>이라고 부릅니다. 이 채널 전환이 반복될 때마다 뇌는 막대한 에너지를 소모하며, 작업 속도는 최대 40%까지 느려집니다. 겉으로는 생산적으로 보이지만 실제로는 어떤 일도 제대로 끝내지 못하는 '인지적 과부하' 상태에 빠지는 것입니다.</p>
 
-                <h3>2. 당신의 뇌를 망치는 '도파민의 함정'</h3>
-                <p>문제는 우리가 이 과정에서 묘한 즐거움을 느낀다는 것입니다. 새로운 알림, 새로운 영상 조각이 나타날 때마다 뇌는 미량의 도파민을 분출합니다. 뇌는 '중요한 일을 하고 있다'는 착각에 빠져 더 자극적인 멀티태스킹 환경을 원하게 됩니다.</p>
+                <h2>2. 당신의 뇌를 망치는 '도파민의 함정'</h2>
+                <p>문제는 우리가 이 과정에서 묘한 즐거움을 느낀다는 것입니다. 새로운 알림이나 영상 조각이 나타날 때마다 뇌는 미량의 도파민을 분출합니다. 뇌는 '중요한 일을 하고 있다'는 착각에 빠져 더 자극적인 환경을 원하게 됩니다.</p>
                 
-                <p>이런 습관이 지속되면 뇌의 <strong>전두엽</strong> 기능이 약화됩니다. 깊은 통찰이나 복잡한 문제를 인내심 있게 해결하는 능력은 사라지고, 자극에만 즉각 반응하는 '수동적인 뇌'로 변하는 것이죠. 스탠퍼드 대학교의 연구에 따르면, 멀티태스킹을 자주 하는 사람일수록 오히려 관련 없는 정보에 더 쉽게 산만해지며 인지적 통제력을 잃는 것으로 나타났습니다.</p>
+                <p>이런 습관이 지속되면 뇌의 <strong>전두엽</strong> 기능이 약화됩니다. 깊은 통찰이나 복잡한 문제를 해결하는 인내심은 사라지고, 자극에만 즉각 반응하는 '수동적인 뇌'로 변하게 됩니다.</p>
 
                 <h3>3. 해결책: '싱글 태스킹'의 가치 회복</h3>
-                <p>무너진 집중력을 되살리는 방법은 단순하지만 강력합니다. 바로 한 번에 한 가지 일만 하는 **'싱글 태스킹(Single Tasking)'**을 연습하는 것입니다. 하루 중 단 30분만이라도 모든 알림을 끄고 하나의 과제에만 깊이 몰입해보세요. 파편화되었던 뇌 회로가 다시 정돈되는 느낌을 받을 수 있을 것입니다.</p>
+                <p>무너진 집중력을 되살리는 방법은 단순합니다. 바로 한 번에 한 가지 일만 하는 **'싱글 태스킹(Single Tasking)'**을 연습하는 것입니다. 하루 단 30분만이라도 모든 알림을 끄고 하나의 과제에만 깊이 몰입해보세요.</p>
 
-                <p>단순히 참는 것만으로는 부족합니다. 뇌에게 '집중하는 즐거움'을 다시 가르쳐야 합니다. 자극적인 숏폼 영상 대신, 전략적 사고가 필요한 문제를 풀거나 고도의 주의력을 요구하는 훈련을 통해 뇌의 <span class="emphasis">'억제 제어 기능'</span>을 다시 활성화시켜야 합니다.</p>
+                <a href="index.html" class="btn-list">← 분석실 칼럼 목록보기</a>
 
                 <div class="cta-box">
-                    <h4 style="margin-top: 0; color: var(--primary-color);">💡 산만한 뇌를 정돈하고 싶다면?</h4>
-                    <p style="margin-bottom: 0;">여러분의 뇌는 지금 얼마나 산만한가요? 글자와 그림의 간섭을 이겨내는 훈련을 통해, '주의력 전환' 능력을 올바르게 제어하는 힘을 길러보세요.</p>
+                    <h2 style="font-size: 1.2rem; margin: 0; border: none;">💡 산만한 뇌를 정돈하고 싶다면?</h2>
+                    <p style="margin: 10px 0 0; font-size: 0.9rem;">글자와 그림의 간섭을 이겨내는 훈련을 통해, '주의력 전환' 능력을 올바르게 제어하는 힘을 길러보세요.</p>
                     <a href="game2.html" class="btn-game">🎯 집중력 컨트롤 훈련 시작하기</a>
                 </div>
             </div>
@@ -159,16 +182,11 @@
             <section class="references">
                 <h4>📚 데이터 출처 및 참고 문헌</h4>
                 <ul>
-                    <li><strong>University of London (2014).</strong> "Multitasking damages your IQ and your brain."</li>
-                    <li><strong>Stanford University (2009).</strong> "Cognitive control in media multitaskers." <em>PNAS</em>.</li>
-                    <li><strong>Gloria Mark (2023).</strong> <em>Attention Span</em>. 집중력의 한계와 회복에 관한 실증적 연구.</li>
-                    <li><strong>Nicholas Carr (2010).</strong> <em>The Shallows</em>. 멀티태스킹이 신경 가소성에 미치는 영향.</li>
+                    <li><strong>University of London (2014).</strong> "Multitasking damages your IQ."</li>
+                    <li><strong>Stanford University (2009).</strong> "Cognitive control in media multitaskers."</li>
+                    <li><strong>Gloria Mark (2023).</strong> <em>Attention Span</em>.</li>
                 </ul>
             </section>
-
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="posts.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">목록으로 돌아가기</a>
-            </div>
         </article>
     </main>
 
@@ -176,7 +194,7 @@
         <div style="margin-bottom: 10px;">
             <a href="privacy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
         </div>
-        &copy; 2026 SKZ Brain Lab. 과학적 근거를 바탕으로 한 인지 훈련 콘텐츠를 제공합니다.
+        &copy; 2026 SKZ Brain Lab. All rights reserved. 과학적 근거를 바탕으로 한 인지 훈련 콘텐츠를 제공합니다.
     </footer>
 
     <script>
