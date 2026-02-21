@@ -6,8 +6,8 @@
     
     <title>부모보다 낮은 세대별 IQ 하락 원인: 역 플린 효과 분석 | SKZ Brain Lab</title>
 
-    <meta name="description" content="전 세계적으로 보고되는 IQ 하락 현상 '역 플린 효과'의 원인을 분석합니다. 디지털 환경이 인간의 전두엽 발달과 지능에 미치는 뇌과학적 통찰을 확인하세요.">
-    <meta name="keywords" content="역플린효과, IQ하락, 지능지수, 뇌과학, 디지털치매, 인지능력, SKZ Brain Lab">
+    <meta name="description" content="인류 역사상 처음으로 보고된 세대 간 지능 하락 현상 '역 플린 효과'의 원인과 디지털 환경이 뇌 발달에 미치는 영향을 심층 분석합니다.">
+    <meta name="keywords" content="역플린효과, IQ하락, 지능지수 하락, 디지털치매, 전두엽 발달, 뇌과학, SKZ Brain Lab">
     <meta name="author" content="SKZ Brain Lab">
     
     <link rel="canonical" href="https://www.skztools.com/post1.html">
@@ -31,13 +31,11 @@
             line-height: 1.8; letter-spacing: -0.02em;
         }
         
-        /* 읽기 진행바 */
         #progress-bar {
             position: fixed; top: 0; left: 0; width: 0%; height: 4px;
             background: var(--accent-color); z-index: 2000; transition: width 0.1s;
         }
 
-        /* 헤더 & 네비게이션 (전체 페이지 통일) */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
@@ -63,7 +61,6 @@
         }
         .post-date { font-size: 0.75rem; color: #bbb; margin-left: 10px; }
 
-        /* [SEO] H1 태그는 페이지당 1개 필수 */
         .article-card h1 { 
             font-size: 1.7rem; line-height: 1.4; margin: 0 0 25px 0; 
             word-break: keep-all; color: var(--primary-color); font-weight: 800;
@@ -73,7 +70,6 @@
         .content img { border-radius: 18px; margin-bottom: 20px; width: 100%; height: auto; }
         .content p { margin-bottom: 1.6rem; text-align: justify; }
         
-        /* [SEO] H2, H3 태그의 논리적 구조화 */
         .content h2 { 
             font-size: 1.4rem; color: var(--primary-color); margin-top: 3rem; margin-bottom: 1.2rem; 
             font-weight: 800; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;
@@ -91,8 +87,17 @@
             margin: 30px 0; border-radius: 0 18px 18px 0; font-style: italic; font-size: 0.95rem;
         }
 
+        /* 목록으로 가기 버튼 스타일 */
+        .btn-list {
+            display: block; text-align: center; margin: 40px auto 20px;
+            padding: 12px 20px; background: #f1f5f9; color: var(--text-main);
+            text-decoration: none; border-radius: 12px; font-size: 0.9rem; font-weight: 600;
+            transition: 0.3s; border: 1px solid #e2e8f0;
+        }
+        .btn-list:hover { background: #e2e8f0; }
+
         .cta-box {
-            background: #f8fafc; padding: 30px 20px; border-radius: 24px; margin-top: 50px;
+            background: #f8fafc; padding: 30px 20px; border-radius: 24px; margin-top: 30px;
             text-align: center; border: 1px dashed #cbd5e1;
         }
         .btn-game {
@@ -137,13 +142,13 @@
         <article class="article-card">
             <div class="meta-info">
                 <span class="category-tag">두뇌 통찰 #01</span>
-                <time class="post-date" datetime="2026-02-21">2026. 02. 21</time>
+                <time class="post-date" datetime="2026-02-20">2026. 02. 20</time>
             </div>
             
             <h1>인류 역사상 처음으로 <br><span class="emphasis">부모보다 IQ가 낮은 아이들</span>이 나타났다?</h1>
             
             <div class="content">
-                <img src="img/post1.jpg" alt="세대별 IQ 하락 현상을 나타내는 뇌과학 분석 이미지" loading="lazy">
+                <img src="img/post1.jpg" alt="세대별 IQ 점수 역전 현상을 설명하는 뇌과학 리포트 이미지" loading="lazy">
                 
                 <p>지난 100년간 인류는 세대를 거듭할수록 똑똑해져 왔습니다. 하지만 최근 전 세계 뇌과학계를 발칵 뒤집어놓은 리포트들이 쏟아지고 있습니다. <span class="emphasis">인류 역사상 처음으로 '자녀 세대의 지능이 부모 세대보다 낮아지는 역전 현상'</span>이 실제로 벌어지고 있기 때문입니다.</p>
 
@@ -152,22 +157,24 @@
                 </div>
 
                 <h2>1. 도대체 왜 이런 일이 벌어지고 있을까?</h2>
-                <p>가장 큰 원인으로 지목되는 것은 역시 우리의 일상을 점령한 **'디지털 환경'**입니다. 과거의 아이들이 종이책을 넘기며 상상의 나래를 펼칠 때 전두엽이 발달했다면, 지금은 즉각적인 반응을 유도하는 숏폼 영상에 뇌가 길들여져 있습니다.</p>
+                <p>가장 큰 원인으로 지목되는 것은 역시 우리의 일상을 점령한 **'디지털 환경'**입니다. 과거의 아이들이 종이책을 넘기며 상상의 나래를 펼칠 때 전두엽이 발달했다면, 지금은 즉각적인 반응에 길들여진 '수동적 뇌'가 되어가고 있습니다.</p>
                 
-                <p>뇌과학자들은 이를 <strong>'인지적 게으름'</strong>이라고 부릅니다. 궁금한 게 생기면 깊이 고민하는 대신 검색창을 켜고, 복잡한 계산은 기기에 맡깁니다. 우리 뇌는 쓰지 않으면 퇴화하는 근육과 같습니다. 외부 기기가 뇌의 역할을 대신하면서, 스스로 논리적 회로를 구축할 기회를 잃어버린 셈입니다.</p>
+                <p>뇌과학자들은 이를 <strong>'인지적 게으름'</strong>이라고 부릅니다. 우리 뇌는 쓰지 않으면 퇴화하는 근육과 같습니다. 외부 기기가 뇌의 역할을 대신하면서, 스스로 논리적 회로를 구축할 기회를 잃어버린 셈입니다.</p>
 
                 <h2>2. 지능의 하락, 왜 지금 당장 위험할까?</h2>
-                <p>단순한 점수 하락보다 더 무서운 것은 **'사고의 깊이'**가 얕아진다는 점입니다. 지능의 하락은 곧 문해력의 저하와 직결됩니다. 긴 글의 맥락을 파악하지 못하고, 정보의 진위 여부를 가려내는 비판적 사고 능력이 부족해지는 것이죠.</p>
+                <p>단순한 숫자 하락보다 무서운 것은 **'사고의 깊이'**가 얕아진다는 점입니다. 지능의 하락은 문해력 저하와 직결되며, 정보의 진위 여부를 가려내는 비판적 사고 능력을 약화시킵니다.</p>
                 
-                <p>특히 인공지능(AI)이 인간의 일자리를 대체하는 미래 사회에서, '고차원적 사고'를 할 수 있는 능력은 생존과 직결됩니다. 뇌가 퇴화한다는 것은 미래 사회에서 도태될 위험이 커진다는 무거운 경고입니다.</p>
+                <p>특히 인공지능(AI)과 경쟁해야 하는 미래 사회에서 '고차원적 사고력'은 생존을 위한 필수 무기입니다. 뇌가 퇴화한다는 것은 미래 사회에서 도태될 위험이 커진다는 무거운 경고입니다.</p>
 
-                <h3>3. 이 위기를 탈출하기 위한 두뇌 훈련</h3>
-                <p>다행히 우리 뇌는 죽을 때까지 변화하는 <strong>'가소성'</strong>을 가졌습니다. 해결책은 명확합니다. 뇌에게 다시 **'건강한 자극'**을 주는 것이죠. 스마트폰의 수동적인 자극에서 벗어나, 뇌가 스스로 논리적 결론을 도출하도록 만드는 능동적인 훈련이 필요합니다.</p>
+                <h3>3. 해결을 위한 신경 가소성 훈련</h3>
+                <p>다행히 우리 뇌는 다시 변화할 수 있는 <strong>'가소성'</strong>을 가졌습니다. 스마트폰의 수동적인 자극에서 벗어나, 뇌가 스스로 논리적 결론을 도출하도록 만드는 능동적인 훈련을 지금 시작해야 합니다.</p>
+
+                <a href="posts.html" class="btn-list">← 분석실 칼럼 목록보기</a>
 
                 <div class="cta-box">
-                    <h2 style="font-size: 1.2rem; margin: 0; border: none;">💡 지금 내 뇌는 안녕한가요?</h2>
-                    <p style="margin: 10px 0 0; font-size: 0.9rem;">퇴화하고 있는 뇌 회로를 다시 깨우는 가장 쉽고 즐거운 방법을 제안합니다.</p>
-                    <a href="dash.html" class="btn-game">🎯 뇌 회로 활성화 훈련 시작하기</a>
+                    <h2 style="font-size: 1.2rem; margin: 0; border: none;">💡 내 두뇌 회로 활성화하기</h2>
+                    <p style="margin: 10px 0 0; font-size: 0.9rem;">무뎌진 뇌를 깨우는 가장 과학적이고 즐거운 방법, 지금 바로 경험해보세요.</p>
+                    <a href="dash.html" class="btn-game">🎯 맞춤형 두뇌 훈련 시작하기</a>
                 </div>
             </div>
 
@@ -175,8 +182,8 @@
                 <h4>📚 데이터 출처 및 참고 문헌</h4>
                 <ul>
                     <li><strong>Bratsberg, B., & Rogeberg, O. (2018).</strong> "Flynn effect and its reversal are environmentally caused." <em>PNAS</em>.</li>
-                    <li><strong>World Economic Forum (2018).</strong> "IQ scores are falling in some developed countries."</li>
-                    <li><strong>Manfred Spitzer (2012).</strong> <em>Digital Dementia</em>. 디지털 치매 연구 리포트.</li>
+                    <li><strong>World Economic Forum (2018).</strong> "IQ scores are falling."</li>
+                    <li><strong>Manfred Spitzer (2012).</strong> <em>Digital Dementia</em>.</li>
                 </ul>
             </section>
         </article>
@@ -186,7 +193,7 @@
         <div style="margin-bottom: 10px;">
             <a href="privacy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
         </div>
-        &copy; 2026 SKZ Brain Lab. 모든 칼럼은 연구 데이터를 바탕으로 작성되었습니다.
+        &copy; 2026 SKZ Brain Lab. All rights reserved. 본 칼럼은 연구 데이터를 바탕으로 작성되었습니다.
     </footer>
 
     <script>
