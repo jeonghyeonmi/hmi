@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>충격 실태! 부모보다 지능이 낮은 첫 세대의 등장 | SKZ Brain Lab</title>
-
-    <meta name="description" content="전 세계적으로 보고되는 IQ 하락 현상, '역 플린 효과'의 원인을 분석합니다. 디지털 환경이 인간의 인지 구조에 미치는 영향과 뇌 과학적 통찰을 확인하세요.">
-    <meta name="keywords" content="역플린효과, IQ하락, 지능지수, 뇌과학, 디지털치매, 인지능력">
     
+    <title>부모보다 낮은 세대별 IQ 하락 원인: 역 플린 효과 분석 | SKZ Brain Lab</title>
+
+    <meta name="description" content="전 세계적으로 보고되는 IQ 하락 현상 '역 플린 효과'의 원인을 분석합니다. 디지털 환경이 인간의 전두엽 발달과 지능에 미치는 뇌과학적 통찰을 확인하세요.">
+    <meta name="keywords" content="역플린효과, IQ하락, 지능지수, 뇌과학, 디지털치매, 인지능력, SKZ Brain Lab">
+    <meta name="author" content="SKZ Brain Lab">
+    
+    <link rel="canonical" href="https://www.skztools.com/post1.html">
+
+    <meta property="og:type" content="article">
     <meta property="og:title" content="우리의 지능은 정말 낮아지고 있을까? - 역 플린 효과">
     <meta property="og:description" content="디지털 세대의 뇌 구조 변화와 지능 저하 논란의 진실을 파헤칩니다.">
-    <meta property="og:image" content="img/post1.jpg"> 
-    <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/post1.html">
+    <meta property="og:image" content="https://www.skztools.com/img/post1.jpg">
+    <meta property="og:url" content="https://www.skztools.com/post1.html">
 
     <style>
         :root { 
@@ -32,78 +37,86 @@
             background: var(--accent-color); z-index: 2000; transition: width 0.1s;
         }
 
-         /* 헤더/네비게이션 */
+        /* 헤더 & 네비게이션 (전체 페이지 통일) */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
+
         nav.main-nav { 
             background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
         }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
-        nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
+        nav.main-nav a.active { color: var(--accent-color); }
 
-        .container { width: 94%; max-width: 750px; margin: 2rem auto; }
+        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; }
         
         .article-card { 
-            background: white; padding: 50px 30px; border-radius: 28px; 
+            background: white; padding: 40px 25px; border-radius: 28px; 
             box-shadow: 0 10px 40px rgba(0,0,0,0.03); 
         }
 
+        .meta-info { margin-bottom: 15px; }
         .category-tag { 
-            display: inline-block; padding: 5px 14px; background: #fff1f2; color: #e11d48; 
-            border-radius: 8px; font-size: 0.75rem; font-weight: 800; margin-bottom: 20px; 
+            display: inline-block; padding: 4px 12px; background: #fff1f2; color: #e11d48; 
+            border-radius: 6px; font-size: 0.75rem; font-weight: 800;
         }
+        .post-date { font-size: 0.75rem; color: #bbb; margin-left: 10px; }
 
-        .article-card h2 { 
-            font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1.35; margin: 0 0 30px 0; 
+        /* [SEO] H1 태그는 페이지당 1개 필수 */
+        .article-card h1 { 
+            font-size: 1.7rem; line-height: 1.4; margin: 0 0 25px 0; 
             word-break: keep-all; color: var(--primary-color); font-weight: 800;
         }
 
-        /* 본문 콘텐츠 스타일 */
-        .content { font-size: 1.1rem; color: var(--text-content); }
-        .content p { margin-bottom: 1.8rem; text-align: justify; }
-        .content h3 { 
-            font-size: 1.5rem; color: var(--primary-color); margin-top: 3.5rem; margin-bottom: 1.2rem; 
-            display: flex; align-items: center; gap: 10px; font-weight: 800;
+        .content { font-size: 1rem; color: var(--text-content); }
+        .content img { border-radius: 18px; margin-bottom: 20px; width: 100%; height: auto; }
+        .content p { margin-bottom: 1.6rem; text-align: justify; }
+        
+        /* [SEO] H2, H3 태그의 논리적 구조화 */
+        .content h2 { 
+            font-size: 1.4rem; color: var(--primary-color); margin-top: 3rem; margin-bottom: 1.2rem; 
+            font-weight: 800; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;
         }
-        .content h3::before { content: ''; width: 4px; height: 1.3rem; background: var(--accent-color); border-radius: 2px; }
+        .content h3 { 
+            font-size: 1.2rem; color: var(--primary-color); margin-top: 2rem; margin-bottom: 1rem; 
+            display: flex; align-items: center; gap: 8px; font-weight: 800;
+        }
+        .content h3::before { content: ''; width: 4px; height: 1.1rem; background: var(--accent-color); border-radius: 2px; }
 
         .emphasis { color: #e11d48; font-weight: 700; background: linear-gradient(to top, #ffe4e6 35%, transparent 35%); }
         
         .quote-box { 
-            background: #fff7ed; border-left: 6px solid #f97316; padding: 25px; 
-            margin: 40px 0; border-radius: 0 20px 20px 0; font-style: italic;
+            background: #fff7ed; border-left: 5px solid #f97316; padding: 20px; 
+            margin: 30px 0; border-radius: 0 18px 18px 0; font-style: italic; font-size: 0.95rem;
         }
 
-        /* 푸터 액션 영역 */
         .cta-box {
-            background: #f1f5f9; padding: 35px; border-radius: 24px; margin-top: 60px;
+            background: #f8fafc; padding: 30px 20px; border-radius: 24px; margin-top: 50px;
             text-align: center; border: 1px dashed #cbd5e1;
         }
         .btn-game {
             display: inline-block; background: var(--primary-color); color: white; 
-            padding: 16px 32px; border-radius: 14px; text-decoration: none; 
-            font-weight: bold; margin-top: 20px; transition: 0.3s;
+            padding: 16px 30px; border-radius: 30px; text-decoration: none; 
+            font-weight: bold; margin-top: 20px; transition: 0.3s; box-shadow: 0 4px 12px rgba(26, 58, 95, 0.2);
         }
         .btn-game:hover { background: var(--accent-color); transform: translateY(-2px); }
 
-        /* 참고자료 */
         .references { 
-            margin-top: 60px; padding: 25px; background: #fafafa; border-radius: 16px;
-            font-size: 0.85rem; color: var(--text-muted); border: 1px solid #eee;
+            margin-top: 50px; padding: 20px; background: #fafafa; border-radius: 18px;
+            font-size: 0.8rem; color: var(--text-muted); border: 1px solid #eee;
         }
-        .references h4 { margin: 0 0 15px 0; color: var(--text-main); }
+        .references h4 { margin: 0 0 12px 0; color: var(--text-main); font-size: 0.9rem; }
         .references ul { list-style: none; padding: 0; margin: 0; }
-        .references li { margin-bottom: 10px; line-height: 1.6; padding-left: 15px; position: relative; }
+        .references li { margin-bottom: 8px; line-height: 1.5; padding-left: 15px; position: relative; }
         .references li::before { content: '•'; position: absolute; left: 0; color: #ccc; }
 
-        footer { text-align: center; padding: 4rem 0; color: #bbb; font-size: 0.8rem; border-top: 1px solid #eee; margin-top: 50px; }
-        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
+        footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; margin-top: 3rem; }
+        footer a { color: #bbb; text-decoration: none; margin: 0 5px; }
 
         @media (max-width: 480px) {
-            .article-card { padding: 35px 20px; border-radius: 0; }
-            .container { width: 100%; margin: 0; }
+            .article-card { padding: 30px 20px; }
+            .container { width: 95%; margin: 1rem auto; }
         }
     </style>
 </head>
@@ -115,48 +128,46 @@
     </header>
 
     <nav class="main-nav">
-        <a href="index.html">홈</a>
-        <a href="game.html">집중력</a>
-        <a href="game2.html">논리력</a>
-        <a href="game3.html">판단력</a>
-        <a href="report.html">리포트</a>
-        <a href="posts.html" class="active">분석실</a>
+        <a href="posts.html" class="active">브레인 분석실</a>
+        <a href="dash.html">두뇌 훈련센터</a>
+        <a href="report.html">나의 두뇌점수</a>
     </nav>
 
     <main class="container">
         <article class="article-card">
-            <span class="category-tag">두뇌 통찰 #01</span>
-            <h2>충격 실태! 인류 역사상 처음으로 <br><span class="emphasis">부모보다 IQ가 낮은 아이들</span>이 나타났다?</h2>
+            <div class="meta-info">
+                <span class="category-tag">두뇌 통찰 #01</span>
+                <time class="post-date" datetime="2026-02-21">2026. 02. 21</time>
+            </div>
+            
+            <h1>인류 역사상 처음으로 <br><span class="emphasis">부모보다 IQ가 낮은 아이들</span>이 나타났다?</h1>
             
             <div class="content">
-                <img src="img/post1.jpg" alt="우리의 뇌는 퇴화되고 있는걸까?" style="width:100%;">
-                <p>지금 우리 아이들이 이전 세대보다 지능이 낮다는 사실, 믿어지시나요? 지난 100년간 인류는 더 나은 영양과 교육을 통해 세대를 거듭할수록 똑똑해져 왔습니다. 하지만 최근 전 세계 뇌과학계를 발칵 뒤집어놓은 리포트들이 쏟아지고 있습니다. <span class="emphasis">인류 역사상 처음으로 '자녀 세대의 지능이 부모 세대보다 낮아지는 역전 현상'</span>이 실제로 벌어지고 있기 때문입니다.</p>
-
+                <img src="img/post1.jpg" alt="세대별 IQ 하락 현상을 나타내는 뇌과학 분석 이미지" loading="lazy">
                 
+                <p>지난 100년간 인류는 세대를 거듭할수록 똑똑해져 왔습니다. 하지만 최근 전 세계 뇌과학계를 발칵 뒤집어놓은 리포트들이 쏟아지고 있습니다. <span class="emphasis">인류 역사상 처음으로 '자녀 세대의 지능이 부모 세대보다 낮아지는 역전 현상'</span>이 실제로 벌어지고 있기 때문입니다.</p>
 
                 <div class="quote-box">
                     "노르웨이 프리슈 경제연구소의 분석에 따르면, 1975년생 이후 태어난 남성들의 IQ는 세대가 바뀔 때마다 평균 7점씩 하락하고 있습니다. 이는 단순한 우연이 아니라 인류 지능의 '변곡점'에 도달했음을 의미합니다."
                 </div>
 
-                <h3>1. 도대체 왜 이런 일이 벌어지고 있을까?</h3>
-                <p>가장 큰 원인으로 지목되는 것은 역시 우리의 일상을 점령한 **'디지털 환경'**입니다. 과거의 아이들이 종이책을 넘기며 상상의 나래를 펼치고 복잡한 수수께끼를 풀 때 전두엽이 활발하게 발달했다면, 지금의 아이들은 15초 내외의 숏폼 영상과 즉각적인 반응에 길들여져 있습니다.</p>
+                <h2>1. 도대체 왜 이런 일이 벌어지고 있을까?</h2>
+                <p>가장 큰 원인으로 지목되는 것은 역시 우리의 일상을 점령한 **'디지털 환경'**입니다. 과거의 아이들이 종이책을 넘기며 상상의 나래를 펼칠 때 전두엽이 발달했다면, 지금은 즉각적인 반응을 유도하는 숏폼 영상에 뇌가 길들여져 있습니다.</p>
                 
-                <p>뇌과학자들은 이를 '인지적 게으름'이라고 부릅니다. 궁금한 게 생기면 깊이 고민하는 대신 검색창을 켜고, 복잡한 계산은 계산기에 맡기죠. 우리 뇌는 쓰지 않으면 퇴화하는 근육과 같습니다. 외부 기기가 뇌의 역할을 대신해주면서, 우리 뇌는 스스로 생각하고 논리적인 회로를 구축할 기회를 잃어버린 셈입니다.</p>
+                <p>뇌과학자들은 이를 <strong>'인지적 게으름'</strong>이라고 부릅니다. 궁금한 게 생기면 깊이 고민하는 대신 검색창을 켜고, 복잡한 계산은 기기에 맡깁니다. 우리 뇌는 쓰지 않으면 퇴화하는 근육과 같습니다. 외부 기기가 뇌의 역할을 대신하면서, 스스로 논리적 회로를 구축할 기회를 잃어버린 셈입니다.</p>
 
-                <h3>2. 지능이 낮아지는 것, 왜 지금 당장 위험할까?</h3>
-                <p>지능 지수가 몇 점 낮아지는 게 뭐가 그렇게 큰 문제냐고 물으실 수도 있습니다. 하지만 진짜 위험은 숫자가 아니라 **'사고의 깊이'**에 있습니다. 지능의 하락은 곧 문해력의 저하와 직결됩니다. 긴 글의 맥락을 파악하지 못하고, 정보의 진위 여부를 가려내지 못하며, 복잡한 사회 문제를 해결할 인내심이 부족해지는 것이죠.</p>
+                <h2>2. 지능의 하락, 왜 지금 당장 위험할까?</h2>
+                <p>단순한 점수 하락보다 더 무서운 것은 **'사고의 깊이'**가 얕아진다는 점입니다. 지능의 하락은 곧 문해력의 저하와 직결됩니다. 긴 글의 맥락을 파악하지 못하고, 정보의 진위 여부를 가려내는 비판적 사고 능력이 부족해지는 것이죠.</p>
                 
-                <p>특히 인공지능(AI)이 인간의 일자리를 대체하는 미래 사회에서, 단순한 정보 수용자가 아닌 '고차원적 사고'를 할 수 있는 능력은 생존과 직결됩니다. 뇌가 퇴화한다는 것은 단순히 공부를 못하게 되는 것이 아니라, 미래 사회에서 도태될 위험이 커진다는 무거운 경고입니다.</p>
+                <p>특히 인공지능(AI)이 인간의 일자리를 대체하는 미래 사회에서, '고차원적 사고'를 할 수 있는 능력은 생존과 직결됩니다. 뇌가 퇴화한다는 것은 미래 사회에서 도태될 위험이 커진다는 무거운 경고입니다.</p>
 
-                <h3>3. 이 위기를 탈출하기 위한 방법</h3>
-                <p>다행인 점은 우리 뇌가 죽을 때까지 변화하는 '가소성'을 가졌다는 것입니다. 해결책은 명확합니다. 뇌에게 다시 **'건강한 자극'**을 주는 것이죠. 스마트폰의 수동적인 자극에서 벗어나, 뇌가 스스로 논리적 결론을 도출하도록 만드는 능동적인 훈련이 필요합니다.</p>
-
-                <p>책을 읽고, 전략적인 문제를 풀고, 끊임없이 뇌를 자극하세요. 불편함이 느껴질 때 우리 뇌의 신경 세포는 비로소 다시 연결되기 시작합니다. 아이들에게는 스마트폰 대신 생각할 거리를, 어른들에게는 무뎌진 뇌를 깨울 자극을 주어야 할 때입니다.</p>
+                <h3>3. 이 위기를 탈출하기 위한 두뇌 훈련</h3>
+                <p>다행히 우리 뇌는 죽을 때까지 변화하는 <strong>'가소성'</strong>을 가졌습니다. 해결책은 명확합니다. 뇌에게 다시 **'건강한 자극'**을 주는 것이죠. 스마트폰의 수동적인 자극에서 벗어나, 뇌가 스스로 논리적 결론을 도출하도록 만드는 능동적인 훈련이 필요합니다.</p>
 
                 <div class="cta-box">
-                    <h4 style="margin-top: 0; color: var(--primary-color);">💡 지금 내 뇌는 안녕한가요?</h4>
-                    <p style="margin-bottom: 0;">방금 읽으신 '지능의 하락'이 혹시 나의 이야기처럼 느껴지시나요? 퇴화하고 있는 뇌 회로를 다시 깨우는 가장 쉽고 즐거운 방법을 제안합니다.</p>
-                    <a href="game.html" class="btn-game">🎯 뇌 회로 활성화 훈련 시작하기</a>
+                    <h2 style="font-size: 1.2rem; margin: 0; border: none;">💡 지금 내 뇌는 안녕한가요?</h2>
+                    <p style="margin: 10px 0 0; font-size: 0.9rem;">퇴화하고 있는 뇌 회로를 다시 깨우는 가장 쉽고 즐거운 방법을 제안합니다.</p>
+                    <a href="dash.html" class="btn-game">🎯 뇌 회로 활성화 훈련 시작하기</a>
                 </div>
             </div>
 
@@ -164,9 +175,8 @@
                 <h4>📚 데이터 출처 및 참고 문헌</h4>
                 <ul>
                     <li><strong>Bratsberg, B., & Rogeberg, O. (2018).</strong> "Flynn effect and its reversal are environmentally caused." <em>PNAS</em>.</li>
-                    <li><strong>World Economic Forum (2018).</strong> "IQ scores are falling in some developed countries. Here’s why."</li>
+                    <li><strong>World Economic Forum (2018).</strong> "IQ scores are falling in some developed countries."</li>
                     <li><strong>Manfred Spitzer (2012).</strong> <em>Digital Dementia</em>. 디지털 치매 연구 리포트.</li>
-                    <li><strong>Nicholas Carr (2010).</strong> <em>The Shallows</em>. (생각하지 않는 사람들).</li>
                 </ul>
             </section>
         </article>
