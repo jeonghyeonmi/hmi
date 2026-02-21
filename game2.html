@@ -6,13 +6,13 @@
     <title>전략 논리 훈련: 미니 스도쿠 | SKZ Brain Lab</title>
 
     <link rel="canonical" href="https://www.skztools.com/game2.html">
-    <meta name="description" content="단계별 스도쿠로 논리적 추론 능력을 강화하세요. 완벽한 패턴 분석으로 두뇌 점수를 높여보세요!">
+    <meta name="description" content="단계별 스도쿠로 논리적 추론 능력을 강화하세요.">
 
     <style>
         :root { 
             --primary-color: #1a3a5f; 
             --bg-color: #f4f7f9; 
-            --logic-color: #b91c1c; 
+            --logic-color: #b91c1c; /* 전략 논리 카테고리 고유색: Red */
             --accent-color: var(--logic-color);
             --error-bg: #fff5f5;
             --error-border: #ff4d4d;
@@ -31,20 +31,26 @@
         .category-tabs a { min-width: 100px; max-width: 200px; flex: 1; text-align: center; padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; transition: 0.3s; }
         .category-tabs a.active { color: var(--logic-color); border-bottom: 3px solid var(--logic-color); }
 
-        .game-sub-nav { display: flex; gap: 10px; padding: 15px; justify-content: center; background: #f8f9fa; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
-        .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; }
-        .game-sub-nav a.active { background: var(--logic-color); color: white; border-color: var(--logic-color); }
+        /* [추가] 서브 네비게이션: 미니 스도쿠 / AI 오목 */
+        .game-sub-nav { 
+            display: flex; gap: 10px; padding: 15px; justify-content: center; 
+            background: #f8f9fa; overflow-x: auto; white-space: nowrap; scrollbar-width: none;
+        }
+        .game-sub-nav::-webkit-scrollbar { display: none; }
+        .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; font-weight: 500; }
+        .game-sub-nav a.active { background: var(--logic-color); color: white; border-color: var(--logic-color); font-weight: bold; }
 
-        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 20px; background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
+        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 25px; background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
+        
         .game-guide { background: #fff5f5; border-radius: 15px; padding: 15px; font-size: 0.85rem; color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--logic-color); }
         
         .level-selector { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; }
-        .level-btn { padding: 6px 15px; border-radius: 15px; border: 1px solid #eee; background: white; font-size: 0.75rem; font-weight: bold; color: #888; cursor: pointer; }
+        .level-btn { padding: 8px 12px; border-radius: 12px; border: 1px solid #eee; background: white; font-size: 0.75rem; font-weight: bold; color: #888; cursor: pointer; transition: 0.2s; }
         .level-btn.active { background: var(--logic-color); color: white; border-color: var(--logic-color); }
 
         #timer { font-size: 2.8rem; font-weight: 800; color: var(--primary-color); margin: 10px 0; display: block; font-variant-numeric: tabular-nums; }
 
-        .sudoku-grid { display: grid; margin: 20px auto; background: #333; border: 2px solid #333; gap: 1px; width: fit-content; border-radius: 8px; overflow: hidden; }
+        .sudoku-grid { display: grid; margin: 20px auto; background: #333; border: 2px solid #333; gap: 1px; width: fit-content; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .cell { background: white; display: flex; align-items: center; justify-content: center; aspect-ratio: 1/1; position: relative; }
         .cell input { width: 100%; height: 100%; border: none; text-align: center; font-weight: 800; color: var(--logic-color); outline: none; font-size: 1.4rem; padding: 0; background: #fffdf0; }
         .cell.fixed { background: #f8f9fa; font-weight: 800; color: #2c3e50; font-size: 1.4rem; }
@@ -54,16 +60,9 @@
         .grid-4 .cell { width: 65px; height: 65px; }
         .grid-9 .cell { width: min(38px, 9vw); height: min(38px, 9vw); font-size: 1.1rem; }
 
-        .btn-check { width: 100%; max-width: 250px; padding: 15px; background: #eee; color: #999; border: none; border-radius: 30px; font-weight: bold; font-size: 1rem; margin-top: 20px; }
-        .btn-check.ready { background: #2ecc71; color: white; cursor: pointer; }
+        .btn-check { width: 100%; max-width: 250px; padding: 15px; background: #eee; color: #999; border: none; border-radius: 30px; font-weight: bold; font-size: 1rem; margin-top: 20px; transition: 0.3s; }
+        .btn-check.ready { background: #2ecc71; color: white; cursor: pointer; box-shadow: 0 4px 12px rgba(46, 204, 113, 0.2); }
         .btn-check.error { background: #e74c3c; color: white; }
-
-        .brain-hub { margin-top: 30px; padding: 20px; background: #f1f5f9; border-radius: 24px; text-align: left; }
-        .hub-title { font-size: 0.9rem; font-weight: 800; margin-bottom: 15px; color: var(--primary-color); }
-        .hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .hub-item { background: white; padding: 12px 5px; border-radius: 15px; text-align: center; text-decoration: none; border: 1px solid #e2e8f0; }
-        .hub-item span { display: block; font-size: 1.1rem; margin-bottom: 4px; }
-        .hub-item label { font-size: 0.65rem; font-weight: bold; color: #666; }
 
         footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; }
     </style>
@@ -73,38 +72,34 @@
     <nav class="main-nav"><a href="/">브레인 분석실</a><a href="dash.html" style="color:var(--logic-color)">두뇌 훈련센터</a><a href="report.html">나의 두뇌점수</a></nav>
     <nav class="category-tabs"><a href="game.html">정밀 집중</a><a href="game2.html" class="active">전략 논리</a><a href="game3.html">쾌속 판단</a></nav>
 
+    <nav class="game-sub-nav">
+        <a href="game2.html" class="active">🧩 미니 스도쿠</a>
+        <a href="game5.html">⚪ AI 오목</a>
+    </nav>
+
     <main class="container">
         <div class="game-guide">
-            <strong>🧠 전략 논리 훈련</strong><br>
-            마스터 단계일수록 더 높은 두뇌 점수를 획득할 수 있습니다. 중복 없이 빠르게 채워보세요!
+            <strong>🧠 전략 논리 훈련: 스도쿠</strong><br>
+            가로, 세로 줄에 숫자가 중복되지 않게 채우세요. 고난도 단계일수록 더 높은 논리 점수를 획득합니다.
         </div>
+
         <div class="level-selector">
             <button class="level-btn active" onclick="changeLevel(1)">입문(3x3)</button>
             <button class="level-btn" onclick="changeLevel(2)">초급(4x4)</button>
             <button class="level-btn" onclick="changeLevel(4)">마스터(9x9)</button>
         </div>
+
         <span id="timer">0.00</span>
         <div id="sudokuBoard" class="sudoku-grid"></div>
         <button id="checkBtn" class="btn-check">모든 칸을 채워주세요</button>
-
-        <section class="brain-hub">
-            <div class="hub-title">다른 두뇌 영역 강화하기</div>
-            <div class="hub-grid">
-                <a href="game.html" class="hub-item"><span>🎯</span><label>집중력</label></a>
-                <a href="game3.html" class="hub-item"><span>⚡</span><label>판단력</label></a>
-                <a href="dash.html" class="hub-item"><span>🏠</span><label>훈련센터</label></a>
-            </div>
-        </section>
     </main>
 
+    <footer>&copy; 2026 SKZ Brain Lab. Strategy & Logic Training.</footer>
+
     <script>
+        // 스크립트 로직은 기존과 동일하게 유지 (점수 계산 및 타이머 기능)
         let currentLevel = 1, startTime, timerInterval, gameActive = false;
-        // 난이도별 설정: size(크기), holes(빈칸), weight(점수 가중치)
-        const config = { 
-            1: {size: 3, holes: 3, weight: 0.4}, 
-            2: {size: 4, holes: 6, weight: 0.7}, 
-            4: {size: 9, holes: 35, weight: 1.2} 
-        };
+        const config = { 1: {size: 3, holes: 3, weight: 0.4}, 2: {size: 4, holes: 6, weight: 0.7}, 4: {size: 9, holes: 35, weight: 1.2} };
 
         function initGame() {
             const board = document.getElementById('sudokuBoard');
@@ -119,12 +114,14 @@
             board.style.gridTemplateColumns = `repeat(${settings.size}, 1fr)`;
             board.innerHTML = '';
             
+            // 단순 패턴 기반 솔루션 생성 (훈련용)
             let solution = [];
             for(let i=0; i<settings.size; i++) {
                 let row = [];
                 for(let j=0; j<settings.size; j++) row.push(((i + j) % settings.size) + 1);
                 solution.push(row);
             }
+            // 무작위성을 위해 셔플
             solution.sort(() => Math.random() - 0.5);
 
             let holeIndices = [];
@@ -144,6 +141,7 @@
                     } else {
                         const input = document.createElement('input');
                         input.type = 'number';
+                        input.inputMode = 'numeric'; // 모바일 키패드 최적화
                         input.oninput = function() {
                             if(!gameActive) startTimer();
                             if(this.value.length > 1) this.value = this.value.slice(0,1);
@@ -174,7 +172,7 @@
                 const cellIdx = (type === 'row') ? (lineIdx * size + i) : (i * size + lineIdx);
                 const cell = cells[cellIdx];
                 const val = cell.classList.contains('fixed') ? cell.innerText : cell.querySelector('input').value;
-                if (val) {
+                if (val && val !== "") {
                     if (seen[val]) seen[val].push(cellIdx);
                     else seen[val] = [cellIdx];
                 }
@@ -205,6 +203,9 @@
             } else if (hasError) {
                 btn.className = 'btn-check error';
                 btn.innerText = "중복된 숫자가 있습니다!";
+            } else if (allFilled) {
+                btn.className = 'btn-check ready';
+                btn.innerText = "제출하기";
             }
         }
 
@@ -232,17 +233,11 @@
             gameActive = false;
             const time = parseFloat(document.getElementById('timer').innerText);
             
-            // [핵심] 차등 점수 계산 로직
             const settings = config[currentLevel];
-            // 기본 점수는 난이도 가중치에 따라 40~120점 사이에서 시작
-            // 입문(0.4)은 아무리 빨라도 약 40-50점 내외, 마스터(1.2)는 100점 돌파 가능
             let calculatedScore = Math.round((settings.weight * 80) - (time / settings.size));
             calculatedScore = Math.max(10, Math.min(100, calculatedScore)); 
 
-            // 로컬 스토리지 저장 (기록 저장은 입문/마스터 구분 없이 기록하되 점수만 차등)
             localStorage.setItem('game2_score', calculatedScore);
-            
-            // 기존 히스토리 업데이트 로직
             let scoreHistory = JSON.parse(localStorage.getItem('game2_history')) || [];
             scoreHistory.push(calculatedScore);
             localStorage.setItem('game2_history', JSON.stringify(scoreHistory.slice(-10)));
