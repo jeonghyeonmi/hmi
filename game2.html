@@ -12,43 +12,30 @@
         :root { 
             --primary-color: #1a3a5f; 
             --bg-color: #f4f7f9; 
-            --focus-color: #047857; 
-            --logic-color: #b91c1c; /* 논리력 카테고리: Red */
-            --speed-color: #d35400; 
+            --logic-color: #b91c1c; 
             --accent-color: var(--logic-color);
             --error-bg: #fff5f5;
             --error-border: #ff4d4d;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
         body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; line-height: 1.6; }
         
-        /* [1단] 메인 헤더 */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
 
-        /* [1단] 메인 네비게이션 */
-        nav.main-nav { 
-            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
-        }
+        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
 
-        /* [2단] 카테고리 탭 */
         .category-tabs { display: flex; background: #fff; border-bottom: 1px solid #eee; justify-content: center; }
         .category-tabs a { min-width: 100px; max-width: 200px; flex: 1; text-align: center; padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; transition: 0.3s; }
         .category-tabs a.active { color: var(--logic-color); border-bottom: 3px solid var(--logic-color); }
 
-        /* [3단] 게임 서브 메뉴 */
         .game-sub-nav { display: flex; gap: 10px; padding: 15px; justify-content: center; background: #f8f9fa; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
-        .game-sub-nav::-webkit-scrollbar { display: none; }
         .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; }
         .game-sub-nav a.active { background: var(--logic-color); color: white; border-color: var(--logic-color); }
 
-        /* 메인 컨테이너 */
         .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 20px; background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
-
         .game-guide { background: #fff5f5; border-radius: 15px; padding: 15px; font-size: 0.85rem; color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--logic-color); }
         
         .level-selector { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; }
@@ -57,26 +44,20 @@
 
         #timer { font-size: 2.8rem; font-weight: 800; color: var(--primary-color); margin: 10px 0; display: block; font-variant-numeric: tabular-nums; }
 
-        /* 스도쿠 보드 */
         .sudoku-grid { display: grid; margin: 20px auto; background: #333; border: 2px solid #333; gap: 1px; width: fit-content; border-radius: 8px; overflow: hidden; }
         .cell { background: white; display: flex; align-items: center; justify-content: center; aspect-ratio: 1/1; position: relative; }
-        .cell input { width: 100%; height: 100%; border: none; text-align: center; font-weight: 800; color: var(--logic-color); outline: none; font-size: 1.4rem; padding: 0; background: #fffdf0; transition: background 0.2s; }
+        .cell input { width: 100%; height: 100%; border: none; text-align: center; font-weight: 800; color: var(--logic-color); outline: none; font-size: 1.4rem; padding: 0; background: #fffdf0; }
         .cell.fixed { background: #f8f9fa; font-weight: 800; color: #2c3e50; font-size: 1.4rem; }
-        
-        /* 중복 입력 에러 스타일 */
         .cell input.duplicate-error { background: var(--error-bg); color: var(--error-border); border: 2px solid var(--error-border); z-index: 5; }
         
         .grid-3 .cell { width: 85px; height: 85px; }
         .grid-4 .cell { width: 65px; height: 65px; }
         .grid-9 .cell { width: min(38px, 9vw); height: min(38px, 9vw); font-size: 1.1rem; }
-        .grid-9 .cell.fixed { font-size: 1.1rem; }
-        .grid-9 .cell input { font-size: 1.1rem; }
 
-        .btn-check { width: 100%; max-width: 250px; padding: 15px; background: #eee; color: #999; border: none; border-radius: 30px; font-weight: bold; font-size: 1rem; margin-top: 20px; transition: 0.3s; }
+        .btn-check { width: 100%; max-width: 250px; padding: 15px; background: #eee; color: #999; border: none; border-radius: 30px; font-weight: bold; font-size: 1rem; margin-top: 20px; }
         .btn-check.ready { background: #2ecc71; color: white; cursor: pointer; }
         .btn-check.error { background: #e74c3c; color: white; }
 
-        /* 하단 브레인 허브 */
         .brain-hub { margin-top: 30px; padding: 20px; background: #f1f5f9; border-radius: 24px; text-align: left; }
         .hub-title { font-size: 0.9rem; font-weight: 800; margin-bottom: 15px; color: var(--primary-color); }
         .hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
@@ -84,52 +65,26 @@
         .hub-item span { display: block; font-size: 1.1rem; margin-bottom: 4px; }
         .hub-item label { font-size: 0.65rem; font-weight: bold; color: #666; }
 
-        .ranking-container { margin-top: 30px; border-top: 2px dashed #eee; padding-top: 25px; }
-        .rank-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 10px; }
-        .rank-table th { padding: 10px; color: #888; border-bottom: 1px solid #eee; }
-        .rank-table td { padding: 12px 5px; border-bottom: 1px solid #f9f9f9; }
-
         footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; }
-        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
     </style>
 </head>
 <body>
-    <header>
-        <h1><a href="/">SKZ 두뇌 훈련소</a></h1>
-    </header>
-
-    <nav class="main-nav">
-        <a href="/">브레인 분석실</a>
-        <a href="dash.html" style="color:var(--logic-color)">두뇌 훈련센터</a>
-        <a href="report.html">나의 두뇌점수</a>
-    </nav>
-
-    <nav class="category-tabs">
-        <a href="game.html">정밀 집중</a>
-        <a href="game2.html" class="active">전략 논리</a>
-        <a href="game3.html">쾌속 판단</a>
-    </nav>
-
-    <nav class="game-sub-nav">
-        <a href="game2.html" class="active">🔢 미니 스도쿠</a>
-        <a href="game7.html">⚪ AI 오목</a>
-    </nav>
+    <header><h1><a href="/">SKZ 두뇌 훈련소</a></h1></header>
+    <nav class="main-nav"><a href="/">브레인 분석실</a><a href="dash.html" style="color:var(--logic-color)">두뇌 훈련센터</a><a href="report.html">나의 두뇌점수</a></nav>
+    <nav class="category-tabs"><a href="game.html">정밀 집중</a><a href="game2.html" class="active">전략 논리</a><a href="game3.html">쾌속 판단</a></nav>
 
     <main class="container">
         <div class="game-guide">
             <strong>🧠 전략 논리 훈련</strong><br>
-            가로, 세로 줄에 숫자가 중복되지 않게 채우세요. 중복된 숫자를 넣으면 <strong>즉시 빨간색으로 표시</strong>됩니다.
+            마스터 단계일수록 더 높은 두뇌 점수를 획득할 수 있습니다. 중복 없이 빠르게 채워보세요!
         </div>
-        
         <div class="level-selector">
             <button class="level-btn active" onclick="changeLevel(1)">입문(3x3)</button>
             <button class="level-btn" onclick="changeLevel(2)">초급(4x4)</button>
             <button class="level-btn" onclick="changeLevel(4)">마스터(9x9)</button>
         </div>
-
         <span id="timer">0.00</span>
         <div id="sudokuBoard" class="sudoku-grid"></div>
-        
         <button id="checkBtn" class="btn-check">모든 칸을 채워주세요</button>
 
         <section class="brain-hub">
@@ -140,43 +95,30 @@
                 <a href="dash.html" class="hub-item"><span>🏠</span><label>훈련센터</label></a>
             </div>
         </section>
-        
-        <div class="ranking-container">
-            <div id="best-record" style="font-size:0.95rem; color:var(--logic-color); font-weight:bold; margin-bottom:12px;">최고 기록: -</div>
-            <table class="rank-table">
-                <thead><tr><th>회차</th><th>난이도</th><th>기록</th></tr></thead>
-                <tbody id="rankingBody"></tbody>
-            </table>
-            <button onclick="clearHistory()" style="margin-top:20px; background:none; border:none; color:#ccc; font-size:0.75rem; text-decoration:underline; cursor:pointer;">기록 초기화</button>
-        </div>
     </main>
-
-    <footer>
-        <div style="margin-bottom: 10px;">
-            <a href="privacy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
-        </div>
-        &copy; 2026 SKZ Brain Lab. All rights reserved.
-    </footer>
 
     <script>
         let currentLevel = 1, startTime, timerInterval, gameActive = false;
-        const config = { 1: {size: 3, holes: 3}, 2: {size: 4, holes: 6}, 4: {size: 9, holes: 35} };
+        // 난이도별 설정: size(크기), holes(빈칸), weight(점수 가중치)
+        const config = { 
+            1: {size: 3, holes: 3, weight: 0.4}, 
+            2: {size: 4, holes: 6, weight: 0.7}, 
+            4: {size: 9, holes: 35, weight: 1.2} 
+        };
 
         function initGame() {
             const board = document.getElementById('sudokuBoard');
             const settings = config[currentLevel];
-            const btn = document.getElementById('checkBtn');
             gameActive = false;
             clearInterval(timerInterval);
             document.getElementById('timer').innerText = '0.00';
-            btn.className = 'btn-check';
-            btn.innerText = "모든 칸을 채워주세요";
+            document.getElementById('checkBtn').className = 'btn-check';
+            document.getElementById('checkBtn').innerText = "모든 칸을 채워주세요";
             
             board.className = `sudoku-grid grid-${settings.size}`;
             board.style.gridTemplateColumns = `repeat(${settings.size}, 1fr)`;
             board.innerHTML = '';
             
-            // 1. 기초 솔루션 생성
             let solution = [];
             for(let i=0; i<settings.size; i++) {
                 let row = [];
@@ -185,35 +127,26 @@
             }
             solution.sort(() => Math.random() - 0.5);
 
-            // 2. 고정된 개수만큼 확실하게 빈칸 만들기
             let holeIndices = [];
             while(holeIndices.length < settings.holes) {
                 let r = Math.floor(Math.random() * (settings.size * settings.size));
                 if(!holeIndices.includes(r)) holeIndices.push(r);
             }
 
-            // 3. 셀 생성 및 배치
             for(let i=0; i<settings.size; i++) {
                 for(let j=0; j<settings.size; j++) {
                     const cell = document.createElement('div');
                     const index = i * settings.size + j;
                     cell.className = 'cell';
-                    cell.dataset.row = i;
-                    cell.dataset.col = j;
-                    
                     if(!holeIndices.includes(index)) {
                         cell.classList.add('fixed');
                         cell.innerText = solution[i][j];
                     } else {
                         const input = document.createElement('input');
                         input.type = 'number';
-                        input.pattern = '[0-9]*';
-                        input.inputMode = 'numeric';
                         input.oninput = function() {
                             if(!gameActive) startTimer();
                             if(this.value.length > 1) this.value = this.value.slice(0,1);
-                            
-                            // 실시간 중복 검사 로직
                             checkRealtimeValidation();
                             checkAutoFinish(); 
                         };
@@ -222,21 +155,15 @@
                     board.appendChild(cell);
                 }
             }
-            displayHistory();
         }
 
-        // 모든 칸을 실시간으로 스캔하여 중복 표시
         function checkRealtimeValidation() {
             const size = config[currentLevel].size;
             const cells = document.querySelectorAll('.cell');
-            
-            // 먼저 모든 에러 표시 초기화
             document.querySelectorAll('.cell input').forEach(inp => inp.classList.remove('duplicate-error'));
 
             for (let i = 0; i < size; i++) {
-                // 가로줄 검사
                 validateLine(cells, i, 'row', size);
-                // 세로줄 검사
                 validateLine(cells, i, 'col', size);
             }
         }
@@ -247,17 +174,11 @@
                 const cellIdx = (type === 'row') ? (lineIdx * size + i) : (i * size + lineIdx);
                 const cell = cells[cellIdx];
                 const val = cell.classList.contains('fixed') ? cell.innerText : cell.querySelector('input').value;
-                
                 if (val) {
-                    if (seen[val]) {
-                        seen[val].push(cellIdx);
-                    } else {
-                        seen[val] = [cellIdx];
-                    }
+                    if (seen[val]) seen[val].push(cellIdx);
+                    else seen[val] = [cellIdx];
                 }
             }
-
-            // 중복된 값이 발견된 경우 해당 입력칸들에 에러 클래스 추가
             for (let val in seen) {
                 if (seen[val].length > 1) {
                     seen[val].forEach(idx => {
@@ -271,9 +192,7 @@
         function checkAutoFinish() {
             const inputs = document.querySelectorAll('.cell input');
             const btn = document.getElementById('checkBtn');
-            let allFilled = true;
-            let hasError = false;
-
+            let allFilled = true, hasError = false;
             inputs.forEach(input => { 
                 if(!input.value) allFilled = false;
                 if(input.classList.contains('duplicate-error')) hasError = true;
@@ -286,9 +205,6 @@
             } else if (hasError) {
                 btn.className = 'btn-check error';
                 btn.innerText = "중복된 숫자가 있습니다!";
-            } else {
-                btn.className = 'btn-check';
-                btn.innerText = "모든 칸을 채워주세요";
             }
         }
 
@@ -314,45 +230,27 @@
             if(!gameActive) return;
             clearInterval(timerInterval);
             gameActive = false;
-            const time = document.getElementById('timer').innerText;
-            saveRecord(time);
-        }
+            const time = parseFloat(document.getElementById('timer').innerText);
+            
+            // [핵심] 차등 점수 계산 로직
+            const settings = config[currentLevel];
+            // 기본 점수는 난이도 가중치에 따라 40~120점 사이에서 시작
+            // 입문(0.4)은 아무리 빨라도 약 40-50점 내외, 마스터(1.2)는 100점 돌파 가능
+            let calculatedScore = Math.round((settings.weight * 80) - (time / settings.size));
+            calculatedScore = Math.max(10, Math.min(100, calculatedScore)); 
 
-        function saveRecord(time) {
-            const score = Math.max(10, Math.round(100 - (parseFloat(time) / (currentLevel * 2))));
+            // 로컬 스토리지 저장 (기록 저장은 입문/마스터 구분 없이 기록하되 점수만 차등)
+            localStorage.setItem('game2_score', calculatedScore);
+            
+            // 기존 히스토리 업데이트 로직
             let scoreHistory = JSON.parse(localStorage.getItem('game2_history')) || [];
-            scoreHistory.push(score);
+            scoreHistory.push(calculatedScore);
             localStorage.setItem('game2_history', JSON.stringify(scoreHistory.slice(-10)));
-            localStorage.setItem('game2_score', score);
 
-            let history = JSON.parse(localStorage.getItem('sudokuHistory')) || [];
-            history.unshift({ lv: `Lv.${currentLevel}`, time: time });
-            localStorage.setItem('sudokuHistory', JSON.stringify(history.slice(0, 10)));
-
-            if(confirm(`완벽합니다! 기록: ${time}초\n\n두뇌 분석 리포트를 확인하시겠습니까?`)) {
+            if(confirm(`완료! 전략 논리 점수: ${calculatedScore}점\n분석 리포트를 확인하시겠습니까?`)) {
                 location.href = 'report.html';
             } else {
                 initGame();
-            }
-        }
-
-        function displayHistory() {
-            const body = document.getElementById('rankingBody');
-            const history = JSON.parse(localStorage.getItem('sudokuHistory')) || [];
-            if(history.length > 0) {
-                const best = Math.min(...history.map(h => parseFloat(h.time)));
-                document.getElementById('best-record').innerText = `⭐ 나의 최고 기록: ${best.toFixed(2)}초`;
-                body.innerHTML = history.map((h, i) => `<tr><td>${history.length-i}회</td><td>${h.lv}</td><td>${h.time}s</td></tr>`).join('');
-            } else {
-                body.innerHTML = '<tr><td colspan="3">기록이 없습니다.</td></tr>';
-            }
-        }
-
-        function clearHistory() {
-            if(confirm("기록을 초기화할까요?")) {
-                localStorage.removeItem('sudokuHistory');
-                localStorage.removeItem('game2_history');
-                location.reload();
             }
         }
 
