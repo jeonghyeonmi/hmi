@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
     <title>AI가 내 마음을 읽는다? 영화가 현실이 된 '독심술 AI' | SKZ Brain Lab</title>
 
-    <meta name="description" content="뇌 신호를 분석해 이미지를 재구성하는 최신 뇌과학 기술을 소개합니다. 집중력에 따라 달라지는 뇌 신호의 화질과 인지 능력의 상관관계.">
-    <meta name="keywords" content="뇌과학, AI, 독심술AI, fMRI, 스테이블디퓨전, 집중력훈련, 뇌신호, 오사카대학">
+    <meta name="description" content="뇌 신호를 분석해 이미지를 재구성하는 최신 뇌과학 기술을 소개합니다. 집중력에 따라 달라지는 뇌 신호의 화질과 인지 능력의 상관관계를 알아보세요.">
+    <meta name="keywords" content="뇌과학, AI, 독심술AI, fMRI, 스테이블디퓨전, 집중력훈련, 뇌신호, 오사카대학, SKZ Brain Lab">
+    <meta name="author" content="SKZ Brain Lab">
     
+    <link rel="canonical" href="https://www.skztools.com/post4.html">
+
+    <meta property="og:type" content="article">
     <meta property="og:title" content="AI가 내 상상을 그림으로 그린다? 현실이 된 독심술 AI">
     <meta property="og:description" content="내 머릿속 이미지를 복사해서 붙여넣기 하는 세상, 어디까지 왔을까요?">
-    <meta property="og:image" content="img/post4.jpg"> 
-    <meta property="og:url" content="https://jeonghyeonmi.github.io/hmi/post4.html">
+    <meta property="og:image" content="https://www.skztools.com/img/post4.jpg">
+    <meta property="og:url" content="https://www.skztools.com/post4.html">
 
     <style>
         :root { 
-            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
+            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #8e44ad; 
             --text-main: #2c3e50; --text-content: #34495e; --text-muted: #7f8c8d;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -28,10 +33,9 @@
         
         #progress-bar {
             position: fixed; top: 0; left: 0; width: 0%; height: 4px;
-            background: #8e44ad; z-index: 2000; transition: width 0.1s;
+            background: var(--accent-color); z-index: 2000; transition: width 0.1s;
         }
 
-         /* 헤더/네비게이션 */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
@@ -41,67 +45,83 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
         }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
-        nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
+        nav.main-nav a.active { color: #d35400; } /* 액티브 색상은 메인 오렌지 유지 */
 
-        .container { width: 94%; max-width: 750px; margin: 2rem auto; }
+        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; }
         
         .article-card { 
-            background: white; padding: 50px 30px; border-radius: 28px; 
+            background: white; padding: 40px 25px; border-radius: 28px; 
             box-shadow: 0 10px 40px rgba(0,0,0,0.03); 
         }
 
-        .tag { 
-            display: inline-block; padding: 5px 14px; background: #f3e8ff; color: #7e22ce; 
-            border-radius: 8px; font-size: 0.75rem; font-weight: 800; margin-bottom: 20px; 
+        .meta-info { margin-bottom: 15px; }
+        .category-tag { 
+            display: inline-block; padding: 4px 12px; background: #f3e8ff; color: #7e22ce; 
+            border-radius: 6px; font-size: 0.75rem; font-weight: 800;
         }
+        .post-date { font-size: 0.75rem; color: #bbb; margin-left: 10px; }
 
-        .article-card h2 { 
-            font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1.35; margin: 0 0 30px 0; 
+        .article-card h1 { 
+            font-size: 1.7rem; line-height: 1.4; margin: 0 0 25px 0; 
             word-break: keep-all; color: var(--primary-color); font-weight: 800;
         }
 
-        .content { font-size: 1.1rem; color: var(--text-content); }
-        .content p { margin-bottom: 1.8rem; text-align: justify; }
-        .content h3 { 
-            font-size: 1.5rem; color: var(--primary-color); margin-top: 3.5rem; margin-bottom: 1.2rem; 
-            display: flex; align-items: center; gap: 10px; font-weight: 800;
+        .content { font-size: 1rem; color: var(--text-content); }
+        .content img { border-radius: 18px; margin-bottom: 20px; width: 100%; height: auto; }
+        .content p { margin-bottom: 1.6rem; text-align: justify; }
+        
+        .content h2 { 
+            font-size: 1.4rem; color: var(--primary-color); margin-top: 3rem; margin-bottom: 1.2rem; 
+            font-weight: 800; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px;
         }
-        .content h3::before { content: ''; width: 4px; height: 1.3rem; background: #8e44ad; border-radius: 2px; }
+        .content h3 { 
+            font-size: 1.2rem; color: var(--primary-color); margin-top: 2rem; margin-bottom: 1rem; 
+            display: flex; align-items: center; gap: 8px; font-weight: 800;
+        }
+        .content h3::before { content: ''; width: 4px; height: 1.1rem; background: var(--accent-color); border-radius: 2px; }
 
         mark { background: linear-gradient(120deg, #fff176 0%, #fff176 100%); padding: 0 3px; border-radius: 4px; color: inherit; }
         .emphasis { color: #7e22ce; font-weight: 700; background: linear-gradient(to top, #f3e8ff 35%, transparent 35%); }
         
         .quote-box { 
-            background: #fdf4ff; border-left: 6px solid #a855f7; padding: 25px; 
-            margin: 40px 0; border-radius: 0 20px 20px 0; font-style: italic;
+            background: #fdf4ff; border-left: 5px solid #a855f7; padding: 20px; 
+            margin: 30px 0; border-radius: 0 18px 18px 0; font-style: italic; font-size: 0.95rem;
         }
 
+        .btn-list {
+            display: block; text-align: center; margin: 40px auto 20px;
+            padding: 12px 20px; background: #f1f5f9; color: var(--text-main);
+            text-decoration: none; border-radius: 12px; font-size: 0.9rem; font-weight: 600;
+            transition: 0.3s; border: 1px solid #e2e8f0;
+        }
+        .btn-list:hover { background: #e2e8f0; }
+
         .cta-box {
-            background: #f8fafc; padding: 35px; border-radius: 24px; margin-top: 60px;
-            text-align: center; border: 1px solid #e2e8f0;
+            background: #f8fafc; padding: 30px 20px; border-radius: 24px; margin-top: 30px;
+            text-align: center; border: 1px dashed #cbd5e1;
         }
         .btn-game {
             display: inline-block; background: var(--primary-color); color: white; 
-            padding: 16px 32px; border-radius: 14px; text-decoration: none; 
-            font-weight: bold; margin-top: 20px; transition: 0.3s;
+            padding: 16px 30px; border-radius: 30px; text-decoration: none; 
+            font-weight: bold; margin-top: 20px; transition: 0.3s; box-shadow: 0 4px 12px rgba(26, 58, 95, 0.2);
         }
-        .btn-game:hover { background: #8e44ad; transform: translateY(-2px); }
+        .btn-game:hover { background: var(--accent-color); transform: translateY(-2px); }
 
         .references { 
-            margin-top: 60px; padding: 25px; background: #fafafa; border-radius: 16px;
-            font-size: 0.85rem; color: var(--text-muted); border: 1px solid #eee;
+            margin-top: 50px; padding: 20px; background: #fafafa; border-radius: 18px;
+            font-size: 0.8rem; color: var(--text-muted); border: 1px solid #eee;
         }
-        .references h4 { margin: 0 0 15px 0; color: var(--text-main); }
+        .references h4 { margin: 0 0 12px 0; color: var(--text-main); font-size: 0.9rem; }
         .references ul { list-style: none; padding: 0; margin: 0; }
-        .references li { margin-bottom: 10px; line-height: 1.6; padding-left: 15px; position: relative; }
+        .references li { margin-bottom: 8px; line-height: 1.5; padding-left: 15px; position: relative; }
         .references li::before { content: '•'; position: absolute; left: 0; color: #ccc; }
 
-        footer { text-align: center; padding: 4rem 0; color: #bbb; font-size: 0.8rem; border-top: 1px solid #eee; margin-top: 50px; }
-        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
+        footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; margin-top: 3rem; }
+        footer a { color: #bbb; text-decoration: none; margin: 0 5px; }
 
         @media (max-width: 480px) {
-            .article-card { padding: 35px 20px; border-radius: 0; }
-            .container { width: 100%; margin: 0; }
+            .article-card { padding: 30px 20px; }
+            .container { width: 95%; margin: 1rem auto; }
         }
     </style>
 </head>
@@ -113,47 +133,49 @@
     </header>
 
     <nav class="main-nav">
-        <a href="index.html">홈</a>
-        <a href="game.html">집중력</a>
-        <a href="game2.html">논리력</a>
-        <a href="game3.html">판단력</a>
-        <a href="report.html">리포트</a>
-        <a href="posts.html" class="active">분석실</a>
+        <a href="index.html" class="active">브레인 분석실</a>
+        <a href="dash.html">두뇌 훈련센터</a>
+        <a href="report.html">나의 두뇌점수</a>
     </nav>
 
     <main class="container">
         <article class="article-card">
-            <span class="tag">뇌과학 이슈 #04</span>
-            <h2>AI가 내 마음을 읽는다? <br>영화가 현실이 된 <mark>'독심술 AI'</mark>와 뇌 신호의 화질</h2>
+            <div class="meta-info">
+                <span class="category-tag">뇌과학 이슈 #04</span>
+                <time class="post-date" datetime="2026-02-21">2026. 02. 21</time>
+            </div>
+            
+            <h1>AI가 내 마음을 읽는다? <br>영화가 현실이 된 <mark>'독심술 AI'</mark>와 뇌 신호의 화질</h1>
             
             <div class="content">
-                <p>"머릿속으로 상상만 했는데 AI가 그 그림을 그대로 그려낸다면?" 불과 몇 년 전까지만 해도 이는 공상과학 영화 <인셉션>이나 <마이너리티 리포트>에서나 볼 법한 이야기였습니다. 하지만 이제 인류는 인간의 생각, 즉 <span class="emphasis">뇌 신호를 시각화하는 단계</span>에 도달했습니다.</p>
+                <p>"머릿속으로 상상만 했는데 AI가 그 그림을 그대로 그려낸다면?" 이제 인류는 인간의 생각, 즉 <span class="emphasis">뇌 신호를 시각화하는 단계</span>에 도달했습니다. 공상과학 영화 속 이야기가 현실이 되고 있는 것이죠.</p>
 
-                <p><img src="img/post4.jpg" alt="AI와 인간 뇌의 인터페이스" style="width: 100%; margin: 20px 0; border-radius: 15px;"></p>
-                
+                <img src="img/post4.jpg" alt="AI와 인간 뇌의 인터페이스를 시각화한 이미지" loading="lazy">
 
                 <div class="quote-box">
                     "2023년 일본 오사카 대학교 연구팀은 세계 최초로 '스테이블 디퓨전(Stable Diffusion)' AI 모델을 활용해 인간의 뇌 활동(fMRI) 데이터를 고해상도 이미지로 복원하는 데 성공했습니다."
                 </div>
 
-                <h3>1. "당신이 본 그 장면, 그대로 인쇄해 드릴게요"</h3>
-                <p>연구팀은 피험자들에게 수천 장의 사진을 보여주며 뇌의 활동을 기록했습니다. 이후 AI는 피험자가 본 적 없는 새로운 사진을 볼 때 발생하는 뇌 신호만 보고, 그가 무엇을 보고 있는지 추측하여 그림을 그렸습니다. 결과는 충격적이었습니다.</p>
+                <h2>1. "당신이 본 그 장면, 그대로 인쇄해 드릴게요"</h2>
+                <p>AI는 피험자가 특정 사물을 볼 때 발생하는 뇌 신호만 보고, 그가 무엇을 보고 있는지 추측하여 그림을 그렸습니다. 피험자가 기차를 보고 있으면 AI는 기차를 그렸고, 눈 덮인 산을 보고 있으면 설산을 그려냈습니다.</p>
                 
-                <p>피험자가 기차를 보고 있으면 AI는 기차를 그렸고, 눈 덮인 산을 보고 있으면 설산을 그려냈습니다. 이는 단순히 사물의 이름을 맞히는 수준을 넘어, 사물의 형태와 색감, 배경의 분위기까지 <span class="emphasis">'복사해서 붙여넣기'</span> 하는 수준에 근접했다는 평가를 받습니다.</p>
+                <p>이는 단순히 사물의 이름을 맞히는 수준을 넘어, 사물의 형태와 색감, 배경의 분위기까지 <span class="emphasis">'복사해서 붙여넣기'</span> 하는 수준에 근접했다는 평가를 받습니다.</p>
 
-                <h3>2. 생각의 '해상도'는 뇌의 근육량에 달렸다?</h3>
-                <p>여기서 아주 흥미로운 발견이 있었습니다. 모든 피험자의 그림이 똑같이 선명하지는 않았다는 점입니다. AI가 가장 정밀한 그림을 그려냈을 때는 바로 피험자가 <span class="emphasis">'대상에 고도로 집중했을 때'</span>였습니다.</p>
+                <h2>2. 생각의 '해상도'는 뇌의 근육량에 달렸다?</h2>
+                <p>흥미로운 점은 AI가 가장 정밀한 그림을 그려냈을 때가 바로 피험자가 <span class="emphasis">'대상에 고도로 집중했을 때'</span>였다는 것입니다.</p>
                 
-                <p>뇌과학적으로 '집중'한다는 것은 특정 뇌 부위의 신호를 증폭시키고 노이즈를 줄이는 과정입니다. 집중력이 높은 사람의 뇌 신호는 AI가 해석하기에 아주 '화질 좋은 데이터'와 같지만, 산만한 상태의 뇌 신호는 뿌연 저화질 영상과 같습니다. 결국 내 생각을 세상에 명확하게 전달하는 힘은 기술이 아니라 <mark>뇌의 집중력</mark>에서 나오는 셈입니다.</p>
+                <p>집중력이 높은 사람의 뇌 신호는 AI가 해석하기에 아주 '화질 좋은 데이터'와 같지만, 산만한 상태의 뇌 신호는 뿌연 저화질 영상과 같습니다. 결국 내 생각을 명확하게 전달하는 힘은 <mark>뇌의 집중력</mark>에서 나오는 셈입니다.</p>
 
                 <h3>3. 우리는 어떤 미래를 준비해야 할까?</h3>
-                <p>뇌-컴퓨터 인터페이스(BCI) 기술은 비약적으로 발전하고 있습니다. 머지않은 미래에는 말하지 않아도 생각만으로 메시지를 보내고, 거동이 불편한 환자가 상상만으로 로봇 팔을 자유자재로 움직이는 일이 일상이 될 것입니다.</p>
+                <p>기술이 발전할수록 인간에게 요구되는 능력은 명확해집니다. 수많은 정보와 자극 속에서도 나만의 생각을 '선명하게' 유지할 수 있는 인지적 통제력입니다.</p>
 
-                <p>하지만 기술이 발전할수록 인간에게 요구되는 능력은 명확해집니다. 수많은 정보와 자극 속에서도 나만의 생각을 '선명하게' 유지할 수 있는 인지적 통제력입니다. 멍한 상태로 AI에게 조종당하는 뇌가 될 것인가, 아니면 선명한 신호로 세상을 리드하는 뇌가 될 것인가. 그 해답은 지금 당신의 **집중력 훈련**에 달려 있습니다.</p>
+                <p>선명한 신호로 세상을 리드하는 뇌가 될 것인가, 그 해답은 지금 당신의 **집중력 훈련**에 달려 있습니다.</p>
+
+                <a href="index.html" class="btn-list">← 분석실 칼럼 목록보기</a>
 
                 <div class="cta-box">
-                    <h4 style="margin-top: 0; color: var(--primary-color);">💡 내 뇌 신호의 '화질'을 높여보세요</h4>
-                    <p style="margin-bottom: 0;">AI가 내 생각을 더 또렷하게 읽어낼 수 있을 만큼 강한 집중력을 가지고 계신가요? 지금 바로 논리력과 집중력을 동시에 강화하는 훈련을 시작해보세요.</p>
+                    <h2 style="font-size: 1.2rem; margin: 0; border: none;">💡 내 뇌 신호의 '화질'을 높여보세요</h2>
+                    <p style="margin: 10px 0 0; font-size: 0.9rem;">AI가 내 생각을 또렷하게 읽어낼 수 있을 만큼 강한 집중력을 가지고 계신가요? 지금 바로 훈련을 시작해보세요.</p>
                     <a href="game2.html" class="btn-game">🧠 뇌 신호 선명도 업그레이드 (훈련)</a>
                 </div>
             </div>
@@ -161,16 +183,11 @@
             <section class="references">
                 <h4>📚 데이터 출처 및 참고 문헌</h4>
                 <ul>
-                    <li><strong>Takagi, Y., & Nishimoto, S. (2023).</strong> "High-resolution image reconstruction with latent diffusion models from human brain activity." <em>CVPR 2023</em>.</li>
-                    <li><strong>Osaka University.</strong> "Reconstructing visual experiences from brain activity." (Research Report).</li>
-                    <li><strong>Nature Neuroscience (2023).</strong> "Semantic reconstruction of continuous language from non-invasive brain recordings."</li>
-                    <li><strong>Scientific American.</strong> "AI Can Recreate Images from Human Brain Waves." (Tech Review).</li>
+                    <li><strong>Takagi, Y., & Nishimoto, S. (2023).</strong> "High-resolution image reconstruction." <em>CVPR 2023</em>.</li>
+                    <li><strong>Osaka University.</strong> "Reconstructing visual experiences from brain activity."</li>
+                    <li><strong>Nature Neuroscience (2023).</strong> "Semantic reconstruction of continuous language."</li>
                 </ul>
             </section>
-
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="posts.html" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">목록으로 돌아가기</a>
-            </div>
         </article>
     </main>
 
@@ -178,7 +195,7 @@
         <div style="margin-bottom: 10px;">
             <a href="privacy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
         </div>
-        &copy; 2026 SKZ Brain Lab. 혁신적인 뇌과학 리포트와 인지 훈련을 제공합니다.
+        &copy; 2026 SKZ Brain Lab. All rights reserved. 혁신적인 뇌과학 리포트와 인지 훈련을 제공합니다.
     </footer>
 
     <script>
