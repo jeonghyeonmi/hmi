@@ -1,20 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About & Contact - HMI Mini Web Tools</title>
-<style>
-body { font-family: Arial, sans-serif; max-width:800px; margin:auto; padding:20px; line-height:1.6; }
-a { color:#007bff; text-decoration:none; }
-a:hover { text-decoration:underline; }
-h1 { text-align:center; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>소개 및 문의 | SKZ 두뇌 훈련소</title>
+
+    <meta name="description" content="재미있는 뇌 과학 이야기와 심플한 두뇌 훈련 도구를 나누는 공간, SKZ 두뇌 훈련소입니다.">
+    
+    <style>
+        :root { 
+            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
+            --text-main: #2c3e50; --text-content: #34495e; --text-muted: #7f8c8d;
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            font-family: 'Pretendard', -apple-system, sans-serif; 
+            background-color: var(--bg-color); margin: 0; color: var(--text-main);
+            line-height: 1.7;
+        }
+
+        header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
+        header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
+        header h1 a { text-decoration: none; color: inherit; }
+
+        nav.main-nav { 
+            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+        }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+
+        .container { width: 92%; max-width: 550px; margin: 2rem auto; min-height: 70vh; }
+        
+        .card { 
+            background: #fff; border-radius: 24px; padding: 35px 25px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+
+        h2 { color: var(--primary-color); font-size: 1.5rem; font-weight: 800; margin-top: 0; text-align: center; }
+        
+        .welcome-text {
+            text-align: center; font-size: 1.1rem; color: var(--text-content); margin-bottom: 30px;
+        }
+
+        .feature-item {
+            margin-bottom: 25px; padding: 15px; border-radius: 15px; background: #f8fafc;
+        }
+        .feature-item strong { color: var(--primary-color); font-size: 1.05rem; display: block; margin-bottom: 5px; }
+        .feature-item p { margin: 0; font-size: 0.95rem; color: var(--text-content); }
+
+        .contact-section {
+            text-align: center; margin-top: 40px; padding-top: 30px; border-top: 1px dashed #eee;
+        }
+        .contact-section p { font-size: 0.95rem; margin-bottom: 15px; }
+        .email-link { 
+            display: inline-block; background: var(--primary-color); color: white; 
+            padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: bold;
+            transition: 0.3s;
+        }
+        .email-link:hover { background: var(--accent-color); }
+
+        footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.8rem; margin-top: 2rem; }
+    </style>
 </head>
 <body>
-<h1>About & Contact</h1>
-<p>HMI Mini Web Tools offers simple, convenient online calculators for everyday use. All tools are free and designed for general use.</p>
-<p>If you have any questions, suggestions, or need support, please contact us at: <a href="mailto:hmi.tools@example.com">hmi.tools@example.com</a></p>
-<p><a href="index.html">Back to Home</a></p>
+
+<header>
+    <h1><a href="index.html">SKZ 두뇌 훈련소</a></h1>
+</header>
+
+<nav class="main-nav">
+    <a href="index.html">브레인 분석실</a> 
+    <a href="dash.html">두뇌 훈련센터</a> 
+    <a href="report.html">나의 두뇌점수</a>
+</nav>
+
+<main class="container">
+    <div class="card">
+        <h2>반가워요! 만나서 반갑습니다. 👋</h2>
+        <p class="welcome-text"><strong>SKZ 두뇌 훈련소</strong>는 복잡한 세상 속에서 우리 뇌를 조금 더 건강하게 지키고 싶은 마음으로 시작된 공간입니다.</p>
+        
+        <div class="feature-item">
+            <strong>🧠 쉽고 재미있는 뇌 이야기</strong>
+            <p>어려운 뇌과학 논문이나 뉴스들을 일상적인 언어로 쉽게 풀어서 공유해요. 우리 뇌가 어떻게 작동하는지 알면 더 똑똑하게 사용할 수 있거든요!</p>
+        </div>
+
+        <div class="feature-item">
+            <strong>🎮 간단하지만 확실한 훈련</strong>
+            <p>전문적인 장비는 없어도 괜찮아요. 여기 있는 가벼운 게임과 도구들로 틈틈이 집중력을 높이고 뇌에 활기를 불어넣어 보세요.</p>
+        </div>
+
+        <div class="feature-item">
+            <strong>🌱 함께 성장하는 즐거움</strong>
+            <p>저도 여러분과 같은 일반인으로서, 더 건강한 두뇌 습관을 만들기 위해 공부하고 실천하는 내용을 나누고 있습니다.</p>
+        </div>
+
+        <div class="contact-section">
+            <p>궁금한 점이 있거나 제안하고 싶은 아이디어가 있다면<br>언제든지 편하게 메일 보내주세요! 😊</p>
+            <a href="mailto:jhm1027@gmail.com" class="email-link">jhm1027@gmail.com</a>
+        </div>
+
+        <div style="text-align: center; margin-top: 25px;">
+            <a href="index.html" style="color: #999; text-decoration: none; font-size: 0.85rem;">홈으로 돌아가기</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 SKZ Brain Lab. <br> 우리 모두의 뇌가 어제보다 더 맑아지길 응원합니다.</p>
+</footer>
+
 </body>
 </html>
