@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://jeonghyeonmi.github.io/hmi/sitemap.xml
+Sitemap: https://www.skztools.com/sitemap.xml
