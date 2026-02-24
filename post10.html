@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>“새벽 2시에 자면 망하나요?” 뇌과학이 답하는 수면의 골든타임 Q&A | SKZ Brain Lab</title>
+
+    <meta name="description" content="아침형 인간 유전자부터 수면 4시간 나폴레옹형의 진실까지, 최신 뇌과학 논문과 실험 데이터를 통해 수면의 골든타임을 파헤칩니다.">
+    <meta name="google-adsense-account" content="ca-pub-3698246671823168">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168"
+     crossorigin="anonymous"></script> 
+    <style>
+        :root { 
+            --primary-color: #2c3e50; --bg-color: #f8fafc; --accent-color: #3b82f6; 
+            --text-main: #1e293b; --text-content: #334155; --text-muted: #64748b;
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            font-family: 'Pretendard', -apple-system, sans-serif; 
+            background-color: var(--bg-color); margin: 0; color: var(--text-main);
+            line-height: 1.9; letter-spacing: -0.01em;
+        }
+        
+        #progress-bar {
+            position: fixed; top: 0; left: 0; width: 0%; height: 4px;
+            background: var(--accent-color); z-index: 2000; transition: width 0.1s;
+        }
+
+        header { background: #000; color: white; padding: 1.2rem; text-align: center; }
+        header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; letter-spacing: 1px; }
+        header h1 a { text-decoration: none; color: inherit; }
+
+        nav.main-nav { 
+            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+        }
+        nav.main-nav a { text-decoration: none; color: var(--text-muted); font-weight: bold; font-size: 0.9rem; }
+        nav.main-nav a.active { color: var(--primary-color); border-bottom: 2px solid var(--primary-color); }
+
+        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; }
+        
+        .article-card { 
+            background: white; padding: 45px 25px; border-radius: 28px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03); 
+        }
+
+        .meta-info { margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; }
+        .category-tag { 
+            padding: 4px 12px; background: #dbeafe; color: #1e40af; 
+            border-radius: 6px; font-size: 0.75rem; font-weight: 800;
+        }
+
+        .article-card h1 { 
+            font-size: 1.75rem; line-height: 1.4; margin: 0 0 30px 0; 
+            word-break: keep-all; color: #000; font-weight: 800;
+        }
+
+        .content { font-size: 1.05rem; color: var(--text-content); }
+        .content p { margin-bottom: 1.8rem; text-align: justify; }
+        
+        .content h2 { 
+            font-size: 1.45rem; color: var(--primary-color); margin-top: 3.5rem; margin-bottom: 1.2rem; 
+            font-weight: 800; border-left: 5px solid var(--accent-color); padding-left: 12px;
+        }
+
+        .step-box {
+            background: #f1f5f9; border-radius: 20px; padding: 25px; margin-bottom: 25px;
+        }
+        .step-box h3 { margin-top: 0; color: #000; font-size: 1.15rem; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
+        .step-box .answer { color: #1e40af; font-weight: 700; display: block; margin-top: 10px; }
+        
+        .data-fact {
+            background: #fff; border: 2px dashed #cbd5e1; padding: 25px;
+            border-radius: 20px; margin: 35px 0;
+        }
+        .data-fact strong { display: block; margin-bottom: 15px; font-size: 1.1rem; color: #1e40af; }
+
+        mark { background: #fef08a; padding: 0 3px; border-radius: 4px; color: inherit; }
+
+        .btn-list {
+            display: block; text-align: center; margin: 50px auto 20px;
+            padding: 14px 20px; background: #1e293b; color: white;
+            text-decoration: none; border-radius: 15px; font-size: 0.95rem; font-weight: 600;
+        }
+
+        .references { margin-top: 60px; padding: 25px; background: #f8fafc; border-radius: 20px; font-size: 0.85rem; color: var(--text-muted); }
+
+        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; border-top: 1px solid #eee; margin-top: 4rem; }
+    </style>
+</head>
+<body>
+    <div id="progress-bar"></div>
+    <header><h1><a href="index.html">SKZ BRAIN LAB</a></h1></header>
+    <nav class="main-nav">
+        <a href="index.html" class="active">분석 리포트</a>
+        <a href="dash.html">두뇌 트레이닝</a>
+        <a href="report.html">나의 지수</a>
+    </nav>
+
+    <main class="container">
+        <article class="article-card">
+            <div class="meta-info">
+                <span class="category-tag">뇌과학 분석 #10</span>
+                <span style="color: #bbb; font-size: 0.75rem;">2026. 02. 25</span>
+            </div>
+            
+            <h1>뇌과학으로 푸는 수면의 오해:<br>당신이 몰랐던 '잠의 골든타임' Q&A</h1>
+            
+            <div class="content">
+                <img src="img/post10.jpg" alt="수면 뇌과학 일러스트" width="100%">
+                
+                <p>우리는 인생의 3분의 1을 잠을 자며 보냅니다. 하지만 정작 그 시간 동안 우리 뇌에서 어떤 일이 벌어지는지, 우리는 얼마나 잘못된 상식을 가지고 있는지 잘 알지 못합니다. 최신 뇌과학 연구와 임상 데이터를 통해 수면에 대한 가장 본질적인 질문 4가지에 답해 드립니다.</p>
+
+                <div class="step-box">
+                    <h3>Q1. 아침형 인간은 성공의 필수 조건일까요?</h3>
+                    <p>아침마다 좀비처럼 일어난다면 의지력 문제가 아닐 수 있습니다.</p>
+                    <span class="answer">A: 유전자가 결정한 '수면 표현형(Chronotype)' 때문입니다.</span>
+                </div>
+                <p>2017년 노벨 생리의학상을 받은 제프리 홀 교수팀은 <b>'Period(PER) 유전자'</b>를 발견했습니다. 이 유전자는 단백질을 축적하고 분해하며 24시간 주기 리듬을 조절하는데, 개인마다 주기가 다르게 세팅되어 있습니다. 독일 뮌헨 대학교의 연구에 따르면 저녁형 인간이 억지로 일찍 일어나는 것은 뇌에 <mark>'사회적 시차 피로(Social Jetlag)'</mark>를 유발해 인지 능력을 저하시킵니다.</p>
+
+                <div class="step-box">
+                    <h3>Q2. 밤 10시~새벽 2시, 정말 호르몬 골든타임인가요?</h3>
+                    <p>흔히 알려진 특정 '시각'의 마법은 사실일까요?</p>
+                    <span class="answer">A: 시계 숫자보다 '입면 후 첫 2시간'이 핵심입니다.</span>
+                </div>
+                <p>성장호르몬은 특정 시각이 아니라 <strong>'비렘수면 3단계(서파 수면)'</strong>에서 집중적으로 분비됩니다. 연구진의 실험 결과, 밤 10시든 새벽 2시든 상관없이 잠이 든 직후 첫 90~120분 사이에 하루 분비량의 약 80%가 쏟아져 나왔습니다. 다만 멜라토닌 분비가 왕성한 '어두운 밤'에 자는 것이 이 깊은 수면의 질을 높이는 데 유리합니다.</p>
+
+                <div class="data-fact">
+                    <strong>📊 과학적 팩트 체크: 4시간 수면의 진실</strong>
+                    <ul>
+                        <li><strong>1%의 특권</strong>: 캘리포니아 대대(UCSF)는 적게 자고도 멀쩡한 'DEC2' 변이 유전자를 발견했습니다.</li>
+                        <li><strong>인지력 마비</strong>: 일반인이 하루 6시간 이하로 자면 2주 뒤 '만취 상태'와 동일한 인지 능력을 보입니다. (펜실베이니아 대 실험)</li>
+                        <li><strong>자각 불가</strong>: 무서운 점은 참가자들 스스로는 자신의 능력이 떨어졌음을 인지하지 못했다는 것입니다.</li>
+                    </ul>
+                </div>
+
+                <div class="step-box">
+                    <h3>Q3. 꿈을 꾸는 얕은 잠은 휴식을 방해하나요?</h3>
+                    <p>밤새 꿈을 꾸느라 피곤하다는 말은 뇌과학적으로 반전이 있습니다.</p>
+                    <span class="answer">A: 렘(REM)수면은 뇌의 '데이터 최적화' 시간입니다.</span>
+                </div>
+                <p>UC 버클리의 매슈 워커 교수는 렘수면이 정서 조절에 필수적임을 증명했습니다. 렘수면이 부족하면 뇌의 감정 센터인 <b>'편도체'가 60% 이상 과잉 반응</b>합니다. 꿈을 꾸는 과정은 낮 동안 쌓인 감정 쓰레기를 씻어내고 중요한 정보를 장기 기억으로 옮기는 정교한 정비 작업입니다.</p>
+
+                <h2>나만의 골든타임을 찾는 뇌과학 전략</h2>
+                <p>결론적으로 건강한 수면이란 남이 정해준 시간에 나를 맞추는 것이 아닙니다. 자신의 타고난 생체 리듬을 파악하고 일관성을 유지하는 것이 최우선입니다. 입면 후 첫 2시간의 깊은 잠을 위해 침실을 어둡고 시원하게 유지하세요. 과학은 증명합니다. 잘 자는 것이야말로 가장 적은 노력으로 뇌 성능을 극대화하는 최고의 전략입니다.</p>
+
+                <a href="index.html" class="btn-list">분석실 칼럼 목록보기</a>
+            </div>
+
+            <section class="references">
+                <h4>📚 신뢰를 더해주는 근거들</h4>
+                <ul>
+                    <li>Hall, J. C., et al. (2017 Nobel Prize): 생체 시계 제어 메커니즘 연구</li>
+                    <li>He, Y., et al. (2009): DEC2 유전자와 포유류 수면 길이의 관계 (Science)</li>
+                    <li>Walker, M. (2017): '우리는 왜 잠을 자야 할까' (수면 뇌과학 베스트셀러)</li>
+                </ul>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <div style="margin-bottom: 10px;">
+            <a href="privacy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
+        </div>
+        &copy; 2026 SKZ Brain Lab. All rights reserved.
+    </footer>
+
+    <script>
+        window.onscroll = function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        };
+    </script>
+</body>
+</html>
