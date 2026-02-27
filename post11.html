@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>“나의 뇌가 망가지고 있다?!” 전두엽 파괴 신호와 뇌 회복 골든타임 | SKZ Brain Lab</title>
+    <meta name="description" content="쇼츠 중독, 뇌 안개(Brain Fog), 집중력 저하의 원인을 뇌과학 논문으로 분석합니다. 7가지 체크리스트와 전두엽 회복 전략을 확인하세요.">
+    <meta name="keywords" content="뇌 건강, 전두엽 기능 저하, 도파민 중독, 숏폼 중독 뇌, 디지털 치매 증상, 뇌 영양제, BDNF 활성화, 뇌과학 칼럼, 집중력 높이는 법">
+
+    <meta name="google-adsense-account" content="ca-pub-3698246671823168">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168" crossorigin="anonymous"></script>
+
+    <style>
+        :root { 
+            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #e11d48; 
+            --text-main: #2c3e50; --text-content: #34495e; --text-muted: #7f8c8d;
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body { 
+            font-family: 'Pretendard', -apple-system, sans-serif; 
+            background-color: var(--bg-color); margin: 0; color: var(--text-main);
+            line-height: 1.9; letter-spacing: -0.01em;
+        }
+        
+        #progress-bar {
+            position: fixed; top: 0; left: 0; width: 0%; height: 4px;
+            background: var(--accent-color); z-index: 2000; transition: width 0.1s;
+        }
+
+        header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
+        header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
+        header h1 a { text-decoration: none; color: inherit; }
+
+        nav.main-nav { 
+            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+        }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+        nav.main-nav a.active { color: #d35400; }
+
+        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; }
+        
+        .article-card { 
+            background: white; padding: 45px 25px; border-radius: 28px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03); 
+        }
+
+        .meta-info { margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; }
+        .category-tag { 
+            padding: 4px 12px; background: #fee2e2; color: #b91c1c; 
+            border-radius: 6px; font-size: 0.75rem; font-weight: 800;
+        }
+
+        h1.main-title { 
+            font-size: 1.75rem; line-height: 1.4; margin: 0 0 30px 0; 
+            word-break: keep-all; color: #000; font-weight: 800; text-align: left;
+        }
+
+        /* 체크리스트 스타일 */
+        .checklist-box { background: #fff1f2; padding: 25px; border-radius: 20px; border: 1px solid #fecaca; margin: 30px 0; }
+        .check-item { display: flex; align-items: flex-start; margin-bottom: 15px; cursor: pointer; font-weight: 600; font-size: 1rem; }
+        .check-item input { margin-top: 5px; margin-right: 12px; width: 18px; height: 18px; accent-color: var(--accent-color); }
+        
+        .result-btn { width: 100%; padding: 16px; background: var(--accent-color); color: white; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 800; cursor: pointer; }
+
+        /* 모달 팝업 */
+        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 3000; justify-content: center; align-items: center; }
+        .modal-content { background: white; width: 85%; max-width: 380px; padding: 30px; border-radius: 25px; text-align: center; }
+        .modal-close-btn { background: var(--primary-color); color: white; padding: 12px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; width: 100%; margin-top: 20px; }
+
+        /* 본문 상세 */
+        #deep-analysis { display: none; margin-top: 40px; }
+        .content h2 { 
+            font-size: 1.45rem; color: var(--primary-color); margin-top: 3.5rem; margin-bottom: 1.2rem; 
+            font-weight: 800; border-left: 5px solid var(--accent-color); padding-left: 12px;
+        }
+        .content p { margin-bottom: 1.8rem; text-align: justify; color: var(--text-content); }
+        
+        .data-fact { background: #f8fafc; border: 2px dashed #cbd5e1; padding: 25px; border-radius: 20px; margin: 35px 0; }
+        .data-fact strong { display: block; margin-bottom: 15px; font-size: 1.1rem; color: var(--accent-color); }
+
+        .btn-list {
+            display: block; text-align: center; margin: 50px auto 20px;
+            padding: 14px 20px; background: #1e293b; color: white;
+            text-decoration: none; border-radius: 15px; font-size: 0.95rem; font-weight: 600;
+        }
+
+        .game-link { background: #2563eb; color: white; display: block; text-align: center; padding: 18px; border-radius: 15px; text-decoration: none; font-weight: 800; margin-top: 30px; }
+        
+        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; border-top: 1px solid #eee; margin-top: 4rem; }
+    </style>
+</head>
+<body>
+    <div id="progress-bar"></div>
+    <header><h1><a href="index.html">SKZ 두뇌 훈련소</a></h1></header>
+    <nav class="main-nav">
+        <a href="index.html" class="active">브레인 분석실</a>
+        <a href="dash.html">두뇌 훈련센터</a>
+        <a href="report.html">나의 두뇌점수</a>
+    </nav>
+
+    <main class="container">
+        <article class="article-card">
+            <div class="meta-info">
+                <span class="category-tag">심층 분석 #11</span>
+                <span style="color: #bbb; font-size: 0.75rem;">2026. 02. 28</span>
+            </div>
+            
+            <h1 class="main-title">“나의 뇌가 망가지고 있다?!”<br>전두엽 파괴의 7가지 신호</h1>
+            
+            <div class="content">
+                <p>혹시 책 한 페이지를 끝까지 읽기 힘들거나, 방금 하려던 일이 기억나지 않아 멍해진 적이 있으신가요? 이는 성격 탓이 아니라 당신의 뇌가 보내는 **'SOS'** 신호일 수 있습니다.</p>
+
+                <div class="checklist-box">
+                    <h3 style="margin-top:0; text-align:center; color:var(--accent-color);">🚨 브레인 좀비 자가 진단</h3>
+                    <label class="check-item"><input type="checkbox" class="brain-check"> 눈 뜨자마자 스마트폰 쇼츠를 본다.</label>
+                    <label class="check-item"><input type="checkbox" class="brain-check"> 영상 없이는 밥 먹는 게 지루하다.</label>
+                    <label class="check-item"><input type="checkbox" class="brain-check"> 업무 중 10분마다 SNS를 확인한다.</label>
+                    <label class="check-item"><input type="checkbox" class="brain-check"> 카페인 없이는 뇌가 깨지 않는다.</label>
+                    <label class="check-item"><input type="checkbox" class="brain-check"> 최근 성격이 예민하고 짜증이 늘었다.</label>
+                    <label class="check-item"><input type="checkbox" class="brain-check"> 취침 직전까지 스마트폰을 본다.</label>
+                    <label class="check-item"><input type="checkbox" class="brain-check"> 1시간 이상 무언가에 몰입하기 힘들다.</label>
+                    
+                    <button class="result-btn" onclick="showResult()">나의 뇌 상태 진단하기</button>
+                </div>
+
+                <div id="modal">
+                    <div class="modal-content">
+                        <h2 id="result-status">상태 분석 중...</h2>
+                        <p id="result-desc"></p>
+                        <button class="modal-close-btn" onclick="scrollToAnalysis()">뇌 기능 퇴행의 위험성 더보기 ↓</button>
+                    </div>
+                </div>
+
+                <div id="deep-analysis">
+                    <h2>1. 팝콘 브레인: 자극의 노예가 된 뇌</h2>
+                    <p>미국 <strong>워싱턴 대학교</strong> 연구진이 발표한 '팝콘 브레인' 현상은 현대인의 뇌가 얼마나 위태로운지 보여줍니다. 강렬하고 빠른 영상 자극에만 익숙해진 뇌는 현실의 잔잔한 변화에는 반응하지 않게 됩니다. 이는 도파민 수용체의 변형을 일으켜, 결국 일상적인 행복을 느끼지 못하는 상태로 이어집니다.</p>
+
+                    <h2>2. 전두엽 위축과 '뇌 안개(Brain Fog)'</h2>
+                    <p>전두엽은 논리적 사고와 충동 조절을 담당하는 사령탑입니다. <strong>가천대 뇌과학연구소</strong>의 MRI 분석에 따르면, 스마트폰과 과도한 멀티태스킹은 전두엽의 회백질 밀도를 물리적으로 감소시킵니다. 머릿속에 안개가 낀 듯 멍한 현상은 전두엽이 정상적인 정보 처리를 거부하고 있다는 강력한 증거입니다.</p>
+
+                    <div class="data-fact">
+                        <strong>📊 뇌과학 논문 기반 팩트 체크</strong>
+                        <ul>
+                            <li><b>설탕과 해마</b>: 과당은 기억력 담당인 해마에 만성 염증을 유발합니다. (UCLA)</li>
+                            <li><b>수면 부족</b>: 하루 6시간 미만 수면은 뇌 속에 치매 유발 물질인 아밀로이드 베타를 축적시킵니다.</li>
+                            <li><b>BDNF 저하</b>: 신체 활동이 없으면 새로운 뇌세포를 만드는 단백질 분비가 멈춥니다.</li>
+                        </ul>
+                    </div>
+
+                    <h2>3. 뇌세포를 되살리는 리부트 전략</h2>
+                    <p>하지만 뇌는 **'신경 가소성'**을 통해 언제든 회복될 수 있습니다. 하루 15분 이어폰 없이 걷기, 잠들기 1시간 전 스마트폰 차단, 그리고 능동적인 두뇌 자극이 필요합니다. 수동적인 영상 시청을 멈추고 뇌가 직접 생각하게 만드는 훈련을 시작해야 합니다.</p>
+
+                    <div style="background: #eff6ff; padding: 25px; border-radius: 20px; text-align: center; margin-top: 40px;">
+                        <h3 style="color: #1e40af; margin-top: 0;">🛠️ 내 뇌를 살리는 응급 처치</h3>
+                        <p>지금 바로 반응 속도와 기억력 테스트를 통해<br>잠들어 있는 뇌세포를 깨워보세요!</p>
+                        <a href="dash.html" class="game-link">죽어가는 뇌 살려내기 (훈련 시작) →</a>
+                    </div>
+
+                    <a href="index.html" class="btn-list">분석 리포트 목록보기</a>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div style="margin-bottom: 10px;">
+            <a href="privacy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
+        </div>
+        &copy; 2026 SKZ Brain Lab. All rights reserved.
+    </footer>
+
+    <script>
+        function showResult() {
+            const count = document.querySelectorAll('.brain-check:checked').length;
+            const modal = document.getElementById('modal');
+            const status = document.getElementById('result-status');
+            const desc = document.getElementById('result-desc');
+
+            if(count <= 2) {
+                status.innerText = "🌟 안전: 건강한 브레인";
+                desc.innerText = "아직 뇌의 자정 능력이 훌륭합니다! 현재의 습관을 유지하세요.";
+            } else if(count <= 5) {
+                status.innerText = "⚠️ 경고: 뇌 기능 저하 시작";
+                desc.innerText = `${count}개의 습관이 전두엽을 지치게 하고 있습니다. 리부트가 필요합니다.`;
+            } else {
+                status.innerText = "🚨 위험: 브레인 좀비 단계";
+                desc.innerText = "전두엽 위축이 우려되는 심각한 상태입니다. 즉각적인 생활 습관 교정이 필요합니다!";
+            }
+            modal.style.display = 'flex';
+        }
+
+        function scrollToAnalysis() {
+            document.getElementById('modal').style.display = 'none';
+            const analysis = document.getElementById('deep-analysis');
+            analysis.style.display = 'block';
+            window.scrollTo({ top: analysis.offsetTop - 80, behavior: 'smooth' });
+        }
+
+        window.onscroll = function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        };
+    </script>
+</body>
+</html>
