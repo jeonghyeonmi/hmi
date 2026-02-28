@@ -8,91 +8,54 @@
     <link rel="canonical" href="https://www.skztools.com/game4.html">
     <meta name="description" content="잠시 나타났다 사라지는 타일의 위치를 기억하세요. 정밀한 집중력이 당신의 뇌를 깨웁니다.">
     <meta name="google-adsense-account" content="ca-pub-3698246671823168">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168" crossorigin="anonymous"></script>
     <style>
         :root { 
             --primary-color: #1a3a5f; 
             --bg-color: #f4f7f9; 
-            --focus-color: #047857; /* 집중력 카테고리: Green */
+            --focus-color: #047857; 
             --accent-color: var(--focus-color);
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
         body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; line-height: 1.6; }
         
-        /* [1단] 메인 헤더 */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
 
-        /* [1단] 메인 네비게이션 */
-        nav.main-nav { 
-            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
-        }
+        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
 
-        /* [2단] 카테고리 탭 */
-        .category-tabs { 
-            display: flex; background: #fff; border-bottom: 1px solid #eee; justify-content: center; 
-        }
-        .category-tabs a { 
-            min-width: 100px; max-width: 200px; flex: 1; text-align: center; 
-            padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; transition: 0.3s; 
-        }
+        .category-tabs { display: flex; background: #fff; border-bottom: 1px solid #eee; justify-content: center; }
+        .category-tabs a { min-width: 100px; max-width: 200px; flex: 1; text-align: center; padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; transition: 0.3s; }
         .category-tabs a.active { color: var(--focus-color); border-bottom: 3px solid var(--focus-color); }
 
-        /* [3단] 게임 서브 메뉴 */
-        .game-sub-nav { 
-            display: flex; gap: 10px; padding: 15px; justify-content: center; 
-            background: #f8f9fa; overflow-x: auto; white-space: nowrap; scrollbar-width: none;
-        }
-        .game-sub-nav::-webkit-scrollbar { display: none; }
-        .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; }
-        .game-sub-nav a.active { background: var(--focus-color); color: white; border-color: var(--focus-color); }
+        .game-sub-nav { display: flex; gap: 10px; padding: 15px; justify-content: center; background: #f8f9fa; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+        .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; font-weight: 500; }
+        .game-sub-nav a.active { background: var(--focus-color); color: white; border-color: var(--focus-color); font-weight: bold; }
 
-        @media (max-width: 600px) {
-            .category-tabs a { min-width: auto; font-size: 0.85rem; }
-            .game-sub-nav { justify-content: flex-start; }
-        }
-
-        /* 게임 본문 컨테이너 */
-        .container { 
-            width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 20px; 
-            background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; 
-        }
-
-        .game-guide { 
-            background: #f0fdf4; border-radius: 15px; padding: 15px; font-size: 0.85rem; 
-            color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--focus-color); 
-        }
+        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 25px; background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
+        .game-guide { background: #f0fdf4; border-radius: 15px; padding: 15px; font-size: 0.85rem; color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--focus-color); }
         
         #status-msg { font-size: 1.2rem; font-weight: 800; color: var(--primary-color); margin-bottom: 15px; height: 1.6rem; }
 
-        /* 기억력 그리드 */
-        .memory-grid { display: grid; margin: 20px auto; gap: 8px; width: 100%; max-width: 350px; }
-        .tile { 
-            width: 100%; aspect-ratio: 1/1; background: #eee; border-radius: 12px; 
-            cursor: pointer; transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
+        .memory-grid { display: grid; margin: 20px auto; gap: 10px; width: 100%; max-width: 350px; }
+        .tile { width: 100%; aspect-ratio: 1/1; background: #e2e8f0; border-radius: 12px; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
         .tile.active { background: var(--focus-color); transform: scale(1.02); box-shadow: 0 4px 12px rgba(4, 120, 87, 0.3); }
-        .tile.correct { background: #2ecc71; transform: scale(0.95); }
-        .tile.wrong { background: #e74c3c; animation: shake 0.3s; }
+        .tile.correct { background: #10b981; transform: scale(0.95); box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
+        .tile.wrong { background: #ef4444; animation: shake 0.4s; }
 
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
         }
 
-        .btn-start { 
-            width: 100%; max-width: 250px; padding: 16px; background: var(--focus-color); 
-            color: white; border: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem;
-            margin-top: 10px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
+        .btn-start { width: 100%; max-width: 250px; padding: 18px; background: var(--focus-color); color: white; border: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem; margin-top: 10px; cursor: pointer; box-shadow: 0 4px 15px rgba(4, 120, 87, 0.2); transition: 0.2s; }
+        .btn-start:active { transform: scale(0.98); }
 
-        /* [하단] 전체 연결 허브 */
         .brain-hub { margin-top: 30px; padding: 20px; background: #f1f5f9; border-radius: 24px; text-align: left; }
         .hub-title { font-size: 0.9rem; font-weight: 800; margin-bottom: 15px; color: var(--primary-color); }
         .hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
@@ -106,36 +69,18 @@
         .rank-table td { padding: 12px 5px; border-bottom: 1px solid #f9f9f9; }
 
         footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; }
-        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
     </style>
 </head>
 <body>
-    <header>
-        <h1><a href="/">SKZ 두뇌 훈련소</a></h1>
-    </header>
-
-    <nav class="main-nav">
-        <a href="/">브레인 분석실</a>
-        <a href="dash.html" style="color:var(--focus-color)">두뇌 훈련센터</a>
-        <a href="report.html">나의 두뇌점수</a>
-    </nav>
-
-    <nav class="category-tabs">
-        <a href="game.html" class="active">정밀 집중</a>
-        <a href="game2.html">전략 논리</a>
-        <a href="game3.html">쾌속 판단</a>
-    </nav>
-
-    <nav class="game-sub-nav">
-        <a href="game.html">🎯 메모리 게임</a>
-        <a href="game4.html" class="active">📍 기억력</a>
-        <a href="game8.html">🛒 시장에 가면</a>
-    </nav>
+    <header><h1><a href="/">SKZ 두뇌 훈련소</a></h1></header>
+    <nav class="main-nav"><a href="/">브레인 분석실</a><a href="dash.html" style="color:var(--focus-color)">두뇌 훈련센터</a><a href="report.html">나의 두뇌점수</a></nav>
+    <nav class="category-tabs"><a href="game.html" class="active">정밀 집중</a><a href="game2.html">전략 논리</a><a href="game3.html">쾌속 판단</a></nav>
+    <nav class="game-sub-nav"><a href="game.html">🎯 메모리 게임</a><a href="game4.html" class="active">📍 기억력</a><a href="game8.html">🛒 시장에 가면</a></nav>
 
     <main class="container">
         <div class="game-guide">
-            <strong>🧠 정밀 집중 훈련 (기억력)</strong><br>
-            잠시 나타나는 타일의 위치를 기억하세요. 레벨이 올라갈수록 더 높은 고도의 집중력이 필요합니다.
+            <strong>🧠 정밀 집중 훈련: 타일 위치</strong><br>
+            잠시 반짝이는 타일들의 위치를 순서 상관없이 모두 찾으세요. 높은 레벨일수록 집중력 점수가 크게 상승합니다.
         </div>
         
         <div id="status-msg">도전할 준비 되셨나요?</div>
@@ -174,7 +119,8 @@
         function initBoard() {
             const board = document.getElementById('memoryBoard');
             board.innerHTML = '';
-            const size = level < 4 ? 3 : (level < 7 ? 4 : 5);
+            // 레벨에 따른 그리드 크기 조정 (3x3 -> 4x4 -> 5x5)
+            const size = level < 5 ? 3 : (level < 9 ? 4 : 5);
             board.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
             
             for(let i=0; i < size * size; i++) {
@@ -196,19 +142,23 @@
             tiles.forEach(t => t.className = 'tile');
 
             targetTiles = [];
-            const count = level + 2;
+            // 타일 개수 공식 조정: 레벨 1(3개) ~ 레벨 12(10개)
+            const count = Math.min(10, level + 2);
             while(targetTiles.length < count) {
                 let rand = Math.floor(Math.random() * tiles.length);
                 if(!targetTiles.includes(rand)) targetTiles.push(rand);
             }
 
+            // 타일 보여주기
             targetTiles.forEach(idx => tiles[idx].classList.add('active'));
 
+            // 노출 시간 조정 (레벨이 올라갈수록 조금씩 길어지지만 개수 대비 짧아짐)
+            const displayTime = 800 + (level * 100);
             setTimeout(() => {
                 targetTiles.forEach(idx => tiles[idx].classList.remove('active'));
-                document.getElementById('status-msg').innerText = `타일의 위치를 클릭하세요!`;
+                document.getElementById('status-msg').innerText = `위치를 클릭하세요 (${count}곳)`;
                 isWait = false;
-            }, 1000 + (level * 150));
+            }, displayTime);
         }
 
         function handleTileClick(idx, tile) {
@@ -228,36 +178,47 @@
                 }
             } else {
                 tile.classList.add('wrong');
-                endGame();
+                isWait = true;
+                setTimeout(endGame, 500);
             }
         }
 
         function endGame() {
             const finalLevel = level;
-            const reportScore = Math.min(100, finalLevel * 10);
             
-            // 데이터 저장 로직 (리포트 연동용)
+            // [집중력 점수 밸런스 공식]
+            // Lv.1~3: 10~30점 | Lv.4~8: 40~75점 | Lv.9~12: 80~100점
+            let reportScore;
+            if (finalLevel <= 3) {
+                reportScore = finalLevel * 10;
+            } else if (finalLevel <= 8) {
+                reportScore = 30 + (finalLevel - 3) * 9; 
+            } else {
+                reportScore = 75 + (finalLevel - 8) * 6.25;
+            }
+            reportScore = Math.min(100, Math.round(reportScore));
+            
             localStorage.setItem('game4_score', reportScore);
             let scoreHistory = JSON.parse(localStorage.getItem('game4_history')) || [];
             scoreHistory.push(reportScore);
             localStorage.setItem('game4_history', JSON.stringify(scoreHistory.slice(-10)));
 
-            // 내부 기록 저장
             const now = new Date();
             const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
             let history = JSON.parse(localStorage.getItem('memHistory')) || [];
             history.unshift({ date: dateStr, score: finalLevel });
             localStorage.setItem('memHistory', JSON.stringify(history.slice(0, 10)));
 
-            if (confirm(`훈련 종료! (Lv.${finalLevel})\n분석 리포트에서 집중력 지표를 확인하시겠습니까?`)) {
+            if (confirm(`훈련 종료! (최종 레벨: ${finalLevel})\n집중력 획득 점수: ${reportScore}점\n\n분석 리포트를 확인하시겠습니까?`)) {
                 location.href = 'report.html';
             } else {
                 level = 1;
                 document.getElementById('startBtn').style.display = 'inline-block';
                 document.getElementById('startBtn').innerText = '다시 도전하기';
-                document.getElementById('status-msg').innerText = '훈련 결과';
+                document.getElementById('status-msg').innerText = '훈련 완료';
                 initBoard();
                 displayHistory();
+                isWait = false;
             }
         }
 
