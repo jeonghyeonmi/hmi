@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <title>내 두뇌 분석 리포트 | SKZ 두뇌 훈련소</title>
-    <meta name="description" content="8가지 전문 뇌 과학 게임 데이터를 바탕으로 당신의 집중력, 논리력, 판단력을 정밀 분석합니다. 당신의 브레인 타입을 확인하세요.">
+    <meta name="description" content="8가지 전문 뇌 과학 게임 데이터를 바탕으로 당신의 집중력, 논리력, 판단력을 정밀 분석합니다.">
     <meta property="og:title" content="SKZ 두뇌 분석 리포트">
     <meta property="og:description" content="나의 6대 인지 능력 분석 결과는? 지금 확인해보세요.">
     <meta property="og:type" content="website">
@@ -44,22 +44,26 @@
         .analysis-title { font-weight: 800; color: var(--accent-color); margin-bottom: 10px; display: block; font-size: 1.05rem; }
         .analysis-text { font-size: 0.92rem; color: #475569; line-height: 1.7; margin: 0; word-break: keep-all; }
 
+        /* 가이드 섹션 정돈 */
         .guide-section { background: white; border-radius: 28px; padding: 25px 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
         .guide-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 20px; border-left: 5px solid var(--accent-color); padding-left: 14px; }
         
-        .ability-item { margin-bottom: 22px; }
-        .ability-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .ability-name { font-weight: 800; font-size: 0.9rem; display: flex; align-items: center; gap: 6px; }
-        .ability-score { font-size: 0.85rem; color: var(--accent-color); font-weight: 700; }
+        .ability-group { margin-bottom: 30px; border-bottom: 1px solid #f1f5f9; padding-bottom: 20px; }
+        .ability-group:last-child { border-bottom: none; }
         
+        .ability-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .ability-name { font-weight: 800; font-size: 0.95rem; color: var(--primary-color); }
+        .ability-score { font-size: 0.85rem; color: var(--accent-color); font-weight: 800; }
+        
+        /* 게임 링크 스타일 정돈 (아이콘 최소화) */
+        .game-list { display: flex; flex-direction: column; gap: 8px; }
         .linked-game { 
             display: flex; align-items: center; background: #f8fafc; border: 1px solid #e2e8f0; 
-            border-radius: 16px; padding: 12px 15px; text-decoration: none; color: #334155;
-            transition: 0.2s; font-size: 0.85rem; font-weight: 700;
+            border-radius: 12px; padding: 10px 15px; text-decoration: none; color: #334155;
+            font-size: 0.85rem; font-weight: 600; transition: 0.2s;
         }
-        .linked-game:hover { border-color: var(--accent-color); background: #fffcf9; transform: translateY(-2px); }
-        .game-icon { margin-right: 10px; font-size: 1.1rem; }
-        .game-tag { margin-left: auto; font-size: 0.65rem; color: #94a3b8; border: 1px solid #cbd5e1; padding: 1px 6px; border-radius: 8px; font-weight: normal; }
+        .linked-game:hover { border-color: var(--accent-color); background: #fffcf9; }
+        .game-tag { margin-left: auto; font-size: 0.7rem; color: #94a3b8; font-weight: 400; }
 
         .btn-reset { background: transparent; color: #cbd5e1; font-size: 0.75rem; border: none; cursor: pointer; text-decoration: underline; margin-top: 35px; width: 100%; }
         footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; margin-top: 2rem; }
@@ -79,87 +83,52 @@
     <main class="report-card">
         <div class="type-name" id="brain-type">데이터 분석 중</div>
         <div id="score-summary" class="score-summary">분석 중...</div>
-        
-        <div class="chart-wrapper">
-            <canvas id="abilityChart"></canvas>
-        </div>
-
+        <div class="chart-wrapper"><canvas id="abilityChart"></canvas></div>
         <div class="analysis-box">
             <span class="analysis-title" id="analysis-title">종합 평가</span>
-            <p class="analysis-text" id="analysis-text">데이터가 부족하여 분석을 진행할 수 없습니다. 게임을 완료해주세요.</p>
+            <p class="analysis-text" id="analysis-text">게임을 플레이하여 데이터를 쌓아보세요.</p>
         </div>
     </main>
 
     <section class="guide-section">
-        <div class="guide-title">항목별 연결 게임 가이드</div>
+        <div class="guide-title">능력치별 훈련 가이드 (전체 8종)</div>
         
-        <div class="ability-item">
+        <div class="ability-group">
             <div class="ability-label">
-                <span class="ability-name" style="color: var(--focus-color);">🎯 집중력 (Focus)</span>
+                <span class="ability-name">🎯 집중 및 정밀도</span>
                 <span class="ability-score" id="val-focus">0점</span>
             </div>
-            <a href="game.html" class="linked-game">
-                <span class="game-icon">🃏</span> 카드 짝 맞추기 (메모리)
-                <span class="game-tag">game.html</span>
-            </a>
+            <div class="game-list">
+                <a href="game.html" class="linked-game">메모리 카드 맞추기 <span class="game-tag">game.html</span></a>
+                <a href="game4.html" class="linked-game">위치 기억 훈련 <span class="game-tag">game4.html</span></a>
+                <a href="game8.html" class="linked-game">시장에 가면 (연상 암기) <span class="game-tag">game8.html</span></a>
+            </div>
         </div>
 
-        <div class="ability-item">
+        <div class="ability-group">
             <div class="ability-label">
-                <span class="ability-name" style="color: var(--logic-color);">🧩 논리력 (Logic)</span>
+                <span class="ability-name">🧩 논리 및 추론</span>
                 <span class="ability-score" id="val-logic">0점</span>
             </div>
-            <a href="game7.html" class="linked-game">
-                <span class="game-icon">⚪</span> AI 오목 (전략 수읽기)
-                <span class="game-tag">game7.html</span>
-            </a>
+            <div class="game-list">
+                <a href="game2.html" class="linked-game">미니 스도쿠 <span class="game-tag">game2.html</span></a>
+                <a href="game7.html" class="linked-game">AI 오목 전략 <span class="game-tag">game7.html</span></a>
+            </div>
         </div>
 
-        <div class="ability-item">
+        <div class="ability-group">
             <div class="ability-label">
-                <span class="ability-name" style="color: var(--speed-color);">⚡ 판단력 (Cognitive)</span>
+                <span class="ability-name">⚡ 판단 및 반응속도</span>
                 <span class="ability-score" id="val-speed">0점</span>
             </div>
-            <a href="game3.html" class="linked-game">
-                <span class="game-icon">🚥</span> 순발력 판단 훈련
-                <span class="game-tag">game3.html</span>
-            </a>
-        </div>
-
-        <div class="ability-item">
-            <div class="ability-label">
-                <span class="ability-name" style="color: #7e22ce;">📍 정밀도 (Precision)</span>
-                <span class="ability-score" id="val-precision">0점</span>
+            <div class="game-list">
+                <a href="game3.html" class="linked-game">순발력 판단 <span class="game-tag">game3.html</span></a>
+                <a href="game5.html" class="linked-game">쾌속 수리 암산 <span class="game-tag">game5.html</span></a>
+                <a href="game6.html" class="linked-game">동물 인지 분류 <span class="game-tag">game6.html</span></a>
             </div>
-            <a href="game4.html" class="linked-game">
-                <span class="game-icon">💡</span> 위치 기억 훈련
-                <span class="game-tag">game4.html</span>
-            </a>
         </div>
 
-        <div class="ability-item">
-            <div class="ability-label">
-                <span class="ability-name" style="color: #0369a1;">🌀 추론력 (Reasoning)</span>
-                <span class="ability-score" id="val-reasoning">0점</span>
-            </div>
-            <a href="game2.html" class="linked-game">
-                <span class="game-icon">🔢</span> 미니 스도쿠 (패턴추론)
-                <span class="game-tag">game2.html</span>
-            </a>
-        </div>
-
-        <div class="ability-item">
-            <div class="ability-label">
-                <span class="ability-name" style="color: #be185d;">🏎️ 반응속도 (Reaction)</span>
-                <span class="ability-score" id="val-reaction">0점</span>
-            </div>
-            <a href="game5.html" class="linked-game">
-                <span class="game-icon">➕</span> 쾌속 수리 암산
-                <span class="game-tag">game5.html</span>
-            </a>
-        </div>
-
-        <button class="btn-reset" onclick="resetData()">모든 기록 삭제</button>
+        <button class="btn-reset" onclick="resetData()">기록 초기화</button>
     </section>
 </div>
 
@@ -176,23 +145,23 @@
         const history = JSON.parse(localStorage.getItem(gameId + '_history')) || [];
         const last = parseInt(localStorage.getItem(gameId + '_score')) || 0;
         if (history.length === 0) return last;
-        const recent = history.slice(-5);
-        return Math.round(recent.reduce((a, b) => a + b, 0) / recent.length);
+        return Math.round(history.slice(-5).reduce((a, b) => a + b, 0) / Math.min(history.length, 5));
     }
 
+    // 8가지 게임 데이터를 6대 지표로 정밀 매핑
     const dataPoints = {
-        focus: getScore('game'),      
-        logic: getScore('game7'),     
-        speed: getScore('game3'),     
-        precision: getScore('game4'), 
-        reasoning: getScore('game2'), 
-        reaction: getScore('game5')   
+        focus: Math.round((getScore('game') + getScore('game8')) / 2), // 집중력: 메모리+시장에가면
+        logic: getScore('game7'),                                      // 논리력: 오목
+        speed: getScore('game3'),                                      // 판단력: 순발력
+        precision: getScore('game4'),                                  // 정밀도: 위치기억
+        reasoning: getScore('game2'),                                  // 추론력: 스도쿠
+        reaction: Math.round((getScore('game5') + getScore('game6')) / 2) // 반응속도: 암산+동물인지
     };
 
-    Object.keys(dataPoints).forEach(key => {
-        const el = document.getElementById('val-' + key);
-        if(el) el.innerText = dataPoints[key] + '점';
-    });
+    // UI 점수 업데이트
+    document.getElementById('val-focus').innerText = dataPoints.focus + '점';
+    document.getElementById('val-logic').innerText = dataPoints.logic + '점';
+    document.getElementById('val-speed').innerText = dataPoints.speed + '점';
 
     const ctx = document.getElementById('abilityChart').getContext('2d');
     new Chart(ctx, {
@@ -201,75 +170,36 @@
             labels: ['집중력', '논리력', '판단력', '정밀도', '추론력', '반응속도'],
             datasets: [{
                 data: Object.values(dataPoints),
-                backgroundColor: 'rgba(211, 84, 0, 0.1)',
-                borderColor: 'rgba(211, 84, 0, 1)',
-                borderWidth: 2,
-                pointRadius: 4
+                backgroundColor: 'rgba(26, 58, 95, 0.1)',
+                borderColor: 'rgba(26, 58, 95, 1)',
+                borderWidth: 2, pointRadius: 3
             }]
         },
         options: {
-            scales: {
-                r: { suggestedMin: 0, suggestedMax: 100, ticks: { display: false },
-                pointLabels: { font: { size: 12, weight: '700', family: 'Pretendard' } } }
-            },
+            scales: { r: { suggestedMin: 0, suggestedMax: 100, ticks: { display: false } } },
             plugins: { legend: { display: false } }
         }
     });
 
     const total = Object.values(dataPoints).reduce((a,b)=>a+b, 0);
-    const avg = Math.floor(total / 6);
-    const brainTypeElem = document.getElementById('brain-type');
-    const analysisTitle = document.getElementById('analysis-title');
-    const analysisText = document.getElementById('analysis-text');
-    
-    if (total === 0) {
-        brainTypeElem.innerHTML = "데이터 <mark>부족</mark>";
-        document.getElementById('score-summary').innerText = "훈련을 시작해 데이터를 쌓아보세요.";
-    } else {
-        document.getElementById('score-summary').innerText = `종합 두뇌 지수: ${avg}점`;
+    if (total > 0) {
+        document.getElementById('score-summary').innerText = `종합 두뇌 지수: ${Math.floor(total/6)}점`;
         const maxKey = Object.keys(dataPoints).reduce((a, b) => dataPoints[a] > dataPoints[b] ? a : b);
-        
-        // [세부 설명 데이터 맵]
-        const typeDetails = {
-            focus: {
-                title: "🎯 몰입의 달인",
-                name: "몰입의 <mark>달인</mark>",
-                desc: "주변의 자극에도 흔들리지 않고 한 곳에 정신을 집중하는 능력이 뛰어납니다. 카드 짝 맞추기와 같은 작업에서 탁월한 기억 성능을 보이며, 복잡한 업무도 정밀하게 처리할 가능성이 높습니다."
-            },
-            logic: {
-                title: "🧩 치밀한 전략가",
-                name: "치밀한 <mark>전략가</mark>",
-                desc: "수 읽기에 강하며 한 수 앞을 내다보는 통찰력을 가졌습니다. 오목과 같은 전략 게임에서 강점을 보이며, 문제의 원인을 파악하고 구조화하여 해결하는 능력이 매우 우수합니다."
-            },
-            speed: {
-                title: "⚡ 쾌속의 판단자",
-                name: "쾌속의 <mark>판단자</mark>",
-                desc: "상황 변화를 즉각적으로 감지하고 올바른 결정을 내리는 속도가 매우 빠릅니다. 멀티태스킹보다는 순간적인 인지 제어 능력이 뛰어나 위기 관리와 빠른 실행력에 특화되어 있습니다."
-            },
-            precision: {
-                title: "📍 정밀한 설계자",
-                name: "정밀한 <mark>설계자</mark>",
-                desc: "사물의 위치나 작은 변화를 놓치지 않는 정교한 인지 능력을 갖추고 있습니다. 시각적 정보를 뇌에 기록하고 재생하는 능력이 뛰어나며, 실수가 적고 꼼꼼한 성격의 소유자입니다."
-            },
-            reasoning: {
-                title: "🌀 날카로운 추론가",
-                name: "날카로운 <mark>추론가</mark>",
-                desc: "파편화된 정보들 속에서 논리적 규칙을 찾아내는 패턴 추론력이 매우 날카롭습니다. 스도쿠와 같은 문제 해결에 능하며, 낯선 환경에서도 빠르게 원리를 파악하여 적응하는 능력을 보여줍니다."
-            },
-            reaction: {
-                title: "🏎️ 본능적 반응자",
-                name: "본능적 <mark>반응자</mark>",
-                desc: "뇌의 연산 속도와 출력 속도가 일치하여 매우 즉각적인 퍼포먼스를 냅니다. 수리 암산과 같은 빠른 사고력을 요하는 분야에서 강점을 보이며, 생각과 동시에 행동하는 에너지가 강력합니다."
-            }
+        const typeMap = {
+            focus: { name: "몰입의 <mark>달인</mark>", title: "🎯 집중력 기반", desc: "한 곳에 깊이 파고드는 몰입도가 높습니다. 메모리 게임과 연상 암기에 강점이 있습니다." },
+            logic: { name: "치밀한 <mark>전략가</mark>", title: "🧩 전략적 사고", desc: "복잡한 수 읽기와 인과관계 파악에 능숙합니다. 오목과 같은 전략 게임에 특화되어 있습니다." },
+            speed: { name: "쾌속의 <mark>판단자</mark>", title: "⚡ 빠른 상황 인지", desc: "순간적인 자극에 대한 판단이 매우 정확합니다. 순발력 게임에서 높은 성적을 거두었습니다." },
+            precision: { name: "정밀한 <mark>설계자</mark>", title: "📍 공간/위치 정밀도", desc: "사물의 위치와 변화를 기억하는 능력이 탁월합니다. 위치 기억 훈련에 강한 면모를 보입니다." },
+            reasoning: { name: "날카로운 <mark>추론가</mark>", title: "🌀 논리 추론 능력", desc: "정보 사이의 규칙을 찾아내는 능력이 좋습니다. 스도쿠 등 추론형 문제 해결력이 우수합니다." },
+            reaction: { name: "본능적 <mark>반응자</mark>", title: "🏎️ 즉각적 사고력", desc: "뇌의 연산 속도가 매우 빠릅니다. 암산과 동물 인지 등 빠른 처리를 요하는 게임에 최적화되어 있습니다." }
         };
-
-        const result = typeDetails[maxKey];
-        brainTypeElem.innerHTML = result.name;
-        analysisTitle.innerText = result.title;
-        analysisText.innerText = result.desc;
+        const res = typeMap[maxKey];
+        document.getElementById('brain-type').innerHTML = res.name;
+        document.getElementById('analysis-title').innerText = res.title;
+        document.getElementById('analysis-text').innerText = res.desc;
     }
 
-    function resetData() { if(confirm("모든 기록을 삭제할까요?")) { localStorage.clear(); location.reload(); } }
+    function resetData() { if(confirm("기록을 삭제할까요?")) { localStorage.clear(); location.reload(); } }
 </script>
 </body>
 </html>
