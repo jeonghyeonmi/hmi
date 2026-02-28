@@ -5,13 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>브레인 분석 리포트 | SKZ Brain Lab</title>
 
-    <meta name="description" content="집중력, 논리력, 순발력 등 6대 인지 영역 분석 완료! SKZ Brain Lab이 진단한 나의 브레인 타입과 종합 점수를 확인하세요.">
-    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <meta name="google-adsense-account" content="ca-pub-3698246671823168">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168"
-     crossorigin="anonymous"></script>
-    
     <style>
         :root { 
             --primary-color: #1a3a5f; 
@@ -19,84 +13,52 @@
             --accent-color: #d35400; 
             --text-main: #2c3e50;
             --text-muted: #7f8c8d;
+            --focus-color: #047857; /* 초록: 집중/인지 */
+            --logic-color: #1d4ed8; /* 파랑: 논리/수리 */
+            --speed-color: #be185d; /* 분홍: 순발/기억 */
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            font-family: 'Pretendard', -apple-system, sans-serif; 
-            background: var(--bg-color); margin: 0; color: var(--text-main); 
-            line-height: 1.6;
-        }
-        
-        /* [1단] 메인 헤더 */
+        body { font-family: 'Pretendard', sans-serif; background: var(--bg-color); margin: 0; color: var(--text-main); line-height: 1.6; }
+
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
 
-        /* [1단] 메인 네비게이션 */
-        nav.main-nav { 
-            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
-        }
+        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
         nav.main-nav a.active { color: var(--accent-color); }
 
         .container { width: 95%; max-width: 500px; margin: 1.5rem auto; }
-        
-        .report-card { 
-            background: white; border-radius: 28px; padding: 30px 25px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; 
-            position: relative; overflow: hidden;
-        }
-        
-        .report-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-        }
-        
-        .user-type { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px; font-weight: 500; }
+        .report-card { background: white; border-radius: 28px; padding: 30px 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; position: relative; overflow: hidden; }
+        .report-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, var(--primary-color), var(--accent-color)); }
+
         .type-name { font-size: 1.8rem; font-weight: 900; color: var(--primary-color); margin-bottom: 20px; letter-spacing: -0.05em; }
         .type-name mark { background: transparent; color: var(--accent-color); position: relative; }
 
-        .chart-wrapper { 
-            position: relative; margin: 0 auto 20px; 
-            max-width: 320px; background: #fff;
-        }
+        .chart-wrapper { position: relative; margin: 0 auto 20px; max-width: 320px; }
 
+        /* [핵심 수정] 클릭 가능한 스태츠 스타일 */
         .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
         .stat-item { 
             background: #f8fafc; padding: 15px 10px; border-radius: 18px; 
-            text-align: center; border: 1px solid #f1f5f9;
+            text-align: center; border: 1px solid #f1f5f9; cursor: pointer;
+            transition: all 0.2s ease;
         }
+        .stat-item:hover { transform: translateY(-3px); border-color: var(--accent-color); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .stat-item:active { transform: scale(0.98); }
         .stat-label { font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 4px; }
         .stat-value { font-size: 1.1rem; font-weight: 800; color: var(--primary-color); }
+        .stat-hint { font-size: 0.65rem; color: var(--accent-color); display: block; margin-top: 4px; font-weight: 600; }
 
-        .description-box {
-            background: #fff9f5; border-radius: 18px; padding: 20px;
-            color: var(--text-main); font-size: 0.92rem; line-height: 1.6;
-            margin-bottom: 25px; border: 1px solid #ffedd5; word-break: keep-all; text-align: left;
-        }
+        .description-box { background: #fff9f5; border-radius: 18px; padding: 20px; color: var(--text-main); font-size: 0.92rem; margin-bottom: 25px; border: 1px solid #ffedd5; text-align: left; }
 
         .action-buttons { display: flex; flex-direction: column; gap: 12px; }
-        .btn {
-            display: block; padding: 16px; border-radius: 30px; 
-            text-decoration: none; font-weight: 800; font-size: 1rem; 
-            transition: 0.3s; border: none; cursor: pointer;
-        }
-        .btn-retry { background: var(--primary-color); color: white; box-shadow: 0 4px 12px rgba(26, 58, 95, 0.2); }
+        .btn { display: block; padding: 16px; border-radius: 30px; text-decoration: none; font-weight: 800; font-size: 1rem; transition: 0.3s; border: none; cursor: pointer; text-align: center;}
+        .btn-retry { background: var(--primary-color); color: white; }
         .btn-share { background: #f1f5f9; color: #475569; }
-        
         .btn-reset { background: transparent; color: #bbb; font-size: 0.75rem; padding: 5px; margin-top: 15px; text-decoration: underline; border: none; cursor: pointer; }
 
-        /* [푸터 통일] */
         footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; margin-top: 2rem; }
-        footer a { color: #bbb; text-decoration: none; margin: 0 5px; }
-
-        @media (max-width: 480px) {
-            .container { margin: 1rem auto; }
-            .report-card { padding: 25px 20px; }
-            .type-name { font-size: 1.6rem; }
-        }
     </style>
 </head>
 <body>
@@ -111,19 +73,21 @@
 
 <div class="container">
     <main class="report-card">
-        <p class="user-type">당신의 브레인 분석 결과</p>
+        <p class="user-type" style="font-size: 0.85rem; color: #7f8c8d; margin-bottom: 5px;">당신의 브레인 분석 결과</p>
         <div class="type-name" id="brain-type">분석 중...</div>
         
         <div class="chart-wrapper">
             <canvas id="abilityChart"></canvas>
         </div>
 
-        <div class="stat-grid" id="stat-summary"></div>
+        <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 10px;">👇 영역을 클릭하면 맞춤 훈련으로 이동합니다</p>
+        <div class="stat-grid" id="stat-summary">
+            </div>
 
         <div class="description-box" id="type-desc"></div>
 
         <div class="action-buttons">
-            <a href="dash.html" class="btn btn-retry">다른 훈련 계속하기</a>
+            <a href="dash.html" class="btn btn-retry">전체 훈련 목록 보기</a>
             <button onclick="shareResult()" class="btn btn-share">📊 결과 이미지로 저장</button>
             <button class="btn-reset" onclick="resetData()">모든 훈련 기록 초기화</button>
         </div>
@@ -138,7 +102,6 @@
 </footer>
 
 <script>
-    // 기존 스크립트 로직 유지 (기능 동일)
     function getAverageScore(gameKeys) {
         let allScores = [];
         gameKeys.forEach(key => {
@@ -164,6 +127,25 @@
         cognition: getAverageScore(['game6'])
     };
 
+    // 능력치별 이동할 페이지 매핑
+    function getGameLink(key) {
+        const links = {
+            focus: 'game.html',      // 정밀 집중 (메모리게임)
+            logic: 'game2.html',     // 전략 논리 (카드매칭)
+            speed: 'game3.html',     // 쾌속 판단 (좌우터치)
+            memory: 'game4.html',    // 기억력 (위치기억)
+            math: 'game5.html',      // 수리력 (산수)
+            cognition: 'game6.html'  // 인지력 (색상일치)
+        };
+        return links[key] || 'dash.html';
+    }
+
+    function getAbilityName(key) {
+        const names = { focus:'집중력', logic:'논리력', speed:'순발력', memory:'기억력', math:'수리력', cognition:'인지력' };
+        return names[key];
+    }
+
+    // 차트 생성
     const ctx = document.getElementById('abilityChart').getContext('2d');
     new Chart(ctx, {
         type: 'radar',
@@ -174,30 +156,32 @@
                 backgroundColor: 'rgba(211, 84, 0, 0.1)',
                 borderColor: 'rgba(211, 84, 0, 1)',
                 borderWidth: 2,
-                pointRadius: 3,
+                pointRadius: 4,
                 pointBackgroundColor: 'rgba(211, 84, 0, 1)'
             }]
         },
         options: {
             scales: {
-                r: { suggestedMin: 0, suggestedMax: 100, ticks: { display: false, stepSize: 25 }, pointLabels: { font: { size: 11, weight: '700' } } }
+                r: { suggestedMin: 0, suggestedMax: 100, ticks: { display: false, stepSize: 25 }, pointLabels: { font: { size: 12, weight: '700' } } }
             },
             plugins: { legend: { display: false } }
         }
     });
 
-    const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
-    const avgScore = Math.floor(totalScore / 6);
-    const brainTypeElem = document.getElementById('brain-type');
-    const descElem = document.getElementById('type-desc');
-
     function updateUI() {
+        const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
+        const avgScore = Math.floor(totalScore / 6);
+        const brainTypeElem = document.getElementById('brain-type');
+        const descElem = document.getElementById('type-desc');
+
+        // 1. 브레인 타입 결정
         if (totalScore === 0) {
             brainTypeElem.innerHTML = "새내기 <mark>훈련사</mark>";
             descElem.innerText = "아직 분석할 데이터가 부족합니다. 두뇌 훈련센터에서 게임을 플레이하시면 정밀 리포트가 생성됩니다!";
         } else {
             const maxVal = Math.max(...Object.values(scores));
             const bestAbility = Object.keys(scores).find(key => scores[key] === maxVal);
+            
             let typeName = "";
             let description = "";
 
@@ -206,30 +190,36 @@
             else if(bestAbility === 'memory') { typeName = "기록하는 <mark>현자</mark>"; description = "한 번 본 정보를 놓치지 않는 정교한 기억 메커니즘을 가졌습니다."; }
             else if(bestAbility === 'focus') { typeName = "몰입하는 <mark>장인</mark>"; description = "주변의 소음을 차단하고 목표에만 에너지를 쏟아붓는 놀라운 집중력을 보유하고 계십니다."; }
             else if(bestAbility === 'logic') { typeName = "치밀한 <mark>전략가</mark>"; description = "논리적 인과관계를 파악하고 최선의 수를 찾아내는 능력이 탁월합니다."; }
-            else { typeName = "균형 잡힌 <mark>전략가</mark>"; description = "모든 인지 영역이 고르게 발달했습니다. 다각도로 분석하는 능력이 탁월합니다."; }
             
             brainTypeElem.innerHTML = typeName;
             descElem.innerText = description;
         }
 
-        document.getElementById('stat-summary').innerHTML = `
-            <div class="stat-item">
-                <span class="stat-label">종합 평균 점수</span>
-                <span class="stat-value">${avgScore}점</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">가장 강한 영역</span>
-                <span class="stat-value">${totalScore === 0 ? '-' : getAbilityName(getMaxAbility())}</span>
-            </div>
-        `;
+        // 2. 능력치 그리드 생성 (클릭 기능 포함)
+        const summaryGrid = document.getElementById('stat-summary');
+        summaryGrid.innerHTML = ''; // 초기화
+
+        // 종합 점수 먼저 추가
+        const avgItem = document.createElement('div');
+        avgItem.className = 'stat-item';
+        avgItem.style.gridColumn = 'span 2';
+        avgItem.innerHTML = `<span class="stat-label">종합 평균 점수</span><span class="stat-value">${avgScore}점</span>`;
+        summaryGrid.appendChild(avgItem);
+
+        // 개별 능력치 추가
+        Object.keys(scores).forEach(key => {
+            const item = document.createElement('div');
+            item.className = 'stat-item';
+            item.onclick = () => { location.href = getGameLink(key); };
+            item.innerHTML = `
+                <span class="stat-label">${getAbilityName(key)}</span>
+                <span class="stat-value">${scores[key]}점</span>
+                <span class="stat-hint">훈련하기 ></span>
+            `;
+            summaryGrid.appendChild(item);
+        });
     }
 
-    function getMaxAbility() { return Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b); }
-    function getAbilityName(key) {
-        const names = { focus:'집중력', logic:'논리력', speed:'순발력', memory:'기억력', math:'수리력', cognition:'인지력' };
-        return names[key];
-    }
-    
     function resetData() { 
         if(confirm("모든 훈련 기록과 리포트가 초기화됩니다. 정말 삭제하시겠습니까?")) { 
             localStorage.clear(); 
