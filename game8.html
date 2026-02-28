@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>정밀 집중 훈련: 시장에 가면 | SKZ Brain Lab</title>
-
+    
+    <title>시장에 가면 - 연쇄 암기 집중력 훈련 | SKZ 두뇌 훈련소</title>
+    <meta name="description" content="AI와 함께하는 연쇄 암기 게임으로 당신의 단기 기억력과 작업 기억 한계에 도전하세요.">
+    <meta property="og:title" content="SKZ 두뇌 훈련: 시장에 가면">
+    <meta property="og:description" content="기억의 사슬을 어디까지 이어갈 수 있나요?">
+    
     <link rel="canonical" href="https://www.skztools.com/game8.html">
-    <meta name="description" content="AI와 함께하는 연쇄 암기 게임으로 당신의 단기 기억력과 집중력 한계에 도전하세요.">
-    <meta name="google-adsense-account" content="ca-pub-3698246671823168">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168" crossorigin="anonymous"></script>
+
     <style>
+        /* --- [1] 공통 레이아웃 --- */
         :root { 
             --primary-color: #1a3a5f; 
             --bg-color: #f4f7f9; 
@@ -24,49 +28,57 @@
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
 
-        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+        nav.main-nav { background: white; display: flex; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        nav.main-nav a { text-decoration: none; color: #666; font-weight: bold; font-size: 0.9rem; padding: 1rem; }
+        nav.main-nav a.active { color: var(--primary-color) !important; border-bottom: 2px solid var(--primary-color); }
 
         .category-tabs { display: flex; background: #fff; border-bottom: 1px solid #eee; justify-content: center; }
-        .category-tabs a { min-width: 100px; max-width: 200px; flex: 1; text-align: center; padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; }
-        .category-tabs a.active { color: var(--focus-color); border-bottom: 3px solid var(--focus-color); }
+        .category-tabs a { flex: 1; text-align: center; padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; max-width: 200px; }
+        .category-tabs a.active { color: var(--focus-color) !important; border-bottom: 3px solid var(--focus-color); }
 
-        .game-sub-nav { display: flex; gap: 10px; padding: 15px; justify-content: center; background: #f8f9fa; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
-        .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; font-weight: 500; }
-        .game-sub-nav a.active { background: var(--focus-color); color: white; border-color: var(--focus-color); font-weight: bold; }
+        .game-sub-nav { display: flex; gap: 10px; padding: 15px; justify-content: center; background: #f8f9fa; overflow-x: auto; white-space: nowrap; border-bottom: 1px solid #eee; }
+        .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; }
+        .game-sub-nav a.active { background: var(--focus-color) !important; color: white !important; }
 
+        /* --- [2] 게임 전용 디자인 --- */
         .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 25px; background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
         .game-guide { background: #f0fdf4; border-radius: 15px; padding: 15px; font-size: 0.85rem; color: #444; margin-bottom: 20px; text-align: left; border-left: 4px solid var(--focus-color); }
 
         #display-box { 
-            background: #fdfcfb; height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            border-radius: 24px; margin-bottom: 20px; border: 2px solid #e2e8f0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #ffffff; height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border-radius: 24px; margin-bottom: 20px; border: 2px solid #e2e8f0; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; overflow: hidden;
         }
-        #current-item { font-size: 3rem; font-weight: 900; color: var(--focus-color); margin-bottom: 8px; min-height: 4rem; transition: transform 0.2s; }
-        #turn-indicator { font-size: 0.8rem; padding: 4px 12px; border-radius: 20px; font-weight: bold; background: #eee; color: #888; }
+        #current-item { font-size: 3.2rem; font-weight: 900; color: var(--focus-color); margin-bottom: 8px; min-height: 4.5rem; transition: 0.2s; }
+        #turn-indicator { font-size: 0.75rem; padding: 4px 14px; border-radius: 20px; font-weight: 800; background: #f1f5f9; color: #64748b; letter-spacing: 1px; }
 
-        #status-msg { font-size: 0.95rem; font-weight: bold; color: #2c3e50; margin-bottom: 15px; min-height: 1.5rem; }
+        #status-msg { font-size: 0.9rem; font-weight: 700; color: #475569; margin-bottom: 15px; min-height: 1.5rem; }
         
-        .item-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+        .item-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 10px; }
         .item-btn { 
-            background: #fff; border: 1px solid #e5e7eb; padding: 15px 5px; border-radius: 16px; 
-            font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 0 #eee;
+            background: #fff; border: 1px solid #e2e8f0; padding: 18px 5px; border-radius: 18px; 
+            font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.2s; 
+            box-shadow: 0 4px 0 #f1f5f9;
         }
-        .item-btn:active { transform: translateY(4px); box-shadow: none; background: #f0fdf4; }
+        .item-btn:hover { background: #f8fafc; }
+        .item-btn:active { transform: translateY(4px); box-shadow: none; background: #ecfdf5; border-color: var(--focus-color); }
+        .item-btn.disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
 
         .btn-start { 
-            width: 100%; max-width: 250px; padding: 18px; background: var(--focus-color); color: white; 
-            border: none; border-radius: 30px; font-size: 1.1rem; font-weight: 800; cursor: pointer; 
-            box-shadow: 0 5px 15px rgba(4, 120, 87, 0.3); transition: 0.3s;
+            width: 100%; max-width: 280px; padding: 20px; background: var(--focus-color); color: white; 
+            border: none; border-radius: 35px; font-size: 1.2rem; font-weight: 800; cursor: pointer; 
+            box-shadow: 0 8px 20px rgba(4, 120, 87, 0.25); transition: 0.3s;
         }
+        .btn-start:active { transform: scale(0.96); box-shadow: 0 4px 10px rgba(4, 120, 87, 0.2); }
 
-        .ranking-container { margin-top: 30px; border-top: 2px dashed #eee; padding-top: 25px; }
+        .ranking-container { margin-top: 30px; border-top: 1px solid #eee; padding-top: 25px; }
         .rank-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 10px; }
-        .rank-table th { padding: 10px; color: #888; border-bottom: 1px solid #eee; }
-        .rank-table td { padding: 12px 5px; border-bottom: 1px solid #f9f9f9; }
-        #best-record { font-size: 0.95rem; color: var(--focus-color); font-weight: bold; margin-bottom: 12px; }
+        .rank-table th { padding: 10px; color: #94a3b8; border-bottom: 1px solid #eee; }
+        .rank-table td { padding: 12px 5px; border-bottom: 1px solid #f8fafc; font-weight: 500; }
+        #best-record { font-size: 1rem; color: var(--focus-color); font-weight: 800; margin-bottom: 15px; }
 
-        footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; }
+        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; }
     </style>
 </head>
 <body>
@@ -75,7 +87,7 @@
 
 <nav class="main-nav">
     <a href="/">브레인 분석실</a>
-    <a href="dash.html" style="color:var(--focus-color)">두뇌 훈련센터</a>
+    <a href="dash.html" class="active">두뇌 훈련센터</a>
     <a href="report.html">나의 두뇌점수</a>
 </nav>
 
@@ -87,14 +99,14 @@
 
 <nav class="game-sub-nav">
     <a href="game.html">🎯 메모리 게임</a>
-    <a href="game4.html">📍 기억력</a>
+    <a href="game4.html">📍 위치 기억</a>
     <a href="game8.html" class="active">🛒 시장에 가면</a>
 </nav>
 
 <main class="container">
     <div class="game-guide">
         <strong>🧠 시장에 가면... (작업 기억력)</strong><br>
-        AI가 추가하는 물건을 기억하세요. <strong>순서대로</strong> 모두 맞힌 뒤, 자신만의 물건을 하나 더 추가해야 합니다!
+        AI가 물건을 하나씩 추가합니다. <strong>기존 물건부터 순서대로</strong> 클릭한 후, 당신이 추가하고 싶은 물건을 하나 더 선택하세요!
     </div>
     
     <div id="status-msg">단기 기억의 한계에 도전하세요!</div>
@@ -110,20 +122,17 @@
         <div class="item-grid" id="item-grid"></div>
     </div>
 
-    <div class="ranking-container">
-        <div id="best-record">최고 기록: - 단계</div>
+    <div class="ranking-container" id="ranking-section">
+        <div id="best-record">⭐ 나의 최고 기록: - 단계</div>
         <table class="rank-table">
             <thead><tr><th>회차</th><th>날짜</th><th>기록</th></tr></thead>
             <tbody id="rankingBody"></tbody>
         </table>
-        <button onclick="clearHistory()" style="margin-top:20px; background:none; border:none; color:#ccc; font-size:0.75rem; text-decoration:underline; cursor:pointer;">기록 초기화</button>
+        <button onclick="clearHistory()" style="margin-top:20px; background:none; border:none; color:#cbd5e1; font-size:0.75rem; text-decoration:underline; cursor:pointer;">기록 초기화</button>
     </div>
 </main>
 
 <footer>
-    <div style="margin-bottom: 10px;">
-        <a href="privacy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
-    </div>
     &copy; 2026 SKZ Brain Lab. All rights reserved.
 </footer>
 
@@ -135,7 +144,7 @@
         memoryChain = [];
         document.getElementById('startBtn').style.display = 'none';
         document.getElementById('game-ui').style.display = 'block';
-        document.querySelector('.ranking-container').style.display = 'none';
+        document.getElementById('ranking-section').style.display = 'none';
         createGrid();
         aiTurn();
     }
@@ -152,14 +161,20 @@
         });
     }
 
+    function toggleGridState(disabled) {
+        const btns = document.querySelectorAll('.item-btn');
+        btns.forEach(btn => btn.classList.toggle('disabled', disabled));
+    }
+
     async function aiTurn() {
         isAITurn = true; 
         isUserAdding = false;
         userStep = 0;
+        toggleGridState(true);
         
-        updateUI("AI TURN", "AI의 물건들을 잘 기억하세요!", "#f8f9fa", "#888");
+        updateUI("AI TURN", "AI가 담은 물건들을 기억하세요!", "#f8fafc", "#64748b");
         
-        // 중복 방지 새 아이템 추가
+        // AI가 랜덤 아이템 하나 추가 (직전 아이템과 중복 회피)
         let lastItem = memoryChain[memoryChain.length - 1];
         let newItem;
         do {
@@ -168,14 +183,14 @@
         
         memoryChain.push(newItem);
 
-        // 단계가 올라갈수록 속도 증가
-        let speed = Math.max(450, 1100 - (memoryChain.length * 50));
+        // 표시 속도 조절 (단계가 올라갈수록 빨라짐)
+        let speed = Math.max(400, 1000 - (memoryChain.length * 40));
         const display = document.getElementById('current-item');
         
         for (let item of memoryChain) {
             await new Promise(r => setTimeout(r, 400));
             display.innerText = item;
-            display.style.transform = "scale(1.1)";
+            display.style.transform = "scale(1.2)";
             await new Promise(r => setTimeout(r, speed));
             display.innerText = "";
             display.style.transform = "scale(1)";
@@ -186,7 +201,8 @@
 
     function userTurn() {
         isAITurn = false;
-        updateUI("USER TURN", "순서대로 물건을 클릭하세요!", "#f0fdf4", "var(--focus-color)");
+        toggleGridState(false);
+        updateUI("USER TURN", "순서대로 클릭한 후, 하나를 더 추가하세요!", "#f0fdf4", "var(--focus-color)");
         document.getElementById('current-item').innerText = "❓";
     }
 
@@ -194,26 +210,36 @@
         if (isAITurn) return;
         const display = document.getElementById('current-item');
         display.innerText = selectedItem;
+        display.style.color = "var(--focus-color)";
 
+        // 1단계: 기존 체인 복기
         if (!isUserAdding) {
             if (selectedItem === memoryChain[userStep]) {
                 userStep++;
+                // 모두 복기 성공 시 추가 단계로 전환
                 if (userStep === memoryChain.length) {
                     isUserAdding = true;
-                    document.getElementById('status-msg').innerText = "성공! 이제 새 물건을 추가하세요.";
+                    document.getElementById('status-msg').innerText = "정답! 이제 새로운 물건을 하나 더 추가하세요.";
                     document.getElementById('turn-indicator').innerText = "ADD ITEM";
+                    document.getElementById('turn-indicator').style.color = "#059669";
                     document.getElementById('display-box').style.background = "#ecfdf5";
                     display.innerText = "➕";
                 }
             } else {
+                // 틀렸을 때
                 display.style.color = "#ef4444";
-                setTimeout(endGame, 500);
+                display.innerText = "❌";
+                toggleGridState(true);
+                setTimeout(endGame, 800);
             }
-        } else {
+        } 
+        // 2단계: 유저가 새 아이템 추가
+        else {
             memoryChain.push(selectedItem);
-            document.getElementById('status-msg').innerText = "좋습니다! AI의 차례입니다.";
+            document.getElementById('status-msg').innerText = "잘했습니다! AI가 이어받습니다.";
             isUserAdding = false;
-            setTimeout(aiTurn, 800);
+            toggleGridState(true);
+            setTimeout(aiTurn, 1000);
         }
     }
 
@@ -227,25 +253,30 @@
 
     function endGame() {
         const finalScore = Math.max(0, memoryChain.length - 1);
-        // 집중력 점수 계산 (최대 12단계 기준 100점 환산)
-        const reportScore = Math.min(100, Math.floor((finalScore / 12) * 100));
+        // 집중력 점수 계산 (작업 기억 범위 10개 이상이면 만점 수준)
+        const reportScore = Math.min(100, Math.floor((finalScore / 10) * 100));
         
-        localStorage.setItem('game8_score', reportScore);
+        // 로컬 스토리지 저장 (report.html 연동용)
+        localStorage.setItem('focusScore', reportScore); 
+        
         let scoreHistory = JSON.parse(localStorage.getItem('game8_history')) || [];
         scoreHistory.push(reportScore);
         localStorage.setItem('game8_history', JSON.stringify(scoreHistory.slice(-10)));
 
+        // 내부 랭킹용 데이터
         const now = new Date();
         const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
         let history = JSON.parse(localStorage.getItem('marketHistory')) || [];
         history.unshift({ date: dateStr, score: finalScore });
         localStorage.setItem('marketHistory', JSON.stringify(history.slice(0, 10)));
 
-        if (confirm(`훈련 종료! [최종 ${finalScore}단계 성공]\n집중력 리포트에서 결과를 확인하시겠습니까?`)) {
-            location.href = 'report.html';
-        } else {
-            location.reload();
-        }
+        setTimeout(() => {
+            if (confirm(`훈련 종료! [최종 ${finalScore}단계]\n\n두뇌 리포트에서 집중력 점수를 확인하시겠습니까?`)) {
+                location.href = 'report.html';
+            } else {
+                location.reload();
+            }
+        }, 300);
     }
 
     function displayHistory() {
@@ -254,14 +285,20 @@
         if(history.length > 0) {
             const best = Math.max(...history.map(h => h.score));
             document.getElementById('best-record').innerText = `⭐ 나의 최고 기록: ${best}단계`;
-            body.innerHTML = history.map((h, i) => `<tr><td>${history.length-i}회</td><td>${h.date}</td><td>${h.score}단계</td></tr>`).join('');
+            body.innerHTML = history.map((h, i) => `
+                <tr>
+                    <td>${history.length - i}회</td>
+                    <td>${h.date}</td>
+                    <td>${h.score}단계</td>
+                </tr>
+            `).join('');
         } else {
             body.innerHTML = '<tr><td colspan="3">훈련 기록이 없습니다.</td></tr>';
         }
     }
 
     function clearHistory() { 
-        if(confirm("기록을 모두 초기화할까요?")) { 
+        if(confirm("모든 기록을 초기화하시겠습니까?")) { 
             localStorage.removeItem('marketHistory'); 
             localStorage.removeItem('game8_history'); 
             location.reload(); 
