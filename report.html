@@ -3,65 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>브레인 분석 리포트 | SKZ Brain Lab</title>
-
+    
+    <title>브레인 분석 리포트 | SKZ 두뇌 훈련소</title>
+    <meta name="description" content="8가지 뇌 과학 게임 데이터를 바탕으로 당신의 집중력, 논리력, 판단력을 정밀 분석합니다.">
+    <meta property="og:title" content="SKZ 두뇌 분석 리포트">
+    <meta property="og:description" content="나의 종합 두뇌 지수는 몇 점? 지금 확인해보세요.">
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root { 
-            --primary-color: #1a3a5f; 
-            --bg-color: #f4f7f9; 
-            --accent-color: #d35400; 
-            --text-main: #2c3e50;
-            --text-muted: #7f8c8d;
-            --color-focus: #059669; --color-logic: #2563eb; --color-speed: #be185d;
-            --color-memory: #0891b2; --color-math: #d97706; --color-cognition: #7c3aed;
+            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
+            --focus-color: #047857; /* 집중력: Green */
+            --logic-color: #b91c1c; /* 논리력: Red */
+            --speed-color: #d35400; /* 판단력: Orange */
+            --text-main: #2c3e50; --text-muted: #7f8c8d; --white: #ffffff;
+            --card-shadow: 0 8px 20px rgba(0,0,0,0.06);
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Pretendard', sans-serif; background: var(--bg-color); margin: 0; color: var(--text-main); line-height: 1.6; }
+        body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--bg-color); margin: 0; color: var(--text-main); line-height: 1.6; }
 
+        /* [1단] 네비게이션 (dash.html과 동일) */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
 
         nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
-        nav.main-nav a.active { color: var(--accent-color); }
+        nav.main-nav a.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
 
-        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding-bottom: 50px; }
+        .container { width: 92%; max-width: 500px; margin: 1.5rem auto; padding-bottom: 50px; }
         
-        .report-card { background: white; border-radius: 28px; padding: 30px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; margin-bottom: 20px; }
-        .type-name { font-size: 1.7rem; font-weight: 900; color: var(--primary-color); margin-bottom: 5px; }
+        /* 리포트 메인 카드 */
+        .report-card { background: white; border-radius: 28px; padding: 35px 20px; box-shadow: var(--card-shadow); text-align: center; margin-bottom: 20px; }
+        .type-name { font-size: 1.7rem; font-weight: 900; color: var(--primary-color); margin-bottom: 8px; }
         .type-name mark { background: transparent; color: var(--accent-color); }
-        .score-summary { font-size: 1rem; font-weight: 700; color: var(--text-muted); margin-bottom: 20px; }
+        .score-summary { font-size: 1.05rem; font-weight: 700; color: var(--text-muted); margin-bottom: 25px; }
 
-        .chart-wrapper { position: relative; margin: 0 auto 25px; max-width: 320px; }
+        .chart-wrapper { position: relative; margin: 0 auto 30px; max-width: 320px; }
 
-        /* [추가] 브레인 타입 상세 설명 박스 */
+        /* 분석 결과 텍스트 박스 */
         .type-analysis-box { 
-            background: #fff9f5; border: 1px solid #ffedd5; border-radius: 20px; 
-            padding: 20px; text-align: left; margin-bottom: 25px; word-break: keep-all;
+            background: #fff9f5; border: 1px solid #ffedd5; border-radius: 24px; 
+            padding: 22px; text-align: left; margin-bottom: 10px; word-break: keep-all;
         }
         .analysis-title { font-weight: 800; color: var(--accent-color); margin-bottom: 8px; display: block; font-size: 1rem; }
-        .analysis-text { font-size: 0.92rem; color: #475569; line-height: 1.7; }
+        .analysis-text { font-size: 0.92rem; color: #475569; line-height: 1.7; margin: 0; }
 
-        /* 가이드 섹션 */
-        .guide-section { background: white; border-radius: 28px; padding: 25px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .guide-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 20px; text-align: left; border-left: 4px solid var(--accent-color); padding-left: 12px; }
+        /* 항목별 가이드 섹션 */
+        .guide-section { background: white; border-radius: 28px; padding: 25px 20px; box-shadow: var(--card-shadow); }
+        .guide-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 22px; text-align: left; border-left: 5px solid var(--accent-color); padding-left: 14px; }
         
-        .category-box { margin-bottom: 24px; text-align: left; }
-        .category-label { font-size: 0.9rem; font-weight: 800; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+        .category-box { margin-bottom: 28px; text-align: left; }
+        .category-label { font-size: 0.95rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; }
+        .category-score { font-size: 0.8rem; background: #f1f5f9; padding: 2px 10px; border-radius: 10px; color: #64748b; }
         
-        .game-links { display: grid; grid-template-columns: 1fr; gap: 10px; }
+        .game-links { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .game-card { 
-            background: #f8fafc; padding: 16px; border-radius: 18px; text-decoration: none; 
-            color: #334155; font-size: 0.9rem; font-weight: 700; border: 1px solid #e2e8f0;
-            display: flex; justify-content: space-between; align-items: center; transition: 0.2s;
+            background: #ffffff; padding: 14px; border-radius: 18px; text-decoration: none; 
+            color: #334155; font-size: 0.85rem; font-weight: 700; border: 1.5px solid #f1f5f9;
+            display: flex; align-items: center; gap: 8px; transition: 0.2s;
         }
-        .game-card:hover { border-color: var(--accent-color); background: #fff7ed; transform: translateY(-2px); }
-        .game-card .emoji-box { background: white; width: 35px; height: 35px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .game-card:hover { border-color: var(--accent-color); background: #fffcf9; transform: translateY(-2px); }
 
-        .btn-reset { background: transparent; color: #ccc; font-size: 0.75rem; border: none; cursor: pointer; text-decoration: underline; margin-top: 30px; width: 100%; }
-        footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; }
+        .btn-reset { background: transparent; color: #cbd5e1; font-size: 0.8rem; border: none; cursor: pointer; text-decoration: underline; margin-top: 40px; width: 100%; }
+        
+        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; background: #fff; border-top: 1px solid #eee; margin-top: 2rem; }
     </style>
 </head>
 <body>
@@ -76,56 +82,46 @@
 
 <div class="container">
     <main class="report-card">
-        <div class="type-name" id="brain-type">분석 중...</div>
-        <div id="score-summary" class="score-summary">종합 점수 계산 중</div>
+        <div class="type-name" id="brain-type">데이터 분석 중...</div>
+        <div id="score-summary" class="score-summary">훈련 기록을 불러오고 있습니다.</div>
         
         <div class="chart-wrapper">
             <canvas id="abilityChart"></canvas>
         </div>
 
         <div class="type-analysis-box" id="analysis-box">
-            <span class="analysis-title" id="analysis-title">브레인 분석 결과</span>
-            <p class="analysis-text" id="analysis-text">훈련 데이터를 바탕으로 당신의 두뇌 강점을 분석하고 있습니다.</p>
+            <span class="analysis-title" id="analysis-title">🔍 인지 능력 분석</span>
+            <p class="analysis-text" id="analysis-text">기록된 데이터를 바탕으로 당신의 두뇌 강점을 파악하고 있습니다.</p>
         </div>
     </main>
 
     <section class="guide-section">
-        <div class="guide-title">항목별 점수 올리기 (맞춤 훈련)</div>
+        <div class="guide-title">맞춤 훈련 가이드</div>
         
         <div class="category-box">
-            <span class="category-label" style="color: var(--color-focus);">🎯 집중력 (Focus)</span>
-            <div class="game-links" style="grid-template-columns: 1fr 1fr;">
-                <a href="game.html" class="game-card"><div class="emoji-box">🃏</div>카드 짝</a>
-                <a href="game8.html" class="game-card"><div class="emoji-box">🛒</div>시장 가면</a>
+            <span class="category-label" style="color: var(--focus-color);">🎯 FOCUS 집중력 <span class="category-score" id="score-focus">0점</span></span>
+            <div class="game-links">
+                <a href="game.html" class="game-card">🃏 메모리 게임</a>
+                <a href="game4.html" class="game-card">📍 위치 기억</a>
+                <a href="game8.html" class="game-card" style="grid-column: span 2;">🛒 시장에 가면 (연상 암기)</a>
             </div>
         </div>
 
         <div class="category-box">
-            <span class="category-label" style="color: var(--color-logic);">🧩 논리력 (Logic)</span>
-            <div class="game-links" style="grid-template-columns: 1fr 1fr;">
-                <a href="game2.html" class="game-card"><div class="emoji-box">🔢</div>전략 매칭</a>
-                <a href="game7.html" class="game-card"><div class="emoji-box">🌀</div>패턴 추론</a>
+            <span class="category-label" style="color: var(--logic-color);">🧩 LOGIC 논리력 <span class="category-score" id="score-logic">0점</span></span>
+            <div class="game-links">
+                <a href="game2.html" class="game-card">🔢 미니 스도쿠</a>
+                <a href="game7.html" class="game-card">⚪ AI 오목 전략</a>
             </div>
         </div>
 
         <div class="category-box">
-            <span class="category-label" style="color: var(--color-cognition);">🎨 인지력 (Cognition)</span>
-            <div class="game-links"><a href="game6.html" class="game-card"><div class="emoji-box">🌈</div>색상 일치 훈련</a></div>
-        </div>
-
-        <div class="category-box">
-            <span class="category-label" style="color: var(--color-math);">🔢 수리력 (Math)</span>
-            <div class="game-links"><a href="game5.html" class="game-card"><div class="emoji-box">➕</div>쾌속 혼합 산수</a></div>
-        </div>
-
-        <div class="category-box">
-            <span class="category-label" style="color: var(--color-speed);">⚡ 순발력 (Speed)</span>
-            <div class="game-links"><a href="game3.html" class="game-card"><div class="emoji-box">🔘</div>좌우 터치 반응</a></div>
-        </div>
-
-        <div class="category-box">
-            <span class="category-label" style="color: var(--color-memory);">📍 기억력 (Memory)</span>
-            <div class="game-links"><a href="game4.html" class="game-card"><div class="emoji-box">💡</div>위치 기억 훈련</a></div>
+            <span class="category-label" style="color: var(--speed-color);">⚡ COGNITIVE 판단력 <span class="category-score" id="score-speed">0점</span></span>
+            <div class="game-links">
+                <a href="game3.html" class="game-card">🚥 순발력 판단</a>
+                <a href="game5.html" class="game-card">➕ 수리 암산</a>
+                <a href="game6.html" class="game-card" style="grid-column: span 2;">🦁 동물 인지 분류</a>
+            </div>
         </div>
 
         <button class="btn-reset" onclick="resetData()">모든 훈련 기록 초기화</button>
@@ -135,74 +131,63 @@
 <footer>&copy; 2026 SKZ Brain Lab. All rights reserved.</footer>
 
 <script>
+    // [1] 데이터 수집 함수 (dash.html의 게임 분류에 맞춤)
     function getAverageScore(gameKeys) {
-        let validScores = [];
+        let allScores = [];
         gameKeys.forEach(key => {
             const history = JSON.parse(localStorage.getItem(key + '_history')) || [];
-            const singleScore = parseInt(localStorage.getItem(key + '_score'));
-            if (history.length > 0) validScores.push(...history);
-            else if (!isNaN(singleScore) && singleScore > 0) validScores.push(singleScore);
+            const single = parseInt(localStorage.getItem(key + '_score'));
+            if (history.length > 0) allScores.push(...history);
+            else if (!isNaN(single) && single > 0) allScores.push(single);
         });
-        if (validScores.length === 0) return 0;
-        const recent = validScores.slice(-5);
+        if (allScores.length === 0) return 0;
+        // 최근 5개 점수의 평균 계산
+        const recent = allScores.slice(-5);
         return Math.round(recent.reduce((a, b) => a + b, 0) / recent.length);
     }
 
+    // 그룹별 점수 매핑 (dash.html 기준)
     const scores = {
-        focus: getAverageScore(['game1', 'game8']),
-        logic: getAverageScore(['game2', 'game7']),
-        speed: getAverageScore(['game3']),
-        memory: getAverageScore(['game4']),
-        math: getAverageScore(['game5']),
-        cognition: getAverageScore(['game6'])
+        focus: getAverageScore(['game', 'game4', 'game8']), 
+        logic: getAverageScore(['game2', 'game7']),       
+        speed: getAverageScore(['game3', 'game5', 'game6']) 
     };
 
-    // 타입별 상세 분석 데이터
-    const brainAnalysis = {
-        focus: {
-            title: "집중력 장인의 특징",
-            desc: "당신은 주변의 소음이나 방해 요소에 흔들리지 않고 목표에 몰입하는 능력이 탁월합니다. 복잡한 업무도 끈기 있게 처리할 수 있는 정교한 뇌를 가졌습니다."
-        },
-        logic: {
-            title: "전략가의 특징",
-            desc: "정보들 사이의 인과관계를 파악하고 최적의 경로를 찾아내는 논리적 추론 능력이 강점입니다. 체계적인 사고를 통해 실수를 최소화하는 타입입니다."
-        },
-        speed: {
-            title: "날렵한 치타의 특징",
-            desc: "순발력이 매우 높습니다! 시각적 자극을 뇌에서 근육으로 전달하는 반응 속도가 타인보다 압도적으로 빠르며, 순간적인 판단력이 필요한 상황에 강합니다."
-        },
-        memory: {
-            title: "현자의 특징",
-            desc: "한 번 입력된 시각적/공간적 정보를 뇌에 일시 저장하고 다시 꺼내는 능력이 매우 좋습니다. 단기 기억을 장기 기억으로 전환하는 능력이 발달해 있습니다."
-        },
-        math: {
-            title: "수학자의 특징",
-            desc: "숫자와 기호에 대한 직관이 남다릅니다. 복잡한 수치를 빠르게 연산하고 양적인 감각을 활용해 상황을 객관적으로 파악하는 수리적 사고의 소유자입니다."
-        },
-        cognition: {
-            title: "관찰자의 특징",
-            desc: "색상, 형태, 의미 사이의 충돌(스트룹 현상)을 이겨내고 본질을 꿰뚫어 보는 인지 제어력이 높습니다. 고정관념에 빠지지 않는 유연한 사고가 특징입니다."
-        }
-    };
+    // 하단 텍스트 점수 업데이트
+    document.getElementById('score-focus').innerText = scores.focus + '점';
+    document.getElementById('score-logic').innerText = scores.logic + '점';
+    document.getElementById('score-speed').innerText = scores.speed + '점';
 
+    // [2] 레이더 차트 생성 (3개 영역을 6개 포인트로 확장하여 시각화)
     const ctx = document.getElementById('abilityChart').getContext('2d');
     new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: ['집중력', '논리력', '순발력', '기억력', '수리력', '인지력'],
+            labels: ['집중력', '논리력', '판단력', '정밀도', '추론력', '반응속도'],
             datasets: [{
-                data: [scores.focus, scores.logic, scores.speed, scores.memory, scores.math, scores.cognition],
-                backgroundColor: 'rgba(211, 84, 0, 0.1)', borderColor: 'rgba(211, 84, 0, 1)', borderWidth: 2, pointRadius: 4
+                data: [scores.focus, scores.logic, scores.speed, scores.focus * 0.9, scores.logic * 0.9, scores.speed * 1.1],
+                backgroundColor: 'rgba(211, 84, 0, 0.1)',
+                borderColor: 'rgba(211, 84, 0, 1)',
+                borderWidth: 2,
+                pointRadius: 4
             }]
         },
         options: {
-            scales: { r: { suggestedMin: 0, suggestedMax: 100, ticks: { display: false }, pointLabels: { font: { size: 12, weight: '700' } } } },
+            scales: {
+                r: {
+                    suggestedMin: 0, suggestedMax: 100,
+                    ticks: { display: false },
+                    pointLabels: { font: { size: 12, weight: '700' } }
+                }
+            },
             plugins: { legend: { display: false } }
         }
     });
 
-    const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
-    const avgScore = Math.floor(totalScore / 6);
+    // [3] 브레인 타입 및 분석 메시지 설정
+    const totalScore = scores.focus + scores.logic + scores.speed;
+    const avgScore = Math.floor(totalScore / 3);
+    
     const brainTypeElem = document.getElementById('brain-type');
     const summaryElem = document.getElementById('score-summary');
     const analysisTitle = document.getElementById('analysis-title');
@@ -210,30 +195,32 @@
 
     if (totalScore === 0) {
         brainTypeElem.innerHTML = "새내기 <mark>훈련사</mark>";
-        summaryElem.innerText = "게임을 플레이하면 분석이 시작됩니다!";
+        summaryElem.innerText = "게임을 플레이하면 인지 능력을 분석해 드립니다.";
     } else {
-        const maxVal = Math.max(...Object.values(scores));
-        const best = Object.keys(scores).find(key => scores[key] === maxVal);
-        
-        const typeNames = {
-            focus: "몰입하는 <mark>장인</mark>",
-            logic: "치밀한 <mark>전략가</mark>",
-            speed: "날렵한 <mark>치타</mark>",
-            memory: "기록하는 <mark>현자</mark>",
-            math: "냉철한 <mark>수학자</mark>",
-            cognition: "깨어있는 <mark>관찰자</mark>"
-        };
-
-        brainTypeElem.innerHTML = typeNames[best] || "균형잡힌 <mark>능력자</mark>";
+        // 가장 높은 점수 찾기
+        const maxVal = Math.max(scores.focus, scores.logic, scores.speed);
         summaryElem.innerText = `종합 두뇌 지수: ${avgScore}점`;
-        
-        // 분석 결과 텍스트 삽입
-        analysisTitle.innerText = brainAnalysis[best].title;
-        analysisText.innerText = brainAnalysis[best].desc;
+
+        if (scores.focus === maxVal) {
+            brainTypeElem.innerHTML = "몰입하는 <mark>장인</mark>";
+            analysisTitle.innerText = "🎯 집중력 장인의 특징";
+            analysisText.innerText = "주변의 방해 요소에 흔들리지 않고 목표에 몰입하는 능력이 탁월합니다. 디테일한 작업과 기억력 기반의 업무에서 높은 효율을 보여줍니다.";
+        } else if (scores.logic === maxVal) {
+            brainTypeElem.innerHTML = "치밀한 <mark>전략가</mark>";
+            analysisTitle.innerText = "🧩 전략가의 특징";
+            analysisText.innerText = "복잡한 문제들 사이에서 패턴을 찾아내고 최적의 경로를 설계하는 능력이 강점입니다. 논리적 추론과 전략적 수 읽기에 능숙합니다.";
+        } else {
+            brainTypeElem.innerHTML = "날렵한 <mark>치타</mark>";
+            analysisTitle.innerText = "⚡ 판단력의 달인";
+            analysisText.innerText = "자극을 뇌에서 근육으로 전달하는 반응 속도가 매우 빠릅니다. 순간적인 판단과 인지 제어 능력이 뛰어나 위기 상황 대처에 강합니다.";
+        }
     }
 
     function resetData() { 
-        if(confirm("모든 기록을 삭제할까요?")) { localStorage.clear(); location.reload(); } 
+        if(confirm("모든 훈련 기록이 삭제됩니다. 정말 초기화할까요?")) { 
+            localStorage.clear(); 
+            location.reload(); 
+        } 
     }
 </script>
 </body>
