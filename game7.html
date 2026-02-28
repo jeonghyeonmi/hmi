@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>전략 논리 훈련: AI 오목 | SKZ Brain Lab</title>
+    
+    <title>AI 오목 훈련 - 전략적 수 읽기와 논리력 | SKZ 두뇌 훈련소</title>
+    <meta name="description" content="AI를 상대로 당신의 논리력과 수 읽기 능력을 테스트하세요. 3x3 금수 규칙이 적용된 정교한 오목 게임으로 두뇌 전략을 훈련합니다.">
+    <meta property="og:title" content="SKZ AI 오목: 당신의 전략은 AI를 이길 수 있나요?">
+    <meta property="og:description" content="논리적 사고와 공간 지각력을 키우는 오목 훈련.">
     
     <link rel="canonical" href="https://www.skztools.com/game7.html">
-    <meta name="description" content="AI를 상대로 당신의 논리력과 수 읽기 능력을 테스트하세요. 3x3 금수 규칙이 적용된 정교한 오목 게임으로 두뇌를 훈련합니다.">
-    <meta name="google-adsense-account" content="ca-pub-3698246671823168">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168" crossorigin="anonymous"></script>
+
     <style>
+        /* --- [1] 공통 레이아웃 (디자인 통일성) --- */
         :root { 
             --primary-color: #1a3a5f; 
             --bg-color: #f4f7f9; 
@@ -23,60 +27,82 @@
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
 
-        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+        nav.main-nav { background: white; display: flex; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        nav.main-nav a { text-decoration: none; color: #666; font-weight: bold; font-size: 0.9rem; padding: 1rem; }
+        nav.main-nav a.active { color: var(--primary-color) !important; border-bottom: 2px solid var(--primary-color); }
 
         .category-tabs { display: flex; background: #fff; border-bottom: 1px solid #eee; justify-content: center; }
-        .category-tabs a { min-width: 100px; max-width: 200px; flex: 1; text-align: center; padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; }
-        .category-tabs a.active { color: var(--logic-color); border-bottom: 3px solid var(--logic-color); }
+        .category-tabs a { flex: 1; text-align: center; padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; max-width: 200px; }
+        .category-tabs a.active { color: var(--logic-color) !important; border-bottom: 3px solid var(--logic-color); }
 
-        .game-sub-nav { display: flex; gap: 10px; padding: 15px; justify-content: center; background: #f8f9fa; overflow-x: auto; white-space: nowrap; }
+        .game-sub-nav { display: flex; gap: 10px; padding: 15px; justify-content: center; background: #f8f9fa; overflow-x: auto; white-space: nowrap; border-bottom: 1px solid #eee; }
         .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; }
-        .game-sub-nav a.active { background: var(--logic-color); color: white; border-color: var(--logic-color); }
+        .game-sub-nav a.active { background: #333 !important; color: white !important; }
 
+        /* --- [2] 게임 전용 디자인 --- */
         .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 20px; background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
         .game-guide { background: #f0f7ff; border-radius: 15px; padding: 15px; font-size: 0.85rem; color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--logic-color); }
 
-        .status-box { background: #f8fafc; padding: 12px; border-radius: 12px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 0.9rem; }
+        .status-box { background: #f8fafc; padding: 12px; border-radius: 12px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 0.9rem; border: 1px solid #e2e8f0; }
 
-        #canvas-wrapper { width: 100%; aspect-ratio: 1 / 1; background: var(--board-color); border-radius: 10px; position: relative; touch-action: none; margin-bottom: 10px; }
-        canvas { width: 100%; height: 100%; display: block; border-radius: 10px; cursor: crosshair; }
+        #canvas-wrapper { 
+            width: 100%; aspect-ratio: 1 / 1; background: var(--board-color); 
+            border-radius: 12px; position: relative; touch-action: none; 
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1); margin-bottom: 10px;
+            border: 5px solid #d4b483;
+        }
+        canvas { width: 100%; height: 100%; display: block; border-radius: 8px; cursor: crosshair; }
         
-        #msg-area { color: #e74c3c; font-size: 0.8rem; height: 1.2rem; margin: 5px 0; font-weight: bold; }
+        #msg-area { color: var(--logic-color); font-size: 0.85rem; height: 1.5rem; margin: 5px 0; font-weight: bold; }
 
-        .controls { display: flex; gap: 10px; justify-content: center; margin-top: 10px; }
+        .controls { display: flex; gap: 10px; justify-content: center; margin-top: 15px; }
         .btn { border: none; padding: 14px 20px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.2s; flex: 1; font-size: 0.9rem; }
         .btn-reset { background: var(--primary-color); color: white; }
         .btn-undo { background: #e2e8f0; color: #444; }
+        .btn:active { transform: scale(0.98); opacity: 0.9; }
 
         .mode-selector { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; }
-        .mode-btn { cursor: pointer; color: #888; font-size: 0.75rem; padding: 6px 15px; border: 1px solid #ddd; border-radius: 20px; background: white; }
+        .mode-btn { cursor: pointer; color: #888; font-size: 0.75rem; padding: 8px 18px; border: 1px solid #ddd; border-radius: 20px; background: white; transition: 0.2s; }
         .mode-btn.active { color: var(--logic-color); border-color: var(--logic-color); font-weight: bold; background: #fff5f5; }
 
-        footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; }
+        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; margin-top: 40px; }
     </style>
 </head>
 <body>
 
 <header><h1><a href="/">SKZ 두뇌 훈련소</a></h1></header>
-<nav class="main-nav"><a href="/">브레인 분석실</a><a href="dash.html" style="color:var(--logic-color)">두뇌 훈련센터</a><a href="report.html">나의 두뇌점수</a></nav>
-<nav class="category-tabs"><a href="game.html">정밀 집중</a><a href="game2.html" class="active">전략 논리</a><a href="game3.html">쾌속 판단</a></nav>
-<nav class="game-sub-nav"><a href="game2.html">🧩 미니 스도쿠</a><a href="game7.html" class="active">⚫ AI 오목</a></nav>
+
+<nav class="main-nav">
+    <a href="/">브레인 분석실</a>
+    <a href="dash.html" class="active">두뇌 훈련센터</a>
+    <a href="report.html">나의 두뇌점수</a>
+</nav>
+
+<nav class="category-tabs">
+    <a href="game.html">정밀 집중</a>
+    <a href="game2.html" class="active">전략 논리</a>
+    <a href="game3.html">쾌속 판단</a>
+</nav>
+
+<nav class="game-sub-nav">
+    <a href="game2.html">🧩 미니 스도쿠</a>
+    <a href="game7.html" class="active">⚫ AI 오목</a>
+</nav>
 
 <main class="container">
     <div class="game-guide">
         <strong>🧠 오목 수 읽기 (전략 수립)</strong><br>
-        AI를 상대로 5목을 먼저 완성하세요. <strong>흑돌(사용자)은 3x3 금수</strong>가 적용됩니다. 한 수 앞을 내다보는 논리력이 승패를 결정합니다.
+        AI를 상대로 5목을 먼저 완성하세요. <strong>흑돌(사용자)은 3x3 금수</strong>가 적용됩니다. 한 수 앞을 내다보는 능력을 기르세요.
     </div>
 
     <section class="mode-selector">
-        <button id="btn-ai" class="mode-btn active" onclick="changeMode('ai')">AI와 대결</button>
+        <button id="btn-ai" class="mode-btn active" onclick="changeMode('ai')">AI 대결 (훈련)</button>
         <button id="btn-p2p" class="mode-btn" onclick="changeMode('p2p')">2인 대결</button>
     </section>
 
     <div class="status-box">
         <span id="turnDisplay">차례: 흑돌 ●</span>
-        <span id="gameModeText" style="font-size: 0.7rem; color: #888;">AI 대결 모드</span>
+        <span id="gameModeText" style="font-size: 0.75rem; color: #64748b;">AI 훈련 모드</span>
     </div>
 
     <div id="canvas-wrapper"><canvas id="omokCanvas"></canvas></div>
@@ -88,7 +114,13 @@
     </div>
 </main>
 
-<footer>&copy; 2026 SKZ Brain Lab. All rights reserved.</footer>
+<footer>
+    <div style="margin-bottom: 10px;">
+        &copy; 2026 SKZ Brain Lab. All rights reserved.
+    </div>
+</footer>
+
+
 
 <script>
     const canvas = document.getElementById('omokCanvas');
@@ -106,7 +138,7 @@
 
     function initCanvas() {
         const dpr = window.devicePixelRatio || 1;
-        const containerWidth = canvas.parentElement.clientWidth;
+        const containerWidth = canvas.parentElement.clientWidth - 10; // 테두리 제외
         canvas.width = containerWidth * dpr;
         canvas.height = containerWidth * dpr;
         ctx.scale(dpr, dpr);
@@ -116,23 +148,26 @@
 
     function drawBoard() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.strokeStyle = "#553a2a";
-        ctx.lineWidth = 0.8;
+        
+        // 격자선 그리기
+        ctx.strokeStyle = "rgba(85, 58, 42, 0.4)";
+        ctx.lineWidth = 1;
         
         for (let i = 0; i < boardSize; i++) {
-            // 가로선
+            const pos = cellSize/2 + i*cellSize;
+            // 가로
             ctx.beginPath();
-            ctx.moveTo(cellSize/2, cellSize/2 + i*cellSize);
-            ctx.lineTo(cellSize*boardSize - cellSize/2, cellSize/2 + i*cellSize);
+            ctx.moveTo(cellSize/2, pos);
+            ctx.lineTo(cellSize*boardSize - cellSize/2, pos);
             ctx.stroke();
-            // 세로선
+            // 세로
             ctx.beginPath();
-            ctx.moveTo(cellSize/2 + i*cellSize, cellSize/2);
-            ctx.lineTo(cellSize/2 + i*cellSize, cellSize*boardSize - cellSize/2);
+            ctx.moveTo(pos, cellSize/2);
+            ctx.lineTo(pos, cellSize*boardSize - cellSize/2);
             ctx.stroke();
         }
 
-        // 화점
+        // 화점 (오목판의 점)
         const stars = [3, 7, 11];
         stars.forEach(y => stars.forEach(x => {
             ctx.beginPath();
@@ -141,6 +176,7 @@
             ctx.fill();
         }));
 
+        // 돌 그리기
         board.forEach((row, y) => row.forEach((val, x) => {
             if(val !== 0) drawStone(x, y, val);
         }));
@@ -150,30 +186,30 @@
         const px = cellSize/2 + x*cellSize;
         const py = cellSize/2 + y*cellSize;
         
-        ctx.shadowBlur = 4;
-        ctx.shadowColor = "rgba(0,0,0,0.3)";
+        ctx.shadowBlur = 5;
+        ctx.shadowColor = "rgba(0,0,0,0.4)";
         ctx.beginPath();
-        ctx.arc(px, py, cellSize/2 - 4, 0, Math.PI * 2);
+        ctx.arc(px, py, cellSize/2 - 3, 0, Math.PI * 2);
         
-        if(player === 1) {
-            const grad = ctx.createRadialGradient(px-2, py-2, 2, px, py, cellSize/2);
-            grad.addColorStop(0, "#555");
+        if(player === 1) { // 흑돌
+            const grad = ctx.createRadialGradient(px-3, py-3, 1, px, py, cellSize/2);
+            grad.addColorStop(0, "#666");
             grad.addColorStop(1, "#000");
             ctx.fillStyle = grad;
-        } else {
-            const grad = ctx.createRadialGradient(px-2, py-2, 2, px, py, cellSize/2);
+        } else { // 백돌
+            const grad = ctx.createRadialGradient(px-3, py-3, 1, px, py, cellSize/2);
             grad.addColorStop(0, "#fff");
-            grad.addColorStop(1, "#ccc");
+            grad.addColorStop(1, "#d1d5db");
             ctx.fillStyle = grad;
         }
         ctx.fill();
         ctx.shadowBlur = 0;
 
-        // 마지막 수 하이라이트
+        // 마지막 수 하이라이트 표시
         if (moveHistory.length > 0) {
             const last = moveHistory[moveHistory.length - 1];
             if (last.x === x && last.y === y) {
-                ctx.strokeStyle = player === 1 ? "#fff" : "#000";
+                ctx.strokeStyle = player === 1 ? "#ef4444" : "#ef4444";
                 ctx.lineWidth = 2;
                 ctx.stroke();
             }
@@ -184,7 +220,7 @@
         currentMode = mode;
         document.getElementById('btn-ai').classList.toggle('active', mode === 'ai');
         document.getElementById('btn-p2p').classList.toggle('active', mode === 'p2p');
-        document.getElementById('gameModeText').innerText = mode === 'ai' ? "AI 대결 모드" : "2인 대결 모드";
+        document.getElementById('gameModeText').innerText = mode === 'ai' ? "AI 훈련 모드" : "2인 대결 모드";
         resetGame();
     }
 
@@ -206,7 +242,7 @@
         
         if (x >= 0 && x < boardSize && y >= 0 && y < boardSize && board[y][x] === 0) {
             if (currentPlayer === 1 && isDoubleThree(x, y, 1)) {
-                msgArea.innerText = "⚠️ 3x3 금수 지점입니다!";
+                msgArea.innerText = "⚠️ 흑돌은 3x3 자리에 둘 수 없습니다!";
                 return;
             }
             makeMove(x, y);
@@ -231,7 +267,7 @@
         turnDisplay.innerText = `차례: ${currentPlayer === 1 ? "흑돌 ●" : "백돌 ○"}`;
         
         if (currentMode === 'ai' && currentPlayer === 2) {
-            setTimeout(aiMove, 500);
+            setTimeout(aiMove, 600);
         }
     }
 
@@ -239,25 +275,24 @@
         let logicScore = 0;
         const moves = moveHistory.length;
         if (isUserWin) {
-            logicScore = Math.min(100, 90 + Math.floor((50 - moves) / 2));
+            // 빨리 이길수록 높은 점수
+            logicScore = Math.min(100, 95 + Math.floor((60 - moves) / 2));
         } else {
-            logicScore = Math.min(75, Math.floor(moves * 1.5));
+            // 오래 버틸수록 높은 점수
+            logicScore = Math.min(80, Math.floor(moves * 1.8));
         }
 
-        localStorage.setItem('game7_score', logicScore);
-        let history = JSON.parse(localStorage.getItem('game7_history')) || [];
-        history.push(logicScore);
-        localStorage.setItem('game7_history', JSON.stringify(history.slice(-10)));
-
+        localStorage.setItem('logicScore', logicScore); // 전략 논리 카테고리 통합
+        
         setTimeout(() => {
-            const msg = isUserWin ? "승리! 뛰어난 전략입니다." : "패배.. AI의 수 읽기가 더 정교했습니다.";
-            if (confirm(`${msg}\n논리력 점수: ${logicScore}점\n\n분석 리포트로 이동하시겠습니까?`)) {
+            const msg = isUserWin ? "승리! 완벽한 수 읽기였습니다." : "패배.. AI가 당신의 수를 읽었습니다.";
+            if (confirm(`${msg}\n나의 전략 점수: ${logicScore}점\n\n두뇌 리포트를 확인하시겠습니까?`)) {
                 location.href = 'report.html';
             }
-        }, 300);
+        }, 500);
     }
 
-    // AI 로직 강화
+    // AI 알고리즘 (가중치 기반 탐색)
     function aiMove() {
         if(gameOver) return;
         let bestScore = -1, bestMoves = [];
@@ -283,8 +318,8 @@
         let total = 0;
         const directions = [[1,0], [0,1], [1,1], [1,-1]];
         directions.forEach(([dx, dy]) => {
-            total += getLineScore(x, y, dx, dy, 2); // 공격
-            total += getLineScore(x, y, dx, dy, 1) * 1.1; // 수비
+            total += getLineScore(x, y, dx, dy, 2); // AI 공격성
+            total += getLineScore(x, y, dx, dy, 1) * 1.2; // 방어 우선순위
         });
         return total;
     }
@@ -303,9 +338,9 @@
         });
         if(count >= 5) return 100000;
         if(count === 4 && open === 2) return 10000;
-        if(count === 4 && open === 1) return 2000;
-        if(count === 3 && open === 2) return 1500;
-        return count * 10;
+        if(count === 4 && open === 1) return 2500;
+        if(count === 3 && open === 2) return 1800;
+        return count * 15;
     }
 
     function checkWin(x, y, p) {
@@ -326,7 +361,7 @@
 
     function undo() {
         if (gameOver || moveHistory.length === 0) return;
-        const steps = (currentMode === 'ai' && currentPlayer === 1) ? 2 : 1;
+        const steps = (currentMode === 'ai') ? 2 : 1;
         for(let i=0; i<steps; i++) {
             if(moveHistory.length > 0) {
                 const m = moveHistory.pop();
@@ -338,6 +373,7 @@
         drawBoard();
     }
 
+    // 3x3 금수 로직
     function isDoubleThree(x, y, p) {
         let open3 = 0;
         board[y][x] = p;
@@ -345,11 +381,10 @@
             let count = 1, openEnds = 0;
             [[dx, dy], [-dx, -dy]].forEach(([sx, sy]) => {
                 let nx1 = x + sx, ny1 = y + sy;
-                let nx2 = x + sx*2, ny2 = y + sy*2;
                 if (nx1>=0 && nx1<boardSize && ny1>=0 && ny1<boardSize && board[ny1][nx1] === p) {
                     count++;
-                    let nx3 = x + sx*3, ny3 = y + sy*3;
-                    if (nx3>=0 && nx3<boardSize && ny3>=0 && ny3<boardSize && board[ny3][nx3] === 0) openEnds++;
+                    let nx2 = x + sx*2, ny2 = y + sy*2;
+                    if (nx2>=0 && nx2<boardSize && ny2>=0 && ny2<boardSize && board[ny2][nx2] === 0) openEnds++;
                 } else if (nx1>=0 && nx1<boardSize && ny1>=0 && ny1<boardSize && board[ny1][nx1] === 0) {
                     openEnds++;
                 }
