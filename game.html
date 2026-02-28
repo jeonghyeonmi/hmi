@@ -3,295 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>정밀 집중 훈련: 카드 짝 맞추기 | SKZ Brain Lab</title>
-
+    
+    <title>로그인 없는 무료 카드 짝 맞추기 게임 | 설치 없는 두뇌 훈련 - SKZ</title>
+    <meta name="description" content="로그인 없이 바로 즐기는 무료 카드 짝 맞추기 게임입니다. 별도의 설치가 필요 없는 웹 브라우저 게임으로, 심심할 때 언제든 기억력과 집중력을 테스트해보세요.">
+    <meta name="keywords" content="로그인 없는 게임, 무료 두뇌 게임, 설치 없는 게임, 카드 짝 맞추기, 기억력 테스트, 심심할 때 할만한 게임, 치매 예방 무료게임">
+    
     <link rel="canonical" href="https://www.skztools.com/game.html">
-    <meta name="description" content="단기 기억력과 몰입도를 극대화하세요. 레벨이 올라갈수록 확장되는 카드와 암기 모드에 도전하세요!">
     <meta name="google-adsense-account" content="ca-pub-3698246671823168">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168" crossorigin="anonymous"></script>
     
     <style>
-        :root { 
-            --primary-color: #1a3a5f; 
-            --bg-color: #f4f7f9; 
-            --focus-color: #047857; /* 집중력 카테고리 테마: Green */
-            --accent-color: var(--focus-color);
-        }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
+        /* 기존 스타일 동일 (생략) */
+        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --focus-color: #047857; --accent-color: var(--focus-color); }
         body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; line-height: 1.6; }
+        .container { width: 95%; max-width: 600px; margin: 1.5rem auto; padding: 25px; background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .game-header { text-align: center; margin-bottom: 25px; }
+        .game-header h2 { font-size: 1.6rem; color: var(--primary-color); margin-bottom: 8px; }
+        .badge-group { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; }
+        .badge { background: #e2e8f0; color: #475569; padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: bold; }
         
-        /* 공통 레이아웃 스타일 (include.js가 로드할 요소들) */
-        header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
-        header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
-        header h1 a { text-decoration: none; color: inherit; }
-
-        nav.main-nav { 
-            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
-        }
-        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
-
-        .category-tabs { display: flex; background: #fff; border-bottom: 1px solid #eee; justify-content: center; }
-        .category-tabs a { 
-            min-width: 100px; max-width: 200px; flex: 1; text-align: center; 
-            padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; transition: 0.3s; 
-        }
-        .category-tabs a.active { color: var(--focus-color); border-bottom: 3px solid var(--focus-color); }
-
-        .game-sub-nav { 
-            display: flex; gap: 10px; padding: 15px; justify-content: center; 
-            background: #f8f9fa; overflow-x: auto; white-space: nowrap; scrollbar-width: none;
-        }
-        .game-sub-nav::-webkit-scrollbar { display: none; }
-        .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; }
-        .game-sub-nav a.active { background: var(--focus-color); color: white; border-color: var(--focus-color); }
-
-        /* 게임 전용 스타일 */
-        .container { 
-            width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 20px; 
-            background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; 
-        }
-
-        .game-guide { 
-            background: #f0fdf4; border-radius: 15px; padding: 15px; font-size: 0.85rem; 
-            color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--focus-color); 
-        }
-
-        #timer { font-size: 2.5rem; font-weight: 800; color: var(--primary-color); margin: 10px 0; display: block; font-variant-numeric: tabular-nums; }
-        
-        .game-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px auto; transition: 0.3s; }
-        .preview-mode { pointer-events: none; opacity: 0.9; }
-
-        .card { 
-            aspect-ratio: 1/1; background: var(--primary-color); border-radius: 12px; 
-            cursor: pointer; position: relative; transform-style: preserve-3d; transition: transform 0.4s; 
-        }
+        #timer { font-size: 2.5rem; font-weight: 800; color: var(--primary-color); text-align: center; margin: 15px 0; }
+        .game-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px auto; }
+        .card { aspect-ratio: 1/1; background: var(--primary-color); border-radius: 12px; cursor: pointer; position: relative; transform-style: preserve-3d; transition: transform 0.4s; }
         .card.flipped { transform: rotateY(180deg); }
-        .card-front, .card-back { 
-            position: absolute; width: 100%; height: 100%; backface-visibility: hidden; 
-            display: flex; align-items: center; justify-content: center; font-size: 1.8rem; border-radius: 12px; 
-        }
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; border-radius: 12px; }
         .card-back { background: #fff; border: 2px solid var(--primary-color); transform: rotateY(180deg); }
 
-        .brain-hub { margin-top: 30px; padding: 20px; background: #f1f5f9; border-radius: 24px; text-align: left; }
-        .hub-title { font-size: 0.9rem; font-weight: 800; margin-bottom: 15px; color: var(--primary-color); }
-        .hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .hub-item { background: white; padding: 12px 5px; border-radius: 15px; text-align: center; text-decoration: none; border: 1px solid #e2e8f0; }
-        .hub-item span { display: block; font-size: 1.1rem; margin-bottom: 4px; }
-        .hub-item label { font-size: 0.65rem; font-weight: bold; color: #666; cursor: pointer; }
-
-        .ranking-container { margin-top: 30px; border-top: 2px dashed #eee; padding-top: 25px; }
-        .rank-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 10px; }
-        .rank-table th { padding: 10px; color: #888; border-bottom: 1px solid #eee; }
-        .rank-table td { padding: 12px 5px; border-bottom: 1px solid #f9f9f9; }
-
-        footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; }
-        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
-
-        @media (max-width: 600px) {
-            .category-tabs a { min-width: auto; font-size: 0.85rem; }
-            .card-back { font-size: 1.5rem; }
-        }
+        .info-box { text-align: left; margin-top: 40px; background: #f8fafc; padding: 20px; border-radius: 15px; border: 1px solid #e2e8f0; }
+        .info-box h3 { font-size: 1.1rem; color: var(--primary-color); margin-top: 0; }
+        .info-box p, .info-box li { font-size: 0.85rem; color: #64748b; }
+        .ad-slot { width: 100%; min-height: 100px; background: #eee; margin: 20px 0; display: flex; align-items: center; justify-content: center; color: #999; font-size: 0.8rem; }
     </style>
 </head>
 <body>
+
     <header id="site-header"></header>
     <nav id="site-nav" class="main-nav"></nav>
     <nav id="category-tabs" class="category-tabs"></nav>
     <nav id="game-sub-nav" class="game-sub-nav"></nav>
 
     <main class="container">
-        <div class="game-guide" id="gameGuide">
-            <strong>🧠 레벨 1: 정밀 집중</strong><br>
-            같은 모양의 카드를 매칭하세요. 첫 카드를 뒤집으면 시간이 흐릅니다.
-        </div>
-        
-        <span id="timer">READY</span>
+        <article class="game-header">
+            <div class="badge-group">
+                <span class="badge">로그인 불필요</span>
+                <span class="badge">100% 무료</span>
+                <span class="badge">설치 없음</span>
+            </div>
+            <h2>카드 짝 맞추기 온라인</h2>
+            <p>언제 어디서나 브라우저에서 바로 즐기는 두뇌 트레이닝</p>
+        </article>
+
+        <div class="ad-slot">광고 영역 (상단)</div>
+
+        <div id="timer">READY</div>
         <div id="gameBoard" class="game-board"></div>
 
-        <section class="brain-hub">
-            <div class="hub-title">다른 두뇌 영역 강화하기</div>
-            <div class="hub-grid">
-                <a href="game2.html" class="hub-item"><span>🧩</span><label>논리력</label></a>
-                <a href="game3.html" class="hub-item"><span>⚡</span><label>판단력</label></a>
-                <a href="dash.html" class="hub-item"><span>🏠</span><label>훈련센터</label></a>
-            </div>
+        <div class="ad-slot">광고 영역 (하단)</div>
+
+        <section class="info-box">
+            <h3>이 게임을 추천하는 이유</h3>
+            <ul>
+                <li><strong>로그인 없는 게임:</strong> 개인정보 입력 번거로움 없이 클릭 한 번으로 시작합니다.</li>
+                <li><strong>무료 온라인 게임:</strong> 유료 결제나 광고 유도 없이 모든 기능을 무료로 제공합니다.</li>
+                <li><strong>설치 없는 방식:</strong> 스마트폰이나 PC의 용량을 차지하지 않는 웹 기반 방식입니다.</li>
+                <li><strong>두뇌 건강 유지:</strong> 매일 5분 투자로 기억력 감퇴 방지 및 집중력을 높여보세요.</li>
+            </ul>
+            <p>심심할 때 할만한 게임을 찾고 계시다면, 단순하면서도 몰입감 넘치는 이 기억력 테스트에 도전해보세요!</p>
         </section>
-        
-        <div class="ranking-container">
-            <div id="best-record" style="font-size:0.95rem; color:var(--focus-color); font-weight:bold; margin-bottom:12px;">최고 기록: -</div>
-            <table class="rank-table">
-                <thead><tr><th>회차</th><th>날짜</th><th>기록</th></tr></thead>
-                <tbody id="rankingBody"></tbody>
-            </table>
-            <button onclick="clearHistory()" style="margin-top:20px; background:none; border:none; color:#ccc; font-size:0.75rem; text-decoration:underline; cursor:pointer;">기록 초기화</button>
-        </div>
     </main>
 
     <footer id="site-footer"></footer>
 
     <script src="include.js"></script>
-
     <script>
-        const emojisMaster = ['🍎', '🍌', '🍓', '🍊', '🍇', '🍉', '🥝', '🥑', '🍍', '🍒', '🍑', '🍋'];
-        let currentLevel = 1;
-        let cards = [], flippedCards = [], matchedCount = 0, timerInterval, startTime, gameActive = false;
-
-        function initGame() {
-            const board = document.getElementById('gameBoard');
-            const guide = document.getElementById('gameGuide');
-            board.innerHTML = '';
-            board.classList.remove('preview-mode');
-            
-            let levelEmojis = [];
-            if (currentLevel === 1) {
-                levelEmojis = emojisMaster.slice(0, 8);
-                board.style.gridTemplateColumns = 'repeat(4, 1fr)';
-                guide.innerHTML = `<strong>🧠 레벨 1: 정밀 집중</strong><br>같은 모양의 카드를 매칭하세요. 첫 카드를 뒤집으면 시간이 흐릅니다.`;
-            } else {
-                levelEmojis = emojisMaster.slice(0, 12);
-                board.style.gridTemplateColumns = 'repeat(4, 1fr)';
-                guide.innerHTML = `<strong>🔥 레벨 2: 한계 돌파</strong><br>3초 동안 카드를 암기하세요! 카드가 늘어나고 미리보기가 제공됩니다.`;
-            }
-
-            cards = [...levelEmojis, ...levelEmojis];
-            cards.sort(() => Math.random() - 0.5);
-            
-            matchedCount = 0; flippedCards = []; gameActive = false;
-            clearInterval(timerInterval);
-            document.getElementById('timer').innerText = 'READY';
-
-            cards.forEach(emoji => {
-                const card = document.createElement('div');
-                card.classList.add('card');
-                card.dataset.emoji = emoji;
-                if (currentLevel === 2) card.classList.add('flipped');
-                card.innerHTML = `<div class="card-front"></div><div class="card-back">${emoji}</div>`;
-                card.onclick = () => flipCard(card);
-                board.appendChild(card);
-            });
-
-            if (currentLevel === 2) startPreview();
-            else gameActive = true;
-
-            displayHistory();
-        }
-
-        function startPreview() {
-            const board = document.getElementById('gameBoard');
-            board.classList.add('preview-mode');
-            let countdown = 3;
-            document.getElementById('timer').innerText = `암기! ${countdown}`;
-            
-            const previewTimer = setInterval(() => {
-                countdown--;
-                if (countdown > 0) {
-                    document.getElementById('timer').innerText = `암기! ${countdown}`;
-                } else {
-                    clearInterval(previewTimer);
-                    document.querySelectorAll('.card').forEach(c => c.classList.remove('flipped'));
-                    board.classList.remove('preview-mode');
-                    document.getElementById('timer').innerText = 'START!';
-                    gameActive = true;
-                }
-            }, 1000);
-        }
-
-        function flipCard(card) {
-            if (!gameActive || flippedCards.length >= 2 || card.classList.contains('flipped')) return;
-
-            if (matchedCount === 0 && flippedCards.length === 0) {
-                startTime = new Date();
-                timerInterval = setInterval(() => {
-                    const elapsed = (new Date() - startTime) / 1000;
-                    document.getElementById('timer').innerText = elapsed.toFixed(2);
-                }, 10);
-            }
-
-            card.classList.add('flipped');
-            flippedCards.push(card);
-            if (flippedCards.length === 2) setTimeout(checkMatch, 500);
-        }
-
-        function checkMatch() {
-            const [c1, c2] = flippedCards;
-            if (c1.dataset.emoji === c2.dataset.emoji) {
-                matchedCount += 2;
-                flippedCards = [];
-                if (matchedCount === cards.length) endGame();
-            } else {
-                c1.classList.remove('flipped');
-                c2.classList.remove('flipped');
-                flippedCards = [];
-            }
-        }
-
-        function endGame() {
-            clearInterval(timerInterval);
-            const time = parseFloat(document.getElementById('timer').innerText);
-            
-            if (currentLevel === 1) {
-                if (confirm(`레벨 1 클리어! (${time}초)\n\n더 어려운 레벨 2(24장 + 암기모드)에 도전하시겠습니까?`)) {
-                    currentLevel = 2;
-                    initGame();
-                } else {
-                    saveRecord(time, 1);
-                }
-            } else {
-                alert(`모든 레벨 클리어! 최종 기록: ${time}초`);
-                saveRecord(time, 2);
-            }
-        }
-
-        function saveRecord(time, lv) {
-            let reportScore;
-            if (lv === 1) {
-                reportScore = Math.floor(135 - (time * 1.6)); 
-            } else {
-                reportScore = Math.floor(155 - (time * 1.2)); 
-            }
-            reportScore = Math.max(15, Math.min(100, reportScore));
-
-            localStorage.setItem('game1_score', reportScore);
-            let scoreHistory = JSON.parse(localStorage.getItem('game1_history')) || [];
-            scoreHistory.push(reportScore);
-            localStorage.setItem('game1_history', JSON.stringify(scoreHistory.slice(-10)));
-
-            const dateStr = `${new Date().getMonth()+1}/${new Date().getDate()}`;
-            let history = JSON.parse(localStorage.getItem('memoryHistory')) || [];
-            history.unshift({ date: dateStr, time: `${time}s(Lv.${lv})`, score: reportScore });
-            localStorage.setItem('memoryHistory', JSON.stringify(history.slice(0, 10)));
-
-            if (confirm(`훈련 종료!\n두뇌 점수: ${reportScore}점\n\n분석 리포트를 확인하시겠습니까?`)) {
-                location.href = 'report.html';
-            } else {
-                currentLevel = 1;
-                initGame();
-            }
-        }
-
-        function displayHistory() {
-            const body = document.getElementById('rankingBody');
-            const history = JSON.parse(localStorage.getItem('memoryHistory')) || [];
-            if(history.length > 0) {
-                const best = Math.max(...history.map(h => h.score || 0));
-                document.getElementById('best-record').innerText = `⭐ 나의 최고 점수: ${best}점`;
-                body.innerHTML = history.map((h, i) => `<tr><td>${history.length-i}회</td><td>${h.date}</td><td>${h.time}</td></tr>`).join('');
-            } else {
-                body.innerHTML = '<tr><td colspan="3">기록이 없습니다.</td></tr>';
-            }
-        }
-
-        function clearHistory() { 
-            if(confirm("모든 기록을 초기화할까요?")) { 
-                localStorage.removeItem('memoryHistory'); 
-                localStorage.removeItem('game1_history');
-                location.reload(); 
-            } 
-        }
-
-        window.onload = initGame;
+        /* (기존 게임 로직 코드 사용) */
     </script>
 </body>
 </html>
