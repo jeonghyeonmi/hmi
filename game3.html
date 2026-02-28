@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>쾌속 판단 훈련: 스트룹 테스트 | SKZ Brain Lab</title>
-
+    
+    <title>스트룹 테스트 - 무료 온라인 쾌속 판단 훈련 | SKZ 두뇌 훈련소</title>
+    <meta name="description" content="글자의 색상과 의미 사이의 인지 갈등을 해결하세요! 30초 스트룹 테스트로 당신의 판단 속도와 억제력을 측정하고 두뇌 점수를 확인하세요.">
+    <meta name="keywords" content="스트룹테스트, stroop test, 인지훈련, 판단력게임, 두뇌게임, 무료치매예방, 집중력테스트">
+    <meta property="og:title" content="SKZ 스트룹 테스트 - 당신의 판단 속도는?">
+    <meta property="og:description" content="글자의 의미가 아닌 '실제 색상'을 맞추세요. 30초의 승부!">
+    <meta property="og:type" content="website">
+    
     <link rel="canonical" href="https://www.skztools.com/game3.html">
-    <meta name="description" content="글자의 유혹을 뿌리치고 실제 색상을 맞추는 고도의 인지 훈련. 30초 스트룹 테스트로 당신의 판단 속도를 측정하세요.">
-    <meta name="google-adsense-account" content="ca-pub-3698246671823168">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168" crossorigin="anonymous"></script>
+
     <style>
+        /* --- [1] 공통 레이아웃 (디자인 무결성) --- */
         :root { 
             --primary-color: #1a3a5f; 
             --bg-color: #f4f7f9; 
             --speed-color: #d35400; 
-            --accent-color: var(--speed-color);
             --error-color: #e74c3c;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -24,18 +29,20 @@
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
 
-        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+        nav.main-nav { background: white; display: flex; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        nav.main-nav a { text-decoration: none; color: #666; font-weight: bold; font-size: 0.9rem; padding: 1rem; }
+        nav.main-nav a.active { color: var(--primary-color) !important; border-bottom: 2px solid var(--primary-color); }
 
         .category-tabs { display: flex; background: #fff; border-bottom: 1px solid #eee; justify-content: center; }
-        .category-tabs a { min-width: 100px; max-width: 200px; flex: 1; text-align: center; padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; transition: 0.3s; }
-        .category-tabs a.active { color: var(--speed-color); border-bottom: 3px solid var(--speed-color); }
+        .category-tabs a { flex: 1; text-align: center; padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; max-width: 200px; }
+        .category-tabs a.active { color: var(--speed-color) !important; border-bottom: 3px solid var(--speed-color); }
 
-        .game-sub-nav { display: flex; gap: 10px; padding: 15px; justify-content: center; background: #f8f9fa; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+        .game-sub-nav { display: flex; gap: 10px; padding: 15px; justify-content: center; background: #f8f9fa; overflow-x: auto; white-space: nowrap; border-bottom: 1px solid #eee; }
         .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; }
-        .game-sub-nav a.active { background: var(--speed-color); color: white; border-color: var(--speed-color); }
+        .game-sub-nav a.active { background: #333 !important; color: white !important; }
 
-        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 20px; background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
+        /* --- [2] 게임 전용 스타일 --- */
+        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 25px; background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
         .game-guide { background: #fff9f5; border-radius: 15px; padding: 15px; font-size: 0.85rem; color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--speed-color); }
 
         .score-box { display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold; color: var(--primary-color); font-size: 1.1rem; padding: 0 10px; }
@@ -43,13 +50,7 @@
         #word-display { 
             font-size: 3.5rem; font-weight: 900; margin: 25px 0; height: 120px; 
             display: flex; align-items: center; justify-content: center; 
-            background: #fcfcfc; border-radius: 15px; border: 1px solid #f0f0f0; transition: transform 0.1s;
-        }
-        .shake { animation: shake 0.3s ease-in-out; }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
+            background: #fcfcfc; border-radius: 15px; border: 1px solid #f0f0f0; transition: 0.1s;
         }
 
         .button-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -60,28 +61,33 @@
         }
         .color-btn:active { transform: scale(0.95); opacity: 0.9; }
 
-        .brain-hub { margin-top: 30px; padding: 20px; background: #f1f5f9; border-radius: 24px; text-align: left; }
-        .hub-title { font-size: 0.9rem; font-weight: 800; margin-bottom: 15px; color: var(--primary-color); }
-        .hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .hub-item { background: white; padding: 12px 5px; border-radius: 15px; text-align: center; text-decoration: none; border: 1px solid #e2e8f0; }
-        .hub-item span { display: block; font-size: 1.1rem; margin-bottom: 4px; }
-        .hub-item label { font-size: 0.65rem; font-weight: bold; color: #666; cursor: pointer; }
+        /* 흔들림 효과 */
+        .shake { animation: shake 0.3s ease-in-out; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
 
+        /* 기록 섹션 */
         .ranking-container { margin-top: 30px; border-top: 2px dashed #eee; padding-top: 25px; }
         .rank-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 10px; }
         .rank-table th { padding: 10px; color: #888; border-bottom: 1px solid #eee; }
         .rank-table td { padding: 12px 5px; border-bottom: 1px solid #f9f9f9; }
 
-        footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; }
-        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
+        /* 푸터 */
+        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; margin-top: 40px; }
+        footer .footer-links { margin-bottom: 15px; }
+        footer .footer-links a { color: #bbb; text-decoration: none; margin: 0 10px; }
     </style>
 </head>
 <body>
+
     <header><h1><a href="/">SKZ 두뇌 훈련소</a></h1></header>
 
     <nav class="main-nav">
         <a href="/">브레인 분석실</a>
-        <a href="dash.html" style="color:var(--speed-color)">두뇌 훈련센터</a>
+        <a href="dash.html" class="active">두뇌 훈련센터</a>
         <a href="report.html">나의 두뇌점수</a>
     </nav>
 
@@ -100,7 +106,7 @@
     <main class="container">
         <div class="game-guide">
             <strong>🧠 쾌속 판단 훈련 (Stroop)</strong><br>
-            글자의 의미가 아닌 <strong>'실제 색상'</strong>을 누르세요! 오답 시 점수가 깎이니 주의하세요.
+            글자의 의미가 아닌 <strong>'실제 색상'</strong>을 누르세요! 오답 시 점수가 차감되니 주의하세요.
         </div>
         
         <div class="score-box">
@@ -108,7 +114,7 @@
             <span>성공: <span id="current-score" style="color:var(--speed-color)">0</span></span>
         </div>
         
-        <div id="word-display" onclick="startGame()" style="cursor:pointer;">START</div>
+        <div id="word-display" onclick="startGame()" style="cursor:pointer; color: #1a3a5f;">START</div>
         
         <div class="button-grid">
             <button class="color-btn" style="background:#e74c3c" onclick="handleBtnClick('#e74c3c')">빨강</button>
@@ -117,15 +123,6 @@
             <button class="color-btn" style="background:#f1c40f" onclick="handleBtnClick('#f1c40f')">노랑</button>
         </div>
 
-        <section class="brain-hub">
-            <div class="hub-title">다른 두뇌 영역 강화하기</div>
-            <div class="hub-grid">
-                <a href="game.html" class="hub-item"><span>🎯</span><label>집중력</label></a>
-                <a href="game2.html" class="hub-item"><span>🧩</span><label>논리력</label></a>
-                <a href="dash.html" class="hub-item"><span>🏠</span><label>훈련센터</label></a>
-            </div>
-        </section>
-        
         <div class="ranking-container">
             <div id="best-record" style="font-size:0.95rem; color:var(--speed-color); font-weight:bold; margin-bottom:12px;">최고 기록: -</div>
             <table class="rank-table">
@@ -136,8 +133,9 @@
     </main>
 
     <footer>
-        <div style="margin-bottom: 10px;">
-            <a href="privacy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
+        <div class="footer-links">
+            <a href="privacy.html">개인정보처리방침</a> | 
+            <a href="terms.html">이용약관</a>
         </div>
         &copy; 2026 SKZ Brain Lab. All rights reserved.
     </footer>
@@ -168,9 +166,10 @@
 
         function nextQuestion() {
             const wordIdx = Math.floor(Math.random() * 4);
-            // 난이도 상승 로직: 점수가 높을수록 글자와 색상이 다를 확률 증가
             let colorIdx;
-            if (score > 10 && Math.random() > 0.2) {
+            
+            // 점수가 올라갈수록 글자와 색상이 다를 확률을 높여 난이도 조절
+            if (score > 10 && Math.random() > 0.15) {
                 do { colorIdx = Math.floor(Math.random() * 4); } while (colorIdx === wordIdx);
             } else {
                 colorIdx = Math.floor(Math.random() * 4);
@@ -184,13 +183,13 @@
 
         function handleBtnClick(selectedColor) {
             if(!gameActive) { startGame(); return; }
+            
             if(selectedColor === targetColorCode) {
                 score++;
                 document.getElementById('current-score').innerText = score;
                 nextQuestion();
             } else {
-                // 오답 패널티
-                score = Math.max(0, score - 1);
+                score = Math.max(0, score - 1); // 오답 감점
                 document.getElementById('current-score').innerText = score;
                 const display = document.getElementById('word-display');
                 display.classList.add('shake');
@@ -206,16 +205,12 @@
         }
 
         function saveRecord(finalCount) {
-            // [밸런스 점수 계산] 
-            // 35개 이상이면 100점에 근접하도록 설계 (고도의 판단력)
+            // 점수 계산 (35개 이상 시 100점 만점 기준)
             let reportScore = Math.round((finalCount / 35) * 100);
             reportScore = Math.max(10, Math.min(100, reportScore));
 
-            localStorage.setItem('game3_score', reportScore);
-            let scoreHistory = JSON.parse(localStorage.getItem('game3_history')) || [];
-            scoreHistory.push(reportScore);
-            localStorage.setItem('game3_history', JSON.stringify(scoreHistory.slice(-10)));
-
+            localStorage.setItem('judgeScore', reportScore); // report.html 연동
+            
             const dateStr = `${new Date().getMonth()+1}/${new Date().getDate()}`;
             let history = JSON.parse(localStorage.getItem('judgeHistory')) || [];
             history.unshift({ date: dateStr, count: finalCount, score: reportScore });
@@ -227,6 +222,7 @@
                 displayHistory();
                 document.getElementById('word-display').innerText = "RESTART";
                 document.getElementById('word-display').style.cursor = "pointer";
+                document.getElementById('word-display').style.color = "#1a3a5f";
             }
         }
 
@@ -242,7 +238,7 @@
             }
         }
 
-        displayHistory();
+        window.onload = displayHistory;
     </script>
 </body>
 </html>
