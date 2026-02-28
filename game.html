@@ -38,8 +38,8 @@
 
         /* --- [2] 게임 본체 스타일 --- */
         .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 25px; background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
-        #status-msg { font-size: 1rem; font-weight: bold; color: #e11d48; margin-bottom: 5px; height: 1.5rem; }
         #level-info { font-size: 0.85rem; color: #64748b; margin-bottom: 10px; font-weight: 600; }
+        #status-msg { font-size: 1rem; font-weight: bold; color: #e11d48; margin-bottom: 5px; height: 1.5rem; }
         #timer { font-size: 2.8rem; font-weight: 800; color: var(--primary-color); margin: 10px 0; font-variant-numeric: tabular-nums; }
         
         .game-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px auto; }
@@ -49,7 +49,12 @@
         .card-back { background: #fff; border: 2px solid var(--primary-color); transform: rotateY(180deg); }
 
         .info-box { text-align: left; margin-top: 30px; padding: 20px; background: #f8fafc; border-radius: 15px; font-size: 0.85rem; color: #666; line-height: 1.6; }
-        footer { text-align: center; padding: 2rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; margin-top: 40px; }
+        
+        /* 푸터 스타일 */
+        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; margin-top: 40px; }
+        footer .footer-links { margin-bottom: 15px; }
+        footer .footer-links a { color: #bbb; text-decoration: none; margin: 0 10px; }
+        footer .footer-links a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -82,7 +87,13 @@
         </section>
     </main>
 
-    <footer>&copy; 2026 SKZ Brain Lab. All rights reserved.</footer>
+    <footer>
+        <div class="footer-links">
+            <a href="privacy.html">개인정보처리방침</a> | 
+            <a href="terms.html">이용약관</a>
+        </div>
+        &copy; 2026 SKZ Brain Lab. All rights reserved.
+    </footer>
 
     <script>
         const emojisMaster = ['🍎', '🍌', '🍓', '🍊', '🍇', '🍉', '🥝', '🥑', '🍍', '🍒', '🍑', '🍋'];
@@ -110,7 +121,6 @@
             document.getElementById('status-msg').innerText = "3초 동안 카드를 암기하세요!";
             document.getElementById('timer').innerText = "MEMORIZE";
 
-            // 카드 생성 및 초기 암기 모드(뒤집힌 상태)
             cards.forEach(emoji => {
                 const card = document.createElement('div');
                 card.classList.add('card', 'flipped'); 
@@ -119,7 +129,6 @@
                 board.appendChild(card);
             });
 
-            // 3초 암기 시간 부여
             setTimeout(() => {
                 const allCards = document.querySelectorAll('.card');
                 allCards.forEach(card => {
@@ -158,7 +167,7 @@
                     totalTime += levelTime;
 
                     if (currentLevel < 3) {
-                        alert(`Stage ${currentLevel} 클리어!\n기록: ${levelTime}초\n다음 단계로 넘어갑니다.`);
+                        alert(`Stage ${currentLevel} 클리어!\n기록: ${levelTime}초\n확인을 누르면 다음 단계로 진행합니다.`);
                         currentLevel++;
                         initGame();
                     } else {
@@ -173,8 +182,7 @@
         }
 
         function finishGame() {
-            // [두뇌 점수 산출 로직]
-            // 3단계 총합 기준: 45초 이내 100점, 이후 1초당 3점 감점
+            // [두뇌 점수 산출 로직] 3단계 총합 기준: 45초 이내 100점, 이후 1초당 3점 감점
             let brainScore = Math.max(10, 100 - Math.floor((totalTime - 45) * 3));
             if (totalTime <= 45) brainScore = 100;
 
