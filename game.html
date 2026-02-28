@@ -14,13 +14,14 @@
         :root { 
             --primary-color: #1a3a5f; 
             --bg-color: #f4f7f9; 
-            --focus-color: #047857; /* 집중력 카테고리: Green */
+            --focus-color: #047857; /* 집중력 카테고리 테마: Green */
             --accent-color: var(--focus-color);
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; line-height: 1.6; }
         
+        /* 공통 레이아웃 스타일 (include.js가 로드할 요소들) */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
@@ -46,6 +47,7 @@
         .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; }
         .game-sub-nav a.active { background: var(--focus-color); color: white; border-color: var(--focus-color); }
 
+        /* 게임 전용 스타일 */
         .container { 
             width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 20px; 
             background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; 
@@ -94,25 +96,10 @@
     </style>
 </head>
 <body>
-    <header><h1><a href="/">SKZ 두뇌 훈련소</a></h1></header>
-
-    <nav class="main-nav">
-        <a href="/">브레인 분석실</a>
-        <a href="dash.html" style="color:var(--focus-color)">두뇌 훈련센터</a>
-        <a href="report.html">나의 두뇌점수</a>
-    </nav>
-
-    <nav class="category-tabs">
-        <a href="game.html" class="active">정밀 집중</a>
-        <a href="game2.html">전략 논리</a>
-        <a href="game3.html">쾌속 판단</a>
-    </nav>
-
-    <nav class="game-sub-nav">
-        <a href="game.html" class="active">🎯 메모리 게임</a>
-        <a href="game4.html">📍 기억력</a>
-        <a href="game8.html">🛒 시장에 가면</a>
-    </nav>
+    <header id="site-header"></header>
+    <nav id="site-nav" class="main-nav"></nav>
+    <nav id="category-tabs" class="category-tabs"></nav>
+    <nav id="game-sub-nav" class="game-sub-nav"></nav>
 
     <main class="container">
         <div class="game-guide" id="gameGuide">
@@ -142,12 +129,9 @@
         </div>
     </main>
 
-    <footer>
-        <div style="margin-bottom: 10px;">
-            <a href="privacy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
-        </div>
-        &copy; 2026 SKZ Brain Lab. All rights reserved.
-    </footer>
+    <footer id="site-footer"></footer>
+
+    <script src="include.js"></script>
 
     <script>
         const emojisMaster = ['🍎', '🍌', '🍓', '🍊', '🍇', '🍉', '🥝', '🥑', '🍍', '🍒', '🍑', '🍋'];
