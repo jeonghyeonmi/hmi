@@ -8,164 +8,120 @@
     <link rel="canonical" href="https://www.skztools.com/game6.html">
     <meta name="description" content="글자와 그림 사이의 인지 갈등을 극복하세요! 시시각각 변하는 미션에 맞춰 동물을 선택하며 당신의 뇌 억제 제어 능력을 향상시킵니다.">
     <meta name="google-adsense-account" content="ca-pub-3698246671823168">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168" crossorigin="anonymous"></script>
     <style>
         :root { 
             --primary-color: #1a3a5f; 
             --bg-color: #f4f7f9; 
-            --speed-color: #d35400; /* 판단력 카테고리 고유색: Orange */
-            --accent-color: var(--speed-color);
-            --success: #2ecc71;
-            --error: #e74c3c;
+            --speed-color: #d35400; 
+            --success: #10b981;
+            --error: #ef4444;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; line-height: 1.6; transition: background-color 0.2s; }
         
-        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; line-height: 1.6; }
-        
-        /* [1단] 메인 헤더 */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
 
-        /* [1단] 메인 네비게이션 */
-        nav.main-nav { 
-            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
-        }
+        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
 
-        /* [2단] 카테고리 탭 */
         .category-tabs { display: flex; background: #fff; border-bottom: 1px solid #eee; justify-content: center; }
-        .category-tabs a { 
-            min-width: 100px; max-width: 200px; flex: 1; text-align: center; 
-            padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; transition: 0.3s; 
-        }
+        .category-tabs a { min-width: 100px; max-width: 200px; flex: 1; text-align: center; padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; transition: 0.3s; }
         .category-tabs a.active { color: var(--speed-color); border-bottom: 3px solid var(--speed-color); }
 
-        /* [3단] 게임 서브 메뉴 */
-        .game-sub-nav { 
-            display: flex; gap: 10px; padding: 15px; justify-content: center; 
-            background: #f8f9fa; overflow-x: auto; white-space: nowrap; scrollbar-width: none;
-        }
-        .game-sub-nav::-webkit-scrollbar { display: none; }
-        .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; }
-        .game-sub-nav a.active { background: var(--speed-color); color: white; border-color: var(--speed-color); }
+        .game-sub-nav { display: flex; gap: 10px; padding: 15px; justify-content: center; background: #f8f9fa; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+        .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; font-weight: 500; }
+        .game-sub-nav a.active { background: var(--speed-color); color: white; border-color: var(--speed-color); font-weight: bold; }
 
-        /* 게임 컨테이너 */
-        .container { 
-            width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 20px; 
-            background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; position: relative;
-        }
+        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 25px; background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; position: relative; }
+        .game-guide { background: #fff9f5; border-radius: 15px; padding: 15px; font-size: 0.85rem; color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--speed-color); }
 
-        /* 미션 알림 오버레이 */
+        /* 타이머 바 */
+        #timer-bar { width: 100%; height: 10px; background: #eee; border-radius: 5px; margin-bottom: 20px; overflow: hidden; }
+        #timer-progress { width: 100%; height: 100%; background: var(--speed-color); transition: width 0.1s linear; }
+
+        /* 미션 시그널 오버레이 */
         #mission-signal {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: none; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 100; color: white; border-radius: 28px; animation: fadeIn 0.3s ease;
+            z-index: 100; color: white; border-radius: 28px; background: rgba(0,0,0,0.85);
         }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .signal-text { font-size: 1.8rem; font-weight: 900; line-height: 1.4; padding: 20px; }
+        .signal-text { font-size: 2rem; font-weight: 900; line-height: 1.4; }
 
-        .game-guide { 
-            background: #fff9f5; border-radius: 15px; padding: 15px; font-size: 0.85rem; 
-            color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--speed-color); 
-        }
+        #score-panel { font-weight: bold; font-size: 1.2rem; margin-bottom: 10px; color: var(--primary-color); }
 
-        #score-panel { font-weight: bold; padding: 10px 0; font-size: 1.1rem; color: var(--primary-color); }
-
-        /* 문제 출력 영역 */
+        /* 플레이 영역 */
         .display-area {
-            min-height: 180px; background: #fcfcfc; border-radius: 20px;
+            min-height: 180px; background: #fcfcfc; border-radius: 24px;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            margin: 15px 0; border: 1px solid #f0f0f0;
+            margin: 15px 0; border: 2px solid #f0f0f0; transition: 0.3s;
         }
-        #target-name { font-size: 2.5rem; font-weight: 900; color: var(--primary-color); }
-        #target-emoji { font-size: 4.5rem; margin-top: -10px; }
+        #target-name { font-size: 2.8rem; font-weight: 900; color: var(--primary-color); }
+        #target-emoji { font-size: 5rem; margin-top: -10px; }
 
         /* 버튼 그리드 */
-        .animal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
+        .animal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 25px 0; }
         .animal-btn { 
-            background: white; border: 1px solid #eee; border-radius: 18px; 
+            background: white; border: 2px solid #f0f0f0; border-radius: 20px; 
             padding: 15px 5px; cursor: pointer; transition: 0.2s;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 0 #eee;
         }
-        .animal-btn:active { transform: scale(0.95); background: #fff4ed; border-color: var(--speed-color); }
-        .animal-btn .emoji { font-size: 2rem; display: block; margin-bottom: 4px; }
-        .animal-btn .label { font-size: 0.8rem; font-weight: bold; color: #555; }
+        .animal-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #eee; background: #fff4ed; }
+        .animal-btn .emoji { font-size: 2.2rem; display: block; margin-bottom: 5px; }
+        .animal-btn .label { font-size: 0.85rem; font-weight: bold; color: #555; }
 
         .btn-start { 
-            width: 100%; max-width: 250px; padding: 16px; background: var(--speed-color); 
-            color: white; border: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem;
-            cursor: pointer; box-shadow: 0 4px 15px rgba(211, 84, 0, 0.2);
+            width: 100%; max-width: 250px; padding: 18px; background: var(--speed-color); 
+            color: white; border: none; border-radius: 35px; font-weight: bold; font-size: 1.1rem;
+            cursor: pointer; box-shadow: 0 4px 15px rgba(211, 84, 0, 0.2); transition: 0.2s;
         }
 
-        /* 기록 섹션 */
-        .ranking-box { margin-top: 30px; padding-top: 20px; border-top: 2px dashed #eee; text-align: left; }
-        .ranking-title { font-size: 0.95rem; font-weight: bold; color: var(--primary-color); margin-bottom: 10px; }
-        .ranking-list { list-style: none; padding: 0; margin: 0; }
-        .ranking-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f9f9f9; font-size: 0.85rem; }
-        .ranking-item.best { color: var(--speed-color); font-weight: bold; }
+        .ranking-container { margin-top: 35px; border-top: 2px dashed #eee; padding-top: 25px; }
+        .rank-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .rank-table th { padding: 10px; color: #888; border-bottom: 1px solid #eee; }
+        .rank-table td { padding: 12px 5px; border-bottom: 1px solid #f9f9f9; }
 
         footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; }
-        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
     </style>
 </head>
 <body>
-    <header>
-        <h1><a href="/">SKZ 두뇌 훈련소</a></h1>
-    </header>
-
-    <nav class="main-nav">
-        <a href="/">브레인 분석실</a>
-        <a href="dash.html" style="color:var(--speed-color)">두뇌 훈련센터</a>
-        <a href="report.html">나의 두뇌점수</a>
-    </nav>
-
-    <nav class="category-tabs">
-        <a href="game.html">정밀 집중</a>
-        <a href="game2.html">전략 논리</a>
-        <a href="game3.html" class="active">쾌속 판단</a>
-    </nav>
-
-    <nav class="game-sub-nav">
-        <a href="game3.html">🚥 순발력</a>
-        <a href="game5.html">🔢 수리 판단</a>
-        <a href="game6.html" class="active">🦁 동물 인지</a>
-    </nav>
+    <header><h1><a href="/">SKZ 두뇌 훈련소</a></h1></header>
+    <nav class="main-nav"><a href="/">브레인 분석실</a><a href="dash.html" style="color:var(--speed-color)">두뇌 훈련센터</a><a href="report.html">나의 두뇌점수</a></nav>
+    <nav class="category-tabs"><a href="game.html">정밀 집중</a><a href="game2.html">전략 논리</a><a href="game3.html" class="active">쾌속 판단</a></nav>
+    <nav class="game-sub-nav"><a href="game3.html">🚥 순발력</a><a href="game5.html">🔢 수리 판단</a><a href="game6.html" class="active">🦁 동물 인지</a></nav>
 
     <main class="container">
-        <div id="mission-signal">
-            <div class="signal-text" id="signal-title">준비하세요!</div>
-        </div>
-
+        <div id="mission-signal"><div class="signal-text" id="signal-title">준비!</div></div>
+        <div id="timer-bar"><div id="timer-progress"></div></div>
+        
         <div class="game-guide">
             <strong>🧠 동물 인지 (억제 제어)</strong><br>
-            화면에 표시되는 미션([글자] 혹은 [그림])에 따라 알맞은 동물을 아래 버튼에서 선택하세요!
+            중앙의 <strong>[글자]</strong>를 보고 고를지, <strong>[그림]</strong>을 보고 고를지 미션이 수시로 바뀝니다. 인지 갈등을 이겨내세요!
         </div>
 
-        <div id="score-panel">맞춘 마릿수: 0</div>
+        <div id="score-panel">Score: 0 | Lv.1</div>
 
         <div class="display-area" id="play-zone">
-            <div id="target-name">훈련 시작을</div>
+            <div id="target-name">READY</div>
             <div id="target-emoji">👆</div>
         </div>
 
         <div class="animal-grid" id="game-ui"></div>
-
         <button id="startBtn" class="btn-start" onclick="startGame()">훈련 시작하기</button>
 
-        <div class="ranking-box" id="ranking-section">
-            <div class="ranking-title">🏆 나의 최고 기록 (Top 3)</div>
-            <ul class="ranking-list" id="ranking-list"></ul>
-            <button onclick="clearRankings()" style="margin-top:15px; background:none; border:none; color:#ccc; font-size:0.75rem; text-decoration:underline; cursor:pointer;">기록 초기화</button>
+        <div class="ranking-container">
+            <div id="best-record" style="font-size:0.95rem; color:var(--speed-color); font-weight:bold; margin-bottom:12px;">최고 기록: -</div>
+            <table class="rank-table">
+                <thead><tr><th>순위</th><th>날짜</th><th>기록</th></tr></thead>
+                <tbody id="rankingBody"></tbody>
+            </table>
+            <button onclick="clearHistory()" style="margin-top:20px; background:none; border:none; color:#ccc; font-size:0.75rem; text-decoration:underline; cursor:pointer;">기록 초기화</button>
         </div>
     </main>
 
     <footer>
-        <div style="margin-bottom: 10px;">
-            <a href="privacy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
-        </div>
         &copy; 2026 SKZ Brain Lab. All rights reserved.
     </footer>
 
@@ -176,9 +132,9 @@
             { name: "여우", emoji: "🦊" }, { name: "돼지", emoji: "🐷" }
         ];
 
-        let score = 0, isGameActive = false, currentMission = "", correctTarget = "", gameTimer = null;
+        let score = 0, level = 1, isGameActive = false, currentMission = "", correctTargetName = "", timeLeft = 100, timerInterval;
 
-        // UI 버튼 초기 생성
+        // 버튼 생성
         const ui = document.getElementById('game-ui');
         animals.forEach(ani => {
             const btn = document.createElement('button');
@@ -187,114 +143,116 @@
             btn.innerHTML = `<span class="emoji">${ani.emoji}</span><span class="label">${ani.name}</span>`;
             ui.appendChild(btn);
         });
-        updateRankingUI();
 
         function startGame() {
-            score = 0;
-            isGameActive = true;
+            score = 0; level = 1; timeLeft = 100; isGameActive = true;
             document.getElementById('startBtn').style.display = 'none';
-            document.getElementById('score-panel').innerText = "맞춘 마릿수: 0";
-            showMission();
-            gameTimer = setTimeout(endGame, 40000); // 40초간 진행
+            document.getElementById('score-panel').innerText = "Score: 0 | Lv.1";
+            showMission(true);
+            startTimer();
         }
 
-        function showMission() {
+        function showMission(isFirst = false) {
             if(!isGameActive) return;
             currentMission = Math.random() > 0.5 ? "글자" : "그림";
             const signal = document.getElementById('mission-signal');
             const title = document.getElementById('signal-title');
             
-            if(currentMission === "글자") {
-                title.innerHTML = "미션 변경!<br><span style='font-size:2.5rem; color:#ffd700;'>[글자]</span><br>보고 고르기";
-                signal.style.backgroundColor = "rgba(26, 58, 95, 0.9)"; // Primary Blue
-            } else {
-                title.innerHTML = "미션 변경!<br><span style='font-size:2.5rem; color:#ffd700;'>[그림]</span><br>보고 고르기";
-                signal.style.backgroundColor = "rgba(211, 84, 0, 0.9)"; // Speed Orange
-            }
+            const color = currentMission === "글자" ? "rgba(26, 58, 95, 0.95)" : "rgba(211, 84, 0, 0.95)";
+            title.innerHTML = `이번 미션<br><span style='font-size:3rem; color:#ffd700;'>[${currentMission}]</span>`;
+            signal.style.backgroundColor = color;
             
             signal.style.display = 'flex';
             setTimeout(() => {
-                if(!isGameActive) return;
                 signal.style.display = 'none';
                 nextQuestion();
-            }, 1200);
+            }, isFirst ? 1500 : 1000);
         }
 
         function nextQuestion() {
+            if(!isGameActive) return;
+            level = Math.floor(score / 8) + 1;
+            document.getElementById('score-panel').innerText = `Score: ${score} | Lv.${level}`;
+
             let textIdx = Math.floor(Math.random() * animals.length);
             let emojiIdx;
-            // 인지 갈등을 유발하기 위해 글자와 이모지를 다르게 설정
+            // 갈등 유발: 항상 글자와 그림이 다르게
             do { emojiIdx = Math.floor(Math.random() * animals.length); } while (textIdx === emojiIdx);
             
             document.getElementById('target-name').innerText = animals[textIdx].name;
             document.getElementById('target-emoji').innerText = animals[emojiIdx].emoji;
-            correctTarget = currentMission === "글자" ? animals[textIdx].name : animals[emojiIdx].emoji;
+            
+            // 미션에 따른 정답 '동물 이름' 저장
+            correctTargetName = currentMission === "글자" ? animals[textIdx].name : animals[emojiIdx].name;
         }
 
         function checkAnswer(userChoice) {
             if(!isGameActive) return;
-            const userVal = currentMission === "글자" ? userChoice.name : userChoice.emoji;
             
-            if(userVal === correctTarget) {
+            if(userChoice.name === correctTargetName) {
                 score++;
-                document.getElementById('score-panel').innerText = `맞춘 마릿수: ${score}`;
-                // 4문제마다 미션 교체로 긴장감 유지
-                if(score % 4 === 0) showMission();
+                timeLeft = Math.min(timeLeft + 8, 100);
+                if(score % 5 === 0) showMission(); // 5점마다 미션 교체
                 else nextQuestion();
             } else {
-                document.body.style.backgroundColor = "#ffebeb";
-                setTimeout(() => document.body.style.backgroundColor = "#f4f7f9", 100);
+                timeLeft -= 15; // 오답 페널티
+                document.body.style.backgroundColor = "#fee2e2";
+                setTimeout(() => document.body.style.backgroundColor = "#f4f7f9", 150);
             }
+        }
+
+        function startTimer() {
+            if(timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                let speed = 0.4 + (level * 0.15); // 레벨업 시 타이머 가속
+                timeLeft -= speed;
+                document.getElementById('timer-progress').style.width = timeLeft + "%";
+                if(timeLeft <= 0) endGame();
+            }, 100);
         }
 
         function endGame() {
             isGameActive = false;
-            if(gameTimer) clearTimeout(gameTimer);
+            clearInterval(timerInterval);
 
-            const finalScore = Math.min(100, score * 4); // 점수 환산 로직
-            localStorage.setItem('game6_score', finalScore);
-            let history = JSON.parse(localStorage.getItem('game6_history')) || [];
-            history.push(finalScore);
-            localStorage.setItem('game6_history', JSON.stringify(history.slice(-10)));
+            // 점수 환산 (억제 제어 점수)
+            let reportScore = Math.min(100, score * 3.5);
+            localStorage.setItem('game6_score', Math.round(reportScore));
             
-            saveRanking(score);
-            
-            if(confirm(`훈련 종료!\n성적: ${score}마리 인지 완료\n\n브레인 리포트에서 결과를 확인하시겠습니까?`)) {
+            // 히스토리 저장
+            const dateStr = `${new Date().getMonth()+1}/${new Date().getDate()}`;
+            let history = JSON.parse(localStorage.getItem('animalHistory')) || [];
+            history.unshift({ date: dateStr, score: score, lv: level });
+            localStorage.setItem('animalHistory', JSON.stringify(history.slice(0, 5)));
+
+            if(confirm(`훈련 종료!\n성적: ${score}마리 인지 (Lv.${level})\n\n분석 리포트를 확인하시겠습니까?`)) {
                 location.href = 'report.html';
             } else {
                 location.reload();
             }
         }
 
-        function saveRanking(newScore) {
-            let rankings = JSON.parse(localStorage.getItem('game6_rankings')) || [];
-            const dateStr = `${new Date().getMonth()+1}/${new Date().getDate()}`;
-            rankings.push({ score: newScore, date: dateStr });
-            rankings.sort((a, b) => b.score - a.score);
-            localStorage.setItem('game6_rankings', JSON.stringify(rankings.slice(0, 3)));
-        }
-
-        function updateRankingUI() {
-            const rankings = JSON.parse(localStorage.getItem('game6_rankings')) || [];
-            const listContainer = document.getElementById('ranking-list');
-            if (rankings.length === 0) {
-                listContainer.innerHTML = "<li style='color:#ccc; font-size:0.8rem;'>아직 기록이 없습니다.</li>";
-                return;
+        function displayHistory() {
+            const body = document.getElementById('rankingBody');
+            const history = JSON.parse(localStorage.getItem('animalHistory')) || [];
+            if(history.length > 0) {
+                const best = Math.max(...history.map(h => h.score));
+                document.getElementById('best-record').innerText = `⭐ 나의 최고 기록: ${best}마리`;
+                body.innerHTML = history.map((h, i) => `<tr><td>${i+1}</td><td>${h.date}</td><td>Lv.${h.lv} / ${h.score}마리</td></tr>`).join('');
+            } else {
+                body.innerHTML = '<tr><td colspan="3">기록이 없습니다.</td></tr>';
             }
-            listContainer.innerHTML = rankings.map((r, i) => `
-                <li class="ranking-item ${i === 0 ? 'best' : ''}">
-                    <span>${i + 1}위: ${r.score}마리</span>
-                    <span>${r.date}</span>
-                </li>`).join('');
         }
 
-        function clearRankings() {
+        function clearHistory() {
             if(confirm("기록을 모두 초기화할까요?")) {
-                localStorage.removeItem('game6_rankings');
-                localStorage.removeItem('game6_history');
+                localStorage.removeItem('animalHistory');
+                localStorage.removeItem('game6_score');
                 location.reload();
             }
         }
+
+        window.onload = displayHistory;
     </script>
 </body>
 </html>
