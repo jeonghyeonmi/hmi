@@ -3,11 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>쾌속 판단 훈련: 수리 판단 | SKZ Brain Lab</title>
-
+    
+    <title>수리 판단 훈련 - 빠른 연산력과 판단력 | SKZ 두뇌 훈련소</title>
+    <meta name="description" content="제한 시간 내에 수식의 참/거짓을 순식간에 판단하세요. 당신의 수리 지능과 쾌속 판단력을 극대화하는 훈련입니다.">
+    <meta name="keywords" content="수리판단, 연산게임, 두뇌훈련, 판단력향상, 사칙연산게임, 치매예방, 브레인게임">
+    <meta property="og:title" content="SKZ 수리 판단 - 0.1초의 승부!">
+    <meta property="og:description" content="빠르게 계산하고 정확하게 판단하여 최고의 두뇌 점수에 도전하세요.">
+    
     <link rel="canonical" href="https://www.skztools.com/game5.html">
-    <meta name="description" content="수식이 맞는지 틀린지 순식간에 판단하세요! 제한 시간 동안 최대한 많은 혼합 계산을 해결하여 당신의 수리 지능을 테스트합니다.">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168" crossorigin="anonymous"></script>
+
     <style>
+        /* --- [1] 공통 레이아웃 (디자인 무결성 유지) --- */
         :root { 
             --primary-color: #1a3a5f; 
             --bg-color: #f4f7f9; 
@@ -22,24 +29,26 @@
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
 
-        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+        nav.main-nav { background: white; display: flex; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        nav.main-nav a { text-decoration: none; color: #666; font-weight: bold; font-size: 0.9rem; padding: 1rem; }
+        nav.main-nav a.active { color: var(--primary-color) !important; border-bottom: 2px solid var(--primary-color); }
 
         .category-tabs { display: flex; background: #fff; border-bottom: 1px solid #eee; justify-content: center; }
-        .category-tabs a { min-width: 100px; max-width: 200px; flex: 1; text-align: center; padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; transition: 0.3s; }
-        .category-tabs a.active { color: var(--speed-color); border-bottom: 3px solid var(--speed-color); }
+        .category-tabs a { flex: 1; text-align: center; padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; max-width: 200px; }
+        .category-tabs a.active { color: var(--speed-color) !important; border-bottom: 3px solid var(--speed-color); }
 
-        .game-sub-nav { display: flex; gap: 10px; padding: 15px; justify-content: center; background: #f8f9fa; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
-        .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; font-weight: 500; }
-        .game-sub-nav a.active { background: var(--speed-color); color: white; border-color: var(--speed-color); font-weight: bold; }
+        .game-sub-nav { display: flex; gap: 10px; padding: 15px; justify-content: center; background: #f8f9fa; overflow-x: auto; white-space: nowrap; border-bottom: 1px solid #eee; }
+        .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; }
+        .game-sub-nav a.active { background: #333 !important; color: white !important; }
 
+        /* --- [2] 게임 전용 디자인 --- */
         .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 25px; background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
         .game-guide { background: #fff9f5; border-radius: 15px; padding: 15px; font-size: 0.85rem; color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--speed-color); }
 
         #timer-bar { width: 100%; height: 10px; background: #eee; border-radius: 5px; margin-bottom: 20px; overflow: hidden; }
         #timer-progress { width: 100%; height: 100%; background: var(--speed-color); transition: width 0.1s linear; }
 
-        .question-box { font-size: 2.3rem; font-weight: 800; margin: 20px 0; color: var(--primary-color); min-height: 140px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fcfcfc; border-radius: 20px; border: 1px solid #f0f0f0; transition: 0.2s; }
+        .question-box { font-size: 2.3rem; font-weight: 800; margin: 20px 0; color: var(--primary-color); min-height: 140px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fcfcfc; border-radius: 20px; border: 1px solid #f0f0f0; transition: 0.2s; position: relative; }
         
         .feedback-text { font-size: 1.1rem; font-weight: bold; margin-top: 10px; height: 1.5rem; }
         .is-correct { color: var(--success); }
@@ -52,35 +61,44 @@
         .choice-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 transparent; }
 
         .score-display { font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; color: var(--primary-color); }
-
-        .btn-start { width: 100%; max-width: 250px; padding: 18px; background: var(--speed-color); color: white; border: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem; cursor: pointer; box-shadow: 0 4px 15px rgba(211, 84, 0, 0.2); transition: 0.2s; }
-
-        .brain-hub { margin-top: 30px; padding: 20px; background: #f1f5f9; border-radius: 24px; text-align: left; }
-        .hub-title { font-size: 0.9rem; font-weight: 800; margin-bottom: 15px; color: var(--primary-color); }
-        .hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .hub-item { background: white; padding: 12px 5px; border-radius: 15px; text-align: center; text-decoration: none; border: 1px solid #e2e8f0; }
-        .hub-item span { display: block; font-size: 1.1rem; margin-bottom: 4px; }
-        .hub-item label { font-size: 0.65rem; font-weight: bold; color: #666; cursor: pointer; }
+        .btn-start { width: 100%; max-width: 250px; padding: 18px; background: var(--speed-color); color: white; border: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.2s; }
 
         .ranking-container { margin-top: 30px; border-top: 2px dashed #eee; padding-top: 25px; }
         .rank-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 10px; }
         .rank-table th { padding: 10px; color: #888; border-bottom: 1px solid #eee; }
         .rank-table td { padding: 12px 5px; border-bottom: 1px solid #f9f9f9; }
 
-        footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; }
+        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; margin-top: 40px; }
+        footer a { color: #bbb; text-decoration: none; margin: 0 10px; }
     </style>
 </head>
 <body>
+
     <header><h1><a href="/">SKZ 두뇌 훈련소</a></h1></header>
-    <nav class="main-nav"><a href="/">브레인 분석실</a><a href="dash.html" style="color:var(--speed-color)">두뇌 훈련센터</a><a href="report.html">나의 두뇌점수</a></nav>
-    <nav class="category-tabs"><a href="game.html">정밀 집중</a><a href="game2.html">전략 논리</a><a href="game3.html" class="active">쾌속 판단</a></nav>
-    <nav class="game-sub-nav"><a href="game3.html">🚥 순발력</a><a href="game5.html" class="active">🔢 수리 판단</a><a href="game6.html">🦁 동물 인지</a></nav>
+
+    <nav class="main-nav">
+        <a href="/">브레인 분석실</a>
+        <a href="dash.html" class="active">두뇌 훈련센터</a>
+        <a href="report.html">나의 두뇌점수</a>
+    </nav>
+
+    <nav class="category-tabs">
+        <a href="game.html">정밀 집중</a>
+        <a href="game2.html">전략 논리</a>
+        <a href="game3.html" class="active">쾌속 판단</a>
+    </nav>
+
+    <nav class="game-sub-nav">
+        <a href="game3.html">🚥 순발력</a>
+        <a href="game5.html" class="active">🔢 수리 판단</a>
+        <a href="game6.html">🦁 인지 판단</a>
+    </nav>
 
     <main class="container">
         <div id="timer-bar"><div id="timer-progress"></div></div>
         <div class="game-guide">
             <strong>🔢 쾌속 판단: 수리 연산</strong><br>
-            제한 시간 내에 수식의 참/거짓을 판단하세요! 틀려도 게임은 계속되지만, 시간이 크게 줄어듭니다.
+            수식이 맞으면 O, 틀리면 X를 누르세요. 정답이면 시간이 충전되지만, 오답이면 시간이 크게 단축됩니다!
         </div>
         
         <div class="score-display" id="current-score">Score: 0 | Lv.1</div>
@@ -96,17 +114,8 @@
         
         <button id="startBtn" class="btn-start" onclick="startGame()">훈련 시작</button>
 
-        <section class="brain-hub">
-            <div class="hub-title">다른 두뇌 영역 강화하기</div>
-            <div class="hub-grid">
-                <a href="game.html" class="hub-item"><span>🎯</span><label>집중력</label></a>
-                <a href="game2.html" class="hub-item"><span>🧩</span><label>논리력</label></a>
-                <a href="dash.html" class="hub-item"><span>🏠</span><label>훈련센터</label></a>
-            </div>
-        </section>
-        
         <div class="ranking-container">
-            <div id="best-record" style="font-size:0.95rem; color:var(--speed-color); font-weight:bold; margin-bottom:12px;">최고 점수: -</div>
+            <div id="best-record" style="font-size:0.95rem; color:var(--speed-color); font-weight:bold; margin-bottom:12px;">최고 기록: -</div>
             <table class="rank-table">
                 <thead><tr><th>회차</th><th>날짜</th><th>기록</th></tr></thead>
                 <tbody id="rankingBody"></tbody>
@@ -124,9 +133,7 @@
 
     <script>
         let score = 0, timeLeft = 100, timerInterval, currentQuestion = null, isGameActive = false;
-        let level = 1;
-        let actualResult = 0;
-        let isProcessing = false;
+        let level = 1, actualResult = 0, isProcessing = false;
 
         function startGame() {
             score = 0; level = 1; timeLeft = 100; isGameActive = true; isProcessing = false;
@@ -144,7 +151,7 @@
 
         function nextQuestion() {
             isProcessing = false;
-            level = Math.floor(score / 10) + 1;
+            level = Math.floor(score / 8) + 1; // 레벨업 기준 조정
             updateScoreDisplay();
             document.getElementById('feedback').innerText = "";
             document.getElementById('question-area').style.borderColor = "#f0f0f0";
@@ -155,7 +162,6 @@
             let isTrue = Math.random() > 0.5;
             let displayVal = isTrue ? actualResult : actualResult + (Math.random() > 0.5 ? rand(1, 5) : rand(-5, -1));
             
-            // 거짓 문제인데 우연히 정답과 같아지는 것 방지
             if(!isTrue && displayVal === actualResult) displayVal += 2;
 
             document.getElementById('question').innerText = `${q.text} = ${displayVal}`;
@@ -165,30 +171,25 @@
             qElem.style.fontSize = q.text.length > 12 ? "1.8rem" : "2.3rem";
         }
 
-        // 사칙연산 혼합 생성 로직 (최대 3항)
         function generateCalculation(lv) {
             let a, b, c, op1, op2, text, ans;
             const ops = ['+', '-', '*', '/'];
 
-            if (lv <= 2) { // 2항 단순 연산
+            if (lv <= 2) {
                 op1 = ops[rand(0, 1)];
                 a = rand(5, 30); b = rand(5, 30);
                 if(op1 === '-') { a = Math.max(a, b); b = Math.min(a, b); }
                 text = `${a} ${op1} ${b}`;
                 ans = eval(text);
-            } 
-            else if (lv <= 4) { // 2항 곱셈/나눗셈 포함
+            } else if (lv <= 5) {
                 op1 = ops[rand(0, 3)];
                 if(op1 === '/') { ans = rand(2, 10); b = rand(2, 9); a = ans * b; }
                 else if(op1 === '*') { a = rand(2, 9); b = rand(2, 15); ans = a * b; }
                 else { a = rand(10, 50); b = rand(10, 50); ans = eval(`${a}${op1}${b}`); }
                 text = `${a} ${op1.replace('*','×').replace('/','÷')} ${b}`;
-            }
-            else { // 3항 혼합 계산
+            } else {
                 op1 = ops[rand(0, 3)];
-                op2 = ops[rand(0, 2)]; // 나누기는 하나만
-                
-                // 나눗셈이 포함된 경우 결과가 정수가 되도록 보정
+                op2 = ops[rand(0, 2)];
                 if(op1 === '/') {
                     let tempAns = rand(2, 10); b = rand(2, 9); a = tempAns * b;
                     c = rand(1, 20);
@@ -200,7 +201,7 @@
                     text = `${a} ${op1} ${b_temp} ÷ ${c}`;
                     ans = eval(`${a}${op1}${tempAns}`);
                 } else {
-                    a = rand(2, 15); b = rand(2, 10); c = rand(2, 10);
+                    a = rand(2, 12); b = rand(2, 8); c = rand(2, 10);
                     text = `${a} ${op1.replace('*','×')} ${b} ${op2.replace('*','×')} ${c}`;
                     ans = eval(text.replace(/×/g, '*'));
                 }
@@ -219,30 +220,28 @@
 
             if (userAns === currentQuestion.ans) {
                 score++;
-                timeLeft = Math.min(timeLeft + 5, 100);
-                feedback.innerText = "정답!";
+                timeLeft = Math.min(timeLeft + 6, 100); // 정답 시 시간 보너스
+                feedback.innerText = "정답! +Time";
                 feedback.className = "feedback-text is-correct";
                 area.style.borderColor = "var(--success)";
-                setTimeout(nextQuestion, 400);
+                setTimeout(nextQuestion, 300);
             } else {
-                timeLeft -= 15; // 오답 패널티
+                timeLeft -= 18; // 오답 패널티 강화
                 feedback.innerText = `오답! (정답: ${actualResult})`;
                 feedback.className = "feedback-text is-wrong";
                 area.style.borderColor = "var(--error)";
-                
-                // 오답 시 붉은 화면 깜빡임
                 document.body.style.backgroundColor = "#fee2e2";
                 setTimeout(() => {
-                    document.body.style.backgroundColor = "#f4f7f9";
+                    document.body.style.backgroundColor = "var(--bg-color)";
                     nextQuestion();
-                }, 1000);
+                }, 800);
             }
         }
 
         function startTimer() {
             if (timerInterval) clearInterval(timerInterval);
             timerInterval = setInterval(() => {
-                let speed = 0.4 + (level * 0.1); 
+                let speed = 0.5 + (level * 0.12); 
                 timeLeft -= speed;
                 document.getElementById('timer-progress').style.width = Math.max(0, timeLeft) + "%";
                 if (timeLeft <= 0) endGame("⏰ 시간 종료! 분석 리포트를 확인하시겠습니까?");
@@ -254,11 +253,11 @@
             isGameActive = false;
             clearInterval(timerInterval);
 
-            let reportScore = Math.min(100, Math.round(score * 2.5 + level * 3));
+            // 판단력 점수 환산 공식 (정확도와 속도 반영)
+            let reportScore = Math.min(100, Math.round(score * 3.5 + level * 2));
+            localStorage.setItem('speedScore', reportScore); // 리포트 연동 키
 
-            localStorage.setItem('game5_score', reportScore);
-            const now = new Date();
-            const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
+            const dateStr = `${new Date().getMonth()+1}/${new Date().getDate()}`;
             let history = JSON.parse(localStorage.getItem('mathHistory')) || [];
             history.unshift({ date: dateStr, score: score, lv: level });
             localStorage.setItem('mathHistory', JSON.stringify(history.slice(0, 10)));
