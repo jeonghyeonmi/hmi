@@ -210,25 +210,57 @@
             let isTrue = Math.random() > 0.5;
 
             if (level === 1) {
+                // 레벨 1: 간단한 덧셈
                 let a = rand(1, 15), b = rand(1, 15);
                 questionText = `${a} + ${b}`;
                 finalAns = a + b;
             } else if (level === 2) {
+                // 레벨 2: 덧셈 또는 뺄셈 (결과가 양수인 경우만)
                 let a = rand(10, 30), b = rand(5, 20);
-                if (Math.random() > 0.5) { questionText = `${a} + ${b}`; finalAns = a + b; }
-                else { questionText = `${a} - ${b}`; finalAns = a - b; }
+                if (Math.random() > 0.5) { 
+                    questionText = `${a} + ${b}`; 
+                    finalAns = a + b; 
+                } else { 
+                    // 뺄셈 시 큰 수에서 작은 수를 빼도록 설정
+                    let n1 = Math.max(a, b);
+                    let n2 = Math.min(a, b);
+                    questionText = `${n1} - ${n2}`; 
+                    finalAns = n1 - n2; 
+                }
             } else if (level === 3) {
+                // 레벨 3: 구구단
                 let a = rand(2, 9), b = rand(2, 9);
                 questionText = `${a} × ${b}`;
                 finalAns = a * b;
             } else {
-                let a = rand(10, 30), b = rand(5, 20), c = rand(1, 15);
-                questionText = Math.random() > 0.5 ? `${a} + ${b} - ${c}` : `${a} - ${b} + ${c}`;
-                finalAns = eval(questionText);
+                // 레벨 4+: 혼합 계산 (결과가 양수인 경우만)
+                let a = rand(15, 40), b = rand(5, 15), c = rand(1, 10);
+                
+                if (Math.random() > 0.5) {
+                    // (a + b) - c 형태 (항상 양수 보장 위해 a+b > c 설정)
+                    questionText = `${a} + ${b} - ${c}`;
+                    finalAns = a + b - c;
+                } else {
+                    // (a - b) + c 형태 (a > b 보장)
+                    let n1 = Math.max(a, b);
+                    let n2 = Math.min(a, b);
+                    questionText = `${n1} - ${n2} + ${c}`;
+                    finalAns = n1 - n2 + c;
+                }
             }
 
-            let displayResult = isTrue ? finalAns : (finalAns + (Math.random() > 0.5 ? rand(1, 3) : rand(-3, -1)));
-            if (!isTrue && displayResult === finalAns) displayResult++; 
+            // 오답 생성 시에도 결과가 마이너스가 되지 않도록 방어 로직 추가
+            let displayResult;
+            if (isTrue) {
+                displayResult = finalAns;
+            } else {
+                let diff = (Math.random() > 0.5 ? rand(1, 3) : rand(-3, -1));
+                displayResult = finalAns + diff;
+                // 오답이 0보다 작아지면 강제로 양수로 변환
+                if (displayResult < 0) displayResult = finalAns + rand(1, 4);
+                // 혹시나 우연히 정답과 같아지는 경우 방지
+                if (displayResult === finalAns) displayResult++; 
+            }
 
             document.getElementById('question').innerText = `${questionText} = ${displayResult}`;
             currentQuestion = { ans: isTrue };
