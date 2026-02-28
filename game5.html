@@ -8,99 +8,51 @@
     <link rel="canonical" href="https://www.skztools.com/game5.html">
     <meta name="description" content="수식이 맞는지 틀린지 순식간에 판단하세요! 레벨이 올라갈수록 빨라지는 타이머 속에서 당신의 수리 지능을 테스트합니다.">
     <meta name="google-adsense-account" content="ca-pub-3698246671823168">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168" crossorigin="anonymous"></script>
     <style>
         :root { 
             --primary-color: #1a3a5f; 
             --bg-color: #f4f7f9; 
-            --focus-color: #047857; 
-            --logic-color: #b91c1c; 
-            --speed-color: #d35400; /* 판단력 카테고리: Orange */
-            --accent-color: var(--speed-color);
-            --success: #2ecc71;
-            --error: #e74c3c;
+            --speed-color: #d35400; 
+            --success: #10b981;
+            --error: #ef4444;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; line-height: 1.6; transition: background-color 0.2s; }
         
-        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; line-height: 1.6; }
-        
-        /* [1단] 메인 헤더 */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
 
-        /* [1단] 메인 네비게이션 */
-        nav.main-nav { 
-            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
-        }
+        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
 
-        /* [2단] 카테고리 탭 */
-        .category-tabs { 
-            display: flex; background: #fff; border-bottom: 1px solid #eee; justify-content: center; 
-        }
-        .category-tabs a { 
-            min-width: 100px; max-width: 200px; flex: 1; text-align: center; 
-            padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; transition: 0.3s; 
-        }
+        .category-tabs { display: flex; background: #fff; border-bottom: 1px solid #eee; justify-content: center; }
+        .category-tabs a { min-width: 100px; max-width: 200px; flex: 1; text-align: center; padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; transition: 0.3s; }
         .category-tabs a.active { color: var(--speed-color); border-bottom: 3px solid var(--speed-color); }
 
-        /* [3단] 게임 서브 메뉴 */
-        .game-sub-nav { 
-            display: flex; gap: 10px; padding: 15px; justify-content: center; 
-            background: #f8f9fa; overflow-x: auto; white-space: nowrap; scrollbar-width: none;
-        }
-        .game-sub-nav::-webkit-scrollbar { display: none; }
-        .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; }
-        .game-sub-nav a.active { background: var(--speed-color); color: white; border-color: var(--speed-color); }
+        .game-sub-nav { display: flex; gap: 10px; padding: 15px; justify-content: center; background: #f8f9fa; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+        .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; font-weight: 500; }
+        .game-sub-nav a.active { background: var(--speed-color); color: white; border-color: var(--speed-color); font-weight: bold; }
 
-        @media (max-width: 600px) {
-            .category-tabs a { min-width: auto; font-size: 0.85rem; }
-            .game-sub-nav { justify-content: flex-start; }
-        }
+        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 25px; background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
+        .game-guide { background: #fff9f5; border-radius: 15px; padding: 15px; font-size: 0.85rem; color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--speed-color); }
 
-        /* 게임 본문 컨테이너 */
-        .container { 
-            width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 20px; 
-            background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; 
-        }
-
-        .game-guide { 
-            background: #fff9f5; border-radius: 15px; padding: 15px; font-size: 0.85rem; 
-            color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--speed-color); 
-        }
-
-        /* 타이머 바 */
-        #timer-bar { width: 100%; height: 8px; background: #eee; border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
+        #timer-bar { width: 100%; height: 10px; background: #eee; border-radius: 5px; margin-bottom: 20px; overflow: hidden; }
         #timer-progress { width: 100%; height: 100%; background: var(--speed-color); transition: width 0.1s linear; }
 
-        .question-box { 
-            font-size: 2.8rem; font-weight: 800; margin: 25px 0; color: var(--primary-color); 
-            min-height: 120px; display: flex; align-items: center; justify-content: center; 
-            background: #fcfcfc; border-radius: 15px; border: 1px solid #f0f0f0;
-        }
+        .question-box { font-size: 2.8rem; font-weight: 800; margin: 20px 0; color: var(--primary-color); min-height: 110px; display: flex; align-items: center; justify-content: center; background: #fcfcfc; border-radius: 20px; border: 1px solid #f0f0f0; }
         
         .btn-group { display: flex; gap: 20px; justify-content: center; margin-bottom: 20px; }
-        .choice-btn { 
-            width: 90px; height: 90px; border: none; border-radius: 24px; 
-            font-size: 2.2rem; font-weight: bold; cursor: pointer; color: white; 
-            transition: transform 0.1s, box-shadow 0.2s; 
-        }
-        .btn-o { background: var(--success); box-shadow: 0 6px 0 #27ae60; }
-        .btn-x { background: var(--error); box-shadow: 0 6px 0 #c0392b; }
+        .choice-btn { width: 95px; height: 95px; border: none; border-radius: 28px; font-size: 2.5rem; font-weight: bold; cursor: pointer; color: white; transition: transform 0.1s, box-shadow 0.2s; }
+        .btn-o { background: var(--success); box-shadow: 0 6px 0 #059669; }
+        .btn-x { background: var(--error); box-shadow: 0 6px 0 #dc2626; }
         .choice-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 transparent; }
 
-        .score-display { font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; color: var(--primary-color); padding: 5px; }
+        .score-display { font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; color: var(--primary-color); }
 
-        .btn-start { 
-            width: 100%; max-width: 250px; padding: 16px; background: var(--speed-color); 
-            color: white; border: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem;
-            cursor: pointer; box-shadow: 0 4px 15px rgba(211, 84, 0, 0.2); transition: 0.2s;
-        }
+        .btn-start { width: 100%; max-width: 250px; padding: 18px; background: var(--speed-color); color: white; border: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem; cursor: pointer; box-shadow: 0 4px 15px rgba(211, 84, 0, 0.2); transition: 0.2s; }
 
-        /* [하단] 전체 연결 허브 */
         .brain-hub { margin-top: 30px; padding: 20px; background: #f1f5f9; border-radius: 24px; text-align: left; }
         .hub-title { font-size: 0.9rem; font-weight: 800; margin-bottom: 15px; color: var(--primary-color); }
         .hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
@@ -114,38 +66,19 @@
         .rank-table td { padding: 12px 5px; border-bottom: 1px solid #f9f9f9; }
 
         footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; }
-        footer a { color: #aaa; text-decoration: none; margin: 0 8px; }
     </style>
 </head>
 <body>
-    <header>
-        <h1><a href="/">SKZ 두뇌 훈련소</a></h1>
-    </header>
-
-    <nav class="main-nav">
-        <a href="/">브레인 분석실</a>
-        <a href="dash.html" style="color:var(--speed-color)">두뇌 훈련센터</a>
-        <a href="report.html">나의 두뇌점수</a>
-    </nav>
-
-    <nav class="category-tabs">
-        <a href="game.html">정밀 집중</a>
-        <a href="game2.html">전략 논리</a>
-        <a href="game3.html" class="active">쾌속 판단</a>
-    </nav>
-
-    <nav class="game-sub-nav">
-        <a href="game3.html">🚥 순발력</a>
-        <a href="game5.html" class="active">🔢 수리 판단</a>
-        <a href="game6.html">🦁 동물 인지</a>
-    </nav>
+    <header><h1><a href="/">SKZ 두뇌 훈련소</a></h1></header>
+    <nav class="main-nav"><a href="/">브레인 분석실</a><a href="dash.html" style="color:var(--speed-color)">두뇌 훈련센터</a><a href="report.html">나의 두뇌점수</a></nav>
+    <nav class="category-tabs"><a href="game.html">정밀 집중</a><a href="game2.html">전략 논리</a><a href="game3.html" class="active">쾌속 판단</a></nav>
+    <nav class="game-sub-nav"><a href="game3.html">🚥 순발력</a><a href="game5.html" class="active">🔢 수리 판단</a><a href="game6.html">🦁 동물 인지</a></nav>
 
     <main class="container">
         <div id="timer-bar"><div id="timer-progress"></div></div>
-        
         <div class="game-guide">
-            <strong>🧠 쾌속 판단 (수리 지능)</strong><br>
-            수식이 맞으면 O, 틀리면 X를 누르세요. 콤보가 쌓일수록 난이도와 속도가 상승합니다!
+            <strong>🔢 쾌속 판단: 수리 연산</strong><br>
+            수식이 맞으면 O, 틀리면 X! 틀리면 즉시 종료되며 정답이 공개됩니다. 신중하고 빠르게 판단하세요.
         </div>
         
         <div class="score-display" id="current-score">Score: 0 | Lv.1</div>
@@ -187,6 +120,7 @@
     <script>
         let score = 0, timeLeft = 100, timerInterval, currentQuestion = null, isGameActive = false;
         let level = 1;
+        let actualResult = 0; // 실제 연산 결과 저장
 
         function startGame() {
             score = 0; level = 1; timeLeft = 100; isGameActive = true;
@@ -202,109 +136,104 @@
         }
 
         function nextQuestion() {
-            level = Math.floor(score / 10) + 1;
+            level = Math.floor(score / 12) + 1;
             updateScoreDisplay();
 
             let questionText = "";
             let finalAns = 0;
             let isTrue = Math.random() > 0.5;
 
+            // 난이도별 양수 연산 로직
             if (level === 1) {
-                // 레벨 1: 간단한 덧셈
                 let a = rand(1, 15), b = rand(1, 15);
-                questionText = `${a} + ${b}`;
-                finalAns = a + b;
+                questionText = `${a} + ${b}`; finalAns = a + b;
             } else if (level === 2) {
-                // 레벨 2: 덧셈 또는 뺄셈 (결과가 양수인 경우만)
-                let a = rand(10, 30), b = rand(5, 20);
-                if (Math.random() > 0.5) { 
-                    questionText = `${a} + ${b}`; 
-                    finalAns = a + b; 
-                } else { 
-                    // 뺄셈 시 큰 수에서 작은 수를 빼도록 설정
-                    let n1 = Math.max(a, b);
-                    let n2 = Math.min(a, b);
-                    questionText = `${n1} - ${n2}`; 
-                    finalAns = n1 - n2; 
-                }
+                let a = rand(10, 30), b = rand(1, 10);
+                questionText = `${a} - ${b}`; finalAns = a - b;
             } else if (level === 3) {
-                // 레벨 3: 구구단
                 let a = rand(2, 9), b = rand(2, 9);
-                questionText = `${a} × ${b}`;
-                finalAns = a * b;
+                questionText = `${a} × ${b}`; finalAns = a * b;
+            } else if (level < 7) {
+                let a = rand(20, 50), b = rand(5, 15), c = rand(1, 10);
+                if (Math.random() > 0.5) { questionText = `${a} + ${b} - ${c}`; finalAns = a + b - c; }
+                else { questionText = `${a} - ${b} + ${c}`; finalAns = a - b + c; }
             } else {
-                // 레벨 4+: 혼합 계산 (결과가 양수인 경우만)
-                let a = rand(15, 40), b = rand(5, 15), c = rand(1, 10);
-                
-                if (Math.random() > 0.5) {
-                    // (a + b) - c 형태 (항상 양수 보장 위해 a+b > c 설정)
-                    questionText = `${a} + ${b} - ${c}`;
-                    finalAns = a + b - c;
-                } else {
-                    // (a - b) + c 형태 (a > b 보장)
-                    let n1 = Math.max(a, b);
-                    let n2 = Math.min(a, b);
-                    questionText = `${n1} - ${n2} + ${c}`;
-                    finalAns = n1 - n2 + c;
-                }
+                let a = rand(2, 9), b = rand(2, 9), c = rand(1, 20);
+                if (Math.random() > 0.5) { questionText = `${a} × ${b} + ${c}`; finalAns = (a * b) + c; }
+                else { let prod = a * b; let sub = rand(1, prod); questionText = `${a} × ${b} - ${sub}`; finalAns = prod - sub; }
             }
 
-            // 오답 생성 시에도 결과가 마이너스가 되지 않도록 방어 로직 추가
+            actualResult = finalAns;
+
             let displayResult;
             if (isTrue) {
                 displayResult = finalAns;
             } else {
                 let diff = (Math.random() > 0.5 ? rand(1, 3) : rand(-3, -1));
                 displayResult = finalAns + diff;
-                // 오답이 0보다 작아지면 강제로 양수로 변환
                 if (displayResult < 0) displayResult = finalAns + rand(1, 4);
-                // 혹시나 우연히 정답과 같아지는 경우 방지
-                if (displayResult === finalAns) displayResult++; 
+                if (displayResult === finalAns) displayResult += 2; 
             }
 
             document.getElementById('question').innerText = `${questionText} = ${displayResult}`;
-            currentQuestion = { ans: isTrue };
+            currentQuestion = { ans: isTrue, text: questionText, displayed: displayResult };
             
             const qElem = document.getElementById('question');
-            qElem.style.fontSize = questionText.length > 10 ? "2.0rem" : "2.8rem";
+            qElem.style.fontSize = questionText.length > 10 ? "2.1rem" : "2.8rem";
         }
 
         function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
 
         function checkAnswer(userAns) {
             if (!isGameActive) return;
+            
             if (userAns === currentQuestion.ans) {
                 score++;
-                let bonus = Math.max(20 - (level * 2), 8);
+                let bonus = Math.max(15 - (level * 1.5), 5);
                 timeLeft = Math.min(timeLeft + bonus, 100);
                 nextQuestion();
             } else {
-                timeLeft -= (15 + level);
-                document.body.style.backgroundColor = "#ff7675";
-                setTimeout(() => document.body.style.backgroundColor = "#f4f7f9", 100);
-                if (timeLeft <= 0) endGame();
-                else nextQuestion();
+                // 오답 시 즉시 종료 로직
+                document.body.style.backgroundColor = "#fee2e2";
+                setTimeout(() => document.body.style.backgroundColor = "#f4f7f9", 150);
+                
+                let feedbackMsg = `❌ 오답입니다!\n\n`;
+                feedbackMsg += `수식: ${currentQuestion.text}\n`;
+                feedbackMsg += `실제 정답: ${actualResult}\n`;
+                feedbackMsg += `선택하신 결과: ${currentQuestion.displayed} (${userAns ? '참' : '거짓'})\n\n`;
+                feedbackMsg += `최종 점수: ${score}개\n\n`;
+                feedbackMsg += `[확인] - 분석 리포트 보기\n[취소] - 다시 도전하기`;
+                
+                endGame(feedbackMsg);
             }
         }
 
         function startTimer() {
             if (timerInterval) clearInterval(timerInterval);
             timerInterval = setInterval(() => {
-                let speed = 0.4 + (level * 0.15); 
+                let speed = 0.5 + (level * 0.12); 
                 timeLeft -= speed;
                 document.getElementById('timer-progress').style.width = timeLeft + "%";
-                if (timeLeft <= 0) endGame();
+                if (timeLeft <= 0) endGame("⏰ 시간 종료!\n\n리포트를 확인하시겠습니까?");
             }, 100);
         }
 
-        function endGame() {
+        function endGame(customMessage) {
+            if (!isGameActive) return;
             isGameActive = false;
             clearInterval(timerInterval);
 
-            const mathReportScore = Math.min(100, score * 2);
-            localStorage.setItem('game5_score', mathReportScore);
+            // 점수 변환 로직
+            let reportScore;
+            if (score <= 30) reportScore = score * 1.5;
+            else if (score <= 80) reportScore = 45 + (score - 30) * 0.8;
+            else reportScore = 85 + (score - 80) * 0.5;
+            reportScore = Math.min(100, Math.round(reportScore));
+
+            // 데이터 저장
+            localStorage.setItem('game5_score', reportScore);
             let scoreHistory = JSON.parse(localStorage.getItem('game5_history')) || [];
-            scoreHistory.push(mathReportScore);
+            scoreHistory.push(reportScore);
             localStorage.setItem('game5_history', JSON.stringify(scoreHistory.slice(-10)));
 
             const now = new Date();
@@ -313,16 +242,21 @@
             history.unshift({ date: dateStr, score: score, lv: level });
             localStorage.setItem('mathHistory', JSON.stringify(history.slice(0, 10)));
 
-            if (confirm(`훈련 종료!\n기록: ${score}점 (Lv.${level})\n\n분석 리포트를 확인하시겠습니까?`)) {
+            // 팝업 액션
+            if (confirm(customMessage)) {
                 location.href = 'report.html';
             } else {
-                document.getElementById('startBtn').style.display = 'inline-block';
-                document.getElementById('startBtn').innerText = '다시 도전하기';
-                document.getElementById('game-controls').style.display = 'none';
-                document.getElementById('question').innerText = 'READY';
-                document.getElementById('timer-progress').style.width = "100%";
-                displayHistory();
+                resetUI();
             }
+        }
+
+        function resetUI() {
+            document.getElementById('startBtn').style.display = 'inline-block';
+            document.getElementById('startBtn').innerText = '다시 도전하기';
+            document.getElementById('game-controls').style.display = 'none';
+            document.getElementById('question').innerText = 'READY';
+            document.getElementById('timer-progress').style.width = "100%";
+            displayHistory();
         }
 
         function displayHistory() {
@@ -330,8 +264,8 @@
             const history = JSON.parse(localStorage.getItem('mathHistory')) || [];
             if(history.length > 0) {
                 const best = Math.max(...history.map(h => h.score));
-                document.getElementById('best-record').innerText = `⭐ 나의 최고 점수: ${best}점`;
-                body.innerHTML = history.map((h, i) => `<tr><td>${history.length-i}회</td><td>${h.date}</td><td>Lv.${h.lv} / ${h.score}점</td></tr>`).join('');
+                document.getElementById('best-record').innerText = `⭐ 나의 최고 기록: ${best}개`;
+                body.innerHTML = history.map((h, i) => `<tr><td>${history.length-i}회</td><td>${h.date}</td><td>Lv.${h.lv} / ${h.score}개</td></tr>`).join('');
             } else {
                 body.innerHTML = '<tr><td colspan="3">기록이 없습니다.</td></tr>';
             }
