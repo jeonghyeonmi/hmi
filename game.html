@@ -3,58 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <title>로그인 없는 무료 카드 짝 맞추기 게임 | 설치 없는 기억력 훈련 - SKZ</title>
-    <meta name="description" content="별도의 가입이나 설치 없이 바로 즐기는 무료 카드 짝 맞추기 게임입니다. 심심할 때 언제 어디서든 뇌를 자극하고 기억력을 테스트해보세요.">
-    <meta name="keywords" content="로그인 없는 게임, 무료 두뇌 게임, 설치 없는 게임, 카드 짝 맞추기, 기억력 테스트, 심심할 때 할만한 게임">
-    
-    <link rel="canonical" href="https://www.skztools.com/game.html">
-    <meta name="google-adsense-account" content="ca-pub-3698246671823168">
+    <title>로그인 없는 무료 카드 짝 맞추기 게임 | SKZ</title>
+    <meta name="description" content="로그인 없이 바로 즐기는 무료 카드 짝 맞추기 게임입니다. 설치 없는 웹 게임으로 기억력을 테스트하세요.">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168" crossorigin="anonymous"></script>
     
     <style>
-        :root { 
-            --primary-color: #1a3a5f; 
-            --bg-color: #f4f7f9; 
-            --focus-color: #047857; 
-            --accent-color: var(--focus-color); 
-        }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; line-height: 1.6; }
-
-        /* [깨짐 방지] include.js 로드 전 기본 레이아웃 확보 */
-        header#site-header { background: var(--primary-color); min-height: 64px; display: flex; align-items: center; justify-content: center; color: white; }
-        nav#site-nav { background: white; min-height: 48px; display: flex; justify-content: center; gap: 1rem; border-bottom: 1px solid #eee; }
-        .category-tabs { display: flex; background: #fff; border-bottom: 1px solid #eee; justify-content: center; min-height: 52px; }
-        .game-sub-nav { display: flex; gap: 10px; padding: 12px; justify-content: center; background: #f8f9fa; min-height: 50px; }
-
-        /* 메인 컨테이너 */
+        /* 게임 본체 전용 디자인 */
         .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 25px; background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
-        
-        .game-header h2 { font-size: 1.6rem; color: var(--primary-color); margin: 10px 0 5px; }
+        .game-header h2 { font-size: 1.6rem; color: #1a3a5f; margin: 10px 0 5px; }
         .badge-group { display: flex; justify-content: center; gap: 6px; margin-bottom: 20px; }
         .badge { background: #f1f5f9; color: #64748b; padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: bold; border: 1px solid #e2e8f0; }
-
-        /* 광고 영역: 평소에는 숨겨져 있다가 코드가 들어가면 나타남 */
-        .ad-container { width: 100%; min-height: 0; margin: 0; overflow: hidden; transition: 0.3s; }
-        .ad-space { background: transparent; border: none; margin: 10px 0; }
-
-        #timer { font-size: 2.8rem; font-weight: 800; color: var(--primary-color); margin: 15px 0; display: block; font-variant-numeric: tabular-nums; }
+        #timer { font-size: 2.8rem; font-weight: 800; color: #1a3a5f; margin: 15px 0; display: block; font-variant-numeric: tabular-nums; }
         .game-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 25px auto; }
-        
-        .card { aspect-ratio: 1/1; background: var(--primary-color); border-radius: 12px; cursor: pointer; position: relative; transform-style: preserve-3d; transition: transform 0.4s; }
+        .card { aspect-ratio: 1/1; background: #1a3a5f; border-radius: 12px; cursor: pointer; position: relative; transform-style: preserve-3d; transition: transform 0.4s; }
         .card.flipped { transform: rotateY(180deg); }
         .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; border-radius: 12px; }
-        .card-back { background: #fff; border: 2px solid var(--primary-color); transform: rotateY(180deg); }
-
-        .info-box { text-align: left; margin-top: 40px; padding: 20px; background: #f8fafc; border-radius: 20px; border: 1px solid #f1f5f9; }
-        .info-box h3 { font-size: 1rem; color: var(--primary-color); margin-top: 0; }
-        .info-box p { font-size: 0.85rem; color: #64748b; margin-bottom: 0; }
-
-        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.75rem; }
-
-        /* include.js 스타일과 충돌 방지용 */
-        .main-nav a.active, .category-tabs a.active, .game-sub-nav a.active { color: var(--accent-color) !important; font-weight: bold; }
+        .card-back { background: #fff; border: 2px solid #1a3a5f; transform: rotateY(180deg); }
+        .info-box { text-align: left; margin-top: 40px; padding: 20px; background: #f8fafc; border-radius: 20px; border: 1px solid #f1f5f9; font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -65,25 +30,21 @@
     <nav id="game-sub-nav" class="game-sub-nav"></nav>
 
     <main class="container">
-        <div class="ad-container ad-space" id="ad-top"></div>
-
         <article class="game-header">
             <div class="badge-group">
                 <span class="badge">로그인 불필요</span>
                 <span class="badge">100% 무료 게임</span>
-                <span class="badge">무설치/무광고</span>
+                <span class="badge">설치 없음</span>
             </div>
-            <h2>카드 짝 맞추기 온라인</h2>
+            <h2>카드 짝 맞추기</h2>
         </article>
 
         <div id="timer">READY</div>
         <div id="gameBoard" class="game-board"></div>
 
-        <div class="ad-container ad-space" id="ad-bottom"></div>
-
         <section class="info-box">
-            <h3>별도의 가입 없이 즐기는 두뇌 트레이닝</h3>
-            <p>SKZ 두뇌 훈련소는 로그인 없는 무료 게임을 지향합니다. 설치 과정 없이 브라우저에서 바로 기억력 강화 훈련을 시작해보세요. 매일 5분, 당신의 집중력이 달라집니다.</p>
+            <h3>무료 두뇌 훈련 가이드</h3>
+            <p>로그인 없이 바로 시작하는 카드 짝 맞추기 게임입니다. 별도의 설치 없이 브라우저에서 매일 5분씩 두뇌를 자극해보세요.</p>
         </section>
     </main>
 
@@ -92,19 +53,15 @@
     <script src="include.js"></script>
     <script>
         const emojisMaster = ['🍎', '🍌', '🍓', '🍊', '🍇', '🍉', '🥝', '🥑', '🍍', '🍒', '🍑', '🍋'];
-        let currentLevel = 1;
         let cards = [], flippedCards = [], matchedCount = 0, timerInterval, startTime, gameActive = false;
 
         function initGame() {
             const board = document.getElementById('gameBoard');
             board.innerHTML = '';
-            
-            let levelEmojis = (currentLevel === 1) ? emojisMaster.slice(0, 8) : emojisMaster.slice(0, 12);
+            let levelEmojis = emojisMaster.slice(0, 8);
             cards = [...levelEmojis, ...levelEmojis];
             cards.sort(() => Math.random() - 0.5);
-            
-            matchedCount = 0; flippedCards = []; gameActive = false;
-            clearInterval(timerInterval);
+            matchedCount = 0; flippedCards = []; gameActive = true;
             document.getElementById('timer').innerText = 'READY';
 
             cards.forEach(emoji => {
@@ -115,20 +72,16 @@
                 card.onclick = () => flipCard(card);
                 board.appendChild(card);
             });
-            gameActive = true;
         }
 
         function flipCard(card) {
             if (!gameActive || flippedCards.length >= 2 || card.classList.contains('flipped')) return;
-
             if (matchedCount === 0 && flippedCards.length === 0) {
                 startTime = new Date();
                 timerInterval = setInterval(() => {
-                    const elapsed = (new Date() - startTime) / 1000;
-                    document.getElementById('timer').innerText = elapsed.toFixed(2);
+                    document.getElementById('timer').innerText = ((new Date() - startTime) / 1000).toFixed(2);
                 }, 10);
             }
-
             card.classList.add('flipped');
             flippedCards.push(card);
             if (flippedCards.length === 2) setTimeout(checkMatch, 500);
@@ -141,8 +94,7 @@
                 flippedCards = [];
                 if (matchedCount === cards.length) {
                     clearInterval(timerInterval);
-                    const time = document.getElementById('timer').innerText;
-                    alert(`클리어! 기록: ${time}초\n결과 리포트 페이지로 이동합니다.`);
+                    alert(`성공! 기록: ${document.getElementById('timer').innerText}초`);
                     location.href = 'report.html';
                 }
             } else {
@@ -151,7 +103,6 @@
                 flippedCards = [];
             }
         }
-
         window.onload = initGame;
     </script>
 </body>
