@@ -8,77 +8,50 @@
     <link rel="canonical" href="https://www.skztools.com/game3.html">
     <meta name="description" content="글자의 유혹을 뿌리치고 실제 색상을 맞추는 고도의 인지 훈련. 30초 스트룹 테스트로 당신의 판단 속도를 측정하세요.">
     <meta name="google-adsense-account" content="ca-pub-3698246671823168">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168" crossorigin="anonymous"></script>
     <style>
         :root { 
             --primary-color: #1a3a5f; 
             --bg-color: #f4f7f9; 
-            --focus-color: #047857; 
-            --logic-color: #b91c1c; 
-            --speed-color: #d35400; /* 판단력 카테고리: Orange */
+            --speed-color: #d35400; 
             --accent-color: var(--speed-color);
+            --error-color: #e74c3c;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
         body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; line-height: 1.6; }
         
-        /* [1단] 메인 헤더 */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
 
-        /* [1단] 메인 네비게이션 */
-        nav.main-nav { 
-            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
-        }
+        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
 
-        /* [2단] 카테고리 탭 */
-        .category-tabs { 
-            display: flex; background: #fff; border-bottom: 1px solid #eee; justify-content: center; 
-        }
-        .category-tabs a { 
-            min-width: 100px; max-width: 200px; flex: 1; text-align: center; 
-            padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; transition: 0.3s; 
-        }
+        .category-tabs { display: flex; background: #fff; border-bottom: 1px solid #eee; justify-content: center; }
+        .category-tabs a { min-width: 100px; max-width: 200px; flex: 1; text-align: center; padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; transition: 0.3s; }
         .category-tabs a.active { color: var(--speed-color); border-bottom: 3px solid var(--speed-color); }
 
-        /* [3단] 게임 서브 메뉴 */
-        .game-sub-nav { 
-            display: flex; gap: 10px; padding: 15px; justify-content: center; 
-            background: #f8f9fa; overflow-x: auto; white-space: nowrap; scrollbar-width: none;
-        }
-        .game-sub-nav::-webkit-scrollbar { display: none; }
+        .game-sub-nav { display: flex; gap: 10px; padding: 15px; justify-content: center; background: #f8f9fa; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
         .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; }
         .game-sub-nav a.active { background: var(--speed-color); color: white; border-color: var(--speed-color); }
 
-        @media (max-width: 600px) {
-            .category-tabs a { min-width: auto; font-size: 0.85rem; }
-            .game-sub-nav { justify-content: flex-start; }
-        }
-
-        /* 게임 본문 컨테이너 */
-        .container { 
-            width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 20px; 
-            background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; 
-        }
-
-        .game-guide { 
-            background: #fff9f5; border-radius: 15px; padding: 15px; font-size: 0.85rem; 
-            color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--speed-color); 
-        }
+        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 20px; background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
+        .game-guide { background: #fff9f5; border-radius: 15px; padding: 15px; font-size: 0.85rem; color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--speed-color); }
 
         .score-box { display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold; color: var(--primary-color); font-size: 1.1rem; padding: 0 10px; }
         
         #word-display { 
             font-size: 3.5rem; font-weight: 900; margin: 25px 0; height: 120px; 
-            display: flex; align-items: center; justify-content: center; cursor: pointer; 
-            background: #fcfcfc; border-radius: 15px; border: 1px solid #f0f0f0; transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center; 
+            background: #fcfcfc; border-radius: 15px; border: 1px solid #f0f0f0; transition: transform 0.1s;
         }
-        #word-display:active { transform: scale(0.98); }
-        
+        .shake { animation: shake 0.3s ease-in-out; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
         .button-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .color-btn { 
             padding: 22px 10px; border: none; border-radius: 16px; color: white; 
@@ -87,12 +60,10 @@
         }
         .color-btn:active { transform: scale(0.95); opacity: 0.9; }
 
-        /* [하단] 전체 연결 허브 */
         .brain-hub { margin-top: 30px; padding: 20px; background: #f1f5f9; border-radius: 24px; text-align: left; }
         .hub-title { font-size: 0.9rem; font-weight: 800; margin-bottom: 15px; color: var(--primary-color); }
         .hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .hub-item { background: white; padding: 12px 5px; border-radius: 15px; text-align: center; text-decoration: none; border: 1px solid #e2e8f0; transition: 0.2s; }
-        .hub-item:active { transform: scale(0.95); }
+        .hub-item { background: white; padding: 12px 5px; border-radius: 15px; text-align: center; text-decoration: none; border: 1px solid #e2e8f0; }
         .hub-item span { display: block; font-size: 1.1rem; margin-bottom: 4px; }
         .hub-item label { font-size: 0.65rem; font-weight: bold; color: #666; cursor: pointer; }
 
@@ -106,9 +77,7 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1><a href="/">SKZ 두뇌 훈련소</a></h1>
-    </header>
+    <header><h1><a href="/">SKZ 두뇌 훈련소</a></h1></header>
 
     <nav class="main-nav">
         <a href="/">브레인 분석실</a>
@@ -123,15 +92,15 @@
     </nav>
 
     <nav class="game-sub-nav">
-        <a href="game3.html" class="active">🚥 순발력</a>
+        <a href="game3.html" class="active">🚥 스트룹 테스트</a>
         <a href="game5.html">🔢 수리 판단</a>
         <a href="game6.html">🦁 동물 인지</a>
     </nav>
 
     <main class="container">
         <div class="game-guide">
-            <strong>🧠 쾌속 판단 훈련</strong><br>
-            글자의 의미가 아닌, 글자가 가진 <strong>'실제 색상'</strong> 버튼을 누르세요! 30초간 진행됩니다.
+            <strong>🧠 쾌속 판단 훈련 (Stroop)</strong><br>
+            글자의 의미가 아닌 <strong>'실제 색상'</strong>을 누르세요! 오답 시 점수가 깎이니 주의하세요.
         </div>
         
         <div class="score-box">
@@ -139,13 +108,13 @@
             <span>성공: <span id="current-score" style="color:var(--speed-color)">0</span></span>
         </div>
         
-        <div id="word-display" onclick="startGame()">START</div>
+        <div id="word-display" onclick="startGame()" style="cursor:pointer;">START</div>
         
         <div class="button-grid">
-            <button class="color-btn" style="background:#e74c3c" onclick="checkAnswer('#e74c3c')">빨강</button>
-            <button class="color-btn" style="background:#3498db" onclick="checkAnswer('#3498db')">파랑</button>
-            <button class="color-btn" style="background:#2ecc71" onclick="checkAnswer('#2ecc71')">초록</button>
-            <button class="color-btn" style="background:#f1c40f" onclick="checkAnswer('#f1c40f')">노랑</button>
+            <button class="color-btn" style="background:#e74c3c" onclick="handleBtnClick('#e74c3c')">빨강</button>
+            <button class="color-btn" style="background:#3498db" onclick="handleBtnClick('#3498db')">파랑</button>
+            <button class="color-btn" style="background:#2ecc71" onclick="handleBtnClick('#2ecc71')">초록</button>
+            <button class="color-btn" style="background:#f1c40f" onclick="handleBtnClick('#f1c40f')">노랑</button>
         </div>
 
         <section class="brain-hub">
@@ -158,12 +127,11 @@
         </section>
         
         <div class="ranking-container">
-            <div id="best-record" style="font-size:0.95rem; color:var(--speed-color); font-weight:bold; margin-bottom:12px;">최고 점수: -</div>
+            <div id="best-record" style="font-size:0.95rem; color:var(--speed-color); font-weight:bold; margin-bottom:12px;">최고 기록: -</div>
             <table class="rank-table">
                 <thead><tr><th>회차</th><th>날짜</th><th>기록</th></tr></thead>
                 <tbody id="rankingBody"></tbody>
             </table>
-            <button onclick="clearHistory()" style="margin-top:20px; background:none; border:none; color:#ccc; font-size:0.75rem; text-decoration:underline; cursor:pointer;">기록 초기화</button>
         </div>
     </main>
 
@@ -176,10 +144,8 @@
 
     <script>
         const colors = [
-            {name:'빨강', code:'#e74c3c'},
-            {name:'파랑', code:'#3498db'},
-            {name:'초록', code:'#2ecc71'},
-            {name:'노랑', code:'#f1c40f'}
+            {name:'빨강', code:'#e74c3c'}, {name:'파랑', code:'#3498db'},
+            {name:'초록', code:'#2ecc71'}, {name:'노랑', code:'#f1c40f'}
         ];
         let score=0, timeLeft=30, gameActive=false, timerInterval, targetColorCode="";
 
@@ -190,6 +156,7 @@
             timeLeft = 30;
             document.getElementById('current-score').innerText = score;
             document.getElementById('time-left').innerText = timeLeft;
+            document.getElementById('word-display').style.cursor = "default";
             nextQuestion();
             
             timerInterval = setInterval(() => {
@@ -201,21 +168,35 @@
 
         function nextQuestion() {
             const wordIdx = Math.floor(Math.random() * 4);
-            const colorIdx = Math.floor(Math.random() * 4);
-            const display = document.getElementById('word-display');
+            // 난이도 상승 로직: 점수가 높을수록 글자와 색상이 다를 확률 증가
+            let colorIdx;
+            if (score > 10 && Math.random() > 0.2) {
+                do { colorIdx = Math.floor(Math.random() * 4); } while (colorIdx === wordIdx);
+            } else {
+                colorIdx = Math.floor(Math.random() * 4);
+            }
             
+            const display = document.getElementById('word-display');
             display.innerText = colors[wordIdx].name;
             display.style.color = colors[colorIdx].code;
             targetColorCode = colors[colorIdx].code;
         }
 
-        function checkAnswer(selectedColor) {
+        function handleBtnClick(selectedColor) {
             if(!gameActive) { startGame(); return; }
             if(selectedColor === targetColorCode) {
                 score++;
                 document.getElementById('current-score').innerText = score;
+                nextQuestion();
+            } else {
+                // 오답 패널티
+                score = Math.max(0, score - 1);
+                document.getElementById('current-score').innerText = score;
+                const display = document.getElementById('word-display');
+                display.classList.add('shake');
+                setTimeout(() => display.classList.remove('shake'), 300);
+                nextQuestion();
             }
-            nextQuestion();
         }
 
         function endGame() {
@@ -224,26 +205,28 @@
             saveRecord(score);
         }
 
-        function saveRecord(score) {
-            const now = new Date();
-            const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
-            const reportScore = Math.min(100, score * 2.5); // 40개 기준 100점 환산
-            
-            // 데이터 저장
+        function saveRecord(finalCount) {
+            // [밸런스 점수 계산] 
+            // 35개 이상이면 100점에 근접하도록 설계 (고도의 판단력)
+            let reportScore = Math.round((finalCount / 35) * 100);
+            reportScore = Math.max(10, Math.min(100, reportScore));
+
+            localStorage.setItem('game3_score', reportScore);
             let scoreHistory = JSON.parse(localStorage.getItem('game3_history')) || [];
             scoreHistory.push(reportScore);
             localStorage.setItem('game3_history', JSON.stringify(scoreHistory.slice(-10)));
-            localStorage.setItem('game3_score', reportScore);
 
+            const dateStr = `${new Date().getMonth()+1}/${new Date().getDate()}`;
             let history = JSON.parse(localStorage.getItem('judgeHistory')) || [];
-            history.unshift({ date: dateStr, score: score });
+            history.unshift({ date: dateStr, count: finalCount, score: reportScore });
             localStorage.setItem('judgeHistory', JSON.stringify(history.slice(0, 10)));
 
-            if (confirm(`훈련 종료!\n기록: ${score}개\n\n분석 리포트를 확인하시겠습니까?`)) {
+            if (confirm(`훈련 종료!\n기록: ${finalCount}개 (판단 점수: ${reportScore}점)\n\n리포트를 확인하시겠습니까?`)) {
                 location.href = 'report.html';
             } else {
                 displayHistory();
                 document.getElementById('word-display').innerText = "RESTART";
+                document.getElementById('word-display').style.cursor = "pointer";
             }
         }
 
@@ -251,19 +234,11 @@
             const body = document.getElementById('rankingBody');
             const history = JSON.parse(localStorage.getItem('judgeHistory')) || [];
             if(history.length > 0) {
-                const best = Math.max(...history.map(h => h.score));
-                document.getElementById('best-record').innerText = `⭐ 나의 최고 점수: ${best}개`;
-                body.innerHTML = history.map((h, i) => `<tr><td>${history.length-i}회</td><td>${h.date}</td><td>${h.score}개</td></tr>`).join('');
+                const best = Math.max(...history.map(h => h.count));
+                document.getElementById('best-record').innerText = `⭐ 나의 최고 기록: ${best}개`;
+                body.innerHTML = history.map((h, i) => `<tr><td>${history.length-i}회</td><td>${h.date}</td><td>${h.count}개</td></tr>`).join('');
             } else {
                 body.innerHTML = '<tr><td colspan="3">기록이 없습니다.</td></tr>';
-            }
-        }
-
-        function clearHistory() {
-            if(confirm("기록을 초기화할까요?")) {
-                localStorage.removeItem('judgeHistory');
-                localStorage.removeItem('game3_history');
-                location.reload();
             }
         }
 
