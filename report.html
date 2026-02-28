@@ -4,15 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>브레인 분석 리포트 | SKZ Brain Lab</title>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root { 
-            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #d35400; 
-            --text-main: #2c3e50; --text-muted: #7f8c8d;
-            --focus-color: #047857; --logic-color: #1d4ed8; --speed-color: #be185d;
+            --primary-color: #1a3a5f; 
+            --bg-color: #f4f7f9; 
+            --accent-color: #d35400; 
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            /* 영역별 포인트 컬러 */
+            --color-focus: #059669;
+            --color-logic: #2563eb;
+            --color-speed: #be185d;
+            --color-memory: #0891b2;
+            --color-math: #d97706;
+            --color-cognition: #7c3aed;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Pretendard', sans-serif; background: var(--bg-color); margin: 0; color: var(--text-main); }
+        body { font-family: 'Pretendard', sans-serif; background: var(--bg-color); margin: 0; color: var(--text-main); line-height: 1.6; }
 
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
@@ -23,30 +33,35 @@
         nav.main-nav a.active { color: var(--accent-color); }
 
         .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding-bottom: 50px; }
+        
+        /* 리포트 카드 */
         .report-card { background: white; border-radius: 28px; padding: 30px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; margin-bottom: 20px; }
-        
-        .type-name { font-size: 1.8rem; font-weight: 900; color: var(--primary-color); margin-bottom: 10px; }
+        .type-name { font-size: 1.7rem; font-weight: 900; color: var(--primary-color); margin-bottom: 5px; }
         .type-name mark { background: transparent; color: var(--accent-color); }
+        .score-summary { font-size: 1rem; font-weight: 700; color: var(--text-muted); margin-bottom: 20px; }
 
-        .chart-wrapper { position: relative; margin: 20px auto; max-width: 300px; }
+        .chart-wrapper { position: relative; margin: 0 auto; max-width: 320px; }
 
-        /* 추천 훈련 섹션 */
-        .guide-section { background: white; border-radius: 24px; padding: 25px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .guide-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 15px; text-align: left; padding-left: 5px; border-left: 4px solid var(--accent-color); padding-left: 10px; }
+        /* 맞춤 훈련 섹션 */
+        .guide-section { background: white; border-radius: 28px; padding: 25px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .guide-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 20px; text-align: left; border-left: 4px solid var(--accent-color); padding-left: 12px; }
         
-        .category-box { margin-bottom: 20px; text-align: left; }
-        .category-label { font-size: 0.9rem; font-weight: 800; color: var(--primary-color); margin-bottom: 8px; display: block; }
+        .category-box { margin-bottom: 24px; text-align: left; }
+        .category-label { font-size: 0.9rem; font-weight: 800; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
         
-        .game-links { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .game-links { display: grid; grid-template-columns: 1fr; gap: 10px; }
         .game-card { 
-            background: #f8fafc; padding: 12px; border-radius: 15px; text-decoration: none; 
-            color: #475569; font-size: 0.85rem; font-weight: 600; border: 1px solid #f1f5f9;
-            display: flex; align-items: center; gap: 8px; transition: 0.2s;
+            background: #f8fafc; padding: 16px; border-radius: 18px; text-decoration: none; 
+            color: #334155; font-size: 0.9rem; font-weight: 700; border: 1px solid #e2e8f0;
+            display: flex; justify-content: space-between; align-items: center; transition: 0.2s;
         }
-        .game-card:hover { background: #f1f5f9; border-color: var(--accent-color); }
-        .game-card span { font-size: 1.2rem; }
+        .game-card:hover { border-color: var(--accent-color); background: #fff7ed; transform: translateY(-2px); }
+        .game-card .emoji-box { background: white; width: 35px; height: 35px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .go-icon { color: #cbd5e1; font-size: 0.8rem; }
 
-        .btn-reset { background: transparent; color: #ccc; font-size: 0.7rem; border: none; cursor: pointer; text-decoration: underline; margin-top: 20px; }
+        .btn-reset { background: transparent; color: #ccc; font-size: 0.75rem; border: none; cursor: pointer; text-decoration: underline; margin-top: 30px; width: 100%; }
+
+        footer { text-align: center; padding: 2.5rem 0; color: #bbb; font-size: 0.75rem; }
     </style>
 </head>
 <body>
@@ -62,52 +77,68 @@
 <div class="container">
     <main class="report-card">
         <div class="type-name" id="brain-type">분석 중...</div>
-        <div class="chart-wrapper"><canvas id="abilityChart"></canvas></div>
-        <div id="score-summary" style="font-weight: bold; color: var(--primary-color); margin-top: 10px;"></div>
+        <div id="score-summary" class="score-summary">종합 점수 계산 중</div>
+        <div class="chart-wrapper">
+            <canvas id="abilityChart"></canvas>
+        </div>
     </main>
 
     <section class="guide-section">
-        <div class="guide-title">영역별 맞춤 훈련 가이드</div>
+        <div class="guide-title">항목별 점수 올리기 (맞춤 훈련)</div>
         
         <div class="category-box">
-            <span class="category-label">🎯 정밀 집중 (Focus)</span>
-            <div class="game-links">
-                <a href="game.html" class="game-card"><span>🃏</span>카드 짝 맞추기</a>
-                <a href="game8.html" class="game-card"><span>🛒</span>시장에 가면</a>
+            <span class="category-label" style="color: var(--color-focus);">🎯 집중력 (Focus)</span>
+            <div class="game-links" style="grid-template-columns: 1fr 1fr;">
+                <a href="game.html" class="game-card"><div class="emoji-box">🃏</div>카드 짝</a>
+                <a href="game8.html" class="game-card"><div class="emoji-box">🛒</div>시장 가면</a>
             </div>
         </div>
 
         <div class="category-box">
-            <span class="category-label">📍 단기 기억 (Memory)</span>
+            <span class="category-label" style="color: var(--color-logic);">🧩 논리력 (Logic)</span>
             <div class="game-links">
-                <a href="game4.html" class="game-card"><span>💡</span>위치 기억하기</a>
-                <a href="game.html" class="game-card"><span>🃏</span>패턴 암기</a>
+                <a href="game2.html" class="game-card"><span><div class="emoji-box" style="display:inline-flex; margin-right:10px;">🔢</div>전략 카드 매칭</span><span class="go-icon">▶</span></a>
             </div>
         </div>
 
         <div class="category-box">
-            <span class="category-label">🧩 전략 논리 (Logic & Math)</span>
+            <span class="category-label" style="color: var(--color-cognition);">🎨 인지력 (Cognition)</span>
             <div class="game-links">
-                <a href="game2.html" class="game-card"><span>🔢</span>숫자 퍼즐</a>
-                <a href="game5.html" class="game-card"><span>➕</span>쾌속 산수</a>
+                <a href="game6.html" class="game-card"><span><div class="emoji-box" style="display:inline-flex; margin-right:10px;">🌈</div>색상 일치 훈련</span><span class="go-icon">▶</span></a>
             </div>
         </div>
 
         <div class="category-box">
-            <span class="category-label">⚡ 쾌속 판단 (Speed)</span>
+            <span class="category-label" style="color: var(--color-math);">🔢 수리력 (Math)</span>
             <div class="game-links">
-                <a href="game3.html" class="game-card"><span>↔️</span>좌우 터치</a>
-                <a href="game6.html" class="game-card"><span>🎨</span>색상 일치</a>
+                <a href="game5.html" class="game-card"><span><div class="emoji-box" style="display:inline-flex; margin-right:10px;">➕</div>쾌속 암산 훈련</span><span class="go-icon">▶</span></a>
             </div>
         </div>
 
-        <button class="btn-reset" onclick="resetData()">데이터 초기화</button>
+        <div class="category-box">
+            <span class="category-label" style="color: var(--color-speed);">⚡ 순발력 (Speed)</span>
+            <div class="game-links">
+                <a href="game3.html" class="game-card"><span><div class="emoji-box" style="display:inline-flex; margin-right:10px;">🔘</div>좌우 터치 반응</span><span class="go-icon">▶</span></a>
+            </div>
+        </div>
+
+        <div class="category-box">
+            <span class="category-label" style="color: var(--color-memory);">📍 기억력 (Memory)</span>
+            <div class="game-links">
+                <a href="game4.html" class="game-card"><span><div class="emoji-box" style="display:inline-flex; margin-right:10px;">💡</div>위치 기억 훈련</span><span class="go-icon">▶</span></a>
+            </div>
+        </div>
+
+        <button class="btn-reset" onclick="resetData()">모든 훈련 기록 초기화</button>
     </section>
 </div>
 
+<footer>
+    &copy; 2026 SKZ Brain Lab. All rights reserved.
+</footer>
+
 <script>
-    // [보정된 로직] 점수가 0인 게임은 평균 계산에서 아예 제외하여 
-    // 하나만 100점 맞아도 해당 영역 점수가 높게 나오도록 수정
+    // [보정 로직] 데이터가 있는 게임만 평균에 반영
     function getAverageScore(gameKeys) {
         let validScores = [];
         gameKeys.forEach(key => {
@@ -122,8 +153,7 @@
         });
 
         if (validScores.length === 0) return 0;
-        // 가장 최근 5개 기록의 평균
-        const recent = validScores.slice(-5);
+        const recent = validScores.slice(-5); // 최근 5회 기록 평균
         return Math.round(recent.reduce((a, b) => a + b, 0) / recent.length);
     }
 
@@ -136,7 +166,7 @@
         cognition: getAverageScore(['game6'])
     };
 
-    // 차트 생성
+    // 레이더 차트 설정
     const ctx = document.getElementById('abilityChart').getContext('2d');
     new Chart(ctx, {
         type: 'radar',
@@ -147,22 +177,32 @@
                 backgroundColor: 'rgba(211, 84, 0, 0.1)',
                 borderColor: 'rgba(211, 84, 0, 1)',
                 borderWidth: 2,
-                pointRadius: 4
+                pointRadius: 4,
+                pointBackgroundColor: 'rgba(211, 84, 0, 1)'
             }]
         },
         options: {
-            scales: { r: { suggestedMin: 0, suggestedMax: 100, ticks: { display: false } } },
+            scales: {
+                r: {
+                    suggestedMin: 0,
+                    suggestedMax: 100,
+                    ticks: { display: false, stepSize: 25 },
+                    pointLabels: { font: { size: 12, weight: '700' } }
+                }
+            },
             plugins: { legend: { display: false } }
         }
     });
 
-    // 브레인 타입 업데이트
+    // 상단 텍스트 업데이트
     const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
     const avgScore = Math.floor(totalScore / 6);
     const brainTypeElem = document.getElementById('brain-type');
+    const summaryElem = document.getElementById('score-summary');
 
     if (totalScore === 0) {
         brainTypeElem.innerHTML = "새내기 <mark>훈련사</mark>";
+        summaryElem.innerText = "게임을 플레이하면 분석이 시작됩니다!";
     } else {
         const maxVal = Math.max(...Object.values(scores));
         const best = Object.keys(scores).find(key => scores[key] === maxVal);
@@ -175,11 +215,14 @@
             cognition: "깨어있는 <mark>관찰자</mark>"
         };
         brainTypeElem.innerHTML = types[best] || "균형잡힌 <mark>능력자</mark>";
+        summaryElem.innerText = `종합 두뇌 지수: ${avgScore}점`;
     }
-    document.getElementById('score-summary').innerText = `종합 두뇌 지수: ${avgScore}점`;
 
     function resetData() { 
-        if(confirm("모든 기록을 삭제할까요?")) { localStorage.clear(); location.reload(); } 
+        if(confirm("모든 기록을 삭제할까요? 리포트가 초기화됩니다.")) { 
+            localStorage.clear(); 
+            location.reload(); 
+        } 
     }
 </script>
 </body>
