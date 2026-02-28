@@ -4,155 +4,187 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>로그인 없는 무료 카드 짝 맞추기 게임 | 설치 없는 기억력 훈련 - SKZ</title>
-    <meta name="description" content="로그인 없이 바로 즐기는 무료 카드 짝 맞추기 게임입니다. 별도의 설치가 필요 없는 웹 브라우저 게임으로 단기 기억력과 집중력을 테스트해보세요.">
-    <meta name="keywords" content="로그인 없는 게임, 무료 두뇌 게임, 설치 없는 게임, 카드 짝 맞추기, 기억력 테스트, 심심할 때 할만한 게임, 무료 치매 예방 게임">
+    <title>카드 짝 맞추기 - 무료 온라인 기억력 테스트 | SKZ 두뇌 훈련소</title>
+    <meta name="description" content="로그인 없이 즐기는 무료 카드 짝 맞추기 게임입니다. 3단계 레벨 시스템과 3초 암기 모드로 당신의 단기 기억력과 두뇌 점수를 테스트해보세요.">
+    <meta name="keywords" content="카드짝맞추기, 기억력게임, 무료두뇌게임, 치매예방게임, 집중력향상, 로그인없는게임, 온라인게임">
+    <meta property="og:title" content="SKZ 카드 짝 맞추기 - 당신의 두뇌 점수는?">
+    <meta property="og:description" content="3초의 암기 시간! 3단계의 도전! 지금 바로 기억력을 테스트하세요.">
+    <meta property="og:type" content="website">
     
     <link rel="canonical" href="https://www.skztools.com/game.html">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168" crossorigin="anonymous"></script>
-    
+
     <style>
-        /* 게임 본체 전용 디자인 (공통 상단/하단은 include.js에서 자동 주입) */
-        .container { 
-            width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 25px; 
-            background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
-            text-align: center; 
-        }
+        /* --- [1] 공통 레이아웃 (디자인 무결성 유지) --- */
+        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --focus-color: #047857; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { margin: 0; padding: 0; font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); color: #333; }
         
-        .game-header h2 { font-size: 1.6rem; color: #1a3a5f; margin: 10px 0 5px; }
-        .badge-group { display: flex; justify-content: center; gap: 6px; margin-bottom: 20px; }
-        .badge { background: #f1f5f9; color: #64748b; padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: bold; border: 1px solid #e2e8f0; }
+        header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
+        header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
+        header h1 a { text-decoration: none; color: inherit; }
 
-        /* 타이머 디자인 */
-        #timer { font-size: 2.8rem; font-weight: 800; color: #1a3a5f; margin: 15px 0; display: block; font-variant-numeric: tabular-nums; }
+        nav.main-nav { background: white; display: flex; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        nav.main-nav a { text-decoration: none; color: #666; font-weight: bold; font-size: 0.9rem; padding: 1rem; }
+        nav.main-nav a.active { color: var(--primary-color) !important; border-bottom: 2px solid var(--primary-color); }
+
+        .category-tabs { display: flex; background: #fff; border-bottom: 1px solid #eee; justify-content: center; }
+        .category-tabs a { flex: 1; text-align: center; padding: 15px 10px; text-decoration: none; color: #bbb; font-size: 0.9rem; font-weight: bold; max-width: 200px; }
+        .category-tabs a.active { color: var(--focus-color) !important; border-bottom: 3px solid var(--focus-color); }
+
+        .game-sub-nav { display: flex; gap: 10px; padding: 15px; justify-content: center; background: #f8f9fa; overflow-x: auto; white-space: nowrap; border-bottom: 1px solid #eee; }
+        .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; }
+        .game-sub-nav a.active { background: #333 !important; color: white !important; }
+
+        /* --- [2] 게임 본체 스타일 --- */
+        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 25px; background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
+        #status-msg { font-size: 1rem; font-weight: bold; color: #e11d48; margin-bottom: 5px; height: 1.5rem; }
+        #level-info { font-size: 0.85rem; color: #64748b; margin-bottom: 10px; font-weight: 600; }
+        #timer { font-size: 2.8rem; font-weight: 800; color: var(--primary-color); margin: 10px 0; font-variant-numeric: tabular-nums; }
         
-        /* 게임 보드 (4x4 그리드) */
-        .game-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 25px auto; }
-        
-        /* 카드 스타일 */
-        .card { aspect-ratio: 1/1; background: #1a3a5f; border-radius: 12px; cursor: pointer; position: relative; transform-style: preserve-3d; transition: transform 0.4s; }
+        .game-board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px auto; }
+        .card { aspect-ratio: 1/1; background: var(--primary-color); border-radius: 10px; cursor: pointer; position: relative; transform-style: preserve-3d; transition: transform 0.4s; }
         .card.flipped { transform: rotateY(180deg); }
-        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; border-radius: 12px; }
-        .card-back { background: #fff; border: 2px solid #1a3a5f; transform: rotateY(180deg); }
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; border-radius: 10px; }
+        .card-back { background: #fff; border: 2px solid var(--primary-color); transform: rotateY(180deg); }
 
-        /* 정보 텍스트 (애드센스 가치 실현용) */
-        .info-box { text-align: left; margin-top: 40px; padding: 20px; background: #f8fafc; border-radius: 20px; border: 1px solid #f1f5f9; }
-        .info-box h3 { font-size: 1rem; color: #1a3a5f; margin-top: 0; }
-        .info-box p { font-size: 0.85rem; color: #64748b; margin-bottom: 0; line-height: 1.6; }
-        
-        /* 광고 영역 배치 (승인 후 코드 삽입용) */
-        .ad-slot { width: 100%; min-height: 0; margin: 15px 0; overflow: hidden; }
+        .info-box { text-align: left; margin-top: 30px; padding: 20px; background: #f8fafc; border-radius: 15px; font-size: 0.85rem; color: #666; line-height: 1.6; }
+        footer { text-align: center; padding: 2rem 0; color: #bbb; font-size: 0.75rem; background: #fff; border-top: 1px solid #eee; margin-top: 40px; }
     </style>
 </head>
 <body>
 
-    <header id="site-header"></header>
-    <nav id="site-nav" class="main-nav"></nav>
-    <nav id="category-tabs" class="category-tabs"></nav>
-    <nav id="game-sub-nav" class="game-sub-nav"></nav>
+    <header><h1><a href="/">SKZ 두뇌 훈련소</a></h1></header>
+    <nav class="main-nav">
+        <a href="/">브레인 분석실</a>
+        <a href="dash.html" class="active">두뇌 훈련센터</a>
+        <a href="report.html">나의 두뇌점수</a>
+    </nav>
+    <nav class="category-tabs">
+        <a href="game.html" class="active">정밀 집중</a>
+        <a href="game2.html">전략 논리</a>
+        <a href="game3.html">쾌속 판단</a>
+    </nav>
+    <nav class="game-sub-nav">
+        <a href="game.html" class="active">🎯 카드 짝</a>
+        <a href="game4.html">📍 위치 기억</a>
+        <a href="game8.html">🛒 시장가면</a>
+    </nav>
 
     <main class="container">
-        <div class="ad-slot" id="ad-top"></div>
-
-        <article class="game-header">
-            <div class="badge-group">
-                <span class="badge">로그인 불필요</span>
-                <span class="badge">100% 무료 게임</span>
-                <span class="badge">무설치/무광고</span>
-            </div>
-            <h2>카드 짝 맞추기 온라인</h2>
-            <p style="font-size: 0.9rem; color: #666;">뒤집힌 카드의 짝을 찾아 기억력을 테스트하세요.</p>
-        </article>
-
-        <div id="timer">READY</div>
+        <div id="level-info">STAGE 1</div>
+        <div id="status-msg">준비하세요!</div>
+        <div id="timer">0.00</div>
         <div id="gameBoard" class="game-board"></div>
 
-        <div class="ad-slot" id="ad-bottom"></div>
-
         <section class="info-box">
-            <h3>별도의 가입 없이 즐기는 온라인 두뇌 훈련</h3>
-            <p>SKZ 두뇌 훈련소의 카드 짝 맞추기는 <strong>로그인 없는 무료 게임</strong>을 지향합니다. 별도의 설치 과정 없이 웹 브라우저에서 바로 기억력 강화 훈련을 시작해보세요. 매일 5분 투자로 단기 기억력과 집중력을 유지할 수 있습니다.</p>
+            <p><strong>💡 게임 방법:</strong> 시작 시 3초 동안 공개되는 카드의 위치를 기억하세요. 레벨이 올라갈수록 카드의 개수가 늘어납니다. 최종 3단계 완료 후 당신의 <strong>두뇌 점수</strong>가 공개됩니다.</p>
         </section>
     </main>
 
-    <footer id="site-footer"></footer>
-
-    <script src="include.js"></script>
+    <footer>&copy; 2026 SKZ Brain Lab. All rights reserved.</footer>
 
     <script>
         const emojisMaster = ['🍎', '🍌', '🍓', '🍊', '🍇', '🍉', '🥝', '🥑', '🍍', '🍒', '🍑', '🍋'];
-        let cards = [], flippedCards = [], matchedCount = 0, timerInterval, startTime, gameActive = false;
+        let currentLevel = 1;
+        let totalTime = 0;
+        let cards = [], flippedCards = [], matchedCount = 0;
+        let timerInterval, startTime, isMemorizing = true;
 
         function initGame() {
-            // 기존 타이머 정지 및 초기화
             clearInterval(timerInterval);
-            document.getElementById('timer').innerText = 'READY';
-            
             const board = document.getElementById('gameBoard');
             board.innerHTML = '';
             
-            // 1단계: 8종류의 카드 x 2장 = 16장 배치
-            let levelEmojis = emojisMaster.slice(0, 8);
-            cards = [...levelEmojis, ...levelEmojis];
+            // 레벨별 카드 쌍 설정: 1단계(6쌍/12장), 2단계(8쌍/16장), 3단계(10쌍/20장)
+            let pairs = 4 + (currentLevel * 2); 
+            let selectedEmojis = emojisMaster.slice(0, pairs);
+            cards = [...selectedEmojis, ...selectedEmojis];
             cards.sort(() => Math.random() - 0.5);
             
             matchedCount = 0; 
             flippedCards = []; 
-            gameActive = true;
+            isMemorizing = true;
+            
+            document.getElementById('level-info').innerText = `STAGE ${currentLevel}`;
+            document.getElementById('status-msg').innerText = "3초 동안 카드를 암기하세요!";
+            document.getElementById('timer').innerText = "MEMORIZE";
 
+            // 카드 생성 및 초기 암기 모드(뒤집힌 상태)
             cards.forEach(emoji => {
                 const card = document.createElement('div');
-                card.classList.add('card');
+                card.classList.add('card', 'flipped'); 
                 card.dataset.emoji = emoji;
                 card.innerHTML = `<div class="card-front"></div><div class="card-back">${emoji}</div>`;
-                card.onclick = () => flipCard(card);
                 board.appendChild(card);
             });
+
+            // 3초 암기 시간 부여
+            setTimeout(() => {
+                const allCards = document.querySelectorAll('.card');
+                allCards.forEach(card => {
+                    card.classList.remove('flipped');
+                    card.onclick = () => flipCard(card);
+                });
+                isMemorizing = false;
+                document.getElementById('status-msg').innerText = "똑같은 짝을 찾으세요!";
+                startTimer();
+            }, 3000);
+        }
+
+        function startTimer() {
+            startTime = new Date();
+            timerInterval = setInterval(() => {
+                const elapsed = (new Date() - startTime) / 1000;
+                document.getElementById('timer').innerText = elapsed.toFixed(2);
+            }, 10);
         }
 
         function flipCard(card) {
-            if (!gameActive || flippedCards.length >= 2 || card.classList.contains('flipped')) return;
-
-            // 게임 시작 (첫 카드 뒤집기) 시 타이머 구동
-            if (matchedCount === 0 && flippedCards.length === 0) {
-                startTime = new Date();
-                timerInterval = setInterval(() => {
-                    const elapsed = (new Date() - startTime) / 1000;
-                    document.getElementById('timer').innerText = elapsed.toFixed(2);
-                }, 10);
-            }
-
+            if (isMemorizing || flippedCards.length >= 2 || card.classList.contains('flipped')) return;
             card.classList.add('flipped');
             flippedCards.push(card);
-            
-            if (flippedCards.length === 2) {
-                setTimeout(checkMatch, 500);
-            }
+            if (flippedCards.length === 2) setTimeout(checkMatch, 500);
         }
 
         function checkMatch() {
             const [c1, c2] = flippedCards;
-            
             if (c1.dataset.emoji === c2.dataset.emoji) {
-                // 짝이 맞았을 때
                 matchedCount += 2;
                 flippedCards = [];
-                
                 if (matchedCount === cards.length) {
                     clearInterval(timerInterval);
-                    const finalTime = document.getElementById('timer').innerText;
-                    alert(`성공! 기록: ${finalTime}초\n두뇌 분석 리포트로 이동합니다.`);
-                    location.href = 'report.html';
+                    const levelTime = parseFloat(document.getElementById('timer').innerText);
+                    totalTime += levelTime;
+
+                    if (currentLevel < 3) {
+                        alert(`Stage ${currentLevel} 클리어!\n기록: ${levelTime}초\n다음 단계로 넘어갑니다.`);
+                        currentLevel++;
+                        initGame();
+                    } else {
+                        finishGame();
+                    }
                 }
             } else {
-                // 짝이 틀렸을 때 다시 뒤집기
                 c1.classList.remove('flipped');
                 c2.classList.remove('flipped');
                 flippedCards = [];
             }
         }
 
-        // 페이지 로드 완료 시 게임판 생성
+        function finishGame() {
+            // [두뇌 점수 산출 로직]
+            // 3단계 총합 기준: 45초 이내 100점, 이후 1초당 3점 감점
+            let brainScore = Math.max(10, 100 - Math.floor((totalTime - 45) * 3));
+            if (totalTime <= 45) brainScore = 100;
+
+            alert(`모든 스테이지 완료!\n총 소요 시간: ${totalTime.toFixed(2)}초\n당신의 두뇌 점수: ${brainScore}점`);
+            
+            localStorage.setItem('brainScore', brainScore);
+            localStorage.setItem('gameTime', totalTime.toFixed(2));
+            location.href = 'report.html';
+        }
+
         window.onload = initGame;
     </script>
 </body>
