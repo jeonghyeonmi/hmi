@@ -6,9 +6,7 @@
     <title>쾌속 판단 훈련: 수리 판단 | SKZ Brain Lab</title>
 
     <link rel="canonical" href="https://www.skztools.com/game5.html">
-    <meta name="description" content="수식이 맞는지 틀린지 순식간에 판단하세요! 레벨이 올라갈수록 빨라지는 타이머 속에서 당신의 수리 지능을 테스트합니다.">
-    <meta name="google-adsense-account" content="ca-pub-3698246671823168">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168" crossorigin="anonymous"></script>
+    <meta name="description" content="수식이 맞는지 틀린지 순식간에 판단하세요! 제한 시간 동안 최대한 많은 혼합 계산을 해결하여 당신의 수리 지능을 테스트합니다.">
     <style>
         :root { 
             --primary-color: #1a3a5f; 
@@ -41,8 +39,12 @@
         #timer-bar { width: 100%; height: 10px; background: #eee; border-radius: 5px; margin-bottom: 20px; overflow: hidden; }
         #timer-progress { width: 100%; height: 100%; background: var(--speed-color); transition: width 0.1s linear; }
 
-        .question-box { font-size: 2.8rem; font-weight: 800; margin: 20px 0; color: var(--primary-color); min-height: 110px; display: flex; align-items: center; justify-content: center; background: #fcfcfc; border-radius: 20px; border: 1px solid #f0f0f0; }
+        .question-box { font-size: 2.3rem; font-weight: 800; margin: 20px 0; color: var(--primary-color); min-height: 140px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fcfcfc; border-radius: 20px; border: 1px solid #f0f0f0; transition: 0.2s; }
         
+        .feedback-text { font-size: 1.1rem; font-weight: bold; margin-top: 10px; height: 1.5rem; }
+        .is-correct { color: var(--success); }
+        .is-wrong { color: var(--error); }
+
         .btn-group { display: flex; gap: 20px; justify-content: center; margin-bottom: 20px; }
         .choice-btn { width: 95px; height: 95px; border: none; border-radius: 28px; font-size: 2.5rem; font-weight: bold; cursor: pointer; color: white; transition: transform 0.1s, box-shadow 0.2s; }
         .btn-o { background: var(--success); box-shadow: 0 6px 0 #059669; }
@@ -78,11 +80,14 @@
         <div id="timer-bar"><div id="timer-progress"></div></div>
         <div class="game-guide">
             <strong>🔢 쾌속 판단: 수리 연산</strong><br>
-            수식이 맞으면 O, 틀리면 X! 틀리면 즉시 종료되며 정답이 공개됩니다. 신중하고 빠르게 판단하세요.
+            제한 시간 내에 수식의 참/거짓을 판단하세요! 틀려도 게임은 계속되지만, 시간이 크게 줄어듭니다.
         </div>
         
         <div class="score-display" id="current-score">Score: 0 | Lv.1</div>
-        <div class="question-box" id="question">READY</div>
+        <div class="question-box" id="question-area">
+            <div id="question">READY</div>
+            <div id="feedback" class="feedback-text"></div>
+        </div>
         
         <div class="btn-group" id="game-controls" style="display: none;">
             <button class="choice-btn btn-o" onclick="checkAnswer(true)">O</button>
@@ -120,12 +125,14 @@
     <script>
         let score = 0, timeLeft = 100, timerInterval, currentQuestion = null, isGameActive = false;
         let level = 1;
-        let actualResult = 0; // 실제 연산 결과 저장
+        let actualResult = 0;
+        let isProcessing = false;
 
         function startGame() {
-            score = 0; level = 1; timeLeft = 100; isGameActive = true;
+            score = 0; level = 1; timeLeft = 100; isGameActive = true; isProcessing = false;
             document.getElementById('startBtn').style.display = 'none';
             document.getElementById('game-controls').style.display = 'flex';
+            document.getElementById('feedback').innerText = "";
             updateScoreDisplay();
             nextQuestion();
             startTimer();
@@ -136,85 +143,109 @@
         }
 
         function nextQuestion() {
-            level = Math.floor(score / 12) + 1;
+            isProcessing = false;
+            level = Math.floor(score / 10) + 1;
             updateScoreDisplay();
+            document.getElementById('feedback').innerText = "";
+            document.getElementById('question-area').style.borderColor = "#f0f0f0";
 
-            let questionText = "";
-            let finalAns = 0;
+            let q = generateCalculation(level);
+            actualResult = q.ans;
+
             let isTrue = Math.random() > 0.5;
+            let displayVal = isTrue ? actualResult : actualResult + (Math.random() > 0.5 ? rand(1, 5) : rand(-5, -1));
+            
+            // 거짓 문제인데 우연히 정답과 같아지는 것 방지
+            if(!isTrue && displayVal === actualResult) displayVal += 2;
 
-            // 난이도별 양수 연산 로직
-            if (level === 1) {
-                let a = rand(1, 15), b = rand(1, 15);
-                questionText = `${a} + ${b}`; finalAns = a + b;
-            } else if (level === 2) {
-                let a = rand(10, 30), b = rand(1, 10);
-                questionText = `${a} - ${b}`; finalAns = a - b;
-            } else if (level === 3) {
-                let a = rand(2, 9), b = rand(2, 9);
-                questionText = `${a} × ${b}`; finalAns = a * b;
-            } else if (level < 7) {
-                let a = rand(20, 50), b = rand(5, 15), c = rand(1, 10);
-                if (Math.random() > 0.5) { questionText = `${a} + ${b} - ${c}`; finalAns = a + b - c; }
-                else { questionText = `${a} - ${b} + ${c}`; finalAns = a - b + c; }
-            } else {
-                let a = rand(2, 9), b = rand(2, 9), c = rand(1, 20);
-                if (Math.random() > 0.5) { questionText = `${a} × ${b} + ${c}`; finalAns = (a * b) + c; }
-                else { let prod = a * b; let sub = rand(1, prod); questionText = `${a} × ${b} - ${sub}`; finalAns = prod - sub; }
-            }
-
-            actualResult = finalAns;
-
-            let displayResult;
-            if (isTrue) {
-                displayResult = finalAns;
-            } else {
-                let diff = (Math.random() > 0.5 ? rand(1, 3) : rand(-3, -1));
-                displayResult = finalAns + diff;
-                if (displayResult < 0) displayResult = finalAns + rand(1, 4);
-                if (displayResult === finalAns) displayResult += 2; 
-            }
-
-            document.getElementById('question').innerText = `${questionText} = ${displayResult}`;
-            currentQuestion = { ans: isTrue, text: questionText, displayed: displayResult };
+            document.getElementById('question').innerText = `${q.text} = ${displayVal}`;
+            currentQuestion = { ans: isTrue, text: q.text, displayed: displayVal };
             
             const qElem = document.getElementById('question');
-            qElem.style.fontSize = questionText.length > 10 ? "2.1rem" : "2.8rem";
+            qElem.style.fontSize = q.text.length > 12 ? "1.8rem" : "2.3rem";
+        }
+
+        // 사칙연산 혼합 생성 로직 (최대 3항)
+        function generateCalculation(lv) {
+            let a, b, c, op1, op2, text, ans;
+            const ops = ['+', '-', '*', '/'];
+
+            if (lv <= 2) { // 2항 단순 연산
+                op1 = ops[rand(0, 1)];
+                a = rand(5, 30); b = rand(5, 30);
+                if(op1 === '-') { a = Math.max(a, b); b = Math.min(a, b); }
+                text = `${a} ${op1} ${b}`;
+                ans = eval(text);
+            } 
+            else if (lv <= 4) { // 2항 곱셈/나눗셈 포함
+                op1 = ops[rand(0, 3)];
+                if(op1 === '/') { ans = rand(2, 10); b = rand(2, 9); a = ans * b; }
+                else if(op1 === '*') { a = rand(2, 9); b = rand(2, 15); ans = a * b; }
+                else { a = rand(10, 50); b = rand(10, 50); ans = eval(`${a}${op1}${b}`); }
+                text = `${a} ${op1.replace('*','×').replace('/','÷')} ${b}`;
+            }
+            else { // 3항 혼합 계산
+                op1 = ops[rand(0, 3)];
+                op2 = ops[rand(0, 2)]; // 나누기는 하나만
+                
+                // 나눗셈이 포함된 경우 결과가 정수가 되도록 보정
+                if(op1 === '/') {
+                    let tempAns = rand(2, 10); b = rand(2, 9); a = tempAns * b;
+                    c = rand(1, 20);
+                    text = `${a} ÷ ${b} ${op2} ${c}`;
+                    ans = eval(`${tempAns}${op2}${c}`);
+                } else if(op2 === '/') {
+                    let tempAns = rand(2, 10); c = rand(2, 9); let b_temp = tempAns * c;
+                    a = rand(1, 30);
+                    text = `${a} ${op1} ${b_temp} ÷ ${c}`;
+                    ans = eval(`${a}${op1}${tempAns}`);
+                } else {
+                    a = rand(2, 15); b = rand(2, 10); c = rand(2, 10);
+                    text = `${a} ${op1.replace('*','×')} ${b} ${op2.replace('*','×')} ${c}`;
+                    ans = eval(text.replace(/×/g, '*'));
+                }
+            }
+            return { text, ans };
         }
 
         function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
 
         function checkAnswer(userAns) {
-            if (!isGameActive) return;
-            
+            if (!isGameActive || isProcessing) return;
+            isProcessing = true;
+
+            const feedback = document.getElementById('feedback');
+            const area = document.getElementById('question-area');
+
             if (userAns === currentQuestion.ans) {
                 score++;
-                let bonus = Math.max(15 - (level * 1.5), 5);
-                timeLeft = Math.min(timeLeft + bonus, 100);
-                nextQuestion();
+                timeLeft = Math.min(timeLeft + 5, 100);
+                feedback.innerText = "정답!";
+                feedback.className = "feedback-text is-correct";
+                area.style.borderColor = "var(--success)";
+                setTimeout(nextQuestion, 400);
             } else {
-                // 오답 시 즉시 종료 로직
+                timeLeft -= 15; // 오답 패널티
+                feedback.innerText = `오답! (정답: ${actualResult})`;
+                feedback.className = "feedback-text is-wrong";
+                area.style.borderColor = "var(--error)";
+                
+                // 오답 시 붉은 화면 깜빡임
                 document.body.style.backgroundColor = "#fee2e2";
-                setTimeout(() => document.body.style.backgroundColor = "#f4f7f9", 150);
-                
-                let feedbackMsg = `❌ 오답입니다!\n\n`;
-                feedbackMsg += `수식: ${currentQuestion.text}\n`;
-                feedbackMsg += `실제 정답: ${actualResult}\n`;
-                feedbackMsg += `선택하신 결과: ${currentQuestion.displayed} (${userAns ? '참' : '거짓'})\n\n`;
-                feedbackMsg += `최종 점수: ${score}개\n\n`;
-                feedbackMsg += `[확인] - 분석 리포트 보기\n[취소] - 다시 도전하기`;
-                
-                endGame(feedbackMsg);
+                setTimeout(() => {
+                    document.body.style.backgroundColor = "#f4f7f9";
+                    nextQuestion();
+                }, 1000);
             }
         }
 
         function startTimer() {
             if (timerInterval) clearInterval(timerInterval);
             timerInterval = setInterval(() => {
-                let speed = 0.5 + (level * 0.12); 
+                let speed = 0.4 + (level * 0.1); 
                 timeLeft -= speed;
-                document.getElementById('timer-progress').style.width = timeLeft + "%";
-                if (timeLeft <= 0) endGame("⏰ 시간 종료!\n\n리포트를 확인하시겠습니까?");
+                document.getElementById('timer-progress').style.width = Math.max(0, timeLeft) + "%";
+                if (timeLeft <= 0) endGame("⏰ 시간 종료! 분석 리포트를 확인하시겠습니까?");
             }, 100);
         }
 
@@ -223,26 +254,15 @@
             isGameActive = false;
             clearInterval(timerInterval);
 
-            // 점수 변환 로직
-            let reportScore;
-            if (score <= 30) reportScore = score * 1.5;
-            else if (score <= 80) reportScore = 45 + (score - 30) * 0.8;
-            else reportScore = 85 + (score - 80) * 0.5;
-            reportScore = Math.min(100, Math.round(reportScore));
+            let reportScore = Math.min(100, Math.round(score * 2.5 + level * 3));
 
-            // 데이터 저장
             localStorage.setItem('game5_score', reportScore);
-            let scoreHistory = JSON.parse(localStorage.getItem('game5_history')) || [];
-            scoreHistory.push(reportScore);
-            localStorage.setItem('game5_history', JSON.stringify(scoreHistory.slice(-10)));
-
             const now = new Date();
             const dateStr = `${now.getMonth()+1}/${now.getDate()}`;
             let history = JSON.parse(localStorage.getItem('mathHistory')) || [];
             history.unshift({ date: dateStr, score: score, lv: level });
             localStorage.setItem('mathHistory', JSON.stringify(history.slice(0, 10)));
 
-            // 팝업 액션
             if (confirm(customMessage)) {
                 location.href = 'report.html';
             } else {
@@ -255,6 +275,7 @@
             document.getElementById('startBtn').innerText = '다시 도전하기';
             document.getElementById('game-controls').style.display = 'none';
             document.getElementById('question').innerText = 'READY';
+            document.getElementById('feedback').innerText = "";
             document.getElementById('timer-progress').style.width = "100%";
             displayHistory();
         }
@@ -274,7 +295,6 @@
         function clearHistory() { 
             if(confirm("모든 수리 판단 기록을 초기화할까요?")) { 
                 localStorage.removeItem('mathHistory'); 
-                localStorage.removeItem('game5_history'); 
                 location.reload(); 
             } 
         }
