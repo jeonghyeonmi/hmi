@@ -9,11 +9,12 @@
     <meta name="description" content="단계별 스도쿠로 논리적 추론 능력을 강화하세요. 마스터 단계에 도전하여 100점 만점을 노려보세요!">
     <meta name="google-adsense-account" content="ca-pub-3698246671823168">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168" crossorigin="anonymous"></script>
+    
     <style>
         :root { 
             --primary-color: #1a3a5f; 
             --bg-color: #f4f7f9; 
-            --logic-color: #b91c1c; 
+            --logic-color: #b91c1c; /* 논리 카테고리 테마: Red */
             --accent-color: var(--logic-color);
             --error-bg: #fff5f5;
             --error-border: #ff4d4d;
@@ -21,6 +22,7 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: #333; line-height: 1.6; }
         
+        /* 공통 레이아웃 스타일 (include.js 대응) */
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
@@ -40,6 +42,7 @@
         .game-sub-nav a { padding: 6px 14px; background: white; border: 1px solid #eee; border-radius: 20px; font-size: 0.75rem; text-decoration: none; color: #666; font-weight: 500; }
         .game-sub-nav a.active { background: var(--logic-color); color: white; border-color: var(--logic-color); font-weight: bold; }
 
+        /* 게임 전용 스타일 */
         .container { width: 95%; max-width: 500px; margin: 1.5rem auto; padding: 25px; background: white; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
         
         .game-guide { background: #fff5f5; border-radius: 15px; padding: 15px; font-size: 0.85rem; color: #444; margin-bottom: 15px; text-align: left; border-left: 4px solid var(--logic-color); }
@@ -64,14 +67,10 @@
     </style>
 </head>
 <body>
-    <header><h1><a href="/">SKZ 두뇌 훈련소</a></h1></header>
-    <nav class="main-nav"><a href="/">브레인 분석실</a><a href="dash.html" style="color:var(--logic-color)">두뇌 훈련센터</a><a href="report.html">나의 두뇌점수</a></nav>
-    <nav class="category-tabs"><a href="game.html">정밀 집중</a><a href="game2.html" class="active">전략 논리</a><a href="game3.html">쾌속 판단</a></nav>
-
-    <nav class="game-sub-nav">
-        <a href="game2.html" class="active">🧩 미니 스도쿠</a>
-        <a href="game7.html">⚪ AI 오목</a>
-    </nav>
+    <header id="site-header"></header>
+    <nav id="site-nav" class="main-nav"></nav>
+    <nav id="category-tabs" class="category-tabs"></nav>
+    <nav id="game-sub-nav" class="game-sub-nav"></nav>
 
     <main class="container">
         <div class="game-guide" id="levelDisplay">
@@ -84,17 +83,13 @@
         <button id="checkBtn" class="btn-check">모든 칸을 채워주세요</button>
     </main>
 
-    <footer>
-        <div style="margin-bottom: 10px;">
-            <a href="privacy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
-        </div>
-        &copy; 2026 SKZ Brain Lab. All rights reserved.
-    </footer>
+    <footer id="site-footer"></footer>
+
+    <script src="include.js"></script>
 
     <script>
         let currentLevel = 1, startTime, timerInterval, gameActive = false;
         
-        // [레벨별 설정 및 점수 상한]
         const config = { 
             1: {size: 3, holes: 3, maxScore: 10, next: 2, label: "입문(3x3)"}, 
             2: {size: 4, holes: 6, maxScore: 30, next: 4, label: "초급(4x4)"}, 
@@ -115,7 +110,6 @@
             board.style.gridTemplateColumns = `repeat(${settings.size}, 1fr)`;
             board.innerHTML = '';
             
-            // 단순 셔플 패턴 솔루션 생성
             let solution = [];
             for(let i=0; i<settings.size; i++) {
                 let row = [];
@@ -222,17 +216,15 @@
             const time = parseFloat(document.getElementById('timer').innerText);
             const settings = config[currentLevel];
             
-            // [레벨별 점수 로직]
             let calculatedScore;
             if (currentLevel === 4) {
-                calculatedScore = Math.round(110 - (time / 10)); // 100초면 약 100점
+                calculatedScore = Math.round(110 - (time / 10)); 
             } else if (currentLevel === 2) {
-                calculatedScore = Math.round(35 - (time / 2)); // 10초면 30점
+                calculatedScore = Math.round(35 - (time / 2)); 
             } else {
-                calculatedScore = Math.round(12 - (time / 2)); // 4초면 10점
+                calculatedScore = Math.round(12 - (time / 2)); 
             }
 
-            // 최소/최대 점수 보정
             const minScore = Math.floor(settings.maxScore * 0.4);
             calculatedScore = Math.max(minScore, Math.min(settings.maxScore, calculatedScore));
 
@@ -255,7 +247,6 @@
             scoreHistory.push(score);
             localStorage.setItem('game2_history', JSON.stringify(scoreHistory.slice(-10)));
             
-            // 히스토리 표시용 데이터
             const dateStr = `${new Date().getMonth()+1}/${new Date().getDate()}`;
             let history = JSON.parse(localStorage.getItem('logicHistory')) || [];
             history.unshift({ date: dateStr, info: `${config[currentLevel].label}`, score: score });
