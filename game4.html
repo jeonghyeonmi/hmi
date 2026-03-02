@@ -192,35 +192,48 @@
         }
 
         function endGame() {
-            const finalLevel = level;
-            
-            // 집중력 점수 산출 로직
-            let reportScore;
-            if (finalLevel <= 3) reportScore = finalLevel * 10;
-            else if (finalLevel <= 8) reportScore = 30 + (finalLevel - 3) * 9; 
-            else reportScore = 75 + (finalLevel - 8) * 6.25;
-            reportScore = Math.min(100, Math.round(reportScore));
-            
-            // 리포트용 점수 저장
-            localStorage.setItem('focusScore', reportScore);
-            
-            const dateStr = `${new Date().getMonth()+1}/${new Date().getDate()}`;
-            let history = JSON.parse(localStorage.getItem('memHistory')) || [];
-            history.unshift({ date: dateStr, score: finalLevel });
-            localStorage.setItem('memHistory', JSON.stringify(history.slice(0, 10)));
+    const finalLevel = level;
+    const gameId = 'game4'; // 리포트 통합 ID
+    
+    // [점수 밸런스 조정]
+    // Lv.12를 달성하면 100점에 도달하도록 설계 (S자 곡선형 가중치)
+    let reportScore;
+    if (finalLevel <= 3) {
+        reportScore = finalLevel * 10; // 초기 구간
+    } else if (finalLevel <= 8) {
+        reportScore = 30 + (finalLevel - 3) * 10; // 중기 구간
+    } else {
+        reportScore = 80 + (finalLevel - 8) * 5; // 숙련자 구간
+    }
+    reportScore = Math.min(100, Math.round(reportScore));
+    
+    // 1. 최신 점수 저장
+    localStorage.setItem(gameId + '_score', reportScore);
+    
+    // 2. 히스토리 데이터 업데이트 (리포트 평균 산출용)
+    let history = JSON.parse(localStorage.getItem(gameId + '_history')) || [];
+    history.push(reportScore);
+    if(history.length > 10) history.shift();
+    localStorage.setItem(gameId + '_history', JSON.stringify(history));
 
-            if (confirm(`훈련 종료! (최종 레벨: ${finalLevel})\n집중력 점수: ${reportScore}점\n\n리포트를 확인하시겠습니까?`)) {
-                location.href = 'report.html';
-            } else {
-                level = 1;
-                document.getElementById('startBtn').style.display = 'inline-block';
-                document.getElementById('startBtn').innerText = '다시 도전하기';
-                document.getElementById('status-msg').innerText = '훈련 완료';
-                initBoard();
-                displayHistory();
-                isWait = false;
-            }
-        }
+    // 기존 UI용 기록 저장 (옵션)
+    const dateStr = `${new Date().getMonth()+1}/${new Date().getDate()}`;
+    let memHistory = JSON.parse(localStorage.getItem('memHistory')) || [];
+    memHistory.unshift({ date: dateStr, score: finalLevel });
+    localStorage.setItem('memHistory', JSON.stringify(memHistory.slice(0, 10)));
+
+    if (confirm(`훈련 종료! (최종 레벨: ${finalLevel})\n두뇌 정밀도 점수: ${reportScore}점\n\n리포트를 확인하시겠습니까?`)) {
+        location.href = 'report.html';
+    } else {
+        level = 1;
+        document.getElementById('startBtn').style.display = 'inline-block';
+        document.getElementById('startBtn').innerText = '다시 도전하기';
+        document.getElementById('status-msg').innerText = '훈련 완료';
+        initBoard();
+        displayHistory();
+        isWait = false;
+    }
+}
 
         function displayHistory() {
             const body = document.getElementById('rankingBody');
