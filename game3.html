@@ -205,26 +205,35 @@
         }
 
         function saveRecord(finalCount) {
-            // 점수 계산 (35개 이상 시 100점 만점 기준)
-            let reportScore = Math.round((finalCount / 35) * 100);
-            reportScore = Math.max(10, Math.min(100, reportScore));
+    const gameId = 'game3'; // 리포트 시스템 통합 ID
+    
+    // [점수 밸런스 조정]
+    // 30초 동안 30개 이상 성공 시 100점 만점 기준 (개당 약 3.3점)
+    // 오답 감점을 고려하여 설계되었습니다.
+    let reportScore = Math.round((finalCount / 30) * 100);
+    reportScore = Math.max(10, Math.min(100, reportScore));
 
-            localStorage.setItem('judgeScore', reportScore); // report.html 연동
-            
-            const dateStr = `${new Date().getMonth()+1}/${new Date().getDate()}`;
-            let history = JSON.parse(localStorage.getItem('judgeHistory')) || [];
-            history.unshift({ date: dateStr, count: finalCount, score: reportScore });
-            localStorage.setItem('judgeHistory', JSON.stringify(history.slice(0, 10)));
+    // 1. 최신 점수 저장
+    localStorage.setItem(gameId + '_score', reportScore); 
+    
+    // 2. 히스토리 데이터 업데이트
+    const dateStr = `${new Date().getMonth()+1}/${new Date().getDate()}`;
+    let history = JSON.parse(localStorage.getItem(gameId + '_history')) || [];
+    // 리포트 평균 산출을 위해 숫자 배열로 저장하거나, 객체 구조를 유지하되 리포트 로직에 맞춤
+    history.push(reportScore);
+    if(history.length > 10) history.shift();
+    localStorage.setItem(gameId + '_history', JSON.stringify(history));
 
-            if (confirm(`훈련 종료!\n기록: ${finalCount}개 (판단 점수: ${reportScore}점)\n\n리포트를 확인하시겠습니까?`)) {
-                location.href = 'report.html';
-            } else {
-                displayHistory();
-                document.getElementById('word-display').innerText = "RESTART";
-                document.getElementById('word-display').style.cursor = "pointer";
-                document.getElementById('word-display').style.color = "#1a3a5f";
-            }
-        }
+    if (confirm(`훈련 종료!\n기록: ${finalCount}개 (판단 점수: ${reportScore}점)\n\n나의 두뇌 리포트를 확인하시겠습니까?`)) {
+        location.href = 'report.html';
+    } else {
+        // 기존 UI 업데이트 로직 유지용 (별도 저장)
+        localStorage.setItem('judgeHistory_UI', JSON.stringify([{ date: dateStr, count: finalCount }]));
+        displayHistory();
+        document.getElementById('word-display').innerText = "RESTART";
+        document.getElementById('word-display').style.cursor = "pointer";
+    }
+}
 
         function displayHistory() {
             const body = document.getElementById('rankingBody');
