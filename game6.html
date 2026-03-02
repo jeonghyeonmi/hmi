@@ -237,25 +237,39 @@
         }
 
         function endGame(msg) {
-            if(!isGameActive) return;
-            isGameActive = false;
-            clearInterval(timerInterval);
+    if (!isGameActive) return;
+    isGameActive = false;
+    clearInterval(timerInterval);
 
-            // '판단력' 점수 환산 및 저장
-            let reportScore = Math.min(100, Math.round(score * 4 + level * 2));
-            localStorage.setItem('speedScore', reportScore); // game5와 동일한 판단력 카테고리
+    const gameId = 'game6'; // 리포트 시스템 통합 ID
 
-            const dateStr = `${new Date().getMonth()+1}/${new Date().getDate()}`;
-            let history = JSON.parse(localStorage.getItem('animalHistory')) || [];
-            history.unshift({ date: dateStr, score: score, lv: level });
-            localStorage.setItem('animalHistory', JSON.stringify(history.slice(0, 10)));
+    // [점수 밸런스 조정]
+    // 인지 갈등을 해결해야 하므로 game5보다 개당 점수를 높게 배정
+    // 예: 15개 성공, Lv.3 도달 시 -> (15 * 4.5) + (3 * 6) = 약 86점
+    let reportScore = Math.round((score * 4.5) + (level * 6));
+    reportScore = Math.max(10, Math.min(100, reportScore));
 
-            if(confirm(msg)) {
-                location.href = 'report.html';
-            } else {
-                resetUI();
-            }
-        }
+    // 1. 최신 점수 저장 (리포트용)
+    localStorage.setItem(gameId + '_score', reportScore);
+
+    // 2. 히스토리 데이터 업데이트 (리포트 평균 산출용)
+    let history = JSON.parse(localStorage.getItem(gameId + '_history')) || [];
+    history.push(reportScore);
+    if(history.length > 10) history.shift();
+    localStorage.setItem(gameId + '_history', JSON.stringify(history));
+
+    // 기존 UI용 기록 저장 (animalHistory 유지)
+    const dateStr = `${new Date().getMonth()+1}/${new Date().getDate()}`;
+    let animalHistory = JSON.parse(localStorage.getItem('animalHistory')) || [];
+    animalHistory.unshift({ date: dateStr, score: score, lv: level });
+    localStorage.setItem('animalHistory', JSON.stringify(animalHistory.slice(0, 10)));
+
+    if (confirm(`훈련 종료! (최종 점수: ${reportScore}점)\n\n두뇌 분석 리포트를 확인하시겠습니까?`)) {
+        location.href = 'report.html';
+    } else {
+        resetUI();
+    }
+}
 
         function resetUI() {
             document.getElementById('startBtn').style.display = 'inline-block';
