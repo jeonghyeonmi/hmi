@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>굶주림도 잊고 '쾌락 버튼'만 누른 쥐의 비극 | SKZ Brain Lab</title>
+    <meta name="description" content="1954년 올즈와 밀너의 충격적인 쥐 실험. 도파민 보상 회로가 어떻게 생존 본능을 압도하는지, 현대인의 디지털 중독과 연결해 분석합니다.">
+    <meta name="keywords" content="도파민 중독, 올즈와 밀너 실험, 보상 회로, 뇌과학, 스마트폰 중독, 쾌락 버튼, 전두엽 강화, SKZ Brain Lab">
+    <meta name="google-adsense-account" content="ca-pub-3698246671823168">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168" crossorigin="anonymous"></script> 
+    <style>
+        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #e11d48; --text-main: #2c3e50; --text-content: #34495e; --text-muted: #7f8c8d; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Pretendard', -apple-system, sans-serif; background-color: var(--bg-color); margin: 0; color: var(--text-main); line-height: 1.9; letter-spacing: -0.01em; }
+        #progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 4px; background: var(--accent-color); z-index: 2000; transition: width 0.1s; }
+        header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
+        header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
+        header h1 a { text-decoration: none; color: inherit; }
+        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+        nav.main-nav a.active { color: var(--accent-color); }
+        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; }
+        .article-card { background: white; padding: 45px 25px; border-radius: 28px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); }
+        .meta-info { margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; }
+        .category-tag { padding: 4px 12px; background: #fee2e2; color: #b91c1c; border-radius: 6px; font-size: 0.75rem; font-weight: 800; }
+        .article-card h1 { font-size: 1.75rem; line-height: 1.4; margin: 0 0 30px 0; word-break: keep-all; color: #000; font-weight: 800; }
+        .content { font-size: 1.05rem; color: var(--text-content); }
+        .content p { margin-bottom: 1.8rem; text-align: justify; }
+        .content h2 { font-size: 1.45rem; color: var(--primary-color); margin-top: 3.5rem; margin-bottom: 1.2rem; font-weight: 800; border-left: 5px solid var(--accent-color); padding-left: 12px; }
+        .step-box { background: #f1f5f9; border-radius: 20px; padding: 25px; margin-bottom: 25px; }
+        .checklist-box { background: #fff1f2; padding: 25px; border-radius: 20px; border: 1px solid #fecaca; margin: 30px 0; }
+        .check-item { display: flex; align-items: flex-start; margin-bottom: 15px; cursor: pointer; font-weight: 600; font-size: 1rem; }
+        .check-item input { margin-top: 5px; margin-right: 12px; width: 18px; height: 18px; accent-color: var(--accent-color); }
+        .result-btn { width: 100%; padding: 16px; background: var(--accent-color); color: white; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 800; cursor: pointer; }
+        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .modal-content { background: white; width: 85%; max-width: 380px; padding: 35px; border-radius: 25px; text-align: center; }
+        .modal-close-btn { background: var(--primary-color); color: white; padding: 12px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; width: 100%; margin-top: 20px; }
+        .references { margin-top: 60px; padding: 25px; background: #f8fafc; border-radius: 20px; font-size: 0.85rem; color: var(--text-muted); }
+        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; border-top: 1px solid #eee; margin-top: 4rem; }
+        #deep-analysis { display: none; margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <div id="progress-bar"></div>
+    <header><h1><a href="index.html">SKZ 브레인 랩</a></h1></header>
+    <nav class="main-nav">
+        <a href="index.html" class="active">브레인 분석실</a>
+        <a href="dash.html">두뇌 훈련센터</a>
+        <a href="report.html">나의 두뇌점수</a>
+    </nav>
+    <main class="container">
+        <article class="article-card">
+            <div class="meta-info">
+                <span class="category-tag">심층 분석 #13</span>
+                <span style="color: #bbb; font-size: 0.75rem;">2026. 03. 02</span>
+            </div>
+            <h1>죽을 때까지 '쾌락 버튼'만 누른 쥐의 비극</h1>
+            <div class="content">
+                <p>1954년, 심리학계에 충격적인 보고서가 올라옵니다. 쥐가 먹이와 짝짓기를 모두 포기하고 오직 전극이 연결된 '레버'만 누르다가 굶어 죽었다는 사실입니다. 뇌의 <strong>보상 회로</strong>를 자극하는 이 버튼은 쥐들에게 세상 그 어떤 가치보다 우선순위가 높았습니다.</p>
+                <p>현대 사회에서 당신의 손에 들린 스마트폰은 1954년 쥐가 누르던 그 레버와 소름 끼치도록 닮아있습니다. 당신의 뇌는 지금 안전할까요? 체크리스트를 통해 확인해 보세요.</p>
+
+                <div class="checklist-box">
+                    <h3 style="margin-top:0; text-align:center; color:var(--accent-color);">🚨 나의 '도파민 중독' 체크</h3>
+                    <label class="check-item"><input type="checkbox" class="ai-check"> 알림이 없어도 수시로 폰을 확인한다.</label>
+                    <label class="check-item"><input type="checkbox" class="ai-check"> 쇼츠/릴스를 보다가 1시간 이상을 날린 적이 있다.</label>
+                    <label class="check-item"><input type="checkbox" class="ai-check"> 밥을 먹을 때 항상 영상을 틀어놓는다.</label>
+                    <label class="check-item"><input type="checkbox" class="ai-check"> 무언가에 10분 이상 집중하기가 힘들다.</label>
+                    <button class="result-btn" onclick="showAIResult()">나의 중독 등급 보기</button>
+                </div>
+
+                <div id="modal">
+                    <div class="modal-content">
+                        <div id="result-icon" style="font-size: 60px; margin-bottom: 15px;">🐀</div>
+                        <h2 id="result-status">분석 완료!</h2>
+                        <p id="result-desc"></p>
+                        <button class="modal-close-btn" onclick="scrollToAnalysis()">심층 리포트 읽기 ↓</button>
+                    </div>
+                </div>
+
+                <div id="deep-analysis">
+                    <h2>1. 올즈와 밀너의 실험이 주는 경고</h2>
+                    <p>당시 쥐들은 시간당 7,000번 레버를 눌렀습니다. 뇌의 중격 구역(Septal Area)이 자극될 때 나오는 도파민이 생존 본능을 마비시킨 것이죠. 현대의 알고리즘은 이 메커니즘을 정확히 파고듭니다.</p>
+                    <div class="step-box">
+                        <h3>불확실한 보상의 공포</h3>
+                        <p>슬롯머신이 중독적인 이유는 '언제 터질지 모르기 때문'입니다. SNS의 새로고침 기능 역시 같은 원리입니다.</p>
+                    </div>
+                </div>
+            </div>
+            <section class="references">
+                <h4>📚 근거 자료</h4>
+                <ul><li>Olds, J., & Milner, P. (1954). Positive reinforcement produced by electrical stimulation of septal area.</li></ul>
+            </section>
+        </article>
+    </main>
+    <script>
+        function showAIResult() {
+            const count = document.querySelectorAll('.ai-check:checked').length;
+            const modal = document.getElementById('modal');
+            const desc = document.getElementById('result-desc');
+            modal.style.display = 'flex';
+            desc.innerHTML = count >= 3 ? "위험 단계입니다! 당신의 뇌는 이미 '쾌락 레버'에 길들여져 있습니다." : "안전합니다. 하지만 방심은 금물입니다.";
+        }
+        function scrollToAnalysis() {
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('deep-analysis').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
