@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>1달러의 마법: 당신이 스스로를 속이는 이유 | SKZ Brain Lab</title>
+    <style>
+        /* [위 소스와 동일한 CSS 적용] */
+        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #e11d48; --text-main: #2c3e50; --text-content: #34495e; --text-muted: #7f8c8d; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: var(--text-main); line-height: 1.9; }
+        #progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 4px; background: var(--accent-color); z-index: 2000; }
+        header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
+        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; }
+        .container { width: 95%; max-width: 500px; margin: 1.5rem auto; }
+        .article-card { background: white; padding: 45px 25px; border-radius: 28px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); }
+        .category-tag { padding: 4px 12px; background: #fee2e2; color: #b91c1c; border-radius: 6px; font-size: 0.75rem; font-weight: 800; }
+        .content h2 { font-size: 1.45rem; color: var(--primary-color); border-left: 5px solid var(--accent-color); padding-left: 12px; margin-top: 3.5rem; }
+        .checklist-box { background: #fff1f2; padding: 25px; border-radius: 20px; border: 1px solid #fecaca; margin: 30px 0; }
+        .result-btn { width: 100%; padding: 16px; background: var(--accent-color); color: white; border-radius: 12px; font-weight: 800; border: none; cursor: pointer; }
+        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; justify-content: center; align-items: center; }
+        .modal-content { background: white; width: 85%; max-width: 380px; padding: 35px; border-radius: 25px; text-align: center; }
+        .modal-close-btn { background: var(--primary-color); color: white; padding: 12px; border-radius: 10px; border: none; width: 100%; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div id="progress-bar"></div>
+    <header><h1><a href="index.html">SKZ 브레인 랩</a></h1></header>
+    <nav class="main-nav"><a href="index.html" class="active">브레인 분석실</a><a href="dash.html">훈련센터</a><a href="report.html">점수</a></nav>
+    <main class="container">
+        <article class="article-card">
+            <div class="meta-info"><span class="category-tag">심층 분석 #14</span><span style="color: #bbb; font-size: 0.75rem;">2026. 03. 02</span></div>
+            <h1>1달러의 마법: 왜 우리는 스스로를 속이는가?</h1>
+            <div class="content">
+                <p>돈을 적게 받을수록 자기 업무에 대한 만족도가 높아진다? 말도 안 되는 소리 같지만, 심리학자 레온 페스팅거는 이를 실험으로 증명했습니다. 지루한 작업을 한 뒤 1달러를 받은 사람이 20달러를 받은 사람보다 훨씬 "재밌었다"고 주장한 이유는 무엇일까요?</p>
+                <div class="checklist-box">
+                    <h3 style="margin-top:0; text-align:center; color:var(--accent-color);">⚖️ 나의 '자기 합리화' 진단</h3>
+                    <label class="check-item"><input type="checkbox" class="ai-check"> 잘못된 선택인 걸 알면서도 장점만 찾으려 노력한다.</label>
+                    <label class="check-item"><input type="checkbox" class="ai-check"> "어쩔 수 없었어"라는 말을 자주 한다.</label>
+                    <button class="result-btn" onclick="document.getElementById('modal').style.display='flex'">결과 확인</button>
+                </div>
+                <div id="modal">
+                    <div class="modal-content">
+                        <h2>분석 결과</h2>
+                        <p>당신은 인지 부조화를 해결하기 위해 자신의 신념을 수정하는 능력이 탁월합니다.</p>
+                        <button class="modal-close-btn" onclick="document.getElementById('modal').style.display='none'; document.getElementById('deep-analysis').style.display='block'">분석 읽기</button>
+                    </div>
+                </div>
+                <div id="deep-analysis" style="display:none;">
+                    <h2>1. 마음의 모순을 견디지 못하는 뇌</h2>
+                    <p>인간은 자신의 행동과 신념이 일치하지 않을 때 '인지 부조화'를 느낍니다. 1달러를 받은 학생들은 '고작 1달러에 거짓말을 한 파렴치한 나'를 받아들일 수 없어, 아예 '이 일은 정말 재밌었어'라고 뇌를 조작해 버린 것입니다.</p>
+                </div>
+            </div>
+        </article>
+    </main>
+</body>
+</html>
