@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
-    <title>죽을 때까지 '쾌락 버튼'만 누른 쥐의 비극 | SKZ Brain Lab</title>
-
+    <title>굶주림도 잊고 '쾌락 버튼'만 누른 쥐의 비극 | SKZ Brain Lab</title>
     <meta name="description" content="1954년 올즈와 밀너의 충격적인 쥐 실험. 도파민 보상 회로가 어떻게 생존 본능을 압도하는지, 현대인의 디지털 중독과 연결해 심층 분석합니다.">
-    <meta name="keywords" content="도파민 중독, 올즈와 밀너 실험, 보상 회로, 뇌과학 칼럼, 스마트폰 중독, 쇼츠 중독, 전두엽 강화, SKZ Brain Lab">
-    
+    <meta name="keywords" content="도파민 중독, 올즈와 밀너 실험, 보상 회로, 뇌과학, 스마트폰 중독, 쾌락 버튼, 전두엽 강화, SKZ Brain Lab">
     <meta name="google-adsense-account" content="ca-pub-3698246671823168">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168" crossorigin="anonymous"></script> 
 
@@ -18,72 +15,41 @@
             --text-main: #2c3e50; --text-content: #34495e; --text-muted: #7f8c8d;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
         body { 
             font-family: 'Pretendard', -apple-system, sans-serif; 
             background-color: var(--bg-color); margin: 0; color: var(--text-main);
             line-height: 1.9; letter-spacing: -0.01em;
         }
-        
         #progress-bar {
             position: fixed; top: 0; left: 0; width: 0%; height: 4px;
             background: var(--accent-color); z-index: 2000; transition: width 0.1s;
         }
-
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
-
         nav.main-nav { 
             background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
         }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
         nav.main-nav a.active { color: var(--accent-color); }
-
         .container { width: 95%; max-width: 500px; margin: 1.5rem auto; }
-        
-        .article-card { 
-            background: white; padding: 45px 25px; border-radius: 28px; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.03); 
-        }
-
+        .article-card { background: white; padding: 45px 25px; border-radius: 28px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); }
         .meta-info { margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; }
-        .category-tag { 
-            padding: 4px 12px; background: #fee2e2; color: #b91c1c; 
-            border-radius: 6px; font-size: 0.75rem; font-weight: 800;
-        }
-
-        .article-card h1 { 
-            font-size: 1.75rem; line-height: 1.4; margin: 0 0 30px 0; 
-            word-break: keep-all; color: #000; font-weight: 800;
-        }
-
+        .category-tag { padding: 4px 12px; background: #fee2e2; color: #b91c1c; border-radius: 6px; font-size: 0.75rem; font-weight: 800; }
+        .article-card h1 { font-size: 1.75rem; line-height: 1.4; margin: 0 0 30px 0; word-break: keep-all; color: #000; font-weight: 800; }
         .content { font-size: 1.05rem; color: var(--text-content); }
         .content p { margin-bottom: 1.8rem; text-align: justify; }
-        
         .content h2 { 
             font-size: 1.45rem; color: var(--primary-color); margin-top: 3.5rem; margin-bottom: 1.2rem; 
             font-weight: 800; border-left: 5px solid var(--accent-color); padding-left: 12px;
         }
-
-        .step-box {
-            background: #f1f5f9; border-radius: 20px; padding: 25px; margin-bottom: 25px;
-        }
+        .step-box { background: #f1f5f9; border-radius: 20px; padding: 25px; margin-bottom: 25px; }
         .step-box h3 { margin-top: 0; color: #000; font-size: 1.15rem; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
-        
-        .data-fact {
-            background: #fff; border: 2px dashed #cbd5e1; padding: 25px;
-            border-radius: 20px; margin: 35px 0;
-        }
+        .data-fact { background: #fff; border: 2px dashed #cbd5e1; padding: 25px; border-radius: 20px; margin: 35px 0; }
         .data-fact strong { display: block; margin-bottom: 15px; font-size: 1.1rem; color: var(--accent-color); }
-
-        mark { background: #fef08a; padding: 0 3px; border-radius: 4px; color: inherit; }
-        
         .btn-list { display: block; text-align: center; margin: 50px auto 20px; padding: 14px 20px; background: #1e293b; color: white; text-decoration: none; border-radius: 15px; font-size: 0.95rem; font-weight: 600; }
-
         .references { margin-top: 60px; padding: 25px; background: #f8fafc; border-radius: 20px; font-size: 0.85rem; color: var(--text-muted); }
-
         footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; border-top: 1px solid #eee; margin-top: 4rem; }
     </style>
 </head>
@@ -106,57 +72,50 @@
             <h1>죽을 때까지 '쾌락 버튼'만 누른 쥐의 비극</h1>
             
             <div class="content">
-                <img src="img/post13_main.jpg" alt="도파민 실험과 현대인" width="100%" style="border-radius: 20px;">
-                <p style="text-align: center;">
-                    <br><small style="color:var(--text-muted);">우리는 정말 쥐보다 똑똑하게 살고 있을까요?</small>
-                </p>
+                <p>1954년, 뇌과학 역사를 뒤흔든 기막힌 사고가 발생합니다. 캐나다 맥길 대학교의 제임스 올즈와 피터 밀너는 원래 쥐의 뇌에서 '각성'을 담당하는 부위를 찾고 있었습니다. 하지만 실험 도중 전극이 실수로 목표 지점이 아닌 <strong>'중격(Septal area)'</strong> 부위에 꽂히게 됩니다. 이 작은 실수가 인류가 중독의 본질을 깨닫게 된 결정적 계기가 되었습니다.</p>
 
-                <p>1954년, 캐나다 맥길 대학교의 심리학자 제임스 올즈와 피터 밀너는 역사상 가장 기괴하고도 중요한 실험을 진행합니다. 그들은 쥐의 뇌에 전극을 심고, 쥐가 스스로 '레버'를 누르면 뇌의 특정 부위에 전기 자극이 가해지도록 설계했습니다. 처음에는 단순히 학습 능력을 확인하려던 이 실험은 인류가 '중독'을 이해하는 방식을 송두리째 바꿔놓았습니다.</p>
-
-                <p>실험 결과는 충격적이었습니다. 쥐는 먹이와 물, 심지어 번식을 위한 짝짓기조차 포기한 채 오로지 레버만 눌러댔습니다. 1시간에 무려 7,000번, 굶어 죽기 직전까지 오직 전기 자극에만 몰두한 것입니다. <strong>이것이 바로 뇌 속의 '보상 회로(Reward Circuit)'가 세상에 드러난 순간입니다.</strong></p>
-
-                <h2>1. 도파민의 함정: '즐거움'이 아닌 '갈망'</h2>
-                <p>흔히 도파민을 행복 호르몬이라고 부르지만, 이는 반만 맞는 말입니다. 최신 뇌과학 연구에 따르면 도파민은 쾌락 그 자체보다 <strong>'쾌락을 얻을 것이라는 기대감'</strong>에 더 강력하게 반응합니다. 쥐가 죽을 때까지 레버를 누른 것은 실제로 배가 불렀거나 행복해서가 아니라, "다음번엔 더 큰 자극이 올 거야!"라는 뇌의 속삭임을 이기지 못했기 때문입니다.</p>
+                <h2>1. 우연이 발견한 '욕망의 센터'</h2>
+                <p>전극이 빗나간 그 쥐는 이상한 행동을 보였습니다. 전기 자극을 받은 장소로 자꾸만 돌아오려 했던 것이죠. 연구진은 쥐가 스스로 전기 자극을 줄 수 있도록 상자 안에 '레버'를 설치했습니다. 그러자 경악스러운 일이 벌어졌습니다.</p>
                 
                 <div class="step-box">
-                    <h3>보상 예측 오류 (Reward Prediction Error)</h3>
-                    <p>우리 뇌는 기대하지 않았던 보상이 주어질 때 도파민을 폭발적으로 분출합니다. 하지만 보상이 반복되면 뇌는 여기에 적응하고, 이전과 같은 짜릿함을 느끼기 위해 더 강력하고 빈번한 자극을 찾게 됩니다. 쥐들이 발바닥이 타들어 가는 고통 속에서도 레버를 향해 달려간 이유입니다.</p>
+                    <h3>생존 본능을 압도한 쾌락</h3>
+                    <p>실험실의 쥐는 시간당 무려 <strong>7,000번</strong>이나 레버를 눌렀습니다. 1초에 약 2번 꼴입니다. 연구진은 쥐에게 선택지를 주었습니다. 한쪽에는 신선한 음식과 물, 그리고 매력적인 짝짓기 대상을 두었고, 다른 한쪽에는 오직 전극 레버만 두었습니다. 결과는 참혹했습니다.</p>
                 </div>
 
-                <h2>2. 2026년, 인류의 손에 들린 '무한 레버'</h2>
-                <p>비극적인 점은 현대인들이 1954년의 쥐와 거의 동일한 환경에서 살고 있다는 것입니다. 우리의 스마트폰은 쥐의 '레버'와 정확히 일치합니다. 인스타그램의 릴스, 유튜브 쇼츠, 틱톡의 무한 스크롤은 뇌과학적으로 설계된 도파민 분출 장치입니다.</p>
+                <p>쥐는 굶주림과 갈증을 전혀 느끼지 못하는 것처럼 행동했습니다. 심지어 레버로 가는 길목에 강력한 전기 충격이 흐르는 철조망을 깔아두었음에도 불구하고, 쥐는 발바닥이 타들어 가는 고통을 뚫고 달려가 레버를 눌렀습니다. 결국 쥐는 먹는 것도, 자는 것도 잊은 채 탈진하여 죽음에 이르렀습니다. <strong>뇌의 보상 회로가 직접 자극될 때, 생물은 자기 파괴적인 광기에 빠진다는 사실이 증명된 것입니다.</strong></p>
+
+                <h2>2. 도파민: 즐거움이 아닌 '강박적 갈망'</h2>
+                <p>이 실험이 우리에게 주는 가장 무서운 교훈은 도파민의 정체입니다. 쥐가 레버를 누른 이유는 '충분히 행복해서'가 아니었습니다. 뇌에 꽂힌 전극이 도파민을 강제로 분출시키자, 뇌는 "이것보다 더 중요한 건 세상에 없어!"라는 강력한 <strong>보상 예측 오류</strong> 신호를 보낸 것입니다.</p>
                 
-                <p>영상을 하나 넘길 때마다 우리 뇌는 0.5초의 찰나 동안 "이번엔 어떤 재밌는 게 나올까?"라며 도파민을 예열합니다. 이 과정에서 이성적인 판단을 내리는 **'전두엽'**은 서서히 잠들고, 자극에 즉각 반응하는 '파충류의 뇌'가 주도권을 잡게 됩니다. 새벽 3시까지 의미 없는 영상을 넘기며 후회하는 행동은 당신의 의지가 약해서가 아니라, 전두엽이 도파민 폭풍에 마비되었기 때문입니다.</p>
+                <p>도파민은 만족감을 주는 호르몬이 아니라, 무언가를 **'더 갈구하게'** 만드는 호르몬입니다. 쥐는 레버를 누를 때마다 일시적인 쾌감을 느꼈을지 모르지만, 그 이면에는 "다음 자극이 오지 않으면 죽을 것 같다"는 심각한 강박에 시달리고 있었던 셈입니다.</p>
 
                 <div class="data-fact">
-                    <strong>📊 현대판 '쾌락 레버'의 부작용: 인지적 마비</strong>
-                    <p>과도한 도파민 노출은 뇌의 수용체 수를 줄여버립니다. 결과적으로 독서, 대화, 산책 같은 일상의 소소한 즐거움에는 아무런 반응을 하지 못하는 '브레인 포그' 상태에 빠지게 됩니다. 뇌가 인위적인 고농도 자극 없이는 작동하지 않게 되는 것이죠.</p>
+                    <strong>💡 2026년, 당신의 손에 들린 '레버'</strong>
+                    <p>현대인의 스마트폰은 실험실의 레버와 소름 끼치도록 닮아 있습니다. 쇼츠나 릴스를 넘길 때마다 우리 뇌에는 1954년 쥐의 뇌에 흘렀던 것과 같은 미세한 전기 신호(도파민)가 흐릅니다. 쥐가 굶어 죽으면서도 레버를 놓지 못했듯, 우리 역시 시력을 잃어가고 수면 부족에 시달리면서도 화면을 넘기는 것을 멈추지 못합니다.</p>
                 </div>
 
-                <h2>3. 전두엽의 주도권을 되찾는 전략</h2>
-                <p>실험 속의 쥐는 환경을 통제할 힘이 없었지만, 인간은 다릅니다. 우리는 자신의 뇌가 중독되고 있다는 사실을 인지할 수 있는 <mark>'메타인지'</mark> 능력이 있습니다. 이를 활용해 보상 회로를 리셋해야 합니다.</p>
+                <h2>3. 전두엽의 주도권을 되찾아야 하는 이유</h2>
+                <p>쥐와 인간의 결정적인 차이는 '전두엽'의 존재입니다. 쥐는 보상 회로의 노예가 되어 죽음을 맞이했지만, 인간에게는 상황을 객관적으로 바라보는 **'메타인지'** 능력이 있습니다. </p>
 
                 <div class="step-box">
-                    <h3>전략 1: 아날로그 장벽 세우기</h3>
-                    <p>의지력은 한계가 있습니다. 스마트폰 사용 시간을 물리적으로 제한하거나, 아침에 일어나자마자 1시간 동안은 절대 전자기기를 만지지 않는 '도파민 디톡스' 환경을 강제로 구축해야 합니다.</p>
+                    <h3>뇌를 리셋하는 두 가지 방법</h3>
+                    <ul>
+                        <li><strong>물리적 격리:</strong> 쥐가 레버를 누를 수 없도록 상자 밖으로 나오듯, 특정 시간에는 스마트폰을 물리적으로 다른 방에 두어야 합니다.</li>
+                        <li><strong>의도적 지루함:</strong> 뇌의 수용체가 다시 민감해질 수 있도록 아무런 자극이 없는 '지루한 시간'을 견뎌야 합니다. 이 과정에서 망가진 보상 회로가 서서히 복구됩니다.</li>
+                    </ul>
                 </div>
 
-                <div class="step-box">
-                    <h3>전략 2: 지루함을 견디는 훈련</h3>
-                    <p>뇌가 아무런 자극 없이 쉬는 시간을 주어야 합니다. 멍하니 창밖을 보거나 명상을 하는 동안, 뇌는 비로소 과부하된 보상 회로를 청소하고 수용체를 복구하기 시작합니다.</p>
-                </div>
+                <p>당신은 지금 자신의 삶을 직접 조종하고 있습니까, 아니면 도파민 알고리즘이 설계한 레버를 무의식적으로 누르고 있습니까? 쥐의 비극을 반복하지 않으려면, 지금 당장 레버에서 손을 떼고 현실의 공기를 마셔야 합니다.</p>
 
-                <p>우리는 지금 지능을 외주화하는 것을 넘어, 감정조차 알고리즘에 외주를 주고 있습니다. 쥐의 레버에서 손을 떼는 첫 걸음은, 지금 내가 왜 이 화면을 넘기고 있는지 스스로에게 질문을 던지는 것입니다.</p>
-
-                <a href="index.html" class="btn-list">다른 분석 리포트 목록보기</a>
+                <a href="index.html" class="btn-list">다른 뇌과학 리포트 더 보기</a>
             </div>
 
             <section class="references">
                 <h4>📚 근거 자료 및 논문</h4>
                 <ul>
                     <li>Olds, J., & Milner, P. (1954). Positive reinforcement produced by electrical stimulation of septal area.</li>
-                    <li>The Shallows: What the Internet Is Doing to Our Brains - Nicholas Carr</li>
-                    <li>Dopamine Nation: Finding Balance in the Age of Indulgence - Anna Lembke</li>
+                    <li>James Olds (1956). Pleasure Centers in the Brain. Scientific American.</li>
+                    <li>Anna Lembke (2021). Dopamine Nation.</li>
                 </ul>
             </section>
         </article>
