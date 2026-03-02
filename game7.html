@@ -272,25 +272,41 @@
     }
 
     function saveGameResult(isUserWin) {
-        let logicScore = 0;
-        const moves = moveHistory.length;
-        if (isUserWin) {
-            // 빨리 이길수록 높은 점수
-            logicScore = Math.min(100, 95 + Math.floor((60 - moves) / 2));
-        } else {
-            // 오래 버틸수록 높은 점수
-            logicScore = Math.min(80, Math.floor(moves * 1.8));
-        }
+    const gameId = 'game7'; // 전략 논리 카테고리 ID
+    let reportScore = 0;
+    const moves = moveHistory.length;
 
-        localStorage.setItem('logicScore', logicScore); // 전략 논리 카테고리 통합
-        
-        setTimeout(() => {
-            const msg = isUserWin ? "승리! 완벽한 수 읽기였습니다." : "패배.. AI가 당신의 수를 읽었습니다.";
-            if (confirm(`${msg}\n나의 전략 점수: ${logicScore}점\n\n두뇌 리포트를 확인하시겠습니까?`)) {
-                location.href = 'report.html';
-            }
-        }, 500);
+    if (isUserWin) {
+        // 승리 시: 최소 80점 보장 + 적은 수로 이길수록 가산점
+        // 예: 20수 만에 승리 시 -> 80 + (60 - 20) / 2 = 100점
+        reportScore = Math.min(100, 80 + Math.floor((60 - moves) / 2));
+    } else {
+        // 패배 시: 버틴 수(공방 횟수)에 비례하여 점수 부여 (최대 70점)
+        // 아주 초반에 졌을 경우 낮은 점수, 오래 버텼을 경우 노력 점수 반영
+        reportScore = Math.min(70, Math.floor(moves * 1.5));
     }
+
+    // 1. 최신 점수 저장 (리포트용)
+    localStorage.setItem(gameId + '_score', reportScore);
+
+    // 2. 히스토리 데이터 업데이트 (평균 산출용)
+    let history = JSON.parse(localStorage.getItem(gameId + '_history')) || [];
+    history.push(reportScore);
+    if(history.length > 10) history.shift();
+    localStorage.setItem(gameId + '_history', JSON.stringify(history));
+
+    // UI용 logicScore 유지 (하위 호환)
+    localStorage.setItem('logicScore', reportScore);
+
+    setTimeout(() => {
+        const msg = isUserWin ? "🎉 승리! 당신의 수 읽기가 AI를 압도했습니다." : "🤖 패배.. AI의 전략이 한 수 위였습니다.";
+        if (confirm(`${msg}\n\n전략 점수: ${reportScore}점\n분석 리포트를 확인하시겠습니까?`)) {
+            location.href = 'report.html';
+        } else {
+            resetGame();
+        }
+    }, 500);
+}
 
     // AI 알고리즘 (가중치 기반 탐색)
     function aiMove() {
