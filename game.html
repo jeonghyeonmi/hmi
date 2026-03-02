@@ -182,17 +182,24 @@
         }
 
         function finishGame() {
-            // [두뇌 점수 산출 로직] 3단계 총합 기준: 45초 이내 100점, 이후 1초당 3점 감점
-            let brainScore = Math.max(10, 100 - Math.floor((totalTime - 45) * 3));
-            if (totalTime <= 45) brainScore = 100;
+    // [두뇌 점수 산출 로직] 3단계 총합 기준: 45초 이내 100점, 이후 1초당 3점 감점
+    let brainScore = Math.max(10, 100 - Math.floor((totalTime - 45) * 3));
+    if (totalTime <= 45) brainScore = 100;
 
-            alert(`모든 스테이지 완료!\n총 소요 시간: ${totalTime.toFixed(2)}초\n당신의 두뇌 점수: ${brainScore}점`);
-            
-            localStorage.setItem('brainScore', brainScore);
-            localStorage.setItem('gameTime', totalTime.toFixed(2));
-            location.href = 'report.html';
-        }
-
+    alert(`모든 스테이지 완료!\n총 소요 시간: ${totalTime.toFixed(2)}초\n당신의 두뇌 점수: ${brainScore}점`);
+    
+    // --- 리포트 시스템과 동기화 ---
+    const gameId = 'game'; // 이 게임의 ID
+    localStorage.setItem(gameId + '_score', brainScore); // 최신 점수 저장
+    
+    // 히스토리(최근 5회 기록용) 업데이트
+    let history = JSON.parse(localStorage.getItem(gameId + '_history')) || [];
+    history.push(brainScore);
+    if(history.length > 10) history.shift(); // 최대 10개까지만 유지
+    localStorage.setItem(gameId + '_history', JSON.stringify(history));
+    
+    location.href = 'report.html';
+}
         window.onload = initGame;
     </script>
 </body>
