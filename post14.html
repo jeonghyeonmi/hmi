@@ -4,55 +4,146 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>1달러의 마법: 당신이 스스로를 속이는 이유 | SKZ Brain Lab</title>
+    <meta name="description" content="레온 페스팅거의 인지 부조화 이론과 1달러 실험을 통해 인간이 왜 자신의 잘못된 선택을 정당화하는지 뇌과학적으로 분석합니다.">
+    <meta name="keywords" content="인지 부조화, 레온 페스팅거, 1달러 실험, 자기 정당화, 심리학 실험, 뇌과학 칼럼, 논리력 강화, SKZ Brain Lab">
+    <meta name="google-adsense-account" content="ca-pub-3698246671823168">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3698246671823168" crossorigin="anonymous"></script> 
+
     <style>
-        /* [위 소스와 동일한 CSS 적용] */
-        :root { --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #e11d48; --text-main: #2c3e50; --text-content: #34495e; --text-muted: #7f8c8d; }
-        * { box-sizing: border-box; }
-        body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; color: var(--text-main); line-height: 1.9; }
-        #progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 4px; background: var(--accent-color); z-index: 2000; }
+        :root { 
+            --primary-color: #1a3a5f; --bg-color: #f4f7f9; --accent-color: #e11d48; 
+            --text-main: #2c3e50; --text-content: #34495e; --text-muted: #7f8c8d;
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { 
+            font-family: 'Pretendard', -apple-system, sans-serif; 
+            background-color: var(--bg-color); margin: 0; color: var(--text-main);
+            line-height: 1.9; letter-spacing: -0.01em;
+        }
+        #progress-bar {
+            position: fixed; top: 0; left: 0; width: 0%; height: 4px;
+            background: var(--accent-color); z-index: 2000; transition: width 0.1s;
+        }
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
-        nav.main-nav { background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; }
-        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; }
+        header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
+        header h1 a { text-decoration: none; color: inherit; }
+        nav.main-nav { 
+            background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
+        }
+        nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+        nav.main-nav a.active { color: var(--accent-color); }
         .container { width: 95%; max-width: 500px; margin: 1.5rem auto; }
         .article-card { background: white; padding: 45px 25px; border-radius: 28px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); }
+        .meta-info { margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; }
         .category-tag { padding: 4px 12px; background: #fee2e2; color: #b91c1c; border-radius: 6px; font-size: 0.75rem; font-weight: 800; }
-        .content h2 { font-size: 1.45rem; color: var(--primary-color); border-left: 5px solid var(--accent-color); padding-left: 12px; margin-top: 3.5rem; }
-        .checklist-box { background: #fff1f2; padding: 25px; border-radius: 20px; border: 1px solid #fecaca; margin: 30px 0; }
-        .result-btn { width: 100%; padding: 16px; background: var(--accent-color); color: white; border-radius: 12px; font-weight: 800; border: none; cursor: pointer; }
-        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; justify-content: center; align-items: center; }
-        .modal-content { background: white; width: 85%; max-width: 380px; padding: 35px; border-radius: 25px; text-align: center; }
-        .modal-close-btn { background: var(--primary-color); color: white; padding: 12px; border-radius: 10px; border: none; width: 100%; margin-top: 20px; }
+        .article-card h1 { font-size: 1.75rem; line-height: 1.4; margin: 0 0 30px 0; word-break: keep-all; color: #000; font-weight: 800; }
+        .content { font-size: 1.05rem; color: var(--text-content); }
+        .content p { margin-bottom: 1.8rem; text-align: justify; }
+        .content h2 { 
+            font-size: 1.45rem; color: var(--primary-color); margin-top: 3.5rem; margin-bottom: 1.2rem; 
+            font-weight: 800; border-left: 5px solid var(--accent-color); padding-left: 12px;
+        }
+        .step-box { background: #f1f5f9; border-radius: 20px; padding: 25px; margin-bottom: 25px; }
+        .step-box h3 { margin-top: 0; color: #000; font-size: 1.15rem; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
+        .data-fact { background: #fff; border: 2px dashed #cbd5e1; padding: 25px; border-radius: 20px; margin: 35px 0; }
+        .data-fact strong { display: block; margin-bottom: 15px; font-size: 1.1rem; color: var(--accent-color); }
+        .game-btn { display: inline-block; padding: 16px 40px; background: var(--primary-color); color: white; text-decoration: none; border-radius: 50px; font-weight: 800; font-size: 1rem; transition: all 0.3s; box-shadow: 0 5px 15px rgba(26, 58, 95, 0.2); }
+        .game-btn:hover { background: var(--accent-color); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(225, 29, 72, 0.3); }
+        .btn-list { display: block; text-align: center; margin: 50px auto 20px; padding: 14px 20px; background: #1e293b; color: white; text-decoration: none; border-radius: 15px; font-size: 0.95rem; font-weight: 600; }
+        .references { margin-top: 60px; padding: 25px; background: #f8fafc; border-radius: 20px; font-size: 0.85rem; color: var(--text-muted); }
+        footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; border-top: 1px solid #eee; margin-top: 4rem; }
     </style>
 </head>
 <body>
     <div id="progress-bar"></div>
     <header><h1><a href="index.html">SKZ 브레인 랩</a></h1></header>
-    <nav class="main-nav"><a href="index.html" class="active">브레인 분석실</a><a href="dash.html">훈련센터</a><a href="report.html">점수</a></nav>
+    <nav class="main-nav">
+        <a href="index.html" class="active">브레인 분석실</a>
+        <a href="dash.html">두뇌 훈련센터</a>
+        <a href="report.html">나의 두뇌점수</a>
+    </nav>
+
     <main class="container">
         <article class="article-card">
-            <div class="meta-info"><span class="category-tag">심층 분석 #14</span><span style="color: #bbb; font-size: 0.75rem;">2026. 03. 02</span></div>
-            <h1>1달러의 마법: 왜 우리는 스스로를 속이는가?</h1>
-            <div class="content">
-                <p>돈을 적게 받을수록 자기 업무에 대한 만족도가 높아진다? 말도 안 되는 소리 같지만, 심리학자 레온 페스팅거는 이를 실험으로 증명했습니다. 지루한 작업을 한 뒤 1달러를 받은 사람이 20달러를 받은 사람보다 훨씬 "재밌었다"고 주장한 이유는 무엇일까요?</p>
-                <div class="checklist-box">
-                    <h3 style="margin-top:0; text-align:center; color:var(--accent-color);">⚖️ 나의 '자기 합리화' 진단</h3>
-                    <label class="check-item"><input type="checkbox" class="ai-check"> 잘못된 선택인 걸 알면서도 장점만 찾으려 노력한다.</label>
-                    <label class="check-item"><input type="checkbox" class="ai-check"> "어쩔 수 없었어"라는 말을 자주 한다.</label>
-                    <button class="result-btn" onclick="document.getElementById('modal').style.display='flex'">결과 확인</button>
-                </div>
-                <div id="modal">
-                    <div class="modal-content">
-                        <h2>분석 결과</h2>
-                        <p>당신은 인지 부조화를 해결하기 위해 자신의 신념을 수정하는 능력이 탁월합니다.</p>
-                        <button class="modal-close-btn" onclick="document.getElementById('modal').style.display='none'; document.getElementById('deep-analysis').style.display='block'">분석 읽기</button>
-                    </div>
-                </div>
-                <div id="deep-analysis" style="display:none;">
-                    <h2>1. 마음의 모순을 견디지 못하는 뇌</h2>
-                    <p>인간은 자신의 행동과 신념이 일치하지 않을 때 '인지 부조화'를 느낍니다. 1달러를 받은 학생들은 '고작 1달러에 거짓말을 한 파렴치한 나'를 받아들일 수 없어, 아예 '이 일은 정말 재밌었어'라고 뇌를 조작해 버린 것입니다.</p>
-                </div>
+            <div class="meta-info">
+                <span class="category-tag">심층 분석 #14</span>
+                <span style="color: #bbb; font-size: 0.75rem;">2026. 03. 02</span>
             </div>
+            
+            <h1>1달러의 마법: 당신이 스스로를 속이는 이유</h1>
+            
+            <div class="content">
+                <p>우리는 스스로를 매우 합리적이고 논리적인 존재라고 믿습니다. 하지만 사회심리학의 거장 레온 페스팅거(Leon Festinger)는 인간이 사실 '합리적인 존재'가 아니라 **'합리화하는 존재'**임을 증명했습니다. 자신의 신념과 행동이 충돌할 때 발생하는 기묘한 뇌의 방어 기제, '인지 부조화'에 대해 파헤쳐 봅니다.</p>
+
+                <h2>1. 페스팅거의 기막힌 1달러 실험</h2>
+                <p>1959년, 페스팅거는 대학생들을 대상으로 아주 지루한 실험을 진행했습니다. 실감기에 실을 감았다 풀었다 하는 의미 없는 일을 한 시간 동안 시킨 것이죠. 실험이 끝난 후, 페스팅거는 학생들에게 다음 대기자에게 "이 실험은 정말 재밌었다"라고 거짓말을 해달라고 부탁했습니다.</p>
+                
+                <div class="step-box">
+                    <h3>보상의 역설: 20달러 vs 1달러</h3>
+                    <p>연구진은 학생들을 두 그룹으로 나누어 거짓말의 대가를 지불했습니다. A그룹에게는 **20달러(약 20만 원 상당)**를 주었고, B그룹에게는 고작 **1달러(약 1만 원 상당)**를 주었습니다. 상식적으로는 돈을 많이 받은 A그룹이 실험을 긍정적으로 평가할 것 같지만, 결과는 정반대였습니다.</p>
+                </div>
+
+                <p>20달러를 받은 학생들은 여전히 "실험은 지루했다"고 답했습니다. 하지만 **고작 1달러를 받은 학생들은 "실험이 정말 유익하고 즐거웠다"고 자신의 기억을 조작하기 시작했습니다.** 왜 이런 일이 벌어졌을까요?</p>
+
+                <h2>2. 뇌의 고통을 피하기 위한 '기억 조작'</h2>
+                <p>1달러를 받은 학생들의 뇌 속에서는 심각한 갈등이 일어났습니다. <strong>'나는 정직한 사람인데(신념)', '고작 1달러에 거짓말을 했다(행동)'</strong>는 사실이 서로 충돌하며 '인지 부조화'라는 정신적 고통을 유발한 것입니다.</p>
+                
+                <p>이 고통을 해결하려면 두 가지 방법이 있습니다. 첫째, 행동을 취소하는 것(이미 거짓말을 했으므로 불가능). 둘째, 신념을 바꾸는 것. 결국 이들은 자신의 자존감을 지키기 위해 **"사실 그 실험은 꽤 재밌었어. 그러니까 난 거짓말을 한 게 아니야!"**라고 생각을 바꿔버린 것입니다. 반면 20달러를 받은 사람들은 "돈 때문에 거짓말했다"는 확실한 명분이 있었기에 부조화를 느끼지 않았습니다.</p>
+
+                <div class="data-fact">
+                    <strong>💡 일상 속의 인지 부조화 사례</strong>
+                    <p>흡연자가 "담배가 몸에 해롭다"는 사실을 알면서도 "스트레스 해소가 건강에 더 중요하다"고 믿는 것, 혹은 투자한 주식이 폭락했을 때 "이건 장기적으로 가치 있는 주식이야"라고 믿는 것 모두가 뇌가 고통을 피하기 위해 부조화를 해결하는 과정입니다.</p>
+                </div>
+
+                <h2>3. 논리적 뇌를 깨우는 자기 객관화</h2>
+                <p>인지 부조화는 우리가 잘못된 선택을 반복하게 만드는 주범이기도 합니다. 나쁜 연애에서 벗어나지 못하거나, 잘못된 투자 원칙을 고수하는 이유는 '내 선택이 틀렸다'는 고통을 뇌가 감당하지 못하기 때문입니다.</p>
+
+                <div class="step-box">
+                    <h3>부조화의 덫에서 탈출하는 법</h3>
+                    <ul>
+                        <li><strong>제3자의 시선 갖기:</strong> "내 친구가 이런 상황이라면 어떤 조언을 할까?"라고 자문해 보세요.</li>
+                        <li><strong>불편함을 수용하기:</strong> 내 실수를 인정할 때 느껴지는 정신적 고통은 뇌가 성장하고 있다는 신호입니다. 정당화 대신 인정을 선택하세요.</li>
+                    </ul>
+                </div>
+
+                <p>우리는 우리가 믿고 싶은 대로 세상을 봅니다. 하지만 진정한 지능은 불편한 진실을 직시하는 용기에서 시작됩니다. 지금 당신의 뇌가 속삭이는 '달콤한 정당화' 뒤에 숨겨진 진실은 무엇인가요?</p>
+
+                <div style="margin-top: 50px; padding: 25px; background: #fff; border: 2px solid var(--primary-color); border-radius: 25px; text-align: center;">
+                    <span style="font-size: 0.9rem; color: var(--accent-color); font-weight: 800; display: block; margin-bottom: 10px;">LOGIC & ANALYSIS</span>
+                    <h3 style="margin: 0 0 15px 0; font-size: 1.25rem; letter-spacing: -0.02em;">정당화 뒤에 숨은 진실을 보는 <br>비판적 논리력 강화 훈련</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">인지 부조화의 덫에 빠지지 않도록 <br>뇌의 논리적 사고 회로를 단련하세요.</p>
+                    <a href="dash.html" class="game-btn">훈련 시작하기 →</a>
+                </div>
+
+                <a href="index.html" class="btn-list">다른 뇌과학 리포트 더 보기</a>
+            </div>
+
+            <section class="references">
+                <h4>📚 근거 자료 및 논문</h4>
+                <ul>
+                    <li>Festinger, L., & Carlsmith, J. M. (1959). Cognitive consequences of forced compliance.</li>
+                    <li>Festinger, L. (1957). A Theory of Cognitive Dissonance.</li>
+                    <li>Elliot Aronson (2011). The Social Animal.</li>
+                </ul>
+            </section>
         </article>
     </main>
+
+    <footer>
+        <div style="margin-bottom: 10px;">
+            <a href="privacy.html">개인정보처리방침</a> | <a href="terms.html">이용약관</a>
+        </div>
+        &copy; 2026 SKZ Brain Lab. All rights reserved.
+    </footer>
+
+    <script>
+        window.onscroll = function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        };
+    </script>
 </body>
 </html>
