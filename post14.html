@@ -15,49 +15,91 @@
             --text-main: #2c3e50; --text-content: #34495e; --text-muted: #7f8c8d;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
         body { 
             font-family: 'Pretendard', -apple-system, sans-serif; 
             background-color: var(--bg-color); margin: 0; color: var(--text-main);
             line-height: 1.9; letter-spacing: -0.01em;
         }
+        
         #progress-bar {
             position: fixed; top: 0; left: 0; width: 0%; height: 4px;
             background: var(--accent-color); z-index: 2000; transition: width 0.1s;
         }
+
         header { background: var(--primary-color); color: white; padding: 1.2rem; text-align: center; }
         header h1 { margin: 0; font-size: 1.4rem; font-weight: 800; }
         header h1 a { text-decoration: none; color: inherit; }
+
         nav.main-nav { 
             background: white; padding: 0.8rem; display: flex; justify-content: center; gap: 1.2rem; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
         }
         nav.main-nav a { text-decoration: none; color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
         nav.main-nav a.active { color: var(--accent-color); }
+
         .container { width: 95%; max-width: 500px; margin: 1.5rem auto; }
-        .article-card { background: white; padding: 45px 25px; border-radius: 28px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); }
+        
+        .article-card { 
+            background: white; padding: 45px 25px; border-radius: 28px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03); 
+        }
+
         .meta-info { margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; }
-        .category-tag { padding: 4px 12px; background: #fee2e2; color: #b91c1c; border-radius: 6px; font-size: 0.75rem; font-weight: 800; }
-        .article-card h1 { font-size: 1.75rem; line-height: 1.4; margin: 0 0 30px 0; word-break: keep-all; color: #000; font-weight: 800; }
+        .category-tag { 
+            padding: 4px 12px; background: #fee2e2; color: #b91c1c; 
+            border-radius: 6px; font-size: 0.75rem; font-weight: 800;
+        }
+
+        .article-card h1 { 
+            font-size: 1.75rem; line-height: 1.4; margin: 0 0 30px 0; 
+            word-break: keep-all; color: #000; font-weight: 800;
+        }
+
         .content { font-size: 1.05rem; color: var(--text-content); }
         .content p { margin-bottom: 1.8rem; text-align: justify; }
+        
         .content h2 { 
             font-size: 1.45rem; color: var(--primary-color); margin-top: 3.5rem; margin-bottom: 1.2rem; 
             font-weight: 800; border-left: 5px solid var(--accent-color); padding-left: 12px;
         }
-        .step-box { background: #f1f5f9; border-radius: 20px; padding: 25px; margin-bottom: 25px; }
+
+        .step-box {
+            background: #f1f5f9; border-radius: 20px; padding: 25px; margin-bottom: 25px;
+        }
         .step-box h3 { margin-top: 0; color: #000; font-size: 1.15rem; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
-        .data-fact { background: #fff; border: 2px dashed #cbd5e1; padding: 25px; border-radius: 20px; margin: 35px 0; }
+        
+        /* 자가진단 스타일 */
+        .checklist-box { background: #fff1f2; padding: 25px; border-radius: 20px; border: 1px solid #fecaca; margin: 30px 0; }
+        .check-item { display: flex; align-items: flex-start; margin-bottom: 15px; cursor: pointer; font-weight: 600; font-size: 1rem; }
+        .check-item input { margin-top: 5px; margin-right: 12px; width: 18px; height: 18px; accent-color: var(--accent-color); }
+        .result-btn { width: 100%; padding: 16px; background: var(--accent-color); color: white; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 800; cursor: pointer; box-shadow: 0 4px 15px rgba(225, 29, 72, 0.2); }
+
+        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .modal-content { background: white; width: 85%; max-width: 380px; padding: 35px; border-radius: 25px; text-align: center; }
+        .modal-close-btn { background: var(--primary-color); color: white; padding: 12px; border-radius: 10px; border: none; font-weight: bold; cursor: pointer; width: 100%; margin-top: 20px; }
+
+        .data-fact {
+            background: #fff; border: 2px dashed #cbd5e1; padding: 25px;
+            border-radius: 20px; margin: 35px 0;
+        }
         .data-fact strong { display: block; margin-bottom: 15px; font-size: 1.1rem; color: var(--accent-color); }
-        .game-btn { display: inline-block; padding: 16px 40px; background: var(--primary-color); color: white; text-decoration: none; border-radius: 50px; font-weight: 800; font-size: 1rem; transition: all 0.3s; box-shadow: 0 5px 15px rgba(26, 58, 95, 0.2); }
-        .game-btn:hover { background: var(--accent-color); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(225, 29, 72, 0.3); }
+
+        mark { background: #fef08a; padding: 0 3px; border-radius: 4px; color: inherit; }
+        
+        .game-link { background: #2563eb; color: white; display: block; text-align: center; padding: 18px; border-radius: 15px; text-decoration: none; font-weight: 800; margin-top: 30px; box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3); }
         .btn-list { display: block; text-align: center; margin: 50px auto 20px; padding: 14px 20px; background: #1e293b; color: white; text-decoration: none; border-radius: 15px; font-size: 0.95rem; font-weight: 600; }
+
         .references { margin-top: 60px; padding: 25px; background: #f8fafc; border-radius: 20px; font-size: 0.85rem; color: var(--text-muted); }
+
         footer { text-align: center; padding: 3rem 0; color: #bbb; font-size: 0.8rem; border-top: 1px solid #eee; margin-top: 4rem; }
+
+        #deep-analysis { display: none; margin-top: 40px; }
     </style>
 </head>
 <body>
     <div id="progress-bar"></div>
-    <header><h1><a href="index.html">SKZ 브레인 랩</a></h1></header>
+    <header><h1><a href="index.html">SKZ 두뇌 훈련소</a></h1></header>
     <nav class="main-nav">
         <a href="index.html" class="active">브레인 분석실</a>
         <a href="dash.html">두뇌 훈련센터</a>
